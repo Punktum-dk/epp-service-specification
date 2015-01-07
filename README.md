@@ -886,12 +886,6 @@ More information and documentation on the pre-activation service is available at
 
 # Appendices
 
-## Figures
-
-[epp-role-mapping]: https://github.com/DK-Hostmaster/epp-service-specification/raw/master/images/epp-role-resolution.png
-
-[epp-address-resolution]: https://github.com/DK-Hostmaster/epp-service-specification/raw/master/images/epp-address-resolution.png
-
 ## Greeting
 
 ```XML
@@ -932,6 +926,10 @@ More information and documentation on the pre-activation service is available at
     </greeting>
 </epp>
 ```
+
+[epp-role-mapping]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp-role-resolution.png
+
+[epp-address-resolution]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp-address-resolution.png
 
 [XSD files]: https://github.com/DK-Hostmaster/epp-xsd-files
 
