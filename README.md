@@ -172,7 +172,7 @@ Comparing the EPP implementation to the existing channel for domain registration
 
 ## DNSSEC
 
-I accordance with [RFC 5910][RFC5910]. We support DS only and not DNSKEY. In addition the maximum signature lifetime (secDNS:maxSigLife) is disregarded. See section 3.3 in the referenced RFC.
+I accordance with [RFC 5910][RFC5910]. We support DS only and not DNSKEY. In addition the maximum signature lifetime (`secDNS:maxSigLife`) is disregarded. See [section 3.3](http://tools.ietf.org/html/rfc5910#section-3.3) in the referenced RFC.
 
 ## Contact Creation
 
@@ -311,7 +311,7 @@ This part of the EPP protocol is described in RFC 5730. This command adheres to 
 There are no special additions or alterations to the specification or use of this command.
 create domain
 
-This part of the EPP protocol is described in RFC 5731. This command adheres to the standard. DK Hostmaster, however, is based on an asynchronous domain creation workflow. All domain requests are enqueued for further processing and their creation will be in a state of pending.
+This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command adheres to the standard. DK Hostmaster, however, is based on an asynchronous domain creation workflow. All domain requests are enqueued for further processing and their creation will be in a state of pending.
 
 A well-formed request for domain creation will then always result in:
 
