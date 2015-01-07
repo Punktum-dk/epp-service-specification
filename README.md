@@ -621,13 +621,25 @@ It is important to note that if the international representation is specified, b
 
 The handling of name and organisation is also a special case. Where the following mapping is made based on the user type.
 
-| | Name and Organisation Provided | | Only name provided |
-| ----------- | ----------- | ----------- | ----------- |
-| User type | Name mandatory | Organisation optional | Name mandatory |
-| C (Company) | attention | name | name |
-| P (Public organisation) | attention | name | name |
-| A (Association) | attention | name | name |
-| I (Individual) | name | - | name |
+<table>
+<tr>
+	<th></th><th colspan="2">Name and Organisation Provided</th><th>Only name provided</th>
+<tr>
+	<th>User type</th><th>Name (<i>mandatory</i>)</th><th>Organisation (<i>optional</i>)</th><th>Name (<i>mandatory</i>)</th>
+</tr>
+<tr>
+	<td>C (Company)</td><td>attention</td><td>name</td><td>name</td>
+</tr>
+<tr>
+	<td>P (Public organisation)</td><td>attention</td><td>name</td><td>name</td>
+</tr>
+<tr>
+	<td>A (Association)</td><td>attention</td><td>name</td><td>name</td>
+</tr>
+<tr>
+	<td>I (Individual)</td><td>name</td><td>-</td><td>name</td>
+</tr>
+</table>
 
 Please note that a registrant cannot have a attention field specified, so you should use name solely for creation of contacts intended to be used as registrants for the types: company, public organisation and association
 
