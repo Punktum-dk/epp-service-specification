@@ -606,7 +606,7 @@ For Denmark the local representation is chosen and the international representat
 
 | Denmark | Other country |
 | ----------- | ----------- |
-| **Local representation | Local representation |
+| **Local representation** | Local representation |
 | International representation | **International representation** |
 
 A basic example can be located in the appendices.
