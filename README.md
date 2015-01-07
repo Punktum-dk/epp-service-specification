@@ -619,6 +619,7 @@ The handling of name and organisation is also a special case. Where the followin
 
 | | Name and Organisation Provided | Only name provided |
 | User type | Name mandatory | Organisation optional | Name mandatory |
+| ----------- | ----------- | ----------- | ----------- |
 | C (Company) | attention | name | name |
 | P (Public organisation) | attention | name | name |
 | A (Association) | attention | name | name |
