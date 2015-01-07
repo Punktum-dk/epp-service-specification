@@ -617,9 +617,9 @@ It is important to note that if the international representation is specified, b
 
 The handling of name and organisation is also a special case. Where the following mapping is made based on the user type.
 
-| | Name and Organisation Provided | Only name provided |
-| User type | Name mandatory | Organisation optional | Name mandatory |
+| | Name and Organisation Provided | | Only name provided |
 | ----------- | ----------- | ----------- | ----------- |
+| User type | Name mandatory | Organisation optional | Name mandatory |
 | C (Company) | attention | name | name |
 | P (Public organisation) | attention | name | name |
 | A (Association) | attention | name | name |
