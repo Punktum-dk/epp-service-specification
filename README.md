@@ -404,6 +404,8 @@ As for the user entities some mappings are made so all relevant roles are specif
 
 Please note that the command does not support IDN notation for specifying domain names, please use the specified UTF-8 character set.
 
+![Diagram of role mapping for EPP create domain][epp-role-mapping]
+
 ## check domain
 
 Since DK Hostmaster does support a concept of blocked domains. A domain name will be indicated as available if the domain name has the status of blocked. For an explanation of the process please see section 3.3 and in particular section 3.3.2 in the General Terms and Conditions (see: References).
@@ -612,6 +614,8 @@ For Denmark the local representation is chosen and the international representat
 A basic example can be located in the appendices.
 
 This is a diagram depicting the general algorithm used for resolving the address data. The algorithm presupposes that at least one address is present.
+
+![Diagram of address resolution for contact creation][epp-address-resolution]
 
 It is important to note that if the international representation is specified, but data are provided in local representation or only local representation is provided for an international address, communication to the specified address might prove unreliable.
 
@@ -884,9 +888,9 @@ More information and documentation on the pre-activation service is available at
 
 ## Figures
 
-[role resolution diagram]:
+[epp-role-mapping]:
 
-[address resolution diagram]:
+[epp-address-resolution]:
 
 ## Greeting
 
