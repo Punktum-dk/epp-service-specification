@@ -888,9 +888,9 @@ More information and documentation on the pre-activation service is available at
 
 ## Figures
 
-[epp-role-mapping]:
+[epp-role-mapping]: https://github.com/DK-Hostmaster/epp-service-specification/tree/master/images/epp-role-resolution.png
 
-[epp-address-resolution]:
+[epp-address-resolution]: https://github.com/DK-Hostmaster/epp-service-specification/tree/master/images/epp-address-resolution.png
 
 ## Greeting
 
