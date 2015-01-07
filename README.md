@@ -605,6 +605,7 @@ Contact creation under EPP opens for the ability to represent postal information
 For Denmark the local representation is chosen and the international representation is discarded. For other countries the international representation is chosen and the local representation is discarded. Please see the table below.
 
 | Denmark | Other country |
+| ----------- | ----------- |
 | **Local representation | Local representation |
 | International representation | **International representation** |
 
