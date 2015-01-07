@@ -726,7 +726,8 @@ check contact response
 ## info contact
 
 This part of the EPP protocol is described in [RFC 5733][RFC5733]. This command adheres to the standard.
-info contact request:
+
+### info contact request:
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
