@@ -395,11 +395,12 @@ The default value for domain value, if not specified, is one year.
 As for the user entities some mappings are made so all relevant roles are specified.
 
 | EPP | DKHM | Fallback | Note |
+| ------------- | ----------- | ----------- | ----------- |
 | admin | administrator (fuldmægtig) | registrant | optional, will use fallback |
 | billing | billing (betaler) | registrant | optional, will use fallback |
-| tech | keyholder (nøgleansvarlig) | optional, will be ignored if keyholder is specified |
-| registrant | registrant | mandatory |
-| registrar | registrar | mandatory |
+| tech | keyholder (nøgleansvarlig) | | optional, will be ignored if keyholder is specified |
+| registrant | registrant | mandatory | |
+| registrar | registrar | mandatory | |
 
 Please note that the command does not support IDN notation for specifying domain names, please use the specified UTF-8 character set.
 
@@ -879,24 +880,6 @@ More information and documentation on the pre-activation service is available at
 
 # Appendices
 
-## Resources and References
-
-[XSD files]: https://github.com/DK-Hostmaster/epp-xsd-files
-
-[SSL certificate]: https://www.dk-hostmaster.dk/fileadmin/filer/epp/epp.dk-hostmaster.dk_700.pem
-
-[RFC3735]: http://datatracker.ietf.org/doc/rfc3735/
-
-[RFC5730]: http://datatracker.ietf.org/doc/rfc5730/
-
-[RFC5731]: http://datatracker.ietf.org/doc/rfc5731/
-
-[RFC5732]: http://datatracker.ietf.org/doc/rfc5732/
-
-[RFC5733]: http://datatracker.ietf.org/doc/rfc5733/
-
-[RFC5910]: http://datatracker.ietf.org/doc/rfc5910/
-
 ## Figures
 
 [role resolution diagram]:
@@ -944,3 +927,18 @@ More information and documentation on the pre-activation service is available at
 </epp>
 ```
 
+[XSD files]: https://github.com/DK-Hostmaster/epp-xsd-files
+
+[SSL certificate]: https://www.dk-hostmaster.dk/fileadmin/filer/epp/epp.dk-hostmaster.dk_700.pem
+
+[RFC3735]: http://datatracker.ietf.org/doc/rfc3735/
+
+[RFC5730]: http://datatracker.ietf.org/doc/rfc5730/
+
+[RFC5731]: http://datatracker.ietf.org/doc/rfc5731/
+
+[RFC5732]: http://datatracker.ietf.org/doc/rfc5732/
+
+[RFC5733]: http://datatracker.ietf.org/doc/rfc5733/
+
+[RFC5910]: http://datatracker.ietf.org/doc/rfc5910/
