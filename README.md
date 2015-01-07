@@ -903,7 +903,6 @@ More information and documentation on the pre-activation service is available at
 
 [address resolution diagram]:
 
-[greeting]: 
 ## Greeting
 
 ```XML
