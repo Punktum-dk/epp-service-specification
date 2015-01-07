@@ -887,7 +887,7 @@ More information and documentation on the pre-activation service is available at
 
 [RFC3735]: http://datatracker.ietf.org/doc/rfc3735/
 
-[RFC7530]: http://datatracker.ietf.org/doc/rfc5730/
+[RFC5730]: http://datatracker.ietf.org/doc/rfc5730/
 
 [RFC5731]: http://datatracker.ietf.org/doc/rfc5731/
 
