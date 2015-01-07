@@ -820,7 +820,7 @@ Here is a list of documents and references used in this document
 * [RFC: 5733 EPP Contact Mapping][RFC5733]
 * [RFC: 5910 Domain Name System (DNS) Security Extensions for the Extensible Provisioning Protocol][RFC5910]
 * [Current domain registration form](https://www.dk-hostmaster.dk/fileadmin/formularer/dk-5.00en.txt)
-* [Documentation on the above form](https://www.dk-hostmaster.dk/english/technical-administration/forms/register-domainname/)
+* [Documentation on the current domain registration form](https://www.dk-hostmaster.dk/english/technical-administration/forms/register-domainname/)
 * [Pre-activation specification](https://www.dk-hostmaster.dk/fileadmin/filer/preact/Preact-specification_rev_1_1.pdf)
 
 # Resources
