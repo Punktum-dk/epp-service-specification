@@ -172,7 +172,7 @@ Comparing the EPP implementation to the existing channel for domain registration
 
 ## DNSSEC
 
-I accordance with RFC 5910. We support DS only and not DNSKEY. In addition the maximum signature lifetime (secDNS:maxSigLife) is disregarded. See section 3.3 in the referenced RFC.
+I accordance with [RFC 5910][RFC5910]. We support DS only and not DNSKEY. In addition the maximum signature lifetime (secDNS:maxSigLife) is disregarded. See section 3.3 in the referenced RFC.
 
 ## Contact Creation
 
@@ -204,9 +204,9 @@ Please see the greeting response included in the [appendices](greeting) for illu
 
 ## login
 
-This part of the EPP protocol is described in RFC 5730. This command adheres to the standard.
+This part of the EPP protocol is described in [RFC 5730][RFC5730]. This command adheres to the standard.
 
-This part of the EPP protocol is described in RFC 5730. This command adheres to the standard.
+This part of the EPP protocol is described in [RFC 5730][RFC5730]. This command adheres to the standard.
 The login uses the general AAA functionality in DK Hostmaster. This mean that in addition to the validation of username and password specified as part of the login request, an attempt is made to authorise the authenticated user for access to the actual EPP service and subsequent operations.
 
 Authorisation is currently only available to active registrars, therefore the username provided must point to an entity with the role of registrar with the DK Hostmaster registry. 
