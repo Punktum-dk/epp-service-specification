@@ -881,7 +881,7 @@ More information and documentation on the pre-activation service is available at
 
 ## Resources and References
 
-[XSD files]: 
+[XSD files]: https://github.com/DK-Hostmaster/epp-xsd-files
 
 [SSL certificate]: https://www.dk-hostmaster.dk/fileadmin/filer/epp/epp.dk-hostmaster.dk_700.pem
 
