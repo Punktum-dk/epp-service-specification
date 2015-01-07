@@ -307,11 +307,11 @@ There are no special additions or alterations to the specification or use of thi
 
 ## poll and message queue
 
-This part of the EPP protocol is described in RFC 5730. This command adheres to the standard.
+This part of the EPP protocol is described in [RFC 5730][RFC5730]. This command adheres to the standard.
 There are no special additions or alterations to the specification or use of this command.
 create domain
 
-This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command adheres to the standard. DK Hostmaster, however, is based on an asynchronous domain creation workflow. All domain requests are enqueued for further processing and their creation will be in a state of pending.
+This part of the EPP protocol is described in [RFC 5730][RFC5730]. This command adheres to the standard. DK Hostmaster, however, is based on an asynchronous domain creation workflow. All domain requests are enqueued for further processing and their creation will be in a state of pending.
 
 A well-formed request for domain creation will then always result in:
 
@@ -383,7 +383,7 @@ The order confirmation token can be obtained via the pre-activation service, ple
 </epp>
 ```
 
-This tracking number, listed as an extension and does not replace or interfere with the normal use of EPP’s transaction keys, clTRID and svTRID, but are EPP channel specific, whereas the tracking number is considered global in DK Hostmaster. The tracking number is also appended to the svTRID in addition to the listing in the extension part. Please see the last digits following the last dash.
+This tracking number, listed as an extension and does not replace or interfere with the normal use of EPP’s transaction keys, `clTRID` and `svTRID`, but are EPP channel specific, whereas the tracking number is considered global in DK Hostmaster. The tracking number is also appended to the svTRID in addition to the listing in the extension part. Please see the last digits following the last dash.
 
 ```XML
 <svTRID>9917BE58-3D53-11E2-A5BD-C532BF0DC46A-1234</svTRID>
@@ -408,7 +408,7 @@ Please note that the command does not support punycode notation for specifying I
 
 ## check domain
 
-Since DK Hostmaster does support a concept of blocked domains. A domain name will be indicated as available if the domain name has the status of blocked. For an explanation of the process please see section 3.3 and in particular section 3.3.2 in the General Terms and Conditions (see: References).
+Since DK Hostmaster does support a concept of blocked domains. A domain name will be indicated as available if the domain name has the status of blocked. For an explanation of the process please see section 3.3 and in particular section 3.3.2 in the [General Terms and Conditions][General Terms and Conditions].
 
 ### check domain request:
 
@@ -450,7 +450,7 @@ Since DK Hostmaster does support a concept of blocked domains. A domain name wil
 </epp>
 ```
 
-We have extended the result for the check domain command to reflect this using an extension named domainAdvisory. An example response on a blocked domain would look at follows.
+We have extended the result for the check domain command to reflect this using an extension named `domainAdvisory`. An example response on a blocked domain would look at follows.
 
 ```XML
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
@@ -580,21 +580,21 @@ This part of the EPP protocol is described in [RFC 5733][RFC5733].
 This command has been extended with the following fields:
 
 * User type, which has to be one of:
-  * company - indicating a company
-  * public_organization - indicating a public organisation
-  * association - indicating an association
-  * individual - indicating an individual
+  * `company` - indicating a company
+  * `public_organization` - indicating a public organisation
+  * `association` - indicating an association
+  * `individual` - indicating an individual
 
 The user type will result in context-specific interpretation of the following fields:
 
-* EAN - this number is only supported for user types: company, public_organization and association. It is only mandatory for association and optional for company and public_organization.
-* CVR - (VAT number) this is only supported for user types: company, public_organization and association. The number is required for handling VAT correctly, mandatory for user types company and public_organization and optional for the user type association.
+* EAN - this number is only supported for user types: `company`, `public_organization` and `association`. It is only mandatory for `public_organization` and optional for company and `association`.
+* CVR - (VAT number) this is only supported for user types: `company`, `public_organization` and `association`. The number is required for handling VAT correctly, mandatory for user types `company` and `public_organization` and optional for the user type `association.
 
 The contact-id field is auto-generated and assigned by DK Hostmaster. EPP do however open for providing a contact-id in the context of the create contact command, this is not supported by DK Hostmaster at this point.
 
 This field is validated on the server site, it is however recommended to perform a check contact on the requested contact-id prior to the create domain request if a userid is already known from a contact create or previous domain creation.
 
-It is required that the client side can request that the contact-id is auto-generated and assigned by DK Hostmaster by providing the keyword “auto”, which will result in an available and validated contact-id for the specified contact object.
+It is required that the client side can request that the contact-id is auto-generated and assigned by DK Hostmaster by providing the keyword `auto, which will result in an available and validated contact-id for the specified contact object.
 
 ```XML
 <contact:id>auto</contact:id>
@@ -824,7 +824,7 @@ Data will be retained with DK Hostmaster as required by Danish legislation.
 
 Here is a list of documents and references used in this document
 
-* [DK Hostmasters General Terms and Conditions](https://www.dk-hostmaster.dk/fileadmin/filer/pdf/generelle_vilkaar/general-conditions.pdf)
+* [DK Hostmasters General Terms and Conditions][General Terms and Conditions]
 * [RFC: 3735 Guidelines for Extending Extensible Provisioning Protocol][RFC3735]
 * [RFC: 5730 EPP Basic Protocol][RFC5730]
 * [RFC: 5731 EPP Domain Name Mapping][RFC5731]
@@ -861,17 +861,17 @@ The files are all available for [download][XSD files].
 
 * 1.1
   * EPP Service version 1.0.9
-  * Introduction of dkhm:domainAdvisory for support of blocked status for domain names
+  * Introduction of `dkhm:domainAdvisory` for support of blocked status for domain names
 
 * 1.2
   * EPP Service version 1.1.0
-  * Introduction of dkhm:orderConfirmation for support of pre-activation service
+  * Introduction of `dkhm:orderConfirmation` for support of pre-activation service
 
 * 1.3
   * EPP Service version 1.2.0
-  * Introduction of dkhm:dkhm:domain_confirmed for information for create domain
-  * Introduction of dkhm:dkhm:contact_validated for information for info contact
-  * Introduction of dkhm:dkhm:registrant_validated for information for create domain
+  * Introduction of `dkhm:dkhm:domain_confirmed for information for create domain
+  * Introduction of `dkhm:dkhm:contact_validated` for information for info contact
+  * Introduction of `dkhm:dkhm:registrant_validated` for information for create domain
 
 ## Mailing list
 
@@ -939,6 +939,8 @@ More information and documentation on the pre-activation service is available at
     </greeting>
 </epp>
 ```
+
+[General Terms and Conditions]: https://www.dk-hostmaster.dk/fileadmin/filer/pdf/generelle_vilkaar/general-conditions.pdf
 
 [epp-role-mapping]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp-role-resolution.png
 
