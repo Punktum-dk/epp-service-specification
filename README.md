@@ -948,14 +948,14 @@ More information and documentation on the pre-activation service is available at
 
 [SSL certificate]: https://www.dk-hostmaster.dk/fileadmin/filer/epp/epp.dk-hostmaster.dk_700.pem
 
-[RFC3735]: http://datatracker.ietf.org/doc/rfc3735/
+[RFC3735]: http://tools.ietf.org/html/rfc3735
 
-[RFC5730]: http://datatracker.ietf.org/doc/rfc5730/
+[RFC5730]: http://tools.ietf.org/html/rfc5730
 
-[RFC5731]: http://datatracker.ietf.org/doc/rfc5731/
+[RFC5731]: http://tools.ietf.org/html/rfc5731
 
-[RFC5732]: http://datatracker.ietf.org/doc/rfc5732/
+[RFC5732]: http://tools.ietf.org/html/rfc5732
 
-[RFC5733]: http://datatracker.ietf.org/doc/rfc5733/
+[RFC5733]: http://tools.ietf.org/html/rfc5733
 
-[RFC5910]: http://datatracker.ietf.org/doc/rfc5910/
+[RFC5910]: http://tools.ietf.org/html/rfc5910
