@@ -402,7 +402,7 @@ As for the user entities some mappings are made so all relevant roles are specif
 | registrant | registrant | mandatory | |
 | registrar | registrar | mandatory | |
 
-Please note that the command does not support IDN notation for specifying domain names, please use the specified UTF-8 character set.
+Please note that the command does not support punycode notation for specifying IDN domain names, please use the specified UTF-8 character set.
 
 ![Diagram of role mapping for EPP create domain][epp-role-mapping]
 
