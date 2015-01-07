@@ -383,7 +383,7 @@ The order confirmation token can be obtained via the pre-activation service, ple
 </epp>
 ```
 
-This tracking number, listed as an extension and does not replace or interfere with the normal use of EPP’s transaction keys, `clTRID` and `svTRID`, but are EPP channel specific, whereas the tracking number is considered global in DK Hostmaster. The tracking number is also appended to the svTRID in addition to the listing in the extension part. Please see the last digits following the last dash.
+This tracking number, listed as an extension and does not replace or interfere with the normal use of EPP’s transaction keys, `clTRID` and `svTRID`, but are EPP specific, whereas the tracking number is considered global in DK Hostmaster. The tracking number is also appended to the `svTRID` in addition to the listing in the extension part. Please see the last digits following the last dash.
 
 ```XML
 <svTRID>9917BE58-3D53-11E2-A5BD-C532BF0DC46A-1234</svTRID>
