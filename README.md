@@ -861,15 +861,15 @@ The files are all available for [download][XSD files].
 
 * 1.1
   * EPP Service version 1.0.9
-  * Introduction of `dkhm:domainAdvisory` for support of blocked status for domain names
+  * Introduction of `dkhm:domainAdvisory` for support of blocked status for create domain for blocked domain names
 
 * 1.2
   * EPP Service version 1.1.0
-  * Introduction of `dkhm:orderConfirmation` for support of pre-activation service
+  * Introduction of `dkhm:orderConfirmation` for create domain and support of pre-activation service
 
 * 1.3
   * EPP Service version 1.2.0
-  * Introduction of `dkhm:dkhm:domain_confirmed for information for create domain
+  * Introduction of `dkhm:dkhm:domain_confirmed` for information for create domain
   * Introduction of `dkhm:dkhm:contact_validated` for information for info contact
   * Introduction of `dkhm:dkhm:registrant_validated` for information for create domain
 
