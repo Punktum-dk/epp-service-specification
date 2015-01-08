@@ -176,7 +176,7 @@ I accordance with [RFC 5910][RFC5910]. We support DS only and not DNSKEY. In add
 
 ## Contact Creation
 
-This command does not support the feature of providing own userid. The userid has to be specified as auto and the userid is assigned by DK Hostmaster. See also information on the create contact command.
+This command does not support the feature of providing own userid. The userid has to be specified as `auto` and the userid is assigned by DK Hostmaster. See also information on the create contact command.
 
 # Supported Object Transform and Query Commands
 
@@ -594,13 +594,13 @@ The contact-id field is auto-generated and assigned by DK Hostmaster. EPP do how
 
 This field is validated on the server site, it is however recommended to perform a check contact on the requested contact-id prior to the create domain request if a userid is already known from a contact create or previous domain creation.
 
-It is required that the client side can request that the contact-id is auto-generated and assigned by DK Hostmaster by providing the keyword `auto, which will result in an available and validated contact-id for the specified contact object.
+It is required that the client side can request that the contact-id is auto-generated and assigned by DK Hostmaster by providing the keyword `auto`, which will result in an available and validated contact-id for the specified contact object.
 
 ```XML
 <contact:id>auto</contact:id>
 ```
 
-Please note that the auto keyword is in lower-case.
+Please note that the `auto` keyword is in lower-case.
 
 Contact creation under EPP opens for the ability to represent postal information in both local and international representations. Due to the representation in DK Hostmasters system for handling contacts the following rules are applied to postal information.
 
