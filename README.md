@@ -38,21 +38,21 @@ All examples provided in the document are fabricated or changed from real data t
 
 * 1.3 2013-10-29
   * This revision of the specification is describing EPP service release 1.0.9
-  * Added information on use of clTRID in context of create domain command
+  * Added information on use of `clTRID` in context of create domain command
   * Added more information on the domain check command, which has been extended with EPP service release 1.0.9. 
   * This release also updates the XSD specification to revision 1.1
 
 * 1.4 2013-11-19
   * Corrected links in resources
-  * Empasized the use of the auto keyword for contact creation, this has also been listed in the implementation limitations section
-  * Added information on the restrictive use of clTRID in new section entitled: Implementation Requirements |
+  * Empasized the use of the `auto` keyword for contact creation, this has also been listed in the implementation limitations section
+  * Added information on the restrictive use of `clTRID` in new section entitled: Implementation Requirements |
 
 * 1.5 2014-06-18
   * This revision of the specification is describing EPP service release 1.1.0
   * The test environment is no longer active
   * Examples updated to latest XSD revision (1.2)
-  * Pre-activation token can be transported via extension for create domain command
-  * Multiple examples of requests and responses added |
+  * Pre-activation token (`orderconfirmationToken`) can be transported via extension for create domain command
+  * Multiple examples of requests and responses added
 
 * 1.6 2015-01-06
   * This revision of the specification is describing EPP service release 1.2.0
@@ -120,7 +120,7 @@ DK Hostmaster offers the following environments:
 
 This section outlines the overall requirements in regard to implementing an EPP client to work with the DK Hostmaster EPP service.
 
-## Client Transaction ID (clTRID)
+## Client Transaction ID (`clTRID`)
 
 In order to ensure transactional integrity and due to the asynchronous nature of some of the EPP commands, we rely on the client transaction id to be unique. This is unique as per client id. The assists in ensuring that a delayed response can be easily identified by simple means.
 
@@ -389,7 +389,7 @@ This tracking number, listed as an extension and does not replace or interfere w
 <svTRID>9917BE58-3D53-11E2-A5BD-C532BF0DC46A-1234</svTRID>
 ```
 
-An important note is that the clTRID is mandatory for this command. Since we use the clTRID to report back via the message polling functionality, when the domain creation request changes state.
+An important note is that the `clTRID` is mandatory for this command. Since we use the `clTRID` to report back via the message polling functionality, when the domain creation request changes state.
 
 The default value for domain value, if not specified, is one year.
 As for the user entities some mappings are made so all relevant roles are specified.
