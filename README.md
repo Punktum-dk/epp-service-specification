@@ -57,8 +57,8 @@ All examples provided in the document are fabricated or changed from real data t
 * 1.6 2015-01-06
   * This revision of the specification is describing EPP service release 1.2.0
   * This release also updates the XSD specification to revision 1.3
-  * The document has with this revision been ported from a proprietary format to markdown and is being hosted on github for easier maintenance and distribution
-  * Extended the section about this document, due to the migration to Github
+  * The document has with this revision been ported from a proprietary format to markdown and is being hosted on github for easier maintenance and distribution, this has resultet in a lot of minor corrections and clarifications.
+  * Extended the section about this document, due to the migration to Github, so copyright is now explicitly mentioned
   * info contact command extended with validation information
   * create domain command extended with validation information for registrant
   * create domain command extneded with information on confirmation status for domain
