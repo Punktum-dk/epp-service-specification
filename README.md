@@ -35,7 +35,6 @@ Revision: 1.6
   - [check host](#check-host)
   - [info host](#info-host)
   - [create contact](#create-contact)
-  - [create contact request:](#create-contact-request)
   - [check contact](#check-contact)
   - [info contact](#info-contact)
 - [Data Collection Policy](#data-collection-policy)
@@ -696,7 +695,7 @@ Please note that a registrant cannot have a attention field specified, so you sh
 
 The data is collected as required by danish legislation. See also the data collection policy section below.
 
-## create contact request:
+### create contact request:
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
