@@ -7,7 +7,7 @@ Revision: 1.6
 
 # Table of Contents
 
-<!-- MarkdownTOC -->
+<!-- MarkdownTOC depth=2 -->
 
 - [Introduction](#introduction)
   - [About this Document](#about-this-document)
@@ -28,30 +28,16 @@ Revision: 1.6
 - [Supported Object Transform and Query Commands](#supported-object-transform-and-query-commands)
   - [hello and greeting](#hello-and-greeting)
   - [login](#login)
-    - [login request:](#login-request)
-    - [login reponse:](#login-reponse)
   - [logout](#logout)
-    - [logout request:](#logout-request)
-    - [logout response:](#logout-response)
   - [poll and message queue](#poll-and-message-queue)
-    - [create domain request:](#create-domain-request)
-    - [create domain response:](#create-domain-response)
   - [check domain](#check-domain)
-    - [check domain request:](#check-domain-request)
-    - [check domain response:](#check-domain-response)
   - [info domain](#info-domain)
   - [check host](#check-host)
-    - [check host request:](#check-host-request)
   - [info host](#info-host)
-    - [info domain request:](#info-domain-request)
-    - [info domain response:](#info-domain-response)
   - [create contact](#create-contact)
   - [create contact request:](#create-contact-request)
   - [check contact](#check-contact)
-    - [check contact request:](#check-contact-request)
   - [info contact](#info-contact)
-    - [info contact request:](#info-contact-request)
-    - [info contact response:](#info-contact-response)
 - [Data Collection Policy](#data-collection-policy)
   - [Access](#access)
   - [Purpose Statement](#purpose-statement)
@@ -60,7 +46,6 @@ Revision: 1.6
 - [References](#references)
 - [Resources](#resources)
   - [XML Schemas](#xml-schemas)
-    - [XSD Version History](#xsd-version-history)
   - [Mailing list](#mailing-list)
   - [Issue Reporting](#issue-reporting)
   - [Additional Information](#additional-information)
