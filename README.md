@@ -833,7 +833,7 @@ Here is a list of documents and references used in this document
 * [RFC 5910: Domain Name System (DNS) Security Extensions for the Extensible Provisioning Protocol][RFC5910]
 * [DK Hostmaster: Current domain registration form][Current domain registration form]
 * [DK Hostmaster: Documentation on the current domain registration form][Documentation on the current domain registration form]
-* [DK Hostmaster: Pre-activation Service Specification][DK Hostmaster Pre-activation Service Specification]
+* [DK Hostmaster: Pre-activation Service Specification][Pre-activation Service Specification]
 
 # Resources
 
