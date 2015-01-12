@@ -551,7 +551,11 @@ This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command 
     <clTRID>7ede02eed2113c5fe82b404876f2c35f</clTRID>
   </command>
 </epp>
-check host response:
+```
+
+### check host response:
+
+```XML
 <?xml version="1.0" encoding="utf-8"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
   <response>
