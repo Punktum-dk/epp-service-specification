@@ -7,7 +7,7 @@ Revision: 1.6
 
 # Table of Contents
 
-<!-- MarkdownTOC -->
+<!-- MarkdownTOC depth=3 -->
 
 - [Introduction](#introduction)
   - [About this Document](#about-this-document)
@@ -28,15 +28,31 @@ Revision: 1.6
 - [Supported Object Transform and Query Commands](#supported-object-transform-and-query-commands)
   - [hello and greeting](#hello-and-greeting)
   - [login](#login)
+    - [login request:](#login-request)
+    - [login reponse:](#login-reponse)
   - [logout](#logout)
+    - [logout request:](#logout-request)
+    - [logout response:](#logout-response)
   - [poll and message queue](#poll-and-message-queue)
+    - [create domain request:](#create-domain-request)
+    - [create domain response:](#create-domain-response)
   - [check domain](#check-domain)
+    - [check domain request:](#check-domain-request)
+    - [check domain response:](#check-domain-response)
   - [info domain](#info-domain)
   - [check host](#check-host)
+    - [check host request:](#check-host-request)
+    - [check host response:](#check-host-response)
   - [info host](#info-host)
+    - [info host request:](#info-host-request)
+    - [info host response:](#info-host-response)
   - [create contact](#create-contact)
+    - [create contact request:](#create-contact-request)
   - [check contact](#check-contact)
+    - [check contact request:](#check-contact-request)
   - [info contact](#info-contact)
+    - [info contact request:](#info-contact-request)
+    - [info contact response:](#info-contact-response)
 - [Data Collection Policy](#data-collection-policy)
   - [Access](#access)
   - [Purpose Statement](#purpose-statement)
@@ -45,6 +61,7 @@ Revision: 1.6
 - [References](#references)
 - [Resources](#resources)
   - [XML Schemas](#xml-schemas)
+    - [XSD Version History](#xsd-version-history)
   - [Mailing list](#mailing-list)
   - [Issue Reporting](#issue-reporting)
   - [Additional Information](#additional-information)
@@ -763,7 +780,11 @@ This part of the EPP protocol is described in [RFC 5733][RFC5733]. This command 
     <clTRID>d4d94d2e1d6f613cb276865c49c3d0b7</clTRID>
   </command>
 </epp>
-check contact response
+```
+
+check contact response:
+
+```XML
 <?xml version="1.0" encoding="utf-8"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
   <response>
