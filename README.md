@@ -5,6 +5,72 @@
 2015-01-06
 Revision: 1.6
 
+# Table of Contents
+
+<!-- MarkdownTOC -->
+
+- [Introduction](#introduction)
+  - [About this Document](#about-this-document)
+  - [Document History](#document-history)
+- [The .dk Registry in Brief](#the-dk-registry-in-brief)
+- [EPP in Brief](#epp-in-brief)
+- [EPP Service](#epp-service)
+- [SSL Certificate](#ssl-certificate)
+- [Available Environments](#available-environments)
+- [Implementation Requirements](#implementation-requirements)
+  - [Client Transaction ID (`clTRID`)](#client-transaction-id-cltrid)
+- [Implementation Limitations](#implementation-limitations)
+  - [Commands](#commands)
+  - [Unimplemented commands](#unimplemented-commands)
+- [Authorization](#authorization)
+  - [DNSSEC](#dnssec)
+  - [Contact Creation](#contact-creation)
+- [Supported Object Transform and Query Commands](#supported-object-transform-and-query-commands)
+  - [hello and greeting](#hello-and-greeting)
+  - [login](#login)
+    - [login request:](#login-request)
+    - [login reponse:](#login-reponse)
+  - [logout](#logout)
+    - [logout request:](#logout-request)
+    - [logout response:](#logout-response)
+  - [poll and message queue](#poll-and-message-queue)
+    - [create domain request:](#create-domain-request)
+    - [create domain response:](#create-domain-response)
+  - [check domain](#check-domain)
+    - [check domain request:](#check-domain-request)
+    - [check domain response:](#check-domain-response)
+  - [info domain](#info-domain)
+  - [check host](#check-host)
+    - [check host request:](#check-host-request)
+  - [info host](#info-host)
+    - [info domain request:](#info-domain-request)
+    - [info domain response:](#info-domain-response)
+  - [create contact](#create-contact)
+  - [create contact request:](#create-contact-request)
+  - [check contact](#check-contact)
+    - [check contact request:](#check-contact-request)
+  - [info contact](#info-contact)
+    - [info contact request:](#info-contact-request)
+    - [info contact response:](#info-contact-response)
+- [Data Collection Policy](#data-collection-policy)
+  - [Access](#access)
+  - [Purpose Statement](#purpose-statement)
+  - [Recipient Statement](#recipient-statement)
+  - [Retention Statement](#retention-statement)
+- [References](#references)
+- [Resources](#resources)
+  - [XML Schemas](#xml-schemas)
+    - [XSD Version History](#xsd-version-history)
+  - [Mailing list](#mailing-list)
+  - [Issue Reporting](#issue-reporting)
+  - [Additional Information](#additional-information)
+  - [Pre-activation Service](#pre-activation-service)
+- [Appendices](#appendices)
+  - [Greeting](#greeting)
+
+<!-- /MarkdownTOC -->
+
+
 # Introduction
 
 This document describes and specifies the implementation offered by DK Hostmaster for interaction with the central registry for the ccTLD dk using the Extensible Provisioning Protocol (EPP). It is primarily aimed at a technical audience, and the reader is required to have prior knowledge of DNS registration and EPP.
