@@ -15,14 +15,14 @@ Revision: 1.6
 - [The .dk Registry in Brief](#the-dk-registry-in-brief)
 - [EPP in Brief](#epp-in-brief)
 - [EPP Service](#epp-service)
-- [SSL Certificate](#ssl-certificate)
-- [Available Environments](#available-environments)
+  - [SSL Certificate](#ssl-certificate)
+  - [Available Environments](#available-environments)
 - [Implementation Requirements](#implementation-requirements)
   - [Client Transaction ID (`clTRID`)](#client-transaction-id-cltrid)
 - [Implementation Limitations](#implementation-limitations)
   - [Commands](#commands)
   - [Unimplemented commands](#unimplemented-commands)
-- [Authorization](#authorization)
+  - [Authorization](#authorization)
   - [DNSSEC](#dnssec)
   - [Contact Creation](#contact-creation)
 - [Supported Object Transform and Query Commands](#supported-object-transform-and-query-commands)
@@ -138,13 +138,13 @@ In addition to the assets, DK Hostmaster aims to assist users and developers of 
 
 In addition, DK Hostmaster provides  a test environment for evaluation of future releases of the service, both for evaluation of new features, but also for opening up for EPP users to assist and guide DK Hostmaster in the EPP service implementation work.
 
-# SSL Certificate
+## SSL Certificate
 
 To validate the connection to our EPP service you need to use a [SSL certificate][SSL certificate].
 
 Use of the certificate is recommended and it should be use for all available environments. 
 
-# Available Environments
+## Available Environments
 
 DK Hostmaster offers the following environments:
 
@@ -209,7 +209,7 @@ The above commands was pulled out of scope, because the overall and primary goal
 
 In general the service is not localized and all EPP related errors and messages are provided in English. 
 
-# Authorization
+## Authorization
 
 More specifically, the service does not support the following features of the EPP protocol:
 
