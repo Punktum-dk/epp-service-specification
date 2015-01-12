@@ -825,15 +825,15 @@ Data will be retained with DK Hostmaster as required by Danish legislation.
 Here is a list of documents and references used in this document
 
 * [DK Hostmasters General Terms and Conditions][General Terms and Conditions]
-* [RFC: 3735 Guidelines for Extending Extensible Provisioning Protocol][RFC3735]
-* [RFC: 5730 EPP Basic Protocol][RFC5730]
-* [RFC: 5731 EPP Domain Name Mapping][RFC5731]
-* [RFC: 5732 EPP Host Mapping][RFC5732]
-* [RFC: 5733 EPP Contact Mapping][RFC5733]
-* [RFC: 5910 Domain Name System (DNS) Security Extensions for the Extensible Provisioning Protocol][RFC5910]
-* [Current domain registration form](https://www.dk-hostmaster.dk/fileadmin/formularer/dk-5.00en.txt)
-* [Documentation on the current domain registration form](https://www.dk-hostmaster.dk/english/technical-administration/forms/register-domainname/)
-* [Pre-activation specification](https://www.dk-hostmaster.dk/fileadmin/filer/preact/Preact-specification_rev_1_1.pdf)
+* [RFC 3735: Guidelines for Extending Extensible Provisioning Protocol][RFC3735]
+* [RFC 5730: EPP Basic Protocol][RFC5730]
+* [RFC 5731: EPP Domain Name Mapping][RFC5731]
+* [RFC 5732: EPP Host Mapping][RFC5732]
+* [RFC 5733: EPP Contact Mapping][RFC5733]
+* [RFC 5910: Domain Name System (DNS) Security Extensions for the Extensible Provisioning Protocol][RFC5910]
+* [DK Hostmaster: Current domain registration form][Current domain registration form]
+* [DK Hostmaster: Documentation on the current domain registration form][Documentation on the current domain registration form]
+* [DK Hostmaster: Pre-activation Service Specification][DK Hostmaster Pre-activation Service Specification]
 
 # Resources
 
@@ -961,3 +961,9 @@ More information and documentation on the pre-activation service is available at
 [RFC5733]: http://tools.ietf.org/html/rfc5733
 
 [RFC5910]: http://tools.ietf.org/html/rfc5910
+
+[Pre-activation Service Specification]: https://github.com/DK-Hostmaster/preactivation-service-specification
+
+[Current domain registration form]: https://www.dk-hostmaster.dk/fileadmin/formularer/dk-5.00en.txt
+
+[Documentation on the current domain registration form]: https://www.dk-hostmaster.dk/english/technical-administration/forms/register-domainname/
