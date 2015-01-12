@@ -174,7 +174,7 @@ This section outlines the overall requirements in regard to implementing an EPP 
 
 In order to ensure transactional integrity and due to the asynchronous nature of some of the EPP commands, we rely on the client transaction id to be unique. This is unique as per client id. The assists in ensuring that a delayed response can be easily identified by simple means.
 
-The clTRID is recommended to be unique for all transactions and is required to be unique for the create domain command. This might change in the future.
+The `clTRID` is recommended to be unique for all transactions and is required to be unique for the create domain command. This might change in the future.
 
 # Implementation Limitations
 
@@ -204,7 +204,7 @@ The following commands have not been implemented in the service described in thi
 * renew
 * create host
 
-The above commands was pulled out of scope, because the overall and primary goal of version 1, is to implement a standardised replacement for the existing SMTP based form (See: References).
+The above commands was pulled out of scope, because the overall and primary goal of version 1, is to implement a standardised replacement for the existing [SMTP based form][Current domain registration form].
 
 In general the service is not localized and all EPP related errors and messages are provided in English. 
 
