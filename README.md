@@ -217,8 +217,8 @@ More specifically, the service does not support the following features of the EP
 Comparing the EPP implementation to the existing channel for domain registration using the form via SMTP, the following fields are not supported.
 
 * VID (VIP domain name)
-* Billing contact's PO number
-* Electronic account code
+* Billing contact's purchase order (PO) number
+* Electronic account code (EAN)
 
 ## DNSSEC
 
