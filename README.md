@@ -7,7 +7,7 @@ Revision: 1.6
 
 # Table of Contents
 
-<!-- MarkdownTOC depth=2 -->
+<!-- MarkdownTOC -->
 
 - [Introduction](#introduction)
   - [About this Document](#about-this-document)
