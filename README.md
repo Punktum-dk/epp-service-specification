@@ -582,7 +582,7 @@ This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command 
 
 This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard.
 
-### info domain request:
+### info host request:
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
@@ -598,7 +598,7 @@ This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command 
 </epp>
 ```
 
-### info domain response:
+### info host response:
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
