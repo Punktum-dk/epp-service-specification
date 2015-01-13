@@ -535,6 +535,22 @@ In general this part of the EPP protocol is described in [RFC 5731][RFC5731] and
 
 This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command adheres to the standard.
 
+### info domain request:
+
+```XML
+<?xml version="1.0" encoding="utf-8"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+  <command>
+    <info>
+      <domain:info xmlns:domain="urn:ietf:params:xml:ns:domain-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:domain-1.0 domain-1.0.xsd">
+        <domain:name>dk-hostmaster.dk</domain:name>
+      </domain:info>
+    </info>
+    <clTRID>b3350ae28dc86f30feb8d789f795ff67</clTRID>
+  </command>
+</epp>
+```
+
 ## check host
 
 This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard.
