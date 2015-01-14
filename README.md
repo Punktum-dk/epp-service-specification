@@ -551,6 +551,59 @@ This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command 
 </epp>
 ```
 
+### info domain response:
+
+```XML
+<?xml version="1.0" encoding="utf-8"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+  <response>
+    <result code="1000">
+      <msg>Info result</msg>
+    </result>
+    <msgQ count="12" id="242">    </msgQ>
+    <resData>
+      <domain:infData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>dk-hostmaster.dk</domain:name>
+        <domain:roid>DK_HOSTMASTER_DK-DK</domain:roid>
+        <domain:status s="serverTransferProhibited" />
+        <domain:status s="serverUpdateProhibited" />
+        <domain:status s="serverRenewProhibited" />
+        <domain:status s="serverDeleteProhibited" />
+        <domain:registrant>DKHM1-DK</domain:registrant>
+        <domain:contact type="admin">DKHM1-DK</domain:contact>
+        <domain:ns>
+          <domain:hostObj>auth01.ns.dk-hostmaster.dk</domain:hostObj>
+          <domain:hostObj>auth02.ns.dk-hostmaster.dk</domain:hostObj>
+          <domain:hostObj>authns1.ngdc.net</domain:hostObj>
+        </domain:ns>
+        <domain:host>auth01.ns.dk-hostmaster.dk</domain:host>
+        <domain:host>auth02.ns.dk-hostmaster.dk</domain:host>
+        <domain:host>blocked1.ns.dk-hostmaster.dk</domain:host>
+        <domain:host>blocked2.ns.dk-hostmaster.dk</domain:host>
+        <domain:host>gr1.dk-hostmaster.dk</domain:host>
+        <domain:host>gr2.dk-hostmaster.dk</domain:host>
+        <domain:host>missing1nameserver.dk-hostmaster.dk</domain:host>
+        <domain:host>missing2nameservers.dk-hostmaster.dk</domain:host>
+        <domain:host>ns.dk-hostmaster.dk</domain:host>
+        <domain:host>ns1.dk-hostmaster.dk</domain:host>
+        <domain:host>ns2.dk-hostmaster.dk</domain:host>
+        <domain:host>parat1.dk-hostmaster.dk</domain:host>
+        <domain:host>parat2.dk-hostmaster.dk</domain:host>
+        <domain:host>venteliste1.dk-hostmaster.dk</domain:host>
+        <domain:host>venteliste2.dk-hostmaster.dk</domain:host>
+        <domain:clID>DKHM1-DK</domain:clID>
+        <domain:crID>n/a</domain:crID>
+        <domain:crDate>1998-01-19T00:00:00.0Z</domain:crDate>
+      </domain:infData>
+    </resData>
+    <trID>
+      <clTRID>df49a47a9d1058186b97e8b916f0c23f</clTRID>
+      <svTRID>40E74ED0-9BE6-11E4-8B24-9C0CC33995C9</svTRID>
+    </trID>
+  </response>
+</epp>
+```
+
 ## check host
 
 This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard.
