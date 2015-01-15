@@ -736,8 +736,6 @@ For Denmark the local representation is chosen and the international representat
 | **Local representation** | Local representation |
 | International representation | **International representation** |
 
-A basic example can be located in the appendices.
-
 This is a diagram depicting the general algorithm used for resolving the address data. The algorithm presupposes that at least one address is present.
 
 ![Diagram of address resolution for contact creation][epp-address-resolution]
@@ -866,7 +864,9 @@ This part of the EPP protocol is described in [RFC 5733][RFC5733]. This command 
 
 ## info contact
 
-This part of the EPP protocol is described in [RFC 5733][RFC5733]. This command adheres to the standard.
+This part of the EPP protocol is described in [RFC 5733][RFC5733]. This command has been extended with information on whether the contact in queried has been validated according to requirements and policies with DK Hostmaster.
+
+See the extension: `dkhm:contact_validated` in the response.
 
 ### info contact request:
 
@@ -887,7 +887,7 @@ This part of the EPP protocol is described in [RFC 5733][RFC5733]. This command 
 ### info contact response:
 
 ```XML
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
   <response>
     <result code="1000">
@@ -897,31 +897,33 @@ This part of the EPP protocol is described in [RFC 5733][RFC5733]. This command 
       <contact:infData xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
         <contact:id>DKHM1-DK</contact:id>
         <contact:roid>DKHM1-DK</contact:roid>
-        <contact:status s="serverUpdateProhibited" />
-        <contact:status s="serverTransferProhibited" />
-        <contact:status s="linked" />
-        <contact:status s="serverDeleteProhibited" />
+        <contact:status s="serverUpdateProhibited"/>
+        <contact:status s="serverTransferProhibited"/>
+        <contact:status s="linked"/>
+        <contact:status s="serverDeleteProhibited"/>
         <contact:postalInfo type="loc">
           <contact:name>DK Hostmaster A/S</contact:name>
           <contact:addr>
-            <contact:street>Kalvebod Brygge 45, 3</contact:street>
+            <contact:street>Kalvebod Brygge 45,3</contact:street>
             <contact:city>København V</contact:city>
             <contact:pc>1560</contact:pc>
-            <contact:cc>Danmark</contact:cc>
+            <contact:cc>DK</contact:cc>
           </contact:addr>
         </contact:postalInfo>
         <contact:voice>+45.33646060</contact:voice>
         <contact:email>anonymous@dk-hostmaster.dk</contact:email>
         <contact:clID>DKHM1-DK</contact:clID>
         <contact:crID>n/a</contact:crID>
-        <contact:crDate>1900-01-01T00:00:00.0Z</contact:crDate>
+        <contact:crDate>2013-01-24T15:40:37.0Z</contact:crDate>
       </contact:infData>
     </resData>
+    <extension>
+      <dkhm:contact_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.3">1</dkhm:contact_validated>
+    </extension>
     <trID>
-      <clTRID>3d65841027692e64c24118ac5988e03c</clTRID>
-      <svTRID>EC7D108A-F6F6-11E3-867F-A6B052036DCB</svTRID>
-    </trID>
-  </response>
+      <clTRID>76edfef5b78cdaefe8fb426eb8d74b75</clTRID>
+      <svTRID>C8C5E496-9CC8-11E4-9F91-D0BF2AC2711D</svTRID>
+    </trID># </response>
 </epp>
 ```
 
@@ -929,7 +931,7 @@ This part of the EPP protocol is described in [RFC 5733][RFC5733]. This command 
 
 This chapter describes the data collection policy announced via the greeting available using the hello command.
 
-Please refer to the greeting response included in the appendices as an example.
+Please refer to the [greeting response example](#greeting) included in the [Appendices](#Appendices).
 
 ## Access
 
