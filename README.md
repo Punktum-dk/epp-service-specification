@@ -432,8 +432,8 @@ The requirement for the registrant to be valid is also communicated via the resp
     <msgQ count="1" id="1"/>
     <extension>
       <dkhm:trackingNo xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.3">2013010100030</dkhm:trackingNo>
-      <dkhm:domain_confirmed xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.3">1</dkhm:domain_confirmed>
-      <dkhm:registrant_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.3">0</dkhm:registrant_validated>
+      <dkhm:domain_confirmed xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.3">0</dkhm:domain_confirmed>
+      <dkhm:registrant_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.3">1</dkhm:registrant_validated>
     </extension>
     <trID>
       <clTRID>47a4178679f26909ebcfcfd8572f315c</clTRID>
