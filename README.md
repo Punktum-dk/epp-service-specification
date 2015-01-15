@@ -257,7 +257,6 @@ Please see the greeting response included in the [appendices](greeting) for illu
 
 This part of the EPP protocol is described in [RFC 5730][RFC5730]. This command adheres to the standard.
 
-This part of the EPP protocol is described in [RFC 5730][RFC5730]. This command adheres to the standard.
 The login uses the general AAA functionality in DK Hostmaster. This mean that in addition to the validation of username and password specified as part of the login request, an attempt is made to authorise the authenticated user for access to the actual EPP service and subsequent operations.
 
 Authorisation is currently only available to active registrars, therefore the username provided must point to an entity with the role of registrar with the DK Hostmaster registry. 
