@@ -64,7 +64,7 @@ This document describes and specifies the implementation offered by DK Hostmaste
 
 This specification describes version 1 of the DK Hostmaster EPP Implementation. Future releases will be reflected in updates to this specification, please see the document history section below.
 
-The document describes the current DK Hostmaster EPP implementation, for more general documentation on the EPP protocol, EPP client development or configuration, please refer to the RFCs and additional resources in the References and Resources chapters below.
+The document describes the current DK Hostmaster EPP implementation, for more general documentation on the EPP protocol, EPP client development or configuration, please refer to the RFCs and additional resources in the [References](#references) and [Resources](#resources) chapters below.
 
 Any future extensions and possible additions and changes to the implementation are not within the scope of this document and will not be discussed or mentioned throughout this document.
 
