@@ -375,7 +375,7 @@ The extension in response will provide a unique tracking number, which can be us
 
 So the customised response for a domain creation request looks as below.
 
-The create domain command has also been extended so it is possible to assign a pre-activation token to the request.
+The create domain command has also been extended so it is possible to assign a pre-activation token to the request using the `orderconfirmationToken`.
 
 ```XML
 <dkhm:orderconfirmationToken xmlns:dkhm=“urn:dkhm:params:xml:ns:dkhm-1.2”>
@@ -385,7 +385,12 @@ The create domain command has also been extended so it is possible to assign a p
 
 The token is only validated from an XML perspective by the EPP service if not present is is simply ignored and registration carries on as it was not there. It’s validity is not validated until later in the process and possible interaction with the registrant is required.
 
-The order confirmation token can be obtained via the pre-activation service, please see references and resources below.
+The `orderconfirmationToken` can be obtained via the pre-activation service, please see references and resources below.
+
+In addition a create domain contains information on whether the domain has been confirmed, this is communicated via the extension: `dkhm:domain_confirmed`. This indicated is based on whether the provided `orderconfirmationToken` is valid.
+
+The requirement for the registrant to be valid is also communicated via the response, using the extension:
+`dkhm:registrant_validated`. Please see the command info contact for more information. The state is communicated in this response in order to provide information on the further flow and process of the create domain request.
 
 ### create domain request:
 
@@ -418,24 +423,27 @@ The order confirmation token can be obtained via the pre-activation service, ple
 ### create domain response:
 
 ```XML
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
   <response>
     <result code="1001">
-      <msg>Create domain pending for dk-hostmaster-test-906.dk</msg>
+      <msg>Create domain pending for domain1.dk</msg>
     </result>
+    <msgQ count="1" id="1"/>
     <extension>
-      <dkhm:trackingNo xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.2">2014061800002</dkhm:trackingNo>
+      <dkhm:trackingNo xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.3">2013010100030</dkhm:trackingNo>
+      <dkhm:domain_confirmed xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.3">1</dkhm:domain_confirmed>
+      <dkhm:registrant_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.3">0</dkhm:registrant_validated>
     </extension>
     <trID>
-      <clTRID>92724843f12a3e958588679551aa988d</clTRID>
-      <svTRID>53215508-F6FC-11E3-867F-A6B052036DCB-2014061800002</svTRID>
+      <clTRID>47a4178679f26909ebcfcfd8572f315c</clTRID>
+      <svTRID>EDF4F436-9CC9-11E4-AC57-51CB2AC2711D-2013010100030</svTRID>
     </trID>
   </response>
 </epp>
 ```
 
-This tracking number, listed as an extension and does not replace or interfere with the normal use of EPP’s transaction keys, `clTRID` and `svTRID`, but are EPP specific, whereas the tracking number is considered global in DK Hostmaster. The tracking number is also appended to the `svTRID` in addition to the listing in the extension part. Please see the last digits following the last dash.
+This tracking number (`trackingNo`), listed as an extension and does not replace or interfere with the normal use of EPP’s transaction keys, `clTRID` and `svTRID`, but are EPP specific, whereas the tracking number is considered global in DK Hostmaster. The tracking number is also appended to the `svTRID` in addition to the listing in the extension part. Please see the last digits following the last dash.
 
 ```XML
 <svTRID>9917BE58-3D53-11E2-A5BD-C532BF0DC46A-1234</svTRID>
