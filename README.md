@@ -324,6 +324,7 @@ Currently, the only language supported is English. So the language parameter is 
 ## logout
 
 This part of the EPP protocol is described in [RFC 5730][RFC5730]. This command adheres to the standard.
+
 There are no special additions or alterations to the specification or use of this command.
 
 ### logout request:
@@ -358,6 +359,7 @@ There are no special additions or alterations to the specification or use of thi
 ## poll and message queue
 
 This part of the EPP protocol is described in [RFC 5730][RFC5730]. This command adheres to the standard.
+
 There are no special additions or alterations to the specification or use of this command.
 
 ## create domain
@@ -384,7 +386,7 @@ The create domain command has also been extended so it is possible to assign a p
 
 The token is only validated from an XML perspective by the EPP service if not present is is simply ignored and registration carries on as it was not there. It’s validity is not validated until later in the process and possible interaction with the registrant is required.
 
-The `orderconfirmationToken` can be obtained via the pre-activation service, please see references and resources below.
+The `orderconfirmationToken` can be obtained via the [Pre-activation Service](#pre-activation-service), please see references and resources below.
 
 In addition a create domain contains information on whether the domain has been confirmed, this is communicated via the extension: `dkhm:domain_confirmed`. This indicated is based on whether the provided `orderconfirmationToken` is valid.
 
@@ -1003,7 +1005,7 @@ The files are all available for [download][XSD files].
 
 * 1.2
   * EPP Service version 1.1.0
-  * Introduction of `dkhm:orderConfirmation` for create domain and support of pre-activation service
+  * Introduction of `dkhm:orderConfirmation` for create domain and support of [Pre-activation Service](#pre-activation-service)
 
 * 1.3
   * EPP Service version 1.2.0
