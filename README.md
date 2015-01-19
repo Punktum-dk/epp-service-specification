@@ -25,6 +25,7 @@ Revision: 1.6
   - [Authorization](#authorization)
   - [DNSSEC](#dnssec)
   - [Contact Creation](#contact-creation)
+  - [Encoding and IDN domains](#encoding-and-idn-domains)
 - [Supported Object Transform and Query Commands](#supported-object-transform-and-query-commands)
   - [hello and greeting](#hello-and-greeting)
   - [login](#login)
@@ -76,6 +77,7 @@ All examples provided in the document are fabricated or changed from real data t
 
 * 1.0 2013-02-25
   * Initial revision
+  * Introduces [XSD)[XSD][XSD Files] specification revision 1.0
 
 * 1.1 2013-05-31
   * Added paragraph on passwords in section on the login command
@@ -91,7 +93,7 @@ All examples provided in the document are fabricated or changed from real data t
   * This revision of the specification is describing EPP service release 1.0.9
   * Added information on use of `clTRID` in context of create domain command
   * Added more information on the domain check command, which has been extended with EPP service release 1.0.9. 
-  * This release also updates the XSD specification to revision 1.1
+  * This release also updates the [XSD][XSD Files] specification to revision 1.1
 
 * 1.4 2013-11-19
   * Corrected links in resources
@@ -101,13 +103,13 @@ All examples provided in the document are fabricated or changed from real data t
 * 1.5 2014-06-18
   * This revision of the specification is describing EPP service release 1.1.0
   * The test environment is no longer active
-  * Examples updated to latest XSD revision (1.2)
+  * Examples updated to latest [XSD][XSD Files] revision (1.2)
   * Pre-activation token (`orderconfirmationToken`) can be transported via extension for create domain command
   * Multiple examples of requests and responses added
 
 * 1.6 2015-01-06
   * This revision of the specification is describing EPP service release 1.2.0
-  * This release also updates the XSD specification to revision 1.3
+  * This release also updates the [XSD][XSD Files] specification to revision 1.3
   * The document has with this revision been ported from a proprietary format to markdown and is being hosted on github for easier maintenance and distribution, this has resultet in a lot of minor corrections and clarifications.
   * Extended the section about this document, due to the migration to Github, so copyright is now explicitly mentioned
   * info contact command extended with validation information
@@ -229,9 +231,13 @@ I accordance with [RFC 5910][RFC5910]. We support DS only and not DNSKEY. In add
 
 This command does not support the feature of providing own userid. The userid has to be specified as `auto` and the userid is assigned by DK Hostmaster. See also information on the create contact command.
 
+## Encoding and IDN domains
+
+The danish registry supports IDN domain names and the EPP commands support punycode notation for this in requests. We do however not support punycode notation in responses at this time.
+
 # Supported Object Transform and Query Commands
 
-The following describes the currently supported EPP commands. As mentioned previously, some of the commands have been extended beyond the basic capabilities of EPP. These minor extensions are described separately under each command and are included in the XSD files listed in the Resources chapter.
+The following describes the currently supported EPP commands. As mentioned previously, some of the commands have been extended beyond the basic capabilities of EPP. These minor extensions are described separately under each command and are included in the [XSD files][XSD Files] listed in the Resources chapter.
 
 Commands that have not been extended are not described in much detail, please refer to the general EPP documentation from IETF (see: the RFCs listed in References).
 
@@ -463,7 +469,7 @@ As for the user entities some mappings are made so all relevant roles are specif
 | registrant | registrant | mandatory | |
 | registrar | registrar | mandatory | |
 
-Please note that the command does not support punycode notation for specifying IDN domain names, please use the specified UTF-8 character set.
+Please note that the command supports punycode notation for specifying IDN domain names, but responses are in the specified UTF-8 character set.
 
 ![Diagram of role mapping for EPP create domain][epp-role-mapping]
 
@@ -822,6 +828,10 @@ The data is collected as required by danish legislation. See also the data colle
   </command>
 </epp>
 ```
+
+### create contact response
+
+__TODO__ 
 
 ## check contact
 
