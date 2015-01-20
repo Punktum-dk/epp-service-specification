@@ -368,6 +368,8 @@ This part of the EPP protocol is described in [RFC 5730][RFC5730]. This command 
 
 There are no special additions or alterations to the specification or use of this command.
 
+For clarification 2303 is returned in case a provided message-id (`msgID`) point to a non-existing message.
+
 ## create domain
 
 This part of the EPP protocol is described in [RFC 5730][RFC5730]. This command adheres to the standard. DK Hostmaster, however, is based on an asynchronous domain creation workflow. All domain requests are enqueued for further processing and their creation will be in a state of pending.
