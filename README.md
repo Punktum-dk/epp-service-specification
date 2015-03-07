@@ -1,7 +1,5 @@
 # DK Hostmaster EPP Service Specification
 
-# **_DRAFT_**
-
 2015-01-06
 Revision: 1.6
 
