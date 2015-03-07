@@ -77,12 +77,12 @@ All examples provided in the document are fabricated or changed from real data t
 
 * 1.0 2013-02-25
   * Initial revision
-  * Introduces [XSD)[XSD][XSD Files] specification revision 1.0
+  * Introduces [XSD][XSD Files] specification revision 1.0
 
 * 1.1 2013-05-31
   * Added paragraph on passwords in section on the login command
   * Added mention of standard port 700
-  * Corrected some of the XML examples, which had not been updated to reflect the correct use of XSDs
+  * Corrected some of the XML examples, which had not been updated to reflect the correct use of [XSDs][XSD Files]
   * Added important note on contact creation
 
 * 1.2 2013-08-07
