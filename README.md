@@ -112,7 +112,7 @@ All examples provided in the document are fabricated or changed from real data t
   * Extended the section about this document, due to the migration to Github, so copyright is now explicitly mentioned
   * info contact command extended with validation information
   * create domain command extended with validation information for registrant
-  * create domain command extneded with information on confirmation status for domain
+  * create domain command extended with information on confirmation status for domain
 
 # The .dk Registry in Brief
 
