@@ -1,4 +1,4 @@
-# DK Hostmaster EPP Service Specification
+DK Hostmaster EPP Service Specification
 
 2015-01-06
 Revision: 1.6
@@ -114,7 +114,7 @@ Printable version can be obtained via [this link](https://gitprint.com/DK-Hostma
   * Extended the section about this document, due to the migration to Github, so copyright is now explicitly mentioned
   * info contact command extended with validation information
   * create domain command extended with validation information for registrant
-  * create domain command extneded with information on confirmation status for domain
+  * create domain command extended with information on confirmation status for domain
 
 # The .dk Registry in Brief
 
@@ -833,7 +833,27 @@ The data is collected as required by danish legislation. See also the data colle
 
 ### create contact response
 
-__TODO__ 
+```XML
+<?xml version="1.0" encoding="utf-8"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+  <response>
+    <result code="1000">
+      <msg>Contact created.</msg>
+    </result>
+    <msgQ count="1" id="400">    </msgQ>
+    <resData>
+      <contact:creData xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
+        <contact:id>DHA484-DK</contact:id>
+        <contact:crDate>2015-03-25T17:08:25.0Z</contact:crDate>
+      </contact:creData>
+    </resData>
+    <trID>
+      <clTRID>8cced469f2bfdbb0dcad16b875d87c99</clTRID>
+      <svTRID>8B9461A4-D311-11E4-B79D-DB67C33995C9</svTRID>
+    </trID>
+  </response>
+</epp>
+```
 
 ## check contact
 
