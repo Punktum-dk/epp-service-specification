@@ -732,7 +732,8 @@ This command has been extended with the following fields:
 The user type will result in context-specific interpretation of the following fields:
 
 * EAN - this number is only supported for user types: `company`, `public_organization` and `association`. It is only mandatory for `public_organization` and optional for `company` and `association`.
-* CVR - (VAT number) this is only supported for user types: `company`, `public_organization` and `association`. The number is required for handling VAT correctly, mandatory for user types `company` and `public_organization` and optional for the user type `association.
+* CVR - (VAT number) this is only supported for user types: `company`, `public_organization` and `association`. The number is required for handling VAT correctly, mandatory for user types `company` and `public_organization` and optional for the user type `association`.
+* pnumber - (production unit number) this is only supported for user types: `company`, `public_organization` and `association`. The number is used for handling validation correctly and the field is optional.
 
 The contact-id field is auto-generated and assigned by DK Hostmaster. EPP do however open for providing a contact-id in the context of the create contact command, this is not supported by DK Hostmaster at this point.
 
