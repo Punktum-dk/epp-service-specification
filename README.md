@@ -114,6 +114,10 @@ All examples provided in the document are fabricated or changed from real data t
   * create domain command extended with validation information for registrant
   * create domain command extended with information on confirmation status for domain
 
+* 1.7 2015-05-12
+  * This revision of the specification is describing EPP service release 1.3.0
+  * This release also updates the [XSD][XSD Files] specification to revision 1.4, introducing the extension pnumber for transport of production unit numbers for validation of danish companies as part of the create contact command
+
 # The .dk Registry in Brief
 
 DK Hostmaster is the registry for the ccTLD for Denmark (dk). The current model used in Denmark is based on a sole registry, with DK Hostmaster maintaining the central DNS registry.
