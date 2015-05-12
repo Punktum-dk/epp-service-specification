@@ -969,7 +969,8 @@ See the extension: `dkhm:contact_validated` in the response.
     <trID>
       <clTRID>76edfef5b78cdaefe8fb426eb8d74b75</clTRID>
       <svTRID>C8C5E496-9CC8-11E4-9F91-D0BF2AC2711D</svTRID>
-    </trID># </response>
+    </trID>
+  </response>
 </epp>
 ```
 
