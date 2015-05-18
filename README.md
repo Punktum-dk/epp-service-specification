@@ -23,6 +23,7 @@ Revision: 1.7
   - [Authorization](#authorization)
   - [DNSSEC](#dnssec)
   - [Contact Creation](#contact-creation)
+  - [Information Disclosure](#information-disclosure)
   - [Encoding and IDN domains](#encoding-and-idn-domains)
 - [Supported Object Transform and Query Commands](#supported-object-transform-and-query-commands)
   - [hello and greeting](#hello-and-greeting)
@@ -234,6 +235,10 @@ I accordance with [RFC 5910][RFC5910]. We support DS only and not DNSKEY. In add
 ## Contact Creation
 
 This command does not support the feature of providing own userid. The userid has to be specified as `auto` and the userid is assigned by DK Hostmaster. See also information on the create contact command.
+
+## Information Disclosure
+
+Please note that some information is not disclosed when using Object Query Commands. See the specific commands for more information.
 
 ## Encoding and IDN domains
 
@@ -913,6 +918,8 @@ This part of the EPP protocol is described in [RFC 5733][RFC5733]. This command 
 This part of the EPP protocol is described in [RFC 5733][RFC5733]. This command has been extended with information on whether the contact in queried has been validated according to requirements and policies with DK Hostmaster.
 
 See the extension: `dkhm:contact_validated` in the response.
+
+Please note that the email address (`contact:email`) is masked and the value: `anonymous@dk-hostmaster.dk` is always return for this field.
 
 ### info contact request:
 
