@@ -1033,7 +1033,7 @@ This is a list of the schemas currently used in the DKHM EPP Service described i
 * contact-1.0.xsd
 * domain-1.0.xsd
 * host-1.0.xsd
-* dkhm-1.3.xsd
+* dkhm-1.4.xsd
 * secDNS-1.1.xsd
 
 The files are all available for [download][XSD files].
@@ -1057,6 +1057,10 @@ The files are all available for [download][XSD files].
   * Introduction of `dkhm:dkhm:domain_confirmed` for information for create domain
   * Introduction of `dkhm:dkhm:contact_validated` for information for info contact
   * Introduction of `dkhm:dkhm:registrant_validated` for information for create domain
+
+* 1.4
+  * EPP Service version 1.3.X
+  * Introduction of `dkhm:pnumber` for production unit number information for create contact
 
 ## Mailing list
 
