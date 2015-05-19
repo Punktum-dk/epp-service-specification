@@ -102,14 +102,14 @@ Printable version can be obtained via [this link](https://gitprint.com/DK-Hostma
   * Added information on the restrictive use of `clTRID` in new section entitled: Implementation Requirements |
 
 * 1.5 2014-06-18
-  * This revision of the specification is describing EPP service release 1.1.0
+  * This revision of the specification is describing EPP service release 1.1.X
   * The test environment is no longer active
   * Examples updated to latest [XSD][XSD Files] revision (1.2)
   * Pre-activation token (`orderconfirmationToken`) can be transported via extension for create domain command
   * Multiple examples of requests and responses added
 
 * 1.6 2015-01-06
-  * This revision of the specification is describing EPP service release 1.2.0
+  * This revision of the specification is describing EPP service release 1.2.X
   * This release also updates the [XSD][XSD Files] specification to revision 1.3
   * The document has with this revision been ported from a proprietary format to markdown and is being hosted on github for easier maintenance and distribution, this has resultet in a lot of minor corrections and clarifications.
   * Extended the section about this document, due to the migration to Github, so copyright is now explicitly mentioned
@@ -118,7 +118,7 @@ Printable version can be obtained via [this link](https://gitprint.com/DK-Hostma
   * create domain command extended with information on confirmation status for domain
 
 * 1.7 2015-05-12
-  * This revision of the specification is describing EPP service release 1.3.0
+  * This revision of the specification is describing EPP service release 1.3.X
   * This release also updates the [XSD][XSD Files] specification to revision 1.4, introducing the extension pnumber for transport of production unit numbers for validation of danish companies as part of the create contact command
 
 # The .dk Registry in Brief
@@ -1049,11 +1049,11 @@ The files are all available for [download][XSD files].
   * Introduction of `dkhm:domainAdvisory` for support of blocked status for create domain for blocked domain names
 
 * 1.2
-  * EPP Service version 1.1.0
+  * EPP Service version 1.1.X
   * Introduction of `dkhm:orderConfirmation` for create domain and support of [Pre-activation Service](#pre-activation-service)
 
 * 1.3
-  * EPP Service version 1.2.0
+  * EPP Service version 1.2.X
   * Introduction of `dkhm:domain_confirmed` for information for create domain
   * Introduction of `dkhm:contact_validated` for information for info contact
   * Introduction of `dkhm:registrant_validated` for information for create domain
