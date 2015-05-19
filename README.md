@@ -1054,9 +1054,9 @@ The files are all available for [download][XSD files].
 
 * 1.3
   * EPP Service version 1.2.0
-  * Introduction of `dkhm:dkhm:domain_confirmed` for information for create domain
-  * Introduction of `dkhm:dkhm:contact_validated` for information for info contact
-  * Introduction of `dkhm:dkhm:registrant_validated` for information for create domain
+  * Introduction of `dkhm:domain_confirmed` for information for create domain
+  * Introduction of `dkhm:contact_validated` for information for info contact
+  * Introduction of `dkhm:registrant_validated` for information for create domain
 
 * 1.4
   * EPP Service version 1.3.X
