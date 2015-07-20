@@ -678,6 +678,8 @@ This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command 
 
 This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard.
 
+Please note that according to the RFC [section 3.1.2][RFC5732-3.1.2], the `CLID` points to the sponsoring client. DK Hostmaster interprets this as the tehnical contact for the nameserver pointing to the host object in question.
+
 ### info host request:
 
 ```XML
@@ -1145,6 +1147,8 @@ More information and documentation on the pre-activation service is available at
 [RFC5731]: http://tools.ietf.org/html/rfc5731
 
 [RFC5732]: http://tools.ietf.org/html/rfc5732
+
+[RFC5732-3.1.2]: http://tools.ietf.org/html/rfc5732#section-3.1.2
 
 [RFC5733]: http://tools.ietf.org/html/rfc5733
 
