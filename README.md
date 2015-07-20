@@ -226,7 +226,6 @@ Comparing the EPP implementation to the existing channel for domain registration
 
 * VID (VIP domain name)
 * Billing contact's purchase order (PO) number
-* Electronic account code (EAN)
 
 ## DNSSEC
 
@@ -738,7 +737,7 @@ This command has been extended with the following fields:
 
 The user type will result in context-specific interpretation of the following fields:
 
-* EAN - this number is only supported for user types: `company`, `public_organization` and `association`. It is only mandatory for `public_organization` and optional for `company` and `association`.
+* EAN - this number is only supported for user types: `company`, `public_organization` and `association`. It is only mandatory for `public_organization` and optional for `company` and `association`. [EAN][EAN description] is used by the public sector in Denmark for electronic invoicing, private companies can also be assigned EAN, but this it not so widespread at this time. EAN is required by law for public sector organisations, so this field has to be completed and it has to validate for this type.
 * CVR - (VAT number) this is only supported for user types: `company`, `public_organization` and `association`. The number is required for handling VAT correctly, mandatory for user types `company` and `public_organization` and optional for the user type `association`.
 * pnumber - (production unit number) this is only supported for user types: `company`, `public_organization` and `association`. The number is used for handling validation correctly and the field is optional.
 
@@ -1152,6 +1151,8 @@ More information and documentation on the pre-activation service is available at
 [RFC5910]: http://tools.ietf.org/html/rfc5910
 
 [Pre-activation Service Specification]: https://github.com/DK-Hostmaster/preactivation-service-specification
+
+[EAN description]: https://en.wikipedia.org/wiki/International_Article_Number_(EAN)
 
 [Current domain registration form]: https://www.dk-hostmaster.dk/fileadmin/formularer/dk-5.00en.txt
 
