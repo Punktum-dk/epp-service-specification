@@ -336,7 +336,7 @@ As announced in the greeting, the following objects are available:
 With regard to extensions, the following are available:
 
 * [secDNS-1.1][XSD Files]
-* [dkhm-1.3][XSD Files]
+* [dkhm-1.4][XSD Files]
 
 Please see the greeting response included in the [appendices](greeting) for illustration of the actual announcement.
 
