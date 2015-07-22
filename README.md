@@ -7,51 +7,62 @@ Revision: 1.7
 
 <!-- MarkdownTOC -->
 
-- [Introduction](#introduction)
-  - [About this Document](#about-this-document)
-  - [Document History](#document-history)
-- [The .dk Registry in Brief](#the-dk-registry-in-brief)
-- [EPP in Brief](#epp-in-brief)
-- [EPP Service](#epp-service)
-  - [SSL Certificate](#ssl-certificate)
-  - [Available Environments](#available-environments)
-- [Implementation Requirements](#implementation-requirements)
-  - [Client Transaction ID (`clTRID`)](#client-transaction-id-cltrid)
-- [Implementation Limitations](#implementation-limitations)
-  - [Commands](#commands)
-  - [Unimplemented commands](#unimplemented-commands)
-  - [Authorization](#authorization)
-  - [DNSSEC](#dnssec)
-  - [Contact Creation](#contact-creation)
-  - [Information Disclosure](#information-disclosure)
-  - [Encoding and IDN domains](#encoding-and-idn-domains)
-- [Supported Object Transform and Query Commands](#supported-object-transform-and-query-commands)
-  - [hello and greeting](#hello-and-greeting)
-  - [login](#login)
-  - [logout](#logout)
-  - [poll and message queue](#poll-and-message-queue)
-  - [create domain](#create-domain)
-  - [check domain](#check-domain)
-  - [info domain](#info-domain)
-  - [check host](#check-host)
-  - [info host](#info-host)
-  - [create contact](#create-contact)
-  - [check contact](#check-contact)
-  - [info contact](#info-contact)
-- [Data Collection Policy](#data-collection-policy)
-  - [Access](#access)
-  - [Purpose Statement](#purpose-statement)
-  - [Recipient Statement](#recipient-statement)
-  - [Retention Statement](#retention-statement)
-- [References](#references)
-- [Resources](#resources)
-  - [XML Schemas](#xml-schemas)
-  - [Mailing list](#mailing-list)
-  - [Issue Reporting](#issue-reporting)
-  - [Additional Information](#additional-information)
-  - [Pre-activation Service](#pre-activation-service)
-- [Appendices](#appendices)
-  - [Greeting](#greeting)
+- Introduction
+  - About this Document
+  - Document History
+- The .dk Registry in Brief
+- EPP in Brief
+- EPP Service
+  - SSL Certificate
+  - Available Environments
+- Implementation Requirements
+  - Client Transaction ID (`clTRID`)
+- Implementation Extensions
+  - `dkhm:userType`
+  - `dkhm:EAN`
+  - `dkhm:CVR`
+  - `dkhm:pnumber`
+  - `dkhm:trackingNo`
+  - `dkhm:domainAdvisory`
+  - `orderconfirmationToken`
+  - `domain_confirmed`
+  - `contact_validated`
+  - `registrant_validated`
+- Implementation Limitations
+  - Commands
+  - Unimplemented commands
+  - Authorization
+  - DNSSEC
+  - Contact Creation
+  - Information Disclosure
+  - Encoding and IDN domains
+- Supported Object Transform and Query Commands
+  - hello and greeting
+  - login
+  - logout
+  - poll and message queue
+  - create domain
+  - check domain
+  - info domain
+  - check host
+  - info host
+  - create contact
+  - check contact
+  - info contact
+- Data Collection Policy
+  - Access
+  - Purpose Statement
+  - Recipient Statement
+  - Retention Statement
+- References
+- Resources
+  - XML Schemas
+  - Mailing list
+  - Issue Reporting
+  - Additional Information
+  - Pre-activation Service
+- Appendices
+  - Greeting
 
 <!-- /MarkdownTOC -->
 
@@ -183,6 +194,68 @@ This section outlines the overall requirements in regard to implementing an EPP 
 In order to ensure transactional integrity and due to the asynchronous nature of some of the EPP commands, we rely on the client transaction id to be unique. This is unique as per client id. The assists in ensuring that a delayed response can be easily identified by simple means.
 
 The `clTRID` is recommended to be unique for all transactions and is required to be unique for the create domain command. This might change in the future.
+
+# Implementation Extensions
+
+The EPP service implemented by DK Hostmaster holds several extensions, these are documented where appropriate for the specific commands etc. This section serves to give an overview of the extensions as a whole.
+
+Here follows a listed, the extensions are described separately and in detail below.
+
+* dkhm:userType
+* dkhm:EAN
+* dkhm:CVR
+* dkhm:pnumber
+* dkhm:trackingNo
+* dkhm:domainAdvisory
+* orderconfirmationToken
+* domain_confirmed
+* contact_validated
+* registrant_validated
+
+## `dkhm:userType`
+
+The userType extension is used to categorize a contact type, since the requirements for required data differs between the different types, more information is available under the create contact command.
+
+Related extensions are `dkhm::EAN`, `dkhm:CVR` and `dkhm:pnumber`.
+
+## `dkhm:EAN`
+
+The EAN extension, hold the EAN number associated with public organisations in Denmark. The field is mandatory for this
+type of contact objects and is required for electronic invoicing, more information is available under the create contact command.
+
+## `dkhm:CVR`
+
+The CVR extension is for holding VAT registration numbers. The number is used for validation and VAT accounting.
+
+## `dkhm:pnumber`
+
+The pnumber extension is for holding production-unit numbers, used for validation for danish companies, with more physical addressed related to one VAT number.
+
+## `dkhm:trackingNo`
+
+A unique tracking number for a domain registration for uniformity with the mail form.
+
+## `dkhm:domainAdvisory`
+
+Domain names registered with DK Hostmaster can hold a status blocked. This is used for communicating this special status for the check domain command.
+
+## `orderconfirmationToken`
+
+This is a special field for supporting a business flow where a domain can be pre-activated using the DK Hostmaster Pre-activation service.
+
+## `domain_confirmed`
+
+Domain names registered with DK Hostmaster, has to be confirmed by the registrant, this is can either be done using pre-activation, see the `orderconfirmationToken` above or other systems with DK Hostmaster, the domain confirmation state is available via the info domain command using this extension.
+
+See also `orderconfirmationToken`
+
+## `contact_validated`
+
+Contact objects related to the role of registrant has to be validated, this field is used to indicate the status of a validation object via the info contact command.
+
+## `registrant_validated`
+
+As described above, contact objects related to the role of registrant has to be validated, this field is used to indicate the status of a validation object via the info domain command.
 
 # Implementation Limitations
 
