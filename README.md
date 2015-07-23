@@ -201,39 +201,38 @@ The EPP service implemented by DK Hostmaster holds several extensions, these are
 
 Here follows a listed, the extensions are described separately and in detail below.
 
-* dkhm:userType
-* dkhm:EAN
-* dkhm:CVR
-* dkhm:pnumber
-* dkhm:trackingNo
-* dkhm:domainAdvisory
-* orderconfirmationToken
-* domain_confirmed
-* contact_validated
-* registrant_validated
+* `dkhm:userType`
+* `dkhm:EAN`
+* `dkhm:CVR`
+* `dkhm:pnumber`
+* `dkhm:trackingNo`
+* `dkhm:domainAdvisory`
+* `orderconfirmationToken`
+* `domain_confirmed`
+* `contact_validated`
+* `registrant_validated`
 
 ## `dkhm:userType`
 
-The userType extension is used to categorize a contact type, since the requirements for required data differs between the different types, more information is available under the create contact command.
+The `userType` extension is used to categorize a contact type, since the requirements for data differs between the different usertypes, we need to be able to differenciate between: company, individual, public organisation and association. More information is available under the create contact command.
 
 Related extensions are `dkhm::EAN`, `dkhm:CVR` and `dkhm:pnumber`.
 
 ## `dkhm:EAN`
 
-The EAN extension, hold the EAN number associated with public organisations in Denmark. The field is mandatory for this
-type of contact objects and is required for electronic invoicing, more information is available under the create contact command.
+The EAN extension, holds the EAN number associated with public organisations in Denmark. The field is mandatory for this type of contact objects and is required for electronic invoicing, more information is available under the create contact command.
 
 ## `dkhm:CVR`
 
-The CVR extension is for holding VAT registration numbers. The number is used for validation and VAT accounting.
+The CVR extension is for holding VAT registration numbers. The number is used for validation and VAT accounting. More information is available under the create contact command.
 
 ## `dkhm:pnumber`
 
-The pnumber extension is for holding production-unit numbers, used for validation for danish companies, with more physical addressed related to one VAT number.
+The pnumber extension is for holding production-unit numbers, used for validation for danish companies, with more physical addressed related to one VAT number. More information is available under the create contact command.
 
 ## `dkhm:trackingNo`
 
-A unique tracking number for a domain registration for uniformity with the mail form.
+A unique tracking number for a domain registration for uniformity with the mail form. EPP it not the only channel of domain registration and in order to handle registrations via multiple channel, a unique tracking-id is assigned to every request. More information is available under the create domain command.
 
 ## `dkhm:domainAdvisory`
 
@@ -241,13 +240,13 @@ Domain names registered with DK Hostmaster can hold a status blocked. This is us
 
 ## `orderconfirmationToken`
 
-This is a special field for supporting a business flow where a domain can be pre-activated using the DK Hostmaster Pre-activation service.
+This is a special field for supporting a business flow where a domain can be pre-activated using the DK Hostmaster Pre-activation service. More information is available under the create domain command.
 
 ## `domain_confirmed`
 
-Domain names registered with DK Hostmaster, has to be confirmed by the registrant, this is can either be done using pre-activation, see the `orderconfirmationToken` above or other systems with DK Hostmaster, the domain confirmation state is available via the info domain command using this extension.
+Domain names registered with DK Hostmaster, has to be confirmed by the registrant, this is can either be done using pre-activation, see the `orderconfirmationToken` above or other systems with DK Hostmaster, the domain confirmation state is available via the craete domain command using this extension.
 
-See also `orderconfirmationToken`
+See also `orderconfirmationToken`.
 
 ## `contact_validated`
 
@@ -255,7 +254,9 @@ Contact objects related to the role of registrant has to be validated, this fiel
 
 ## `registrant_validated`
 
-As described above, contact objects related to the role of registrant has to be validated, this field is used to indicate the status of a validation object via the info domain command.
+As described above, contact objects related to the role of registrant has to be validated, this field is used to indicate the status of a validation object via the create domain command.
+
+See also `contact_validated`.
 
 # Implementation Limitations
 
