@@ -1,7 +1,7 @@
 DK Hostmaster EPP Service Specification
 
-2015-05-12
-Revision: 1.7
+2015-07-23
+Revision: 1.8 (_currently being edited_)
 
 # Table of Contents
 
@@ -131,6 +131,10 @@ Printable version can be obtained via [this link](https://gitprint.com/DK-Hostma
 * 1.7 2015-05-12
   * This revision of the specification is describing EPP service release 1.3.X
   * This release also updates the [XSD][XSD Files] specification to revision 1.4, introducing the extension pnumber for transport of production unit numbers for validation of danish companies as part of the create contact command
+
+* 1.8 2015-07-23
+  * Minor corrections
+  * More information on extensions for possible registration of the DK Hostmaster extensions with IANA in relation to [RFC:7451][RFC:7451]
 
 # The .dk Registry in Brief
 
@@ -1227,6 +1231,8 @@ More information and documentation on the pre-activation service is available at
 [RFC5733]: http://tools.ietf.org/html/rfc5733
 
 [RFC5910]: http://tools.ietf.org/html/rfc5910
+
+[RFC:7451]: https://tools.ietf.org/html/rfc7451
 
 [Pre-activation Service Specification]: https://github.com/DK-Hostmaster/preactivation-service-specification
 
