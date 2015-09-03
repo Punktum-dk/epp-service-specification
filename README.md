@@ -1,6 +1,6 @@
 DK Hostmaster EPP Service Specification
 
-2015-07-23
+2015-09-03
 Revision: 1.8 (_currently being edited_)
 
 # Table of Contents
@@ -24,10 +24,10 @@ Revision: 1.8 (_currently being edited_)
   - [`dkhm:pnumber`](#dkhmpnumber)
   - [`dkhm:trackingNo`](#dkhmtrackingno)
   - [`dkhm:domainAdvisory`](#dkhmdomainadvisory)
-  - [`orderconfirmationToken`](#orderconfirmationtoken)
-  - [`domain_confirmed`](#domain_confirmed)
-  - [`contact_validated`](#contact_validated)
-  - [`registrant_validated`](#registrant_validated)
+  - [`dkhm:orderconfirmationToken`](#dkhmorderconfirmationtoken)
+  - [`dkhm:domain_confirmed`](#dkhmdomain_confirmed)
+  - [`dkhm:contact_validated`](#dkhmcontact_validated)
+  - [`dkhm:registrant_validated`](#dkhmregistrant_validated)
 - [Implementation Limitations](#implementation-limitations)
   - [Commands](#commands)
   - [Unimplemented commands](#unimplemented-commands)
@@ -132,9 +132,10 @@ Printable version can be obtained via [this link](https://gitprint.com/DK-Hostma
   * This revision of the specification is describing EPP service release 1.3.X
   * This release also updates the [XSD][XSD Files] specification to revision 1.4, introducing the extension pnumber for transport of production unit numbers for validation of danish companies as part of the create contact command
 
-* 1.8 2015-07-23
+* 1.8 2015-09-03
   * Minor corrections
   * More information on extensions for possible registration of the DK Hostmaster extensions with IANA in relation to [RFC:7451][RFC:7451]
+  * Added [RFC:7451][RFC:7451] compliant descriptions in subdirectory: `rfc7451/`
 
 # The .dk Registry in Brief
 
@@ -211,10 +212,10 @@ Here follows a listed, the extensions are described separately and in detail bel
 * `dkhm:pnumber`
 * `dkhm:trackingNo`
 * `dkhm:domainAdvisory`
-* `orderconfirmationToken`
-* `domain_confirmed`
-* `contact_validated`
-* `registrant_validated`
+* `dkhm:orderconfirmationToken`
+* `dkhm:domain_confirmed`
+* `dkhm:contact_validated`
+* `dkhm:registrant_validated`
 
 ## `dkhm:userType`
 
@@ -242,21 +243,21 @@ A unique tracking number for a domain registration for uniformity with the mail 
 
 Domain names registered with DK Hostmaster can hold a status blocked. This is used for communicating this special status for the check domain command.
 
-## `orderconfirmationToken`
+## `dkhm:orderconfirmationToken`
 
 This is a special field for supporting a business flow where a domain can be pre-activated using the DK Hostmaster Pre-activation service. More information is available under the create domain command.
 
-## `domain_confirmed`
+## `dkhm:domain_confirmed`
 
 Domain names registered with DK Hostmaster, has to be confirmed by the registrant, this is can either be done using pre-activation, see the `orderconfirmationToken` above or other systems with DK Hostmaster, the domain confirmation state is available via the create domain command using this extension.
 
 See also `orderconfirmationToken`.
 
-## `contact_validated`
+## `dkhm:contact_validated`
 
 Contact objects related to the role of registrant has to be validated, this field is used to indicate the status of a validation object via the info contact command.
 
-## `registrant_validated`
+## `dkhm:registrant_validated`
 
 As described above, contact objects related to the role of registrant has to be validated, this field is used to indicate the status of a validation object via the create domain command.
 
