@@ -1,0 +1,24 @@
+    -----BEGIN FORM-----
+    Name of Extension:
+    dkhm:trackingNo
+
+    Document Status: 
+    Informational
+
+    Reference: 
+    https://github.com/DK-Hostmaster/epp-service-specification
+
+    Registrant Name and Email Address:
+    DK Hostmaster A/S, <tech@dk-hostmaster.dk>
+
+    TLDs: 
+    .dk
+
+    IPR Disclosure: "None"|<URL>
+
+    Status:
+    Active
+
+    Notes:
+    A unique tracking number for a domain registration, shared between services provided by DK Hostmaster A/S.
+    -----END FORM-----

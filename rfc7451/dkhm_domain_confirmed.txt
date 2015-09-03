@@ -1,0 +1,24 @@
+    -----BEGIN FORM-----
+    Name of Extension:
+    dkhm:registrant_validated
+
+    Document Status: 
+    Informational
+
+    Reference: 
+    https://github.com/DK-Hostmaster/epp-service-specification
+
+    Registrant Name and Email Address:
+    DK Hostmaster A/S, <tech@dk-hostmaster.dk>
+
+    TLDs: 
+    .dk
+
+    IPR Disclosure: "None"|<URL>
+
+    Status:
+    Active
+
+    Notes:
+    Contact objects related to the role of registrant has to be validated, this field is used to indicate the validation status of the registrant.
+    -----END FORM-----

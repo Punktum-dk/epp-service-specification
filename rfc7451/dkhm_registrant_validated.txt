@@ -1,0 +1,26 @@
+    -----BEGIN FORM-----
+    Name of Extension:
+    dkhm:CVR
+
+    Document Status: 
+    Informational
+
+    Reference: 
+    https://github.com/DK-Hostmaster/epp-service-specification
+
+    Registrant Name and Email Address:
+    DK Hostmaster A/S, <tech@dk-hostmaster.dk>
+
+    TLDs: 
+    .dk
+
+    IPR Disclosure: "None"|<URL>
+
+    Status:
+    Active
+
+    Notes:
+    The CVR extension is for holding VAT registration numbers. The number is used for validation and VAT accounting.
+
+    Related extensions are dkhm:userType and dkhm:pnumber.
+    -----END FORM-----
