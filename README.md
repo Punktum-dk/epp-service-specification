@@ -220,7 +220,7 @@ Here follows a listed, the extensions are described separately and in detail bel
 
 The `userType` extension is used to categorize a contact type, since the requirements for data differs between the different usertypes, we need to be able to differenciate between: company, individual, public organisation and association. More information is available under the create contact command.
 
-Related extensions are `dkhm::EAN`, `dkhm:CVR` and `dkhm:pnumber`.
+Related extensions are `dkhm:EAN`, `dkhm:CVR` and `dkhm:pnumber`.
 
 ## `dkhm:EAN`
 
