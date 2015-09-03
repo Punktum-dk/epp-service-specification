@@ -5,64 +5,64 @@ Revision: 1.8 (_currently being edited_)
 
 # Table of Contents
 
-<!-- MarkdownTOC -->
+<!-- MarkdownTOC bracket=round -->
 
-- Introduction
-  - About this Document
-  - Document History
-- The .dk Registry in Brief
-- EPP in Brief
-- EPP Service
-  - SSL Certificate
-  - Available Environments
-- Implementation Requirements
-  - Client Transaction ID (`clTRID`)
-- Implementation Extensions
-  - `dkhm:userType`
-  - `dkhm:EAN`
-  - `dkhm:CVR`
-  - `dkhm:pnumber`
-  - `dkhm:trackingNo`
-  - `dkhm:domainAdvisory`
-  - `orderconfirmationToken`
-  - `domain_confirmed`
-  - `contact_validated`
-  - `registrant_validated`
-- Implementation Limitations
-  - Commands
-  - Unimplemented commands
-  - Authorization
-  - DNSSEC
-  - Contact Creation
-  - Information Disclosure
-  - Encoding and IDN domains
-- Supported Object Transform and Query Commands
-  - hello and greeting
-  - login
-  - logout
-  - poll and message queue
-  - create domain
-  - check domain
-  - info domain
-  - check host
-  - info host
-  - create contact
-  - check contact
-  - info contact
-- Data Collection Policy
-  - Access
-  - Purpose Statement
-  - Recipient Statement
-  - Retention Statement
-- References
-- Resources
-  - XML Schemas
-  - Mailing list
-  - Issue Reporting
-  - Additional Information
-  - Pre-activation Service
-- Appendices
-  - Greeting
+- [Introduction](#introduction)
+  - [About this Document](#about-this-document)
+  - [Document History](#document-history)
+- [The .dk Registry in Brief](#the-dk-registry-in-brief)
+- [EPP in Brief](#epp-in-brief)
+- [EPP Service](#epp-service)
+  - [SSL Certificate](#ssl-certificate)
+  - [Available Environments](#available-environments)
+- [Implementation Requirements](#implementation-requirements)
+  - [Client Transaction ID (`clTRID`)](#client-transaction-id-cltrid)
+- [Implementation Extensions](#implementation-extensions)
+  - [`dkhm:userType`](#dkhmusertype)
+  - [`dkhm:EAN`](#dkhmean)
+  - [`dkhm:CVR`](#dkhmcvr)
+  - [`dkhm:pnumber`](#dkhmpnumber)
+  - [`dkhm:trackingNo`](#dkhmtrackingno)
+  - [`dkhm:domainAdvisory`](#dkhmdomainadvisory)
+  - [`orderconfirmationToken`](#orderconfirmationtoken)
+  - [`domain_confirmed`](#domain_confirmed)
+  - [`contact_validated`](#contact_validated)
+  - [`registrant_validated`](#registrant_validated)
+- [Implementation Limitations](#implementation-limitations)
+  - [Commands](#commands)
+  - [Unimplemented commands](#unimplemented-commands)
+  - [Authorization](#authorization)
+  - [DNSSEC](#dnssec)
+  - [Contact Creation](#contact-creation)
+  - [Information Disclosure](#information-disclosure)
+  - [Encoding and IDN domains](#encoding-and-idn-domains)
+- [Supported Object Transform and Query Commands](#supported-object-transform-and-query-commands)
+  - [hello and greeting](#hello-and-greeting)
+  - [login](#login)
+  - [logout](#logout)
+  - [poll and message queue](#poll-and-message-queue)
+  - [create domain](#create-domain)
+  - [check domain](#check-domain)
+  - [info domain](#info-domain)
+  - [check host](#check-host)
+  - [info host](#info-host)
+  - [create contact](#create-contact)
+  - [check contact](#check-contact)
+  - [info contact](#info-contact)
+- [Data Collection Policy](#data-collection-policy)
+  - [Access](#access)
+  - [Purpose Statement](#purpose-statement)
+  - [Recipient Statement](#recipient-statement)
+  - [Retention Statement](#retention-statement)
+- [References](#references)
+- [Resources](#resources)
+  - [XML Schemas](#xml-schemas)
+  - [Mailing list](#mailing-list)
+  - [Issue Reporting](#issue-reporting)
+  - [Additional Information](#additional-information)
+  - [Pre-activation Service](#pre-activation-service)
+- [Appendices](#appendices)
+  - [Greeting](#greeting)
 
 <!-- /MarkdownTOC -->
 
