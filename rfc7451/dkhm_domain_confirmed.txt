@@ -2,23 +2,18 @@
     Name of Extension:
     dkhm:registrant_validated
 
-    Document Status: 
-    Informational
+    Document Status: Informational
 
-    Reference: 
-    https://github.com/DK-Hostmaster/epp-service-specification
+    Reference: https://github.com/DK-Hostmaster/epp-service-specification
 
     Registrant Name and Email Address:
     DK Hostmaster A/S, <tech@dk-hostmaster.dk>
 
-    TLDs: 
-    .dk
+    TLDs: .dk
 
-    IPR Disclosure:
-    None
+    IPR Disclosure: None
 
-    Status:
-    Active
+    Status: Active
 
     Notes:
     Domain names registered with DK Hostmaster, has to be confirmed by the registrant, this is can either be done using pre-activation service or other systems with DK Hostmaster, the domain confirmation state communicated via this extension.

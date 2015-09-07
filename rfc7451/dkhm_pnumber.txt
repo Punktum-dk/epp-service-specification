@@ -2,23 +2,18 @@
     Name of Extension:
     dkhm:pnumber
 
-    Document Status: 
-    Informational
+    Document Status:  Informational
 
-    Reference: 
-    https://github.com/DK-Hostmaster/epp-service-specification
+    Reference: https://github.com/DK-Hostmaster/epp-service-specification
 
     Registrant Name and Email Address:
     DK Hostmaster A/S, <tech@dk-hostmaster.dk>
 
-    TLDs: 
-    .dk
+    TLDs: .dk
 
-    IPR Disclosure:
-    None
+    IPR Disclosure: None
 
-    Status:
-    Active
+    Status: Active
 
     Notes:
     The pnumber extension is for holding production-unit numbers, used for validation for danish companies, with more physical addressed related to one VAT number.

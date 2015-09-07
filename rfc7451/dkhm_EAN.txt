@@ -2,23 +2,18 @@
     Name of Extension:
     dkhm:EAN
 
-    Document Status: 
-    Informational
+    Document Status: Informational
 
-    Reference: 
-    https://github.com/DK-Hostmaster/epp-service-specification
+    Reference: https://github.com/DK-Hostmaster/epp-service-specification
 
     Registrant Name and Email Address:
     DK Hostmaster A/S, <tech@dk-hostmaster.dk>
 
-    TLDs: 
-    .dk
+    TLDs: .dk
 
-    IPR Disclosure:
-    None
+    IPR Disclosure: None
 
-    Status:
-    Active
+    Status: Active
 
     Notes:
     The EAN extension, holds the EAN number associated with public organisations in Denmark. The field is mandatory for this type of contact objects and is required for electronic invoicing.

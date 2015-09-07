@@ -2,23 +2,18 @@
     Name of Extension:
     dkhm:CVR
 
-    Document Status: 
-    Informational
+    Document Status: Informational
 
-    Reference: 
-    https://github.com/DK-Hostmaster/epp-service-specification
+    Reference: https://github.com/DK-Hostmaster/epp-service-specification
 
     Registrant Name and Email Address:
     DK Hostmaster A/S, <tech@dk-hostmaster.dk>
 
-    TLDs: 
-    .dk
+    TLDs: .dk
 
-    IPR Disclosure: 
-    None
+    IPR Disclosure: None
 
-    Status:
-    Active
+    Status: Active
 
     Notes:
     Contact objects related to the role of registrant has to be validated, this field is used to indicate the status of a validation for an object.
