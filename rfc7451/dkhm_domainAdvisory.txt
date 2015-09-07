@@ -1,6 +1,6 @@
     -----BEGIN FORM-----
     Name of Extension:
-    dkhm:CVR
+    dkhm:domainAdvisory
 
     Document Status: Informational
 

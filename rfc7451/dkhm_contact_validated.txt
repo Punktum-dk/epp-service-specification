@@ -1,6 +1,6 @@
     -----BEGIN FORM-----
     Name of Extension:
-    dkhm:CVR
+    dkhm:contact_validated
 
     Document Status: Informational
 

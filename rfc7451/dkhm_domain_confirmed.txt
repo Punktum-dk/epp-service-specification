@@ -1,6 +1,6 @@
     -----BEGIN FORM-----
     Name of Extension:
-    dkhm:registrant_validated
+    dkhm:domain_confirmed
 
     Document Status: Informational
 
