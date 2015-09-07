@@ -14,11 +14,15 @@
     TLDs: 
     .dk
 
-    IPR Disclosure: "None"|<URL>
+    IPR Disclosure:
+    None
 
     Status:
     Active
 
     Notes:
     This is a special field for supporting a business flow where a domain can be pre-activated using the DK Hostmaster Pre-activation service.
+
+    The extension is used for data transportation and is there for not under
+    any IPR Disclosure.
     -----END FORM-----

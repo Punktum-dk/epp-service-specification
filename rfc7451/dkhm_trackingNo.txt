@@ -14,11 +14,14 @@
     TLDs: 
     .dk
 
-    IPR Disclosure: "None"|<URL>
+    IPR Disclosure: 
+    None
 
     Status:
     Active
 
     Notes:
     A unique tracking number for a domain registration, shared between services provided by DK Hostmaster A/S.
+
+    The extension is used for data transportation and is there for not under any IPR Disclosure.
     -----END FORM-----

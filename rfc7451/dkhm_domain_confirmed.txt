@@ -14,11 +14,17 @@
     TLDs: 
     .dk
 
-    IPR Disclosure: "None"|<URL>
+    IPR Disclosure:
+    None
 
     Status:
     Active
 
     Notes:
-    Contact objects related to the role of registrant has to be validated, this field is used to indicate the validation status of the registrant.
+    Domain names registered with DK Hostmaster, has to be confirmed by the registrant, this is can either be done using pre-activation service or other systems with DK Hostmaster, the domain confirmation state communicated via this extension.
+
+    Related extensions are: dkhm:orderconfirmationToken
+    
+    The extension is used for data transportation and is there for not under
+    any IPR Disclosure.
     -----END FORM-----

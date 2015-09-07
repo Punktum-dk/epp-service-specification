@@ -1,5 +1,5 @@
     -----BEGIN FORM-----
-    Name of Extension:
+    Name of Extension: 
     dkhm:CVR
 
     Document Status: 
@@ -14,7 +14,8 @@
     TLDs: 
     .dk
 
-    IPR Disclosure: "None"|<URL>
+    IPR Disclosure:
+    None
 
     Status:
     Active
@@ -22,5 +23,8 @@
     Notes:
     The CVR extension is for holding VAT registration numbers. The number is used for validation and VAT accounting.
 
-    Related extensions are dkhm:userType and dkhm:pnumber.
+    Related extensions are: dkhm:userType and dkhm:pnumber.
+
+    The extension is used for data transportation and is there for not under
+    any IPR Disclosure.
     -----END FORM-----
