@@ -145,6 +145,8 @@ The legislation and registry model utilised in Denmark imposes some limitations 
 
 These limitations are described in detail below in the chapter entitled Implementation Limitations, and these are explained further in the command descriptions where the single commands deviate from the EPP standard specification. In addition to limitations and deviations found in the above, a few others have been implemented to support DNS registration under Danish legislation, these are described in detail under the individual commands, where relevant.
 
+Our EPP extensions are registered with the [IANA EPP Extension Repository][IANA EPP Extension Repository].
+
 # EPP in Brief
 
 EPP is an XML-based protocol aimed at provisioning data between registries. The protocol is intended for machine-to-machine communication in a client-server setup. Please see the References chapter for more information on specifications and references for EPP.
@@ -1234,6 +1236,8 @@ More information and documentation on the pre-activation service is available at
 [RFC5910]: http://tools.ietf.org/html/rfc5910
 
 [RFC:7451]: https://tools.ietf.org/html/rfc7451
+
+[IANA EPP Extension Repository]: http://www.iana.org/assignments/epp-extensions/epp-extensions.xhtml
 
 [Pre-activation Service Specification]: https://github.com/DK-Hostmaster/preactivation-service-specification
 

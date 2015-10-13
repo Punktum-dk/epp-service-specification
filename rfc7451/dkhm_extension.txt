@@ -1,0 +1,15 @@
+Name of extension: DK Hostmaster local data extensions
+Document Status: Informational
+
+Reference: https://github.com/DK-Hostmaster/epp-service-specification
+
+Registrant Name and Email Address:
+DK Hostmaster A/S, <tech@dk-hostmaster.dk>
+
+TLDs: .dk
+
+IPR Disclosure: None
+
+Status: Active
+
+Notes: This extension includes a number of domain and contact object extension elements for use with the dk ccTLD.
