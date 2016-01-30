@@ -1,7 +1,7 @@
 DK Hostmaster EPP Service Specification
 
-2015-10-13
-Revision: 1.8
+2016-01-30
+Revision: 1.9 _currently being edited_
 
 # Table of Contents
 
@@ -34,6 +34,7 @@ Revision: 1.8
   - [Authorization](#authorization)
   - [DNSSEC](#dnssec)
   - [Contact Creation](#contact-creation)
+  - [Waiting List](#waiting-list)
   - [Information Disclosure](#information-disclosure)
   - [Encoding and IDN domains](#encoding-and-idn-domains)
 - [Supported Object Transform and Query Commands](#supported-object-transform-and-query-commands)
@@ -136,6 +137,10 @@ Printable version can be obtained via [this link](https://gitprint.com/DK-Hostma
   * Minor corrections
   * More information on extensions for possible registration of the DK Hostmaster extensions with IANA in relation to [RFC:7451][RFC:7451]
   * Added [RFC:7451][RFC:7451] compliant descriptions in subdirectory: `rfc7451/`
+
+* 1.9 2016-01-30
+  * Information on new waiting list handling
+  * Information on new DNSSEC key handling
 
 # The .dk Registry in Brief
 
@@ -312,9 +317,15 @@ Comparing the EPP implementation to the existing channel for domain registration
 
 I accordance with [RFC 5910][RFC5910]. We support DS only and not DNSKEY. In addition the maximum signature lifetime (`secDNS:maxSigLife`) is disregarded. See [section 3.3](http://tools.ietf.org/html/rfc5910#section-3.3) in the referenced RFC.
 
+DK Hostmaster specifies rules ownership of DNSSEC keys. If you provide DNSSEC keys a part of registration, the keys are associated with the registrant as owner. If you want to specify another owner, please specify the `tech` or `keyholder` role (see: Role Mapping under: create domain command).
+
 ## Contact Creation
 
 This command does not support the feature of providing own userid. The userid has to be specified as `auto` and the userid is assigned by DK Hostmaster. See also information on the create contact command.
+
+## Waiting List
+
+DK Hostmaster supports a concept of waiting list for domainnames, when a domainname becomes available to the first position on a waiting list, it should be registered using the standard registration proces either using the email form or EPP. This influences the create domain command, which should just be populated with the userid of the user which has been pre-approved for registration of the domainname with DK Hostmaster. No other information is available on waiting lists via EPP.
 
 ## Information Disclosure
 
@@ -550,6 +561,9 @@ This tracking number (`trackingNo`), listed as an extension and does not replace
 An important note is that the `clTRID` is mandatory for this command. Since we use the `clTRID` to report back via the message polling functionality, when the domain creation request changes state.
 
 The default value for domain value, if not specified, is one year.
+
+### Role Mapping
+
 As for the user entities some mappings are made so all relevant roles are specified.
 
 | EPP | DKHM | Fallback | Note |
