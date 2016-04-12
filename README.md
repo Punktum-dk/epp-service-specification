@@ -1,7 +1,7 @@
 DK Hostmaster EPP Service Specification
 
 2016-01-30
-Revision: 1.9 _currently being edited_
+Revision: 1.9
 
 # Table of Contents
 
@@ -16,7 +16,7 @@ Revision: 1.9 _currently being edited_
   - [SSL Certificate](#ssl-certificate)
   - [Available Environments](#available-environments)
 - [Implementation Requirements](#implementation-requirements)
-  - [Client Transaction ID (`clTRID`)](#client-transaction-id-cltrid)
+  - [Client Transaction ID \(`clTRID`\)](#client-transaction-id-cltrid)
 - [Implementation Extensions](#implementation-extensions)
   - [`dkhm:userType`](#dkhmusertype)
   - [`dkhm:EAN`](#dkhmean)
