@@ -289,6 +289,7 @@ The current implementation is limited to the following list of commands:
 * info (contact/domain/host)
 * check (contact/domain/host)
 * create (contact/domain)
+* renew (domain)
 
 All commands will be described in detail below.
 
