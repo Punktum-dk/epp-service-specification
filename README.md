@@ -1,7 +1,7 @@
 DK Hostmaster EPP Service Specification
 
-2016-01-30
-Revision: 1.9 _currently being edited_
+2016-04-12
+Revision: 1.10 _currently being edited_
 
 # Table of Contents
 
@@ -16,7 +16,7 @@ Revision: 1.9 _currently being edited_
   - [SSL Certificate](#ssl-certificate)
   - [Available Environments](#available-environments)
 - [Implementation Requirements](#implementation-requirements)
-  - [Client Transaction ID (`clTRID`)](#client-transaction-id-cltrid)
+  - [Client Transaction ID \(`clTRID`\)](#client-transaction-id-cltrid)
 - [Implementation Extensions](#implementation-extensions)
   - [`dkhm:userType`](#dkhmusertype)
   - [`dkhm:EAN`](#dkhmean)
@@ -45,6 +45,7 @@ Revision: 1.9 _currently being edited_
   - [create domain](#create-domain)
   - [check domain](#check-domain)
   - [info domain](#info-domain)
+  - [renew domain](#renew-domain)
   - [check host](#check-host)
   - [info host](#info-host)
   - [create contact](#create-contact)
@@ -141,6 +142,9 @@ Printable version can be obtained via [this link](https://gitprint.com/DK-Hostma
 * 1.9 2016-01-30
   * Information on new waiting list handling
   * Information on new DNSSEC key handling
+
+* 1.10 2016-04-12
+  * Addition of specification for renew domain command
 
 # The .dk Registry in Brief
 
@@ -295,7 +299,6 @@ The following commands have not been implemented in the service described in thi
 * update (contact/domain/host)
 * delete (contact/domain/host)
 * transfer (contact/domain)
-* renew
 * create host
 
 The above commands was pulled out of scope, because the overall and primary goal of version 1, is to implement a standardised replacement for the existing [SMTP based form][Current domain registration form].
@@ -723,6 +726,70 @@ This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command 
   </response>
 </epp>
 ```
+
+The example is obsolete and will be replaced with post implmentation of the domain renew command (see below).
+
+## renew domain
+
+This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command adheres to the standard.
+
+![Diagram of EPP proces for EPP renew domain][epp-renew-domain]
+
+The following prerequisites have to be met before a successful renewal for a domain name can be completed:
+
+- Domain name has to exist or the EPP service return: `2303`
+- The authenticated user has to be able to renew the domain, meaning he/she has to hold the privilege to renew the domain or we return: `2201`, for now this privilege is given to the billing contact for the domain name (see also the [login command](#login))
+- The new expiration data has to be lower than the current expiration date + 5 years, returning: `2306`. The current expiration date is available via the [info domain](#info-domain) command as `domain:exDate`.
+- Domain name has be eligible for renewal, meaning is has to be in the state ‘Active’ and the financial state is settled for the domain name  or the EPP service return: `2105`, this will also be reflected in status value `clientRenewProhibited`.
+
+This proces is atomic and might throw an unrecoverable exception: `2400` either due to unforeseen circumstances or a change in the state of the domain name.
+
+On success we emit the return code `1000`. No further communication is made via the EPP service. An invoice in generated and distribution outside EPP.
+
+### renew domain request:
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+  <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+    <command>
+      <renew>
+        <domain:renew xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+          <domain:name>eksempel.dk</domain:name>
+          <domain:curExpDate>2016-05-12</domain:curExpDate>
+          <domain:period unit="y">5</domain:period>
+        </domain:renew>
+      </renew>
+    <clTRID>df49a47a9d1058186b97e8b916f0c23f</clTRID>
+  </command>
+</epp>
+```
+
+The example is lifted from [RFC 5731][RFC5731] and modified, it will be replaced with improved examples post implmentation.
+
+### renew domain response:
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <response>
+    <result code="1000">
+      <msg>Command completed successfully</msg>
+    </result>
+    <resData>
+      <domain:renData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>eksempel.dk</domain:name>
+        <domain:exDate>2021-05-12T22:00:00.0Z</domain:exDate>
+      </domain:renData>
+    </resData>
+    <trID>
+      <clTRID>df49a47a9d1058186b97e8b916f0c23f</clTRID>
+      <svTRID>40E74ED0-9BE6-11E4-8B24-9C0CC33995C9</svTRID>
+    </trID>
+   </response>
+</epp>
+```
+
+The example is lifted from [RFC 5731][RFC5731] and modified, it will be replaced with improved examples post implmentation.
 
 ## check host
 
@@ -1230,6 +1297,8 @@ More information and documentation on the pre-activation service is available at
 [epp-role-mapping]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp-role-resolution.png
 
 [epp-address-resolution]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp-address-resolution.png
+
+[epp-renew-domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_renew_domain_v1/images/epp_renew_domain_v1.0.png
 
 [XSD files]: https://github.com/DK-Hostmaster/epp-xsd-files
 
