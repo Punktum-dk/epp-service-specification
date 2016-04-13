@@ -728,7 +728,7 @@ This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command 
 </epp>
 ```
 
-The example is obsolete and will be replaced with post implmentation of the domain renew command (see below).
+The example is obsolete and will be replaced with post implementation of the domain renew command (see below).
 
 ## renew domain
 
@@ -765,7 +765,7 @@ On success we emit the return code `1000`. No further communication is made via 
 </epp>
 ```
 
-The example is lifted from [RFC 5731][RFC5731] and modified, it will be replaced with improved examples post implmentation.
+The example is lifted from [RFC 5731][RFC5731] and modified, it will be replaced with improved examples post implementation.
 
 ### renew domain response:
 
@@ -790,7 +790,7 @@ The example is lifted from [RFC 5731][RFC5731] and modified, it will be replaced
 </epp>
 ```
 
-The example is lifted from [RFC 5731][RFC5731] and modified, it will be replaced with improved examples post implmentation.
+The example is lifted from [RFC 5731][RFC5731] and modified, it will be replaced with improved examples post implementation.
 
 ## check host
 
