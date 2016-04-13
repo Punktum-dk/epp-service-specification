@@ -1184,6 +1184,7 @@ Here is a list of documents and references used in this document
 * [DK Hostmaster: Current domain registration form][Current domain registration form]
 * [DK Hostmaster: Documentation on the current domain registration form][Documentation on the current domain registration form]
 * [DK Hostmaster: Pre-activation Service Specification][Pre-activation Service Specification]
+* [ICANN: EPP status codes](https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en/)
 
 # Resources
 
