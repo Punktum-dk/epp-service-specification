@@ -1188,7 +1188,7 @@ Here is a list of documents and references used in this document
 
 # Resources
 
-A list of resources for DK Hostmaster EPP support is found below.
+A list of resources for DK Hostmaster EPP support is located below.
 
 ## XML Schemas
 
