@@ -741,7 +741,7 @@ The following prerequisites have to be met before a successful renewal for a dom
 - Domain name has to exist or the EPP service return: `2303`
 - The authenticated user has to be able to renew the domain, meaning he/she has to hold the privilege to renew the domain or we return: `2201`, for now this privilege is given to the billing contact for the domain name (see also the [login command](#login))
 - The new expiration data has to be lower than the current expiration date + 5 years, returning: `2306`. The current expiration date is available via the [info domain](#info-domain) command as `domain:exDate`.
-- Domain name has be eligible for renewal, meaning is has to be in the state ‘Active’ and the financial state is settled for the domain name  or the EPP service return: `2105`, this will also be reflected in status value `clientRenewProhibited`.
+- Domain name has be eligible for renewal, meaning is has to be in the state ‘Active’ and the financial state is settled for the domain name  or the EPP service return: `2105`, this will also be reflected in status value `serverRenewProhibited`. See also [ICANN description](https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en/#serverRenewProhibited) of status.
 
 This proces is atomic and might throw an unrecoverable exception: `2400` either due to unforeseen circumstances or a change in the state of the domain name.
 
