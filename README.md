@@ -746,7 +746,7 @@ The following prerequisites have to be met before a successful renewal for a dom
 
 This proces is atomic and might throw an unrecoverable exception: `2400` either due to unforeseen circumstances or a change in the state of the domain name.
 
-On success we emit the return code `1000`. No further communication is made via the EPP service. An invoice in generated and distribution outside EPP.
+On success we emit the return code `1000`. No further communication is made via the EPP service. An invoice is generated and is distributed out of band for EPP.
 
 ### renew domain request:
 
