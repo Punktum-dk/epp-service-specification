@@ -5,7 +5,7 @@ Revision: 1.9
 
 # Table of Contents
 
-<!-- MarkdownTOC bracket=round -->
+<!-- MarkdownTOC bracket=round depth=3 -->
 
 - [Introduction](#introduction)
   - [About this Document](#about-this-document)
@@ -42,17 +42,45 @@ Revision: 1.9
 - [Supported Object Transform and Query Commands](#supported-object-transform-and-query-commands)
   - [hello and greeting](#hello-and-greeting)
   - [login](#login)
+    - [login request:](#login-request)
+    - [login reponse:](#login-reponse)
   - [logout](#logout)
+    - [logout request:](#logout-request)
+    - [logout response:](#logout-response)
   - [poll and message queue](#poll-and-message-queue)
   - [create domain](#create-domain)
+    - [create domain request:](#create-domain-request)
+    - [create domain response:](#create-domain-response)
+    - [Role Mapping](#role-mapping)
   - [check domain](#check-domain)
+    - [check domain request:](#check-domain-request)
+    - [check domain response:](#check-domain-response)
   - [info domain](#info-domain)
+    - [info domain request:](#info-domain-request)
+    - [info domain response:](#info-domain-response)
   - [update domain](#update-domain)
+    - [update domain request:](#update-domain-request)
+    - [update domain response:](#update-domain-response)
+    - [change registrant](#change-registrant)
+    - [add nameserver](#add-nameserver)
+    - [remove nameserver](#remove-nameserver)
+    - [add contact](#add-contact)
+    - [remove contact](#remove-contact)
   - [check host](#check-host)
+    - [check host request:](#check-host-request)
+    - [check host response:](#check-host-response)
   - [info host](#info-host)
+    - [info host request:](#info-host-request)
+    - [info host response:](#info-host-response)
   - [create contact](#create-contact)
+    - [create contact request:](#create-contact-request)
+    - [create contact response](#create-contact-response)
   - [check contact](#check-contact)
+    - [check contact request:](#check-contact-request)
+    - [check contact response:](#check-contact-response)
   - [info contact](#info-contact)
+    - [info contact request:](#info-contact-request)
+    - [info contact response:](#info-contact-response)
 - [Data Collection Policy](#data-collection-policy)
   - [Access](#access)
   - [Purpose Statement](#purpose-statement)
@@ -61,6 +89,7 @@ Revision: 1.9
 - [References](#references)
 - [Resources](#resources)
   - [XML Schemas](#xml-schemas)
+    - [XSD Version History](#xsd-version-history)
   - [Mailing list](#mailing-list)
   - [Issue Reporting](#issue-reporting)
   - [Additional Information](#additional-information)
@@ -738,7 +767,10 @@ This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command 
 
 ## update domain
 
-This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command adheres to the standard.
+This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command does not adhere to the standard
+
+- `authInfo` section is ignored is not recommended for transport of end-user passwords
+- `contact` object in the  `ns` section is ignored
 
 This command covers a lot of functionality, it can complete operations such as:
 
@@ -779,6 +811,8 @@ If the command is parsable, the command is separated into one of more of the fol
 The commands are then executed sequentially (order is inconsequential) as a single transaction. If a single sub-command fails, the transaction is rolled-back and the relevant error code is returned (`2XXX`).
 
 When the command succeeds either `1000` or `1001` is returned the latter if one of the operations initiated by the sub-command require additional actions to be taken, `1001` will have precedence over `1000`.
+
+Please see the below sections for details on the different sub-commands.
 
 ### update domain request:
 
@@ -838,6 +872,24 @@ When the command succeeds either `1000` or `1001` is returned the latter if one 
 ```
 
 *Example lifted from [RFC 5731][RFC5731], will be exchanged*
+
+### change registrant
+
+### add nameserver
+
+[Update domain - Add nameserver][epp-update-domain-add-ns]
+
+### remove nameserver
+
+[Update domain - Remove nameserver][epp-update-domain-remove-ns]
+
+### add contact
+
+[Update domain - Add billing/proxy contact][epp-update-domain-add-contact]
+
+### remove contact
+
+[Update domain - Remove billing/proxy contact][epp-update-domain-remove-contact]
 
 ## check host
 
@@ -1347,6 +1399,15 @@ More information and documentation on the pre-activation service is available at
 [epp-address-resolution]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp-address-resolution.png
 
 [epp-update-domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/epp_update_domain_v1.0.png
+
+[epp-update-domain-add-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/epp_update_domain_add_contact_v1.0.png
+
+[epp-update-domain-remove-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/epp_update_domain_remove_contact_v1.0.png
+
+[epp-update-domain-add-ns]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/epp_update_domain_add_ns_v1.0.png
+
+[epp-update-domain-remove-ns]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/epp_update_domain_remove_ns_v1.0.png
+
 
 [XSD files]: https://github.com/DK-Hostmaster/epp-xsd-files
 
