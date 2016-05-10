@@ -744,9 +744,13 @@ The following prerequisites have to be met before a successful renewal for a dom
 - The new expiration date has to be lower than the current expiration date + 5 years, returning: `2306`. The current expiration date is available via the [info domain](#info-domain) command as `domain:exDate`.
 - Domain name has be eligible for renewal, meaning is has to be in the state ‘Active’ and the financial state is settled for the domain name  or the EPP service return: `2105`, this will also be reflected in status value `serverRenewProhibited`. See also [ICANN description](https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en/#serverRenewProhibited) of status.
 
-This proces is atomic and might throw an unrecoverable exception: `2400` either due to unforeseen circumstances or a change in the state of the domain name.
+The sub-proces called, can be depicted as follows:
 
-On success we emit the return code `1000`. No further communication is made via the EPP service. An invoice is generated and is distributed out of band for EPP.
+![Diagram of DKH sub-proces for EPP renew domain][dkh-renew-domain]
+
+This complete proces is atomic and might throw an unrecoverable exception: `2400` either due to unforeseen circumstances or a change in the state of the domain name.
+
+On success we emit the return code `1000`. No further communication is made via the EPP service. An invoice is generated and is distributed out of band for EPP as shown in the sub-proces and an additional *message* is sent out of band for EPP to the billing contact.
 
 ### renew domain request:
 
@@ -1302,6 +1306,9 @@ More information and documentation on the pre-activation service is available at
 [epp-address-resolution]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp-address-resolution.png
 
 [epp-renew-domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_renew_domain_v1/images/epp_renew_domain_v1.1.png
+
+[dkh-renew-domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_renew_domain_v1/images/dkh_renew_domain_v1.0.png
+
 
 [XSD files]: https://github.com/DK-Hostmaster/epp-xsd-files
 
