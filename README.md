@@ -823,7 +823,7 @@ Please see the below sections for details on the different sub-commands.
     <update>
       <domain:update
        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-        <domain:name>example.dk</domain:name>
+        <domain:name>eksempel.dk</domain:name>
         <domain:add>
           <domain:ns>
             <domain:hostObj>ns2.example.com</domain:hostObj>
@@ -875,19 +875,140 @@ Please see the below sections for details on the different sub-commands.
 
 ### change registrant
 
+The change of registrant is a *special* command, it results in all privileges and rights being transferred to another entity. Normally a registrar would not have the privileges to make such a request.
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <update>
+      <domain:update
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>eksempel.dk</domain:name>
+        <domain:chg>
+          <domain:registrant>sh8013</domain:registrant>
+          <domain:authInfo>
+            <domain:pw>2BARfoo</domain:pw>
+          </domain:authInfo>
+        </domain:chg>
+      </domain:update>
+    </update>
+    <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>
+```
+
 ### add nameserver
+
+The addition of a new nameserver to a domain name or a re-delegation requires that the new nameserver must offer resolution for the domain name in question.
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <update>
+      <domain:update
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>eksempel.dk</domain:name>
+        <domain:add>
+          <domain:ns>
+            <domain:hostObj>ns2.example.com</domain:hostObj>
+          </domain:ns>
+        </domain:add>
+      </domain:update>
+    </update>
+    <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>
+```
 
 ![Update domain - Add nameserver][epp-update-domain-add-ns]
 
 ### remove nameserver
 
+The removal of a existing nameserver from a domain name requires that at least two other name servers are offering resolution for the domain in question, else the command will fail.
+
+Since the update domain command can contain several sub-commands, this could be accompanied by an *add nameserver* (see above), so the policy requirement is met and resolution is kept.
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <update>
+      <domain:update
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>eksempel.dk</domain:name>
+        <domain:rem>
+          <domain:ns>
+            <domain:hostObj>ns1.example.com</domain:hostObj>
+          </domain:ns>
+          <domain:contact type="tech">sh8013</domain:contact>
+        </domain:rem>
+      </domain:update>
+    </update>
+    <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>
+```
+
 ![Update domain - Remove nameserver][epp-update-domain-remove-ns]
 
 ### add contact
 
+The addition of a new contact has to adhere to some policies.
+
+1. If the contact is the proxy, only the billing role can be added
+2. If the authenticated user is a registrar only billing can be added
+3. The new contact is requested to accept the role, so the operation is asynchronous
+
+Additing new users require special privileges, currently only with the registrant, apart from the policy listed above.
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <update>
+      <domain:update
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>eksempel.dk</domain:name>
+        <domain:add>
+          <domain:contact type="tech">mak21</domain:contact>
+        </domain:add>
+      </domain:update>
+    </update>
+    <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>
+```
+
 ![Update domain - Add billing/proxy contact][epp-update-domain-add-contact]
 
 ### remove contact
+
+The removal of a existing contact is possible for both billing and proxy contacts.
+
+1. If the contact is the proxy, both billing and proxy roles can be removed
+2. The proxy can add a new billing role (see above)
+3. If no addition the role defaults to the registrant becoming the inhabitant of the role, no request is made, the registrant is only informed of the change out of band
+
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <update>
+      <domain:update
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>eksempel.dk</domain:name>
+        <domain:rem>
+          <domain:contact type="tech">sh8013</domain:contact>
+        </domain:rem>
+      </domain:update>
+    </update>
+    <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>
+```
 
 ![Update domain - Remove billing/proxy contact][epp-update-domain-remove-contact]
 
