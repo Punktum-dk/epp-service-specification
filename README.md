@@ -877,19 +877,19 @@ Please see the below sections for details on the different sub-commands.
 
 ### add nameserver
 
-[Update domain - Add nameserver][epp-update-domain-add-ns]
+![Update domain - Add nameserver][epp-update-domain-add-ns]
 
 ### remove nameserver
 
-[Update domain - Remove nameserver][epp-update-domain-remove-ns]
+![Update domain - Remove nameserver][epp-update-domain-remove-ns]
 
 ### add contact
 
-[Update domain - Add billing/proxy contact][epp-update-domain-add-contact]
+![Update domain - Add billing/proxy contact][epp-update-domain-add-contact]
 
 ### remove contact
 
-[Update domain - Remove billing/proxy contact][epp-update-domain-remove-contact]
+![Update domain - Remove billing/proxy contact][epp-update-domain-remove-contact]
 
 ## check host
 
