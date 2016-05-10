@@ -754,7 +754,7 @@ In addition it will be extended with DNSSEC management capabilities.
 
 The command will be evaluated as an atomic command, even though it is dispatched to several sub-commands.
 
-![Diagram of EPP proces for EPP udpate domain][epp-update-domain]
+![Diagram of EPP proces for EPP update domain][epp-update-domain]
 
 The requirements for the command to commence with processing it that the following data are available:
 
@@ -1346,7 +1346,7 @@ More information and documentation on the pre-activation service is available at
 
 [epp-address-resolution]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp-address-resolution.png
 
-[epp-update-domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_renew_domain_v1/images/epp_update_domain_v1.0.png
+[epp-update-domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/epp_update_domain_v1.0.png
 
 [XSD files]: https://github.com/DK-Hostmaster/epp-xsd-files
 
