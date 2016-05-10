@@ -879,6 +879,11 @@ The command might be blocked and the status code: `serverUpdateProhibited` is re
 
 The change of registrant is a *special* command, it results in all privileges and rights being transferred to another entity. Normally a registrar would not have the privileges to make such a request.
 
+If a domain is not eligeble for this update `2304` is returned with a status code indicating the reason: 
+
+- `serverUpdateProhibited` for policy domain policy
+- `clientUpdateProhibited` for service domain lock (VID)
+
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -1533,7 +1538,7 @@ More information and documentation on the pre-activation service is available at
 
 [epp-update-domain-remove-ns]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/epp_update_domain_remove_ns_v1.0.png
 
-[epp-update-domain-change-registrant]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/epp_update_domain_change_registrant_v1.0.png
+[epp-update-domain-change-registrant]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/epp_update_domain_change_registrant_v1.1.png
 
 [XSD files]: https://github.com/DK-Hostmaster/epp-xsd-files
 
