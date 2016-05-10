@@ -898,6 +898,8 @@ The change of registrant is a *special* command, it results in all privileges an
 </epp>
 ```
 
+![Update domain - Change registrant][epp-update-domain-change-registrant]
+
 ### add nameserver
 
 The addition of a new nameserver to a domain name or a re-delegation requires that the new nameserver must offer resolution for the domain name in question.
@@ -1529,6 +1531,7 @@ More information and documentation on the pre-activation service is available at
 
 [epp-update-domain-remove-ns]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/epp_update_domain_remove_ns_v1.0.png
 
+[epp-update-domain-change-registrant]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/epp_update_domain_change_registrant_v1.0.png
 
 [XSD files]: https://github.com/DK-Hostmaster/epp-xsd-files
 
