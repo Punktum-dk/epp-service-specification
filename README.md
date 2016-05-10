@@ -814,7 +814,7 @@ When the command succeeds either `1000` or `1001` is returned the latter if one 
 
 Please see the below sections for details on the different sub-commands.
 
-The command might be blocked and the status code: `serverUpdateProhibited` is returned indicating that an update is not possible. The status code `clientUpdateProhibited` will be returned if the issued update request cannot be fullfilled due to a domain lock with the registry. See also [ICANN description]([ICANN description](https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en/) of status.
+The command might be blocked and the status code: `serverUpdateProhibited` is returned indicating that an update is not possible. The status code `clientUpdateProhibited` will be returned if the issued update request cannot be fullfilled due to a domain lock with the registry. See also [ICANN description]([ICANN description](https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en/) of status codes.
 
 ### update domain request:
 
