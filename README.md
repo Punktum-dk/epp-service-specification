@@ -38,6 +38,7 @@ Revision: 1.9
   - [Waiting List](#waiting-list)
   - [Information Disclosure](#information-disclosure)
   - [Encoding and IDN domains](#encoding-and-idn-domains)
+  - [DNSSEC management for a domain](#dnssec-management-for-a-domain)
 - [Supported Object Transform and Query Commands](#supported-object-transform-and-query-commands)
   - [hello and greeting](#hello-and-greeting)
   - [login](#login)
@@ -46,6 +47,7 @@ Revision: 1.9
   - [create domain](#create-domain)
   - [check domain](#check-domain)
   - [info domain](#info-domain)
+  - [update domain](#update-domain)
   - [check host](#check-host)
   - [info host](#info-host)
   - [create contact](#create-contact)
@@ -290,6 +292,7 @@ The current implementation is limited to the following list of commands:
 * info (contact/domain/host)
 * check (contact/domain/host)
 * create (contact/domain)
+* update (domain)
 
 All commands will be described in detail below.
 
@@ -297,7 +300,7 @@ All commands will be described in detail below.
 
 The following commands have not been implemented in the service described in this specification:
 
-* update (contact/domain/host)
+* update (contact/host)
 * delete (contact/domain/host)
 * transfer (contact/domain)
 * renew
@@ -339,6 +342,10 @@ Please note that some information is not disclosed when using Object Query Comma
 ## Encoding and IDN domains
 
 The danish registry supports IDN domain names and the EPP commands support punycode notation for this in requests. We do however not support punycode notation in responses at this time.
+
+## DNSSEC management for a domain
+
+The update domain command does not support DNSSEC management at this time.
 
 # Supported Object Transform and Query Commands
 
@@ -728,6 +735,109 @@ This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command 
   </response>
 </epp>
 ```
+
+## update domain
+
+This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command adheres to the standard.
+
+This command covers a lot of functionality, it can complete operations such as:
+
+- change registrant for domain
+- add nameserver to domain
+- remove nameserver from domain
+- add proxy contact
+- remove proxy contact
+- add payer contact
+- remove payer contact
+
+In addition it will be extended with DNSSEC management capabilities.
+
+The command will be evaluated as an atomic command, even though it is dispatched to several sub-commands.
+
+![Diagram of EPP proces for EPP udpate domain][epp-update-domain]
+
+The requirements for the command to commence with processing it that the following data are available:
+
+- a valid domain name
+- a sub-command, consisting of either
+  - add (`add`)
+  - change (`chg`)
+  - remove (`rem`)
+
+If the request is not parsable the service responds with a `2005`.
+
+If the command is parsable, the command is separated into one of more of the following sub-commands:
+
+- add nameserver
+- add proxy contact
+- add billing contact
+- change registrant
+- remove nameserver
+- remove proxy contact
+- remove billing contact
+
+The commands are then executed sequentially (order is inconsequential) as a single transaction. If a single sub-command fails, the transaction is rolled-back and the relevant error code is returned (`2XXX`).
+
+When the command succeeds either `1000` or `1001` is returned the latter if one of the operations initiated by the sub-command require additional actions to be taken, `1001` will have precedence over `1000`.
+
+### update domain request:
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <update>
+      <domain:update
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>example.dk</domain:name>
+        <domain:add>
+          <domain:ns>
+            <domain:hostObj>ns2.example.com</domain:hostObj>
+          </domain:ns>
+          <domain:contact type="tech">mak21</domain:contact>
+          <domain:status s="clientHold"
+           lang="en">Payment overdue.</domain:status>
+        </domain:add>
+        <domain:rem>
+          <domain:ns>
+            <domain:hostObj>ns1.example.com</domain:hostObj>
+          </domain:ns>
+          <domain:contact type="tech">sh8013</domain:contact>
+          <domain:status s="clientUpdateProhibited"/>
+        </domain:rem>
+        <domain:chg>
+          <domain:registrant>sh8013</domain:registrant>
+          <domain:authInfo>
+            <domain:pw>2BARfoo</domain:pw>
+          </domain:authInfo>
+        </domain:chg>
+      </domain:update>
+    </update>
+    <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>
+```
+
+*Example lifted from RFC:5731, will be exchanged*
+
+### update domain response:
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:paramxml:nepp-1.0">
+  <response>
+    <result code="1000">
+      <msg>Command completed successfully</msg>
+    </result>
+    <trID>
+      <clTRID>ABC-12345</clTRID>
+      <svTRID>54321-XYZ</svTRID>
+    </trID>
+  </response>
+</epp>
+```
+
+*Example lifted from RFC:5731, will be exchanged*
 
 ## check host
 
@@ -1235,6 +1345,8 @@ More information and documentation on the pre-activation service is available at
 [epp-role-mapping]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp-role-resolution.png
 
 [epp-address-resolution]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp-address-resolution.png
+
+[epp-update-domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_renew_domain_v1/images/epp_update_domain_v1.0.png
 
 [XSD files]: https://github.com/DK-Hostmaster/epp-xsd-files
 
