@@ -810,9 +810,11 @@ If the command is parsable, the command is separated into one of more of the fol
 
 The commands are then executed sequentially (order is inconsequential) as a single transaction. If a single sub-command fails, the transaction is rolled-back and the relevant error code is returned (`2XXX`).
 
-When the command succeeds either `1000` or `1001` is returned the latter if one of the operations initiated by the sub-command require additional actions to be taken, `1001` will have precedence over `1000`.
+When the command succeeds either `1000` or `1001` is returned the latter if one of the operations initiated by the sub-command require additional actions to be taken, `1001` will have precedence over `1000`. If a `1001` is returned the status code `pendingUpdate` might be set if an additional **update domain** command is issued.
 
 Please see the below sections for details on the different sub-commands.
+
+The command might be blocked and the status code: `serverUpdateProhibited` is returned indicating that an update is not possible. The status code `clientUpdateProhibited` will be returned if the issued update request cannot be fullfilled due to a domain lock with the registry. See also [ICANN description]([ICANN description](https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en/) of status.
 
 ### update domain request:
 
@@ -860,7 +862,7 @@ Please see the below sections for details on the different sub-commands.
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:paramxml:nepp-1.0">
   <response>
-    <result code="1000">
+    <result code="1001">
       <msg>Command completed successfully</msg>
     </result>
     <trID>
