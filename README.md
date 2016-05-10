@@ -818,7 +818,7 @@ When the command succeeds either `1000` or `1001` is returned the latter if one 
 </epp>
 ```
 
-*Example lifted from RFC:5731, will be exchanged*
+*Example lifted from [RFC 5731][RFC5731], will be exchanged*
 
 ### update domain response:
 
@@ -837,7 +837,7 @@ When the command succeeds either `1000` or `1001` is returned the latter if one 
 </epp>
 ```
 
-*Example lifted from RFC:5731, will be exchanged*
+*Example lifted from [RFC 5731][RFC5731], will be exchanged*
 
 ## check host
 
