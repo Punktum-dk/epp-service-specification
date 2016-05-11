@@ -777,10 +777,10 @@ This command covers a lot of functionality, it can complete operations such as:
 - change registrant for domain
 - add nameserver to domain
 - remove nameserver from domain
-- add proxy contact
-- remove proxy contact
-- add payer contact
-- remove payer contact
+- add admin contact
+- remove admin contact
+- add billing contact
+- remove billing contact
 
 In addition it will be extended with DNSSEC management capabilities.
 
@@ -801,11 +801,11 @@ If the request is not parsable the service responds with a `2005`.
 If the command is parsable, the command is separated into one of more of the following sub-commands:
 
 - add nameserver
-- add proxy contact
+- add admin contact
 - add billing contact
 - change registrant
 - remove nameserver
-- remove proxy contact
+- remove admin contact
 - remove billing contact
 
 The commands are then executed sequentially (order is inconsequential) as a single transaction. If a single sub-command fails, the transaction is rolled-back and the relevant error code is returned (`2XXX`).
@@ -966,7 +966,7 @@ Since the update domain command can contain several sub-commands, this could be 
 
 The addition of a new contact has to adhere to some policies.
 
-1. If the contact is the proxy, only the billing role can be added
+1. If the contact is the admin, only the billing role can be added
 2. If the authenticated user is a registrar only billing can be added
 3. The new contact is requested to accept the role, so the operation is asynchronous
 
@@ -990,14 +990,14 @@ Additing new users require special privileges, currently only with the registran
 </epp>
 ```
 
-![Update domain - Add billing/proxy contact][epp-update-domain-add-contact]
+![Update domain - Add billing/admin contact][epp-update-domain-add-contact]
 
 ### remove contact
 
-The removal of a existing contact is possible for both billing and proxy contacts.
+The removal of a existing contact is possible for both billing and admin contacts.
 
-1. If the contact is the proxy, both billing and proxy roles can be removed
-2. The proxy can add a new billing role (see above)
+1. If the contact is the admin, both billing and admin roles can be removed
+2. The admin can add a new billing role (see above)
 3. If no addition the role defaults to the registrant becoming the inhabitant of the role, no request is made, the registrant is only informed of the change out of band
 
 
@@ -1019,7 +1019,7 @@ The removal of a existing contact is possible for both billing and proxy contact
 </epp>
 ```
 
-![Update domain - Remove billing/proxy contact][epp-update-domain-remove-contact]
+![Update domain - Remove billing/admin contact][epp-update-domain-remove-contact]
 
 ## check host
 
