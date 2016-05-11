@@ -1086,6 +1086,8 @@ Please note that the email address (`contact:email`) is masked and the value: `a
 
 ## update contact
 
+This part of the EPP protocol is described in [RFC 5733][RFC5733]. This command adheres to the standard.
+
 ### update contact request:
 
 ```XML
@@ -1147,6 +1149,10 @@ Please note that the email address (`contact:email`) is masked and the value: `a
 
 ## delete contact
 
+**This command will not be implemented at this time.**
+
+The deletion of contact objects is handled automatically by DK Hostmaster at this time.
+
 ### delete contact request:
 
 ```XML
@@ -1170,8 +1176,8 @@ Please note that the email address (`contact:email`) is masked and the value: `a
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
   <response>
-    <result code="1000">
-      <msg>Command completed successfully</msg>
+    <result code="2101">
+      <msg>Unimplemented command</msg>
     </result>
     <trID>
       <clTRID>ABC-12345</clTRID>
