@@ -860,7 +860,7 @@ The command might be blocked and the status code: `serverUpdateProhibited` is re
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:paramxml:nepp-1.0">
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
   <response>
     <result code="1001">
       <msg>Command completed successfully</msg>
