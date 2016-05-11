@@ -875,7 +875,7 @@ As for update domain `1001` holds higher precendence than `1000`, so if any of t
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:paramxml:nepp-1.0">
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
   <response>
     <result code="1001">
       <msg>Command completed successfully; action pending</msg>
@@ -919,7 +919,7 @@ As for update domain `1001` holds higher precendence than `1000`, so if any of t
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:paramxml:nepp-1.0">
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
   <response>
     <result code="1000">
       <msg>Command completed successfully</msg>
@@ -980,7 +980,7 @@ As for update domain `1001` holds higher precendence than `1000`, so if any of t
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:paramxml:nepp-1.0">
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
   <response>
     <result code="1001">
       <msg>Command completed successfully; action pending</msg>
@@ -1022,7 +1022,7 @@ As for update domain `1001` holds higher precendence than `1000`, so if any of t
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:paramxml:nepp-1.0">
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
   <response>
     <result code="1000">
       <msg>Command completed successfully</msg>
@@ -1067,7 +1067,7 @@ The deletion of a host object can only be requested by the adminstrator.
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:paramxml:nepp-1.0">
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
   <response>
     <result code="1000">
       <msg>Command completed successfully</msg>
