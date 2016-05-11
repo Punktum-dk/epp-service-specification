@@ -51,6 +51,8 @@ Revision: 1.9
   - [create contact](#create-contact)
   - [check contact](#check-contact)
   - [info contact](#info-contact)
+  - [update contact](#update-contact)
+  - [delete contact](#delete-contact)
 - [Data Collection Policy](#data-collection-policy)
   - [Access](#access)
   - [Purpose Statement](#purpose-statement)
@@ -1077,6 +1079,103 @@ Please note that the email address (`contact:email`) is masked and the value: `a
     <trID>
       <clTRID>76edfef5b78cdaefe8fb426eb8d74b75</clTRID>
       <svTRID>C8C5E496-9CC8-11E4-9F91-D0BF2AC2711D</svTRID>
+    </trID>
+  </response>
+</epp>
+```
+
+## update contact
+
+### update contact request:
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <update>
+      <contact:update
+       xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
+        <contact:id>sh8013</contact:id>
+        <contact:add>
+          <contact:status s="clientDeleteProhibited"/>
+        </contact:add>
+        <contact:chg>
+          <contact:postalInfo type="int">
+            <contact:org/>
+            <contact:addr>
+              <contact:street>124 Example Dr.</contact:street>
+              <contact:street>Suite 200</contact:street>
+              <contact:city>Dulles</contact:city>
+              <contact:sp>VA</contact:sp>
+              <contact:pc>20166-6503</contact:pc>
+              <contact:cc>US</contact:cc>
+            </contact:addr>
+          </contact:postalInfo>
+          <contact:voice>+1.7034444444</contact:voice>
+          <contact:fax/>
+          <contact:authInfo>
+            <contact:pw>2fooBAR</contact:pw>
+          </contact:authInfo>
+          <contact:disclose flag="1">
+            <contact:voice/>
+            <contact:email/>
+          </contact:disclose>
+        </contact:chg>
+      </contact:update>
+    </update>
+    <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>
+```
+
+### update contact response:
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <response>
+    <result code="1000">
+      <msg>Command completed successfully</msg>
+    </result>
+    <trID>
+      <clTRID>ABC-12345</clTRID>
+      <svTRID>54321-XYZ</svTRID>
+    </trID>
+  </response>
+</epp>
+```
+
+## delete contact
+
+### delete contact request:
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <delete>
+      <contact:delete
+       xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
+        <contact:id>sh8013</contact:id>
+      </contact:delete>
+    </delete>
+    <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>
+```
+
+### delete contact response:
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:paramxml:nepp-1.0">
+  <response>
+    <result code="1000">
+      <msg>Command completed successfully</msg>
+    </result>
+    <trID>
+      <clTRID>ABC-12345</clTRID>
+      <svTRID>54321-XYZ</svTRID>
     </trID>
   </response>
 </epp>
