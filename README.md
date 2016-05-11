@@ -29,6 +29,7 @@ Revision: 1.9
   - [`dkhm:domain_confirmed`](#dkhmdomain_confirmed)
   - [`dkhm:contact_validated`](#dkhmcontact_validated)
   - [`dkhm:registrant_validated`](#dkhmregistrant_validated)
+  - [`dkhm:requestedNsAdmin`](#dkhmrequestednsadmin)
 - [Implementation Limitations](#implementation-limitations)
   - [Commands](#commands)
   - [Unimplemented commands](#unimplemented-commands)
@@ -231,6 +232,7 @@ Here follows a listed, the extensions are described separately and in detail bel
 * `dkhm:domain_confirmed`
 * `dkhm:contact_validated`
 * `dkhm:registrant_validated`
+* `dkhm:requestedNsAdmin`
 
 ## `dkhm:userType`
 
@@ -277,6 +279,10 @@ Contact objects related to the role of registrant has to be validated, this fiel
 As described above, contact objects related to the role of registrant has to be validated, this field is used to indicate the status of a validation object via the create domain command.
 
 See also `contact_validated`.
+
+## `dkhm:requestedNsAdmin`
+
+The extension is used for update and create host, where it is possible to request another nameserver administrator than the authenticated user.
 
 # Implementation Limitations
 
@@ -836,6 +842,59 @@ The command can be used in two scenarios:
 1. The command is used as described in the RFC and the authenticated user is appointed as administrator for the nameserver created
 2. The command is extended with a contact object pointing to an existing user, which is requested to take the role as nameserver administrator for the host object requested created
 
+- If the authenticated user does not hold the privilege to create a host object: `2201` is returned
+- If the create host command involves a request of administrative privilege as described above `1001` is returned, since we require accept of the request user entity
+- Upon successfull update as described in scenario 1 above `1000` is returned
+
+As for update domain `1001` holds higher precendence than `1000`, so if any of the sub-commands require additional review and are _pending_, the return code will be `1001`.
+
+### create host request, with request to new admin:
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <create>
+      <host:create
+       xmlns:host="urn:ietf:params:xml:ns:host-1.0">
+        <host:name>ns1.eksempel.dk</host:name>
+        <host:addr ip="v4">192.0.2.2</host:addr>
+        <host:addr ip="v4">192.0.2.29</host:addr>
+        <host:addr ip="v6">1080:0:0:0:8:800:200417A</host:addr>
+      </host:create>
+    </create>
+    <clTRID>ABC-12345</clTRID>
+    <extension>
+      <dkhm:requestedNsAdmin xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.5">ADMIN2-DK</dkhm:requestedNsAdmin>
+    </extension>
+  </command>
+</epp>
+```
+
+### create host response, with request to new admin:
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:paramxml:nepp-1.0">
+  <response>
+    <result code="1001">
+      <msg>Command completed successfully; action pending</msg>
+    </result>
+    <resData>
+      <host:creData
+       xmlnhost="urn:ietf:paramxml:nhost-1.0">
+        <host:name>ns1.eksempel.dk</host:name>
+        <host:crDate>1999-04-03T22:00:00.0Z</host:crDate>
+      </host:creData>
+    </resData>
+    <trID>
+      <clTRID>ABC-12345</clTRID>
+      <svTRID>54322-XYZ</svTRID>
+    </trID>
+  </response>
+</epp>
+```
+
 ### create host request:
 
 ```XML
@@ -911,7 +970,7 @@ As for update domain `1001` holds higher precendence than `1000`, so if any of t
     </update>
     <clTRID>ABC-12345</clTRID>
     <extension>
-      <dkhm:nsAdmin xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.5">ADMIN2-DK</dkhm:nsAdmin>
+      <dkhm:requestedNsAdmin xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.5">ADMIN2-DK</dkhm:requestedNsAdmin>
     </extension>    
   </command>
 </epp>
