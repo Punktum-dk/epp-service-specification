@@ -845,7 +845,7 @@ The command can be used in two scenarios:
     <create>
       <host:create
        xmlns:host="urn:ietf:params:xml:ns:host-1.0">
-        <host:name>ns1.example.com</host:name>
+        <host:name>ns1.eksempel.dk</host:name>
         <host:addr ip="v4">192.0.2.2</host:addr>
         <host:addr ip="v4">192.0.2.29</host:addr>
         <host:addr ip="v6">1080:0:0:0:8:800:200417A</host:addr>
@@ -868,7 +868,7 @@ The command can be used in two scenarios:
     <resData>
       <host:creData
        xmlnhost="urn:ietf:paramxml:nhost-1.0">
-        <host:name>ns1.example.com</host:name>
+        <host:name>ns1.eksempel.dk</host:name>
         <host:crDate>1999-04-03T22:00:00.0Z</host:crDate>
       </host:creData>
     </resData>
@@ -889,7 +889,15 @@ The command can be used in two scenarios:
 1. The command is used as described in the RFC and IP adresses can be administered
 2. The command is extended with a contact object pointing to an existing user, which is requested to takeover the role as nameserver administrator for the host object requested updated
 
-### update host request:
+The update of a host object can only be requested by the adminstrator of the given host.
+
+- If the authenticated user does not hold the privilege to update the host object: `2201` is returned
+- If the update host command involves a transfer of administrative privilege as described above `1001` is returned, since we require accept of the request user entity
+- Upon successfull update as described in scenario 1 above `1000` is returned
+
+As for update domain `1001` holds higher precendence than `1000`, so if any of the sub-commands require additional review and are _pending_, the return code will be `1001`.
+
+### update host request, with request to new admin:
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -898,7 +906,42 @@ The command can be used in two scenarios:
     <update>
       <host:update
        xmlns:host="urn:ietf:params:xml:ns:host-1.0">
-        <host:name>ns1.example.com</host:name>
+        <host:name>ns1.eksempel.dk</host:name>
+      </host:update>
+    </update>
+    <clTRID>ABC-12345</clTRID>
+    <extension>
+      <dkhm:nsAdmin xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.5">ADMIN2-DK</dkhm:nsAdmin>
+    </extension>    
+  </command>
+</epp>
+```
+
+### update host response, with request to new admin:
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:paramxml:nepp-1.0">
+  <response>
+    <result code="1001">
+      <msg>Command completed successfully; action pending</msg>
+    </result>
+    <trID>
+      <clTRID>ABC-12345</clTRID>
+      <svTRID>54321-XYZ</svTRID>
+    </trID>
+  </response>
+</epp>
+```
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <update>
+      <host:update
+       xmlns:host="urn:ietf:params:xml:ns:host-1.0">
+        <host:name>ns1.eksempel.dk</host:name>
         <host:add>
           <host:addr ip="v4">192.0.2.22</host:addr>
           <host:status s="clientUpdateProhibited"/>
@@ -907,7 +950,7 @@ The command can be used in two scenarios:
           <host:addr ip="v6">1080:0:0:0:8:800:200417A</host:addr>
         </host:rem>
         <host:chg>
-          <host:name>ns2.example.com</host:name>
+          <host:name>ns2.eksempel.dk</host:name>
         </host:chg>
       </host:update>
     </update>
@@ -916,7 +959,7 @@ The command can be used in two scenarios:
 </epp>
 ```
 
-### update host response:
+### update host response, with request to new admin:
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -933,9 +976,16 @@ The command can be used in two scenarios:
 </epp>
 ```
 
+
 ## delete host
 
 This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard.
+
+The deletion of a host object can only be requested by the adminstrator.
+
+- If the authenticated user does not hold the privilege to delete the host object: `2201` is returned
+- If the host object is still associated with domain names: `2305` is returned
+- Upon success `1000` is returned
 
 ### delete host request:
 
@@ -946,7 +996,7 @@ This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command 
     <delete>
       <host:delete
        xmlns:host="urn:ietf:params:xml:ns:host-1.0">
-        <host:name>ns1.example.com</host:name>
+        <host:name>ns1.eksempel.dk</host:name>
       </host:delete>
     </delete>
     <clTRID>ABC-12345</clTRID>
