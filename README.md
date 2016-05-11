@@ -1552,13 +1552,13 @@ More information and documentation on the pre-activation service is available at
 | info host | | :white_check_mark: | | | :white_check_mark: |
 | check host | | :white_check_mark: | | | :white_check_mark: |
 
-\*1 as registrar
-\*2 see sub-commands
-\*3 request to new billing contact
-\*4 defaults to registrant
-\*5 request to to registrant and new admin contact
-\*6 request to registrant
-\*7 only own profile
+- \*1 as registrar
+- \*2 see sub-commands
+- \*3 request to new billing contact
+- \*4 defaults to registrant
+- \*5 request to to registrant and new admin contact
+- \*6 request to registrant
+- \*7 only own profile
 
 [General Terms and Conditions]: https://www.dk-hostmaster.dk/fileadmin/filer/pdf/generelle_vilkaar/general-conditions.pdf
 
