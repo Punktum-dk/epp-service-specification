@@ -48,6 +48,9 @@ Revision: 1.9
   - [info domain](#info-domain)
   - [check host](#check-host)
   - [info host](#info-host)
+  - [create host](#create-host)
+  - [update host](#update-host)
+  - [delete host](#delete-host)
   - [create contact](#create-contact)
   - [check contact](#check-contact)
   - [info contact](#info-contact)
@@ -297,11 +300,10 @@ All commands will be described in detail below.
 
 The following commands have not been implemented in the service described in this specification:
 
-* update (contact/domain/host)
-* delete (contact/domain/host)
+* update (contact/domain)
+* delete (contact/domain)
 * transfer (contact/domain)
 * renew
-* create host
 
 The above commands was pulled out of scope, because the overall and primary goal of version 1, is to implement a standardised replacement for the existing [SMTP based form][Current domain registration form].
 
@@ -820,6 +822,150 @@ Please note that according to the RFC [section 3.1.2][RFC5732-3.1.2], the `CLID`
     <trID>
       <clTRID>c109ef580c81dfca17b4680ddcde72c9</clTRID>
       <svTRID>0C96C812-F6F6-11E3-867F-A6B052036DCB</svTRID>
+    </trID>
+  </response>
+</epp>
+```
+
+## create host
+
+This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard, but is extended to service one special usage scenario. 
+
+The command can be used in two scenarios:
+
+1. The command is used as described in the RFC and the authenticated user is appointed as administrator for the nameserver created
+2. The command is extended with a contact object pointing to an existing user, which is requested to take the role as nameserver administrator for the host object requested created
+
+### create host request:
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <create>
+      <host:create
+       xmlns:host="urn:ietf:params:xml:ns:host-1.0">
+        <host:name>ns1.example.com</host:name>
+        <host:addr ip="v4">192.0.2.2</host:addr>
+        <host:addr ip="v4">192.0.2.29</host:addr>
+        <host:addr ip="v6">1080:0:0:0:8:800:200417A</host:addr>
+      </host:create>
+    </create>
+    <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>
+```
+
+### create host response:
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:paramxml:nepp-1.0">
+  <response>
+    <result code="1000">
+      <msg>Command completed successfully</msg>
+    </result>
+    <resData>
+      <host:creData
+       xmlnhost="urn:ietf:paramxml:nhost-1.0">
+        <host:name>ns1.example.com</host:name>
+        <host:crDate>1999-04-03T22:00:00.0Z</host:crDate>
+      </host:creData>
+    </resData>
+    <trID>
+      <clTRID>ABC-12345</clTRID>
+      <svTRID>54322-XYZ</svTRID>
+    </trID>
+  </response>
+</epp>
+```
+
+## update host
+
+This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard, but is extended to service one special usage scenario. 
+
+The command can be used in two scenarios:
+
+1. The command is used as described in the RFC and IP adresses can be administered
+2. The command is extended with a contact object pointing to an existing user, which is requested to takeover the role as nameserver administrator for the host object requested updated
+
+### update host request:
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <update>
+      <host:update
+       xmlns:host="urn:ietf:params:xml:ns:host-1.0">
+        <host:name>ns1.example.com</host:name>
+        <host:add>
+          <host:addr ip="v4">192.0.2.22</host:addr>
+          <host:status s="clientUpdateProhibited"/>
+        </host:add>
+        <host:rem>
+          <host:addr ip="v6">1080:0:0:0:8:800:200417A</host:addr>
+        </host:rem>
+        <host:chg>
+          <host:name>ns2.example.com</host:name>
+        </host:chg>
+      </host:update>
+    </update>
+    <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>
+```
+
+### update host response:
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:paramxml:nepp-1.0">
+  <response>
+    <result code="1000">
+      <msg>Command completed successfully</msg>
+    </result>
+    <trID>
+      <clTRID>ABC-12345</clTRID>
+      <svTRID>54321-XYZ</svTRID>
+    </trID>
+  </response>
+</epp>
+```
+
+## delete host
+
+This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard.
+
+### delete host request:
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <delete>
+      <host:delete
+       xmlns:host="urn:ietf:params:xml:ns:host-1.0">
+        <host:name>ns1.example.com</host:name>
+      </host:delete>
+    </delete>
+    <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>
+```
+
+### delete host response:
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:paramxml:nepp-1.0">
+  <response>
+    <result code="1000">
+      <msg>Command completed successfully</msg>
+    </result>
+    <trID>
+      <clTRID>ABC-12345</clTRID>
+      <svTRID>54321-XYZ</svTRID>
     </trID>
   </response>
 </epp>

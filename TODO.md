@@ -1,6 +1,4 @@
-TODO for the  DK Hostmaster EPP Service Specification
+TODO for epp_nameserver_admin_v1 branch of the DK Hostmaster EPP Service Specification
 
-- [ ] Updated examples to reflect XSD 1.4
-- [ ] Evaluate "Offline Review of Requested Actions" in [RFC:5731](https://tools.ietf.org/html/rfc5731#section-3.3)
-- [ ] Activate more links
-- [ ] Add diagrams for already implemented commands and processes
+- [ ] Add diagrams for commands and processes
+- [ ] Add more information on extensions required
