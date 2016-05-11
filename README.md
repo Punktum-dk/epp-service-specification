@@ -1088,6 +1088,8 @@ Please note that the email address (`contact:email`) is masked and the value: `a
 
 This part of the EPP protocol is described in [RFC 5733][RFC5733]. This command adheres to the standard.
 
+![Diagram of EPP update contact][epp-update-contact]
+
 ### update contact request:
 
 ```XML
@@ -1336,6 +1338,8 @@ More information and documentation on the pre-activation service is available at
 ```
 
 [General Terms and Conditions]: https://www.dk-hostmaster.dk/fileadmin/filer/pdf/generelle_vilkaar/general-conditions.pdf
+
+[epp-update-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_contact_admin_v1/images/epp_update_contact_v1.png
 
 [epp-role-mapping]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp-role-resolution.png
 
