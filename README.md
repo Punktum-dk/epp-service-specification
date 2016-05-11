@@ -96,6 +96,7 @@ Revision: 1.9
   - [Pre-activation Service](#pre-activation-service)
 - [Appendices](#appendices)
   - [Greeting](#greeting)
+  - [Privilege Matrix](#privilege-matrix)
 
 <!-- /MarkdownTOC -->
 
@@ -1521,6 +1522,35 @@ More information and documentation on the pre-activation service is available at
     </greeting>
 </epp>
 ```
+
+## Privilege Matrix
+
+| Command       | Sub-command | Registrar | Domain admin | Domain billing | Nameserver admin | Note |
+| ------------- | -- | :-------: | :----------: | :------------: | :--------------: | ---- |
+| login         | | :white_check_mark: | :white_check_mark: *1 | :white_check_mark: *1 | :white_check_mark: | *1 as registrar | 
+| create domain | | :white_check_mark: |   |   |   | |
+| update domain | |   | :white_check_mark: *2 |   | :white_check_mark: *2 | *2 see sub-commands |
+| | add billing  | | :white_check_mark: *3 |  |  | *3 request to new billing contact |
+| | remove billing  | | :white_check_mark: *3 |   | :white_check_mark: *4 | *4 defaults to registrant
+| | add admin  | | :white_check_mark: *5 |   | | * 5 request to to registrant and new admin contact
+| | remove admin  | | :white_check_mark: *4 |   |  | |
+| | change registrant  | | :white_check_mark: *6 |   |  | * 6 request to registrant |
+| | add nameserver  | | :white_check_mark: *6 |   | :white_check_mark: *6 | |
+| | remove nameserver  | | :white_check_mark: *6 |   | :white_check_mark: *6 | |
+| renew domain | | :white_check_mark: |   | :white_check_mark: |  | |
+| delete domain | |   | :white_check_mark: *6 |   |   | |
+| info domain | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | |
+| check domain | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | |
+| create contact | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | |
+| update contact | | :white_check_mark: *7 | | | :white_check_mark: *7 | *7 only own profile |
+| delete contact | | | | | | |
+| info contact | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | |
+| check contact | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | |
+| create host | | :white_check_mark: |   |   | :white_check_mark: | |
+| update host | |   |   |   | :white_check_mark: | |
+| delete host | |   |   |   | :white_check_mark: | |
+| info host | | :white_check_mark: |   |   | :white_check_mark: | |
+| check host | | :white_check_mark: |   |   | :white_check_mark: | |
 
 [General Terms and Conditions]: https://www.dk-hostmaster.dk/fileadmin/filer/pdf/generelle_vilkaar/general-conditions.pdf
 
