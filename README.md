@@ -1527,7 +1527,6 @@ More information and documentation on the pre-activation service is available at
 
 | Command | Sub-command | Registrar | Domain admin | Domain billing | Nameserver admin |
 | --- | --- |:---:|:---:|:---:|:---:|
-
 | login         | | :white_check_mark: | :white_check_mark: \*1 | :white_check_mark: \*1 | :white_check_mark: |
 
 | create domain | | :white_check_mark: |   |   |   |
