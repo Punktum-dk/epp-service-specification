@@ -9,6 +9,7 @@ Revision: 1.10 _currently being edited_
 
 - [Introduction](#introduction)
   - [About this Document](#about-this-document)
+  - [License](#license)
   - [Document History](#document-history)
 - [The .dk Registry in Brief](#the-dk-registry-in-brief)
 - [EPP in Brief](#epp-in-brief)
@@ -86,6 +87,10 @@ This document is owned and maintained by DK Hostmaster A/S and must not be distr
 All examples provided in the document are fabricated or changed from real data to demonstrate commands etc. any resemblence to actual data are coincidental.
 
 Printable version can be obtained via [this link](https://gitprint.com/DK-Hostmaster/epp-service-specification/blob/master/README.md), using the gitprint service.
+
+## License
+
+This document is copyright by DK Hostmaster A/S and is licensed under the MIT License, please see the separate LICENSE file for details.
 
 ## Document History
 
