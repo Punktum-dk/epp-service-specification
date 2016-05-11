@@ -1527,19 +1527,18 @@ More information and documentation on the pre-activation service is available at
 
 | Command | Sub-command | Registrar | Domain admin | Domain billing | Nameserver admin |
 | --- | --- |:---:|:---:|:---:|:---:|
-| login         | | :white_check_mark: | :white_check_mark: \*1 | :white_check_mark: \*1 | :white_check_mark: |
-
-| create domain | | :white_check_mark: |   |   |   |
-| update domain | |   | :white_check_mark: \*2 |   | :white_check_mark: \*2 |
-| | add billing  | | :white_check_mark: \*3 |  |  |
-| | remove billing  | | :white_check_mark: \*3 |   | :white_check_mark: \*4 |
-| | add admin  | | :white_check_mark: \*5 |   | |
-| | remove admin  | | :white_check_mark: *4 |   |  |
-| | change registrant  | | :white_check_mark: \*6 |   |  |
-| | add nameserver  | | :white_check_mark: \*6 |   | :white_check_mark: \*6 |
-| | remove nameserver  | | :white_check_mark: \*6 |   | :white_check_mark: \*6 |
-| renew domain | | :white_check_mark: |   | :white_check_mark: | |
-| delete domain | |   | :white_check_mark: \*6 |   |   |
+| login | | :white_check_mark: | :white_check_mark: \*1 | :white_check_mark: \*1 | :white_check_mark: |
+| create domain | | :white_check_mark: | | | |
+| update domain | | | :white_check_mark: \*2 | | :white_check_mark: \*2 |
+| | add billing | | :white_check_mark: \*3 | | |
+| | remove billing | | :white_check_mark: \*3 | | :white_check_mark: \*4 |
+| | add admin | | :white_check_mark: \*5 | | |
+| | remove admin | | :white_check_mark: *4 | | |
+| | change registrant | | :white_check_mark: \*6 | | |
+| | add nameserver | | :white_check_mark: \*6 | | :white_check_mark: \*6 |
+| | remove nameserver | | :white_check_mark: \*6 | | :white_check_mark: \*6 |
+| renew domain | | :white_check_mark: | | :white_check_mark: | |
+| delete domain | | | :white_check_mark: \*6 | | |
 | info domain | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | check domain | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | create contact | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
@@ -1547,11 +1546,11 @@ More information and documentation on the pre-activation service is available at
 | delete contact | | | | | |
 | info contact | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | check contact | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| create host | | :white_check_mark: |   |   | :white_check_mark: |
-| update host | |   |   |   | :white_check_mark: |
-| delete host | |   |   |   | :white_check_mark: |
-| info host | | :white_check_mark: |   |   | :white_check_mark: |
-| check host | | :white_check_mark: |   |   | :white_check_mark: |
+| create host | | :white_check_mark: | | | :white_check_mark: |
+| update host | | | | | :white_check_mark: |
+| delete host | | | | | :white_check_mark: |
+| info host | | :white_check_mark: | | | :white_check_mark: |
+| check host | | :white_check_mark: | | | :white_check_mark: |
 
 \*1 as registrar
 \*2 see sub-commands
