@@ -3,4 +3,4 @@ TODO for epp_update_domain_v1 branch of the DK Hostmaster EPP Service Specificat
 - [ ] Add documentation on sub-processes
 - [ ] Clarify aspects of domain locks on processes
 - [x] Evaluate generic attribute manipulation (registration period etc)
-- [ ] Implement matrix for privileges
+- [x] Implement matrix for privileges
