@@ -1168,7 +1168,7 @@ Please note that the email address (`contact:email`) is masked and the value: `a
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:paramxml:nepp-1.0">
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
   <response>
     <result code="1000">
       <msg>Command completed successfully</msg>
