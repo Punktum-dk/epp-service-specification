@@ -944,11 +944,12 @@ Please note that according to the RFC [section 3.1.2][RFC5732-3.1.2], the `CLID`
 </epp>
 ```
 
-<<<<<<< HEAD
 <a name="create-host"></a>
 ## create host
 
 This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard, but is extended to service one special usage scenario. 
+
+![Diagram of EPP create host][epp_create_host]
 
 The command can be used in two scenarios:
 
@@ -1061,6 +1062,8 @@ As for update domain `1001` holds higher precendence than `1000`, so if any of t
 
 This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard, but is extended to service one special usage scenario. 
 
+![Diagram of EPP update host][epp_update_host]
+
 The command can be used in two scenarios:
 
 1. The command is used as described in the RFC and IP adresses can be administered
@@ -1161,6 +1164,8 @@ As for update domain `1001` holds higher precendence than `1000`, so if any of t
 ## delete host
 
 This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard.
+
+![Diagram of EPP delete host][epp_delete_host]
 
 The deletion of a host object can only be requested by the adminstrator.
 
@@ -1638,6 +1643,12 @@ More information and documentation on the pre-activation service is available at
 [epp-role-mapping]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp-role-resolution.png
 
 [epp-address-resolution]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp-address-resolution.png
+
+[epp-host-create]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/epp_create_host_v1.0.png
+
+[epp-host-update]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/epp_update_host_v1.0.png
+
+[epp-host-delete]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/epp_delete_host_v1.0.png
 
 [XSD files]: https://github.com/DK-Hostmaster/epp-xsd-files
 
