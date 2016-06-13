@@ -73,9 +73,9 @@ Revision: 1.10
     - [create host request:](#create-host-request)
     - [create host response:](#create-host-response)
   - [update host](#update-host)
-    - [update host request, with request to new admin:](#update-host-request-with-request-to-new-admin)
-    - [update host response, with request to new admin:](#update-host-response-with-request-to-new-admin)
-    - [update host response, with request to new admin:](#update-host-response-with-request-to-new-admin-1)
+    - [update host request, with request to new administrator:](#update-host-request-with-request-to-new-administrator)
+    - [update host response, with request to new administrator:](#update-host-response-with-request-to-new-administrator)
+    - [update host response, with request to new administrator:](#update-host-response-with-request-to-new-administrator-1)
   - [delete host](#delete-host)
     - [delete host request:](#delete-host-request)
     - [delete host response:](#delete-host-response)
@@ -1087,8 +1087,8 @@ As for update domain `1001` holds higher precendence than `1000`, so if any of t
 
 ![Diagram of DKH update host][dkh_update_host]
 
-<a name="update-host-request-with-request-to-new-admin"></a>
-### update host request, with request to new admin:
+<a name="update-host-request-with-request-to-new-administrator"></a>
+### update host request, with request to new administrator:
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1108,8 +1108,8 @@ As for update domain `1001` holds higher precendence than `1000`, so if any of t
 </epp>
 ```
 
-<a name="update-host-response-with-request-to-new-admin"></a>
-### update host response, with request to new admin:
+<a name="update-host-response-with-request-to-new-administrator"></a>
+### update host response, with request to new administrator:
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1151,8 +1151,8 @@ As for update domain `1001` holds higher precendence than `1000`, so if any of t
 </epp>
 ```
 
-<a name="update-host-response-with-request-to-new-admin-1"></a>
-### update host response, with request to new admin:
+<a name="update-host-response-with-request-to-new-administrator-1"></a>
+### update host response, with request to new administrator:
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
