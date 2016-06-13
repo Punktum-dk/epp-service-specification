@@ -68,8 +68,8 @@ Revision: 1.10
     - [info host request](#info-host-request)
     - [info host response](#info-host-response)
   - [create host](#create-host)
-    - [create host request, with request to new admin:](#create-host-request-with-request-to-new-admin)
-    - [create host response, with request to new admin:](#create-host-response-with-request-to-new-admin)
+    - [create host request, with request to new admininistrator:](#create-host-request-with-request-to-new-admininistrator)
+    - [create host response, with request to new admininistrator:](#create-host-response-with-request-to-new-admininistrator)
     - [create host request:](#create-host-request)
     - [create host response:](#create-host-response)
   - [update host](#update-host)
@@ -947,7 +947,7 @@ Please note that according to the RFC [section 3.1.2][RFC5732-3.1.2], the `CLID`
 <a name="create-host"></a>
 ## create host
 
-This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard, but is extended to service one special usage scenario. 
+This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard. The command can be extended to specify another nameserver administrator than the authenticated user.
 
 ![Diagram of EPP create host][epp_create_host]
 
@@ -956,14 +956,17 @@ The command can be used in two scenarios:
 1. The command is used as described in the RFC and the authenticated user is appointed as administrator for the nameserver created
 2. The command is extended with a contact object pointing to an existing user, which is requested to take the role as nameserver administrator for the host object requested created
 
+- If the host object already exist `2302` is returned
+- Zero or more IP adresses can be specified, these have to be public addresses or `2004` is returned
+- If a administrator is specified using `dkhm:requestedNsAdmin`, the specified has to exist or `2004` is returned
 - If the authenticated user does not hold the privilege to create a host object: `2201` is returned
 - If the create host command involves a request of administrative privilege as described above `1001` is returned, since we require accept of the request user entity
 - Upon successfull update as described in scenario 1 above `1000` is returned
 
 As for update domain `1001` holds higher precendence than `1000`, so if any of the sub-commands require additional review and are _pending_, the return code will be `1001`.
 
-<a name="create-host-request-with-request-to-new-admin"></a>
-### create host request, with request to new admin:
+<a name="create-host-request-with-request-to-new-admininistrator"></a>
+### create host request, with request to new admininistrator:
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -986,8 +989,8 @@ As for update domain `1001` holds higher precendence than `1000`, so if any of t
 </epp>
 ```
 
-<a name="create-host-response-with-request-to-new-admin"></a>
-### create host response, with request to new admin:
+<a name="create-host-response-with-request-to-new-admininistrator"></a>
+### create host response, with request to new admininistrator:
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1071,6 +1074,9 @@ The command can be used in two scenarios:
 
 The update of a host object can only be requested by the adminstrator of the given host.
 
+- If the host object does not exist  `2303` is returned
+- Zero or more IP adresses can be specified, these have to be public addresses or `2004` is returned
+- If a administrator is specified using `dkhm:requestedNsAdmin`, the specified has to exist or `2004` is returned
 - If the authenticated user does not hold the privilege to update the host object: `2201` is returned
 - If the update host command involves a transfer of administrative privilege as described above `1001` is returned, since we require accept of the request user entity
 - Upon successfull update as described in scenario 1 above `1000` is returned
@@ -1158,7 +1164,6 @@ As for update domain `1001` holds higher precendence than `1000`, so if any of t
   </response>
 </epp>
 ```
-
 
 <a name="delete-host"></a>
 ## delete host
