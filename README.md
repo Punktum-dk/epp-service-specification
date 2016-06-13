@@ -70,12 +70,13 @@ Revision: 1.10
   - [create host](#create-host)
     - [create host request, with request to new administrator:](#create-host-request-with-request-to-new-administrator)
     - [create host response, with request to new administrator:](#create-host-response-with-request-to-new-administrator)
+    - [Delayed create host response, with request to new administrator:](#delayed-create-host-response-with-request-to-new-administrator)
     - [create host request:](#create-host-request)
     - [create host response:](#create-host-response)
   - [update host](#update-host)
     - [update host request, with request to new administrator:](#update-host-request-with-request-to-new-administrator)
     - [update host response, with request to new administrator:](#update-host-response-with-request-to-new-administrator)
-    - [update host response, with request to new administrator:](#update-host-response-with-request-to-new-administrator-1)
+    - [Delayed update host response, with request to new administrator:](#delayed-update-host-response-with-request-to-new-administrator)
   - [delete host](#delete-host)
     - [delete host request:](#delete-host-request)
     - [delete host response:](#delete-host-response)
@@ -1016,6 +1017,43 @@ As for update domain `1001` holds higher precendence than `1000`, so if any of t
 </epp>
 ```
 
+<a name="delayed-create-host-response-with-request-to-new-administrator"></a>
+### Delayed create host response, with request to new administrator:
+
+If the creation of the host has resulting in a delayed operation, pending the designated nameserver administrator, the below example shows what a poll message for the final state of the operation looks like.
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <response>
+    <result code="1301">
+      <msg>Command completed successfully; ack to dequeue</msg>
+    </result>
+    <msgQ count="5" id="12345">
+      <qDate>1999-04-04T22:01:00.0Z</qDate>
+      <msg>Pending action completed successfully.</msg>
+    </msgQ>
+    <resData>
+      <host:panData
+       xmlns:host="urn:ietf:params:xml:ns:host-1.0">
+        <host:name paResult="1">ns1.example.com</host:name>
+        <host:paTRID>
+          <clTRID>ABC-12345</clTRID>
+          <svTRID>54322-XYZ</svTRID>
+        </host:paTRID>
+        <host:paDate>1999-04-04T22:00:00.0Z</host:paDate>
+      </host:panData>
+    </resData>
+    <trID>
+      <clTRID>BCD-23456</clTRID>
+      <svTRID>65432-WXY</svTRID>
+    </trID>
+  </response>
+</epp>
+```
+
+Please note the `paResult`, where `1` indicates accept and `0` would indicate decline.
+
 <a name="create-host-request"></a>
 ### create host request:
 
@@ -1151,23 +1189,42 @@ As for update domain `1001` holds higher precendence than `1000`, so if any of t
 </epp>
 ```
 
-<a name="update-host-response-with-request-to-new-administrator-1"></a>
-### update host response, with request to new administrator:
+<a name="delayed-update-host-response-with-request-to-new-administrator"></a>
+### Delayed update host response, with request to new administrator:
+
+If the creation of the host has resulting in a delayed operation, pending the designated nameserver administrator, the below example shows what a poll message for the final state of the operation looks like.
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
   <response>
-    <result code="1000">
-      <msg>Command completed successfully</msg>
+    <result code="1301">
+      <msg>Command completed successfully; ack to dequeue</msg>
     </result>
+    <msgQ count="5" id="12345">
+      <qDate>1999-04-04T22:01:00.0Z</qDate>
+      <msg>Pending action completed successfully.</msg>
+    </msgQ>
+    <resData>
+      <host:panData
+       xmlns:host="urn:ietf:params:xml:ns:host-1.0">
+        <host:name paResult="1">ns1.example.com</host:name>
+        <host:paTRID>
+          <clTRID>ABC-12345</clTRID>
+          <svTRID>54322-XYZ</svTRID>
+        </host:paTRID>
+        <host:paDate>1999-04-04T22:00:00.0Z</host:paDate>
+      </host:panData>
+    </resData>
     <trID>
-      <clTRID>ABC-12345</clTRID>
-      <svTRID>54321-XYZ</svTRID>
+      <clTRID>BCD-23456</clTRID>
+      <svTRID>65432-WXY</svTRID>
     </trID>
   </response>
 </epp>
 ```
+
+Please note the `paResult`, where `1` indicates accept and `0` would indicate decline.
 
 <a name="delete-host"></a>
 ## delete host
