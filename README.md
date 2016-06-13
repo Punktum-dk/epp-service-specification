@@ -68,8 +68,8 @@ Revision: 1.10
     - [info host request](#info-host-request)
     - [info host response](#info-host-response)
   - [create host](#create-host)
-    - [create host request, with request to new admininistrator:](#create-host-request-with-request-to-new-admininistrator)
-    - [create host response, with request to new admininistrator:](#create-host-response-with-request-to-new-admininistrator)
+    - [create host request, with request to new administrator:](#create-host-request-with-request-to-new-administrator)
+    - [create host response, with request to new administrator:](#create-host-response-with-request-to-new-administrator)
     - [create host request:](#create-host-request)
     - [create host response:](#create-host-response)
   - [update host](#update-host)
@@ -965,8 +965,8 @@ The command can be used in two scenarios:
 
 As for update domain `1001` holds higher precendence than `1000`, so if any of the sub-commands require additional review and are _pending_, the return code will be `1001`.
 
-<a name="create-host-request-with-request-to-new-admininistrator"></a>
-### create host request, with request to new admininistrator:
+<a name="create-host-request-with-request-to-new-administrator"></a>
+### create host request, with request to new administrator:
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -989,8 +989,8 @@ As for update domain `1001` holds higher precendence than `1000`, so if any of t
 </epp>
 ```
 
-<a name="create-host-response-with-request-to-new-admininistrator"></a>
-### create host response, with request to new admininistrator:
+<a name="create-host-response-with-request-to-new-administrator"></a>
+### create host response, with request to new administrator:
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
