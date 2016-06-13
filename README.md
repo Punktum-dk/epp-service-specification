@@ -965,6 +965,8 @@ The command can be used in two scenarios:
 
 As for update domain `1001` holds higher precendence than `1000`, so if any of the sub-commands require additional review and are _pending_, the return code will be `1001`.
 
+![Diagram of DKH create host][dkh_create_host]
+
 <a name="create-host-request-with-request-to-new-administrator"></a>
 ### create host request, with request to new administrator:
 
@@ -1082,6 +1084,8 @@ The update of a host object can only be requested by the adminstrator of the giv
 - Upon successfull update as described in scenario 1 above `1000` is returned
 
 As for update domain `1001` holds higher precendence than `1000`, so if any of the sub-commands require additional review and are _pending_, the return code will be `1001`.
+
+![Diagram of DKH update host][dkh_update_host]
 
 <a name="update-host-request-with-request-to-new-admin"></a>
 ### update host request, with request to new admin:
@@ -1651,7 +1655,11 @@ More information and documentation on the pre-activation service is available at
 
 [epp_create_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/epp_create_host_v1.0.png
 
+[dkh_create_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/dkh_create_host_v1.0.png
+
 [epp_update_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/epp_update_host_v1.0.png
+
+[dkh_update_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/dkh_update_host_v1.0.png
 
 [epp_delete_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/epp_delete_host_v1.0.png
 
