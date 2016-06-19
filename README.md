@@ -959,7 +959,7 @@ The command can be used in two scenarios:
 
 - If the host object already exist `2302` is returned
 - Zero or more IP adresses can be specified, these have to be public addresses or `2004` is returned
-- If a administrator is specified using `dkhm:requestedNsAdmin`, the specified has to exist or `2004` is returned
+- If a administrator is specified using `dkhm:requestedNsAdmin`, the specified user has to exist or `2004` is returned
 - If the authenticated user does not hold the privilege to create a host object: `2201` is returned
 - If the create host command involves a request of administrative privilege as described above `1001` is returned, since we require accept of the request user entity
 - Upon successfull update as described in scenario 1 above `1000` is returned
