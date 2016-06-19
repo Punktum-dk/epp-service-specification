@@ -75,9 +75,9 @@ Revision: 1.10
     - [Delayed create host response, from request to new administrator](#delayed-create-host-response-from-request-to-new-administrator)
     - [create host request, with request to registrant of host domain name](#create-host-request-with-request-to-registrant-of-host-domain-name)
     - [create host response, from request to registrant of domain name](#create-host-response-from-request-to-registrant-of-domain-name)
-    - [Delayed create host response, from request to new administrator](#delayed-create-host-response-from-request-to-new-administrator-1)
+    - [Delayed create host response, from request to registrant of domain name](#delayed-create-host-response-from-request-to-registrant-of-domain-name)
   - [update host](#update-host)
-    - [update host request, with request to new administrator:](#update-host-request-with-request-to-new-administrator)
+    - [update host request, with request to new administrator](#update-host-request-with-request-to-new-administrator)
     - [update host response, with request to new administrator](#update-host-response-with-request-to-new-administrator)
     - [Delayed update host response, from request to new administrator](#delayed-update-host-response-from-request-to-new-administrator)
   - [delete host](#delete-host)
@@ -1158,8 +1158,8 @@ Please note the `paResult`, where `1` indicates an accept and `0` would indicate
 </epp>
 ```
 
-<a name="delayed-create-host-response-from-request-to-new-administrator-1"></a>
-### Delayed create host response, from request to new administrator
+<a name="delayed-create-host-response-from-request-to-registrant-of-domain-name"></a>
+### Delayed create host response, from request to registrant of domain name
 
 If the creation of the host has resulting in a delayed operation, pending the designated nameserver administrator, the below example shows what a poll message for the final state of the operation would look like.
 
@@ -1222,7 +1222,7 @@ As for update domain `1001` holds higher precendence than `1000`, so if any of t
 ![Diagram of DKH update host][dkh_update_host]
 
 <a name="update-host-request-with-request-to-new-administrator"></a>
-### update host request, with request to new administrator:
+### update host request, with request to new administrator
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
