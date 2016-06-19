@@ -68,18 +68,21 @@ Revision: 1.10
     - [info host request](#info-host-request)
     - [info host response](#info-host-response)
   - [create host](#create-host)
-    - [create host request, with request to new administrator:](#create-host-request-with-request-to-new-administrator)
-    - [create host response, with request to new administrator:](#create-host-response-with-request-to-new-administrator)
-    - [Delayed create host response, with request to new administrator:](#delayed-create-host-response-with-request-to-new-administrator)
-    - [create host request:](#create-host-request)
-    - [create host response:](#create-host-response)
+    - [create host request](#create-host-request)
+    - [create host response](#create-host-response)
+    - [create host request, with request to new administrator](#create-host-request-with-request-to-new-administrator)
+    - [create host response, from request to new administrator](#create-host-response-from-request-to-new-administrator)
+    - [Delayed create host response, from request to new administrator](#delayed-create-host-response-from-request-to-new-administrator)
+    - [create host request, with request to registrant of host domain name](#create-host-request-with-request-to-registrant-of-host-domain-name)
+    - [create host response, from request to registrant of domain name](#create-host-response-from-request-to-registrant-of-domain-name)
+    - [Delayed create host response, from request to new administrator](#delayed-create-host-response-from-request-to-new-administrator-1)
   - [update host](#update-host)
     - [update host request, with request to new administrator:](#update-host-request-with-request-to-new-administrator)
-    - [update host response, with request to new administrator:](#update-host-response-with-request-to-new-administrator)
-    - [Delayed update host response, with request to new administrator:](#delayed-update-host-response-with-request-to-new-administrator)
+    - [update host response, with request to new administrator](#update-host-response-with-request-to-new-administrator)
+    - [Delayed update host response, from request to new administrator](#delayed-update-host-response-from-request-to-new-administrator)
   - [delete host](#delete-host)
-    - [delete host request:](#delete-host-request)
-    - [delete host response:](#delete-host-response)
+    - [delete host request](#delete-host-request)
+    - [delete host response](#delete-host-response)
   - [create contact](#create-contact)
     - [create contact request](#create-contact-request)
     - [create contact response](#create-contact-response)
@@ -977,94 +980,8 @@ As for update domain `1001` holds higher precendence than `1000`, so if any of t
 
 ![Diagram of DKH create host][dkh_create_host]
 
-<a name="create-host-request-with-request-to-new-administrator"></a>
-### create host request, with request to new administrator:
-
-```XML
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <command>
-    <create>
-      <host:create
-       xmlns:host="urn:ietf:params:xml:ns:host-1.0">
-        <host:name>ns1.eksempel.dk</host:name>
-        <host:addr ip="v4">192.0.2.2</host:addr>
-        <host:addr ip="v4">192.0.2.29</host:addr>
-        <host:addr ip="v6">1080:0:0:0:8:800:200417A</host:addr>
-      </host:create>
-    </create>
-    <clTRID>ABC-12345</clTRID>
-    <extension>
-      <dkhm:requestedNsAdmin xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.5">ADMIN2-DK</dkhm:requestedNsAdmin>
-    </extension>
-  </command>
-</epp>
-```
-
-<a name="create-host-response-with-request-to-new-administrator"></a>
-### create host response, with request to new administrator:
-
-```XML
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <response>
-    <result code="1001">
-      <msg>Command completed successfully; action pending</msg>
-    </result>
-    <resData>
-      <host:creData
-       xmlnhost="urn:ietf:paramxml:nhost-1.0">
-        <host:name>ns1.eksempel.dk</host:name>
-        <host:crDate>1999-04-03T22:00:00.0Z</host:crDate>
-      </host:creData>
-    </resData>
-    <trID>
-      <clTRID>ABC-12345</clTRID>
-      <svTRID>54322-XYZ</svTRID>
-    </trID>
-  </response>
-</epp>
-```
-
-<a name="delayed-create-host-response-with-request-to-new-administrator"></a>
-### Delayed create host response, with request to new administrator:
-
-If the creation of the host has resulting in a delayed operation, pending the designated nameserver administrator, the below example shows what a poll message for the final state of the operation looks like.
-
-```XML
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <response>
-    <result code="1301">
-      <msg>Command completed successfully; ack to dequeue</msg>
-    </result>
-    <msgQ count="5" id="12345">
-      <qDate>1999-04-04T22:01:00.0Z</qDate>
-      <msg>Pending action completed successfully.</msg>
-    </msgQ>
-    <resData>
-      <host:panData
-       xmlns:host="urn:ietf:params:xml:ns:host-1.0">
-        <host:name paResult="1">ns1.example.com</host:name>
-        <host:paTRID>
-          <clTRID>ABC-12345</clTRID>
-          <svTRID>54322-XYZ</svTRID>
-        </host:paTRID>
-        <host:paDate>1999-04-04T22:00:00.0Z</host:paDate>
-      </host:panData>
-    </resData>
-    <trID>
-      <clTRID>BCD-23456</clTRID>
-      <svTRID>65432-WXY</svTRID>
-    </trID>
-  </response>
-</epp>
-```
-
-Please note the `paResult`, where `1` indicates accept and `0` would indicate decline.
-
 <a name="create-host-request"></a>
-### create host request:
+### create host request
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1085,7 +1002,7 @@ Please note the `paResult`, where `1` indicates accept and `0` would indicate de
 ```
 
 <a name="create-host-response"></a>
-### create host response:
+### create host response
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1108,6 +1025,176 @@ Please note the `paResult`, where `1` indicates accept and `0` would indicate de
   </response>
 </epp>
 ```
+
+<a name="create-host-request-with-request-to-new-administrator"></a>
+### create host request, with request to new administrator
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <create>
+      <host:create
+       xmlns:host="urn:ietf:params:xml:ns:host-1.0">
+        <host:name>ns1.eksempel.dk</host:name>
+        <host:addr ip="v4">192.0.2.2</host:addr>
+        <host:addr ip="v4">192.0.2.29</host:addr>
+        <host:addr ip="v6">1080:0:0:0:8:800:200417A</host:addr>
+      </host:create>
+    </create>
+    <clTRID>ABC-12345</clTRID>
+    <extension>
+      <dkhm:requestedNsAdmin xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.5">ADMIN2-DK</dkhm:requestedNsAdmin>
+    </extension>
+  </command>
+</epp>
+```
+
+<a name="create-host-response-from-request-to-new-administrator"></a>
+### create host response, from request to new administrator
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <response>
+    <result code="1001">
+      <msg>Command completed successfully; action pending</msg>
+    </result>
+    <resData>
+      <host:creData
+       xmlnhost="urn:ietf:params:xml:ns:host-1.0">
+        <host:name>ns1.eksempel.dk</host:name>
+        <host:crDate>1999-04-03T22:00:00.0Z</host:crDate>
+      </host:creData>
+    </resData>
+    <trID>
+      <clTRID>ABC-12345</clTRID>
+      <svTRID>54322-XYZ</svTRID>
+    </trID>
+  </response>
+</epp>
+```
+
+<a name="delayed-create-host-response-from-request-to-new-administrator"></a>
+### Delayed create host response, from request to new administrator
+
+If the creation of the host has resulting in a delayed operation, pending the designated nameserver administrator, the below example shows what a poll message for the final state of the operation would look like.
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <response>
+    <result code="1301">
+      <msg>Command completed successfully; ack to dequeue</msg>
+    </result>
+    <msgQ count="5" id="12345">
+      <qDate>1999-04-04T22:01:00.0Z</qDate>
+      <msg>Pending action completed successfully.</msg>
+    </msgQ>
+    <resData>
+      <host:panData
+       xmlns:host="urn:ietf:params:xml:ns:host-1.0">
+        <host:name paResult="1">ns1.eksempel.dk</host:name>
+        <host:paTRID>
+          <clTRID>ABC-12345</clTRID>
+          <svTRID>54322-XYZ</svTRID>
+        </host:paTRID>
+        <host:paDate>1999-04-04T22:00:00.0Z</host:paDate>
+      </host:panData>
+    </resData>
+    <trID>
+      <clTRID>BCD-23456</clTRID>
+      <svTRID>65432-WXY</svTRID>
+    </trID>
+  </response>
+</epp>
+```
+
+Please note the `paResult`, where `1` indicates an accept and `0` would indicate a decline.
+
+<a name="create-host-request-with-request-to-registrant-of-host-domain-name"></a>
+### create host request, with request to registrant of host domain name
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <create>
+      <host:create
+       xmlns:host="urn:ietf:params:xml:ns:host-1.0">
+        <host:name>ns1.eksempel.dk</host:name>
+        <host:addr ip="v4">192.0.2.2</host:addr>
+        <host:addr ip="v4">192.0.2.29</host:addr>
+        <host:addr ip="v6">1080:0:0:0:8:800:200417A</host:addr>
+      </host:create>
+    </create>
+    <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>
+```
+
+<a name="create-host-response-from-request-to-registrant-of-domain-name"></a>
+### create host response, from request to registrant of domain name
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <response>
+    <result code="1001">
+      <msg>Command completed successfully; action pending</msg>
+    </result>
+    <resData>
+      <host:creData
+       xmlnhost="urn:ietf:params:xml:ns:host-1.0">
+        <host:name>ns1.eksempel.dk</host:name>
+        <host:crDate>1999-04-03T22:00:00.0Z</host:crDate>
+      </host:creData>
+    </resData>
+    <trID>
+      <clTRID>ABC-12345</clTRID>
+      <svTRID>54322-XYZ</svTRID>
+    </trID>
+  </response>
+</epp>
+```
+
+<a name="delayed-create-host-response-from-request-to-new-administrator-1"></a>
+### Delayed create host response, from request to new administrator
+
+If the creation of the host has resulting in a delayed operation, pending the designated nameserver administrator, the below example shows what a poll message for the final state of the operation would look like.
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <response>
+    <result code="1301">
+      <msg>Command completed successfully; ack to dequeue</msg>
+    </result>
+    <msgQ count="5" id="12345">
+      <qDate>1999-04-04T22:01:00.0Z</qDate>
+      <msg>Pending action completed successfully.</msg>
+    </msgQ>
+    <resData>
+      <host:panData
+       xmlns:host="urn:ietf:params:xml:ns:host-1.0">
+        <host:name paResult="1">ns1.eksempel.dk</host:name>
+        <host:paTRID>
+          <clTRID>ABC-12345</clTRID>
+          <svTRID>54322-XYZ</svTRID>
+        </host:paTRID>
+        <host:paDate>1999-04-04T22:00:00.0Z</host:paDate>
+      </host:panData>
+    </resData>
+    <trID>
+      <clTRID>BCD-23456</clTRID>
+      <svTRID>65432-WXY</svTRID>
+    </trID>
+  </response>
+</epp>
+```
+
+Please note the `paResult`, where `1` indicates an accept and `0` would indicate a decline.
+
 
 <a name="update-host"></a>
 ## update host
@@ -1156,7 +1243,7 @@ As for update domain `1001` holds higher precendence than `1000`, so if any of t
 ```
 
 <a name="update-host-response-with-request-to-new-administrator"></a>
-### update host response, with request to new administrator:
+### update host response, with request to new administrator
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1173,33 +1260,8 @@ As for update domain `1001` holds higher precendence than `1000`, so if any of t
 </epp>
 ```
 
-```XML
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <command>
-    <update>
-      <host:update
-       xmlns:host="urn:ietf:params:xml:ns:host-1.0">
-        <host:name>ns1.eksempel.dk</host:name>
-        <host:add>
-          <host:addr ip="v4">192.0.2.22</host:addr>
-          <host:status s="clientUpdateProhibited"/>
-        </host:add>
-        <host:rem>
-          <host:addr ip="v6">1080:0:0:0:8:800:200417A</host:addr>
-        </host:rem>
-        <host:chg>
-          <host:name>ns2.eksempel.dk</host:name>
-        </host:chg>
-      </host:update>
-    </update>
-    <clTRID>ABC-12345</clTRID>
-  </command>
-</epp>
-```
-
-<a name="delayed-update-host-response-with-request-to-new-administrator"></a>
-### Delayed update host response, with request to new administrator:
+<a name="delayed-update-host-response-from-request-to-new-administrator"></a>
+### Delayed update host response, from request to new administrator
 
 If the creation of the host has resulting in a delayed operation, pending the designated nameserver administrator, the below example shows what a poll message for the final state of the operation looks like.
 
@@ -1233,7 +1295,7 @@ If the creation of the host has resulting in a delayed operation, pending the de
 </epp>
 ```
 
-Please note the `paResult`, where `1` indicates accept and `0` would indicate decline.
+Please note the `paResult`, where `1` indicates an accept and `0` would indicate a decline.
 
 <a name="delete-host"></a>
 ## delete host
@@ -1249,7 +1311,7 @@ The deletion of a host object can only be requested by the adminstrator.
 - Upon success `1000` is returned
 
 <a name="delete-host-request"></a>
-### delete host request:
+### delete host request
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1267,7 +1329,7 @@ The deletion of a host object can only be requested by the adminstrator.
 ```
 
 <a name="delete-host-response"></a>
-### delete host response:
+### delete host response
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
