@@ -222,6 +222,12 @@ In addition to the assets, DK Hostmaster aims to assist users and developers of 
 
 In addition, DK Hostmaster provides  a test environment for evaluation of future releases of the service, both for evaluation of new features, but also for opening up for EPP users to assist and guide DK Hostmaster in the EPP service implementation work.
 
+The service is implemented under the following principles:
+
+1 Adhere to the standard to the extent possible or use non-intrusive extensions to support the requirements or finally use mandatory extensions to adhere to service requirements
+1 Use _in-band_ communication, meaning requests made via  EPP will be responded to via EPP unless the end-user have specified differently
+1 Use standard error code to the extent possible, communicating state more clearly and unambigiously
+
 <a name="ssl-certificate"></a>
 ## SSL Certificate
 
