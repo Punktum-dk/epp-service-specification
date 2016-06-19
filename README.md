@@ -961,7 +961,7 @@ The command can be used in two scenarios:
 - Zero or more IP adresses can be specified, these have to be public addresses or `2004` is returned
 - If a administrator is specified using `dkhm:requestedNsAdmin`, the specified user has to exist or `2303` is returned
 - If the authenticated user does not hold the privilege to create a host object: `2201` is returned
-- If the create host command involves a request of administrative privilege as described above `1001` is returned, since we require accept of the request user entity
+- If the create host command involves a request of administrative privilege as described above `1001` is returned, since we require accept of the requested user entity
 - Upon successfull update as described in scenario 1 above `1000` is returned
 
 As for update domain `1001` holds higher precendence than `1000`, so if any of the sub-commands require additional review and are _pending_, the return code will be `1001`.
