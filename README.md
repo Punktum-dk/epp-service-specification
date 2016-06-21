@@ -968,13 +968,15 @@ The command can be used in two scenarios:
 1. The command is used as described in the RFC and the authenticated user is appointed as administrator for the nameserver created
 2. The command is extended with a contact object pointing to an existing user, which is requested to take the role as nameserver administrator for the host object requested created
 
-- If the host object already exist `2302` is returned
-- If the specified domain name is ending in '.dk', 1 or more IP addresses have to be specified or `2003` is returned
-- Zero or more IP adresses can be specified, these have to be public addresses or `2004` is returned
-- If a administrator is specified using `dkhm:requestedNsAdmin`, the specified user has to exist or `2303` is returned
-- If the authenticated user does not hold the privilege to create a host object: `2201` is returned
-- If the create host command involves a request of administrative privilege as described above `1001` is returned, since we require accept of the requested user entity
-- Upon successfull update as described in scenario 1 above `1000` is returned
+| Return Code  | Description |
+| ------------ | ------------ |
+| 2302 | If the specified host object already exist |
+| 2003 | If the specified domain ends in '.dk', at least one IP address has to be specified |
+| 2004 | If the specified IP addresses are non-public addresses  |
+| 2303 | If the contact-id pointed to in `dkhm:requestedNsAdmin` points to a non-existing contact object |
+| 2201 | If the authenticated user does not hold the privilege to update the specified host object |
+| 1000 | If the update host command is successfull |
+| 1001 | If the update host command awaits acknowledgement by the contact-id specified in `dkhm:requestedNsAdmin` |
 
 As for update domain `1001` holds higher precendence than `1000`, so if any of the sub-commands require additional review and are _pending_, the return code will be `1001`.
 
