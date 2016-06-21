@@ -1310,9 +1310,12 @@ This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command 
 
 The deletion of a host object can only be requested by the adminstrator.
 
-- If the authenticated user does not hold the privilege to delete the host object: `2201` is returned
-- If the host object is still associated with domain names: `2305` is returned
-- Upon success `1000` is returned
+| Return Code  | Description |
+| ------------ | ------------ |
+| 2303 | If the specified host object does not exist |
+| 2305 | If the specified host object links to domain name objects |
+| 2201 | If the authenticated user does not hold the privilege to update the specified host object |
+| 1000 | If the delete host command is successfull |
 
 <a name="delete-host-request"></a>
 ### delete host request
