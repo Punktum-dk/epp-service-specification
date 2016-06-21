@@ -975,7 +975,7 @@ The command can be used in two scenarios:
 | 2004 | If the specified IP addresses are non-public addresses  |
 | 2303 | If the contact-id pointed to in `dkhm:requestedNsAdmin` points to a non-existing contact object |
 | 2201 | If the authenticated user does not hold the privilege to update the specified host object |
-| 1000 | If the update host command is successfull |
+| 1000 | If the update host command is successful |
 | 1001 | If the update host command awaits acknowledgement by the contact-id specified in `dkhm:requestedNsAdmin` |
 
 As for update domain `1001` holds higher precendence than `1000`, so if any of the sub-commands require additional review and are _pending_, the return code will be `1001`.
@@ -1218,7 +1218,7 @@ The update of a host object can only be requested by the adminstrator of the giv
 | 2004 | If the specified IP addresses are non-public addresses  |
 | 2303 | If the contact-id pointed to in `dkhm:requestedNsAdmin` points to a non-existing contact object |
 | 2201 | If the authenticated user does not hold the privilege to update the specified host object |
-| 1000 | If the update host command is successfull |
+| 1000 | If the update host command is successful |
 | 1001 | If the update host command awaits acknowledgement by the contact-id specified in `dkhm:requestedNsAdmin` |
 
 As for update domain `1001` holds higher precendence than `1000`, so if any of the sub-commands require additional review and are _pending_, the return code will be `1001`.
@@ -1315,7 +1315,7 @@ The deletion of a host object can only be requested by the adminstrator.
 | 2303 | If the specified host object does not exist |
 | 2305 | If the specified host object links to domain name objects |
 | 2201 | If the authenticated user does not hold the privilege to update the specified host object |
-| 1000 | If the delete host command is successfull |
+| 1000 | If the delete host command is successful |
 
 <a name="delete-host-request"></a>
 ### delete host request
