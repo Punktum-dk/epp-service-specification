@@ -972,7 +972,8 @@ The command can be used in two scenarios:
 | ------------ | ------------ |
 | 2302 | If the specified host object already exist |
 | 2003 | If the specified domain ends in '.dk', at least one IP address has to be specified |
-| 2004 | If the specified IP addresses are non-public addresses  |
+| 2004 | If the specified IP addresses are non-public addresses |
+| 2306 | If the specified nameserver administrator is a registrar account  |
 | 2303 | If the contact-id pointed to in `dkhm:requestedNsAdmin` points to a non-existing contact object |
 | 2201 | If the authenticated user does not hold the privilege to update the specified host object |
 | 1000 | If the update host command is successful |
