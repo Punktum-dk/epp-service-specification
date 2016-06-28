@@ -970,6 +970,7 @@ The command can be used in two scenarios:
 
 | Return Code  | Description |
 | ------------ | ------------ |
+| 2005 | Syntax of the command is not correct |
 | 2302 | If the specified host object already exist |
 | 2003 | If the specified domain ends in '.dk', at least one IP address has to be specified |
 | 2004 | If the specified IP addresses are non-public addresses |
@@ -1226,6 +1227,7 @@ The update of a host object can only be requested by the adminstrator of the giv
 
 | Return Code  | Description |
 | ------------ | ------------ |
+| 2005 | Syntax of the command is not correct |
 | 2303 | If the specified host object does not exist |
 | 2004 | If the specified IP addresses are non-public addresses  |
 | 2303 | If the contact-id pointed to in `dkhm:requestedNsAdmin` points to a non-existing contact object |
