@@ -848,6 +848,16 @@ The sub-proces called, can be depicted as follows:
 
 ![Diagram of DKH sub-proces for EPP renew domain][dkh-renew-domain]
 
+| Return Code  | Description |
+| ------------ | ------------ |
+| 2303 | If the specified domain object does not exist |
+| 2201 | If the authenticated user does not hold the privilege to renew the specified domain object |
+| 2306 | If the specified expiry date is not valid |
+| 2306 | If the calculated expiry date is not allowed |
+| 2105 | If the domain object is not eligible for renewal |
+| 2400 | In case of an exception |
+| 1000 | If the renew domain command is successful |
+
 This complete proces is atomic and might throw an unrecoverable exception: `2400` either due to unforeseen circumstances or a change in the state of the domain name.
 
 On success we emit the return code `1000`. No further communication is made via the EPP service. An invoice is generated and is distributed out of band for EPP as shown in the sub-proces and an additional *message* is sent out of band for EPP to the billing contact.
@@ -1439,7 +1449,7 @@ More information and documentation on the pre-activation service is available at
 
 [epp-renew-domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_renew_domain_v1/images/epp_renew_domain_v1.1.png
 
-[dkh-renew-domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_renew_domain_v1/images/dkh_renew_domain_v1.0.png
+[dkh-renew-domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_renew_domain_v1/images/dkh_renew_domain_v1.1.png
 
 
 [XSD files]: https://github.com/DK-Hostmaster/epp-xsd-files
