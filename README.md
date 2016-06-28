@@ -1240,6 +1240,8 @@ As for update domain `1001` holds higher precendence than `1000`, so if any of t
 <a name="update-host-request-with-request-to-new-administrator"></a>
 ### update host request, with request to new administrator
 
+Request to update a host object, requesting a different adminstrator of the host object, hence requiring offline evaluation.
+
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -1260,6 +1262,8 @@ As for update domain `1001` holds higher precendence than `1000`, so if any of t
 
 <a name="update-host-response-with-request-to-new-administrator"></a>
 ### update host response, with request to new administrator
+
+Response to the above request. The response indicates a succesful accept of the requiest, but requires offline evaluation by the designated administrator of the host object, so the response indicates that the operation is pending.
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1332,6 +1336,8 @@ The deletion of a host object can only be requested by the adminstrator.
 <a name="delete-host-request"></a>
 ### delete host request
 
+Request to delete a host object, the authenticated user is the current administrator of the specified host object.
+
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -1349,6 +1355,8 @@ The deletion of a host object can only be requested by the adminstrator.
 
 <a name="delete-host-response"></a>
 ### delete host response
+
+Response to the above request. Since the authenticated user is the current administrator and all requirements are met the command completes successfully.
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
