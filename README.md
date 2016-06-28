@@ -850,6 +850,7 @@ The sub-proces called, can be depicted as follows:
 
 | Return Code  | Description |
 | ------------ | ------------ |
+| 2005 | Syntax of the command is not correct |
 | 2303 | If the specified domain object does not exist |
 | 2201 | If the authenticated user does not hold the privilege to renew the specified domain object |
 | 2306 | If the specified expiry date is not valid |
