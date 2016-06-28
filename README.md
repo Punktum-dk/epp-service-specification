@@ -369,7 +369,7 @@ See also `contact_validated`.
 <a name="dkhmrequestednsadmin"></a>
 ## `dkhm:requestedNsAdmin`
 
-The extension is used for update and create host, where it is possible to request another nameserver administrator than the authenticated user.
+The extension is used for update and create host, where it is possible to request another nameserver administrator than the authenticated user. The extension was introduced in the DK Hostmaster XSD file set 1.5.
 
 <a name="implementation-limitations"></a>
 # Implementation Limitations
@@ -959,7 +959,7 @@ Please note that according to the RFC [section 3.1.2][RFC5732-3.1.2], the `CLID`
 
 This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard. The command can be extended to specify another nameserver administrator than the authenticated user.
 
-Please note that IP addresses are required for domain names ending in '.dk'.
+Please note that IP addresses are required for domain names ending in '.dk', please refer to the [glue record policy](https://github.com/DK-Hostmaster/dkhm-name-service-specification#glue-records).
 
 ![Diagram of EPP create host][epp_create_host]
 
@@ -986,6 +986,8 @@ As for update domain `1001` holds higher precendence than `1000`, so if any of t
 <a name="create-host-request"></a>
 ### create host request
 
+Request to create a host object, using both IPv4 and IPv6 adresses and the authenticated user is the registrant of the specified domain name and requested adminstrator of the host object.
+
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -1006,6 +1008,8 @@ As for update domain `1001` holds higher precendence than `1000`, so if any of t
 
 <a name="create-host-response"></a>
 ### create host response
+
+Response to the above request. The reponse indicates a succesful creation, since the operation could be completed successfully without requiring offline evaluation.
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1032,6 +1036,8 @@ As for update domain `1001` holds higher precendence than `1000`, so if any of t
 <a name="create-host-request-with-request-to-new-administrator"></a>
 ### create host request, with request to new administrator
 
+Request to create a host object, requesting a different adminstrator of the host object, hence requiring offline evaluation.
+
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -1055,6 +1061,8 @@ As for update domain `1001` holds higher precendence than `1000`, so if any of t
 
 <a name="create-host-response-from-request-to-new-administrator"></a>
 ### create host response, from request to new administrator
+
+Response to the above request. The reponse indicates a succesful accept of the requiest, but requires offline evaluation by the designated administrator of the host object, so the response indicates that the operation is pending.
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1118,6 +1126,8 @@ Please note the `paResult`, where `1` indicates an accept and `0` would indicate
 <a name="create-host-request-with-request-to-registrant-of-host-domain-name"></a>
 ### create host request, with request to registrant of host domain name
 
+Request to create a host object, where the authenticated use is not the registrant of the domain name naming the host object, hence requiring offline evaluation.
+
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -1138,6 +1148,8 @@ Please note the `paResult`, where `1` indicates an accept and `0` would indicate
 
 <a name="create-host-response-from-request-to-registrant-of-domain-name"></a>
 ### create host response, from request to registrant of domain name
+
+Response to the above request. The reponse indicates a succesful accept of the requiest, but requires offline evaluation by the registrant of the specified domain namem, so the response indicates that the operation is pending.
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1197,7 +1209,6 @@ If the creation of the host has resulting in a delayed operation, pending the de
 ```
 
 Please note the `paResult`, where `1` indicates an accept and `0` would indicate a decline.
-
 
 <a name="update-host"></a>
 ## update host
