@@ -1062,7 +1062,7 @@ Request to create a host object, requesting a different adminstrator of the host
 <a name="create-host-response-from-request-to-new-administrator"></a>
 ### create host response, from request to new administrator
 
-Response to the above request. The reponse indicates a succesful accept of the requiest, but requires offline evaluation by the designated administrator of the host object, so the response indicates that the operation is pending.
+Response to the above request. The response indicates a succesful accept of the requiest, but requires offline evaluation by the designated administrator of the host object, so the response indicates that the operation is pending.
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
