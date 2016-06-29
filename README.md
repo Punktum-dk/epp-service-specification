@@ -857,7 +857,7 @@ The sub-proces called, can be depicted as follows:
 
 This complete proces is atomic and might throw an unrecoverable exception: `2400` either due to unforeseen circumstances or a change in the state of the domain name.
 
-On success we emit the return code `1000`. No further communication is made via the EPP service. An invoice is generated and is distributed out of band for EPP as shown in the sub-proces and an additional *message* is sent out of band for EPP to the billing contact.
+On success we emit the return code `1000`. No further communication is made via the EPP service. An invoice is generated and is distributed out of band for EPP as shown in the sub-proces and an additional *message* is sent out of band for EPP to the billing contact and the registrant.
 
 <a name="renew-domain-request"></a>
 ### renew domain request:
