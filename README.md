@@ -1620,7 +1620,7 @@ More information and documentation on the pre-activation service is available at
 | login | | :white_check_mark: | :white_check_mark: \*1 | :white_check_mark: \*1 | :white_check_mark: |
 | create domain | | :white_check_mark: | | | |
 | update domain | | | :white_check_mark: \*2 | | :white_check_mark: \*2 |
-| | add billing | :white_check_mark: \*3 | :white_check_mark: \*3 | | |
+| | add billing | :white_check_mark: \*8 | :white_check_mark: \*3 | | |
 | | remove billing | :white_check_mark: \*4 | :white_check_mark: \*4 | :white_check_mark: \*4 | |
 | | add admin | | :white_check_mark: \*5 | | |
 | | remove admin | | :white_check_mark: \*4 | | |
@@ -1649,6 +1649,7 @@ More information and documentation on the pre-activation service is available at
 - \*5 request to to registrant and new admin contact
 - \*6 request to registrant
 - \*7 only own profile
+- \*8 can only assign self
 
 [General Terms and Conditions]: https://www.dk-hostmaster.dk/fileadmin/filer/pdf/generelle_vilkaar/general-conditions.pdf
 
