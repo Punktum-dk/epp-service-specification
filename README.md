@@ -836,13 +836,9 @@ This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command 
 
 ![Diagram of EPP proces for EPP renew domain][epp-renew-domain]
 
-The following prerequisites have to be met before a successful renewal for a domain name can be completed:
-
-- Domain name has to exist or the EPP service return: `2303`
-- The authenticated user has to be able to renew the domain, meaning he/she has to hold the privilege to renew the domain or we return: `2201`, for now this privilege is given to the billing contact for the domain name (see also the [login command](#login))
 - The provided expiration date has to be equal to the current expiration date or we return: `2306`
 - The new expiration date has to be lower than the current expiration date + 5 years, returning: `2306`. The current expiration date is available via the [info domain](#info-domain) command as `domain:exDate`.
-- Domain name has be eligible for renewal, meaning is has to be in the state ‘Active’ and the financial state is settled for the domain name  or the EPP service return: `2105`, this will also be reflected in status value `serverRenewProhibited`. See also [ICANN description](https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en/#serverRenewProhibited) of status.
+- .
 
 The sub-proces called, can be depicted as follows:
 
@@ -852,10 +848,10 @@ The sub-proces called, can be depicted as follows:
 | ------------ | ------------ |
 | 2005 | Syntax of the command is not correct |
 | 2303 | If the specified domain object does not exist |
-| 2201 | If the authenticated user does not hold the privilege to renew the specified domain object |
-| 2306 | If the specified expiry date is not valid |
-| 2306 | If the calculated expiry date is not allowed |
-| 2105 | If the domain object is not eligible for renewal |
+| 2201 | If the authenticated user does not hold the privilege to renew the specified domain object. This privilege is given to the billing contact for the domain name (see also the [login command](#login)) |
+| 2306 | If the specified expiry date is not valid. The provided expiration date has to be equal to the current expiration date or we return |
+| 2306 | If the calculated expiry date is not allowed. The new expiration date has to be lower than the current expiration date + 5 years, returning: `2306`. The current expiration date is available via the [info domain](#info-domain) command as `domain:exDate` |
+| 2105 | If the domain object is not eligible for renewal. The domain name has to be in the state ‘Active’. This will also be reflected in status value `serverRenewProhibited`. See also [ICANN description](https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en/#serverRenewProhibited) of status |
 | 2400 | In case of an exception |
 | 1000 | If the renew domain command is successful |
 
