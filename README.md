@@ -1621,7 +1621,7 @@ More information and documentation on the pre-activation service is available at
 | create domain | | :white_check_mark: | | | |
 | update domain | | | :white_check_mark: \*2 | | :white_check_mark: \*2 |
 | | add billing | :white_check_mark: \*3 | :white_check_mark: \*3 | | |
-| | remove billing | :white_check_mark: | :white_check_mark: \*3 | :white_check_mark: \*4 | |
+| | remove billing | :white_check_mark: \*4 | :white_check_mark: \*4 | :white_check_mark: \*4 | |
 | | add admin | | :white_check_mark: \*5 | | |
 | | remove admin | | :white_check_mark: \*4 | | |
 | | change registrant | | :white_check_mark: \*6 | | |
