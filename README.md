@@ -836,14 +836,6 @@ This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command 
 
 ![Diagram of EPP proces for EPP renew domain][epp-renew-domain]
 
-- The provided expiration date has to be equal to the current expiration date or we return: `2306`
-- The new expiration date has to be lower than the current expiration date + 5 years, returning: `2306`. The current expiration date is available via the [info domain](#info-domain) command as `domain:exDate`.
-- .
-
-The sub-proces called, can be depicted as follows:
-
-![Diagram of DKH sub-proces for EPP renew domain][dkh-renew-domain]
-
 | Return Code  | Description |
 | ------------ | ------------ |
 | 2005 | Syntax of the command is not correct |
@@ -858,6 +850,10 @@ The sub-proces called, can be depicted as follows:
 This complete proces is atomic and might throw an unrecoverable exception: `2400` either due to unforeseen circumstances or a change in the state of the domain name.
 
 On success we emit the return code `1000`. No further communication is made via the EPP service. An invoice is generated and is distributed out of band for EPP as shown in the sub-proces and an additional *message* is sent out of band for EPP to the billing contact and the registrant
+
+The sub-proces called, can be depicted as follows:
+
+![Diagram of DKH sub-proces for EPP renew domain][dkh-renew-domain]
 
 <a name="renew-domain-request"></a>
 ### renew domain request:
