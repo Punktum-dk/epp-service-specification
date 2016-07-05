@@ -1080,6 +1080,8 @@ Additing new users require special privileges, currently only with the registran
 
 ![Update domain - Add billing/admin contact][epp-update-domain-add-contact]
 
+![Update domain - Add billing/admin contact sub-proces][dkh-update-domain-add-contact]
+
 <a name="remove-contact"></a>
 ### remove contact
 
@@ -1109,6 +1111,8 @@ The removal of a existing contact is possible for both billing and admin contact
 ```
 
 ![Update domain - Remove billing/admin contact][epp-update-domain-remove-contact]
+
+![Update domain - Remove billing/admin contact sub-proces][dkh-update-domain-remove-contact]
 
 <a name="check-host"></a>
 ## check host
@@ -1692,7 +1696,11 @@ More information and documentation on the pre-activation service is available at
 
 [epp-update-domain-add-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/epp_update_domain_add_contact_v1.0.png
 
-[epp-update-domain-remove-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/epp_update_domain_remove_contact_v1.0.png
+[dkh-update-domain-add-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/dkh_update_domain_add_contact_v1.0.png
+
+[epp-update-domain-remove-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/epp_update_domain_remove_contact_v1.1.png
+
+[dkh-update-domain-remove-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/dkh_update_domain_remove_contact_v1.0.png
 
 [epp-update-domain-add-ns]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/epp_update_domain_add_ns_v1.0.png
 
