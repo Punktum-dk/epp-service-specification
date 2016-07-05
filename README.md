@@ -960,7 +960,7 @@ The command might be blocked and the status code: `serverUpdateProhibited` is re
 
 The change of registrant is a *special* command, it results in all privileges and rights being transferred to another entity. Normally a registrar would not have the privileges to make such a request.
 
-If a domain is not eligeble for this update `2304` is returned with a status code indicating the reason: 
+If a domain is not eligible for this update `2304` is returned with a status code indicating the reason: 
 
 - `serverUpdateProhibited` for policy domain policy
 - `clientUpdateProhibited` for service domain lock (VID)
