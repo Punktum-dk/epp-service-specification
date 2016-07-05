@@ -876,17 +876,21 @@ The requirements for the command to commence with processing it that the followi
 
 If the request is not parsable the service responds with a `2005`.
 
-If the command is parsable, the command is separated into one of more of the following sub-commands:
+If the command is parsable, the command is separated into one of more of the following sub-commands (by order of precendence):
 
-- add nameserver
-- add admin contact
-- add billing contact
-- change registrant
-- remove nameserver
-- remove admin contact
-- remove billing contact
+1 change registrant
+1 remove nameserver
+1 remove admin contact
+1 remove billing contact
+1 add nameserver
+1 add admin contact
+1 add billing contact
 
-The commands are then executed sequentially (order is inconsequential) as a single transaction. If a single sub-command fails, the transaction is rolled-back and the relevant error code is returned (`2XXX`).
+The commands are then executed sequentially (order is dictates the precedence) as a single transaction. If a single sub-command fails, the transaction is rolled-back and the relevant error code is returned (`2XXX`).
+
+The command might be stopped if the sub-commands cannot be executed. For example if one of the sub-commands is a: change registrant, none of the other commands can be executed, since role changes will be implicit. 
+
+![Diagram of EPP proces for EPP update domain command evaluation][epp-update-domain-evaluate]
 
 When the command succeeds either `1000` or `1001` is returned the latter if one of the operations initiated by the sub-command require additional actions to be taken, `1001` will have precedence over `1000`. If a `1001` is returned the status code `pendingUpdate` might be set if an additional **update domain** command is issued.
 
@@ -1682,7 +1686,9 @@ More information and documentation on the pre-activation service is available at
 
 [epp-address-resolution]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp-address-resolution.png
 
-[epp-update-domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/epp_update_domain_v1.0.png
+[epp-update-domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/epp_update_domain_v1.1.png
+
+[epp-update-domain-evaluate]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/epp_update_domain_evaluate_command_v1.0.svg
 
 [epp-update-domain-add-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/epp_update_domain_add_contact_v1.0.png
 
