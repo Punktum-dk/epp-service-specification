@@ -878,13 +878,13 @@ If the request is not parsable the service responds with a `2005`.
 
 If the command is parsable, the command is separated into one of more of the following sub-commands (by order of precendence):
 
-1 change registrant
-1 remove nameserver
-1 remove admin contact
-1 remove billing contact
-1 add nameserver
-1 add admin contact
-1 add billing contact
+1. change registrant
+1. remove nameserver
+1. remove admin contact
+1. remove billing contact
+1. add nameserver
+1. add admin contact
+1. add billing contact
 
 The commands are then executed sequentially (order is dictates the precedence) as a single transaction. If a single sub-command fails, the transaction is rolled-back and the relevant error code is returned (`2XXX`).
 
