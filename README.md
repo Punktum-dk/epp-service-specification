@@ -39,6 +39,7 @@ Revision: 1.10
   - [Authorization](#authorization)
   - [DNSSEC](#dnssec)
   - [Contact Creation](#contact-creation)
+  - [Host Status Update](#host-status-update)
   - [Waiting List](#waiting-list)
   - [Information Disclosure](#information-disclosure)
   - [Encoding and IDN domains](#encoding-and-idn-domains)
@@ -429,6 +430,11 @@ DK Hostmaster specifies rules ownership of DNSSEC keys. If you provide DNSSEC ke
 
 This command does not support the feature of providing own userid. The userid has to be specified as `auto` and the userid is assigned by DK Hostmaster. See also information on the create contact command.
 
+<a name="host-status-update"></a>
+## Host Status Update
+
+This command does not support the setting and removal of status using the XML element: `host:status`. The status is assigned by DK Hostmaster. See also information on the update host command.
+
 <a name="waiting-list"></a>
 ## Waiting List
 
@@ -814,7 +820,7 @@ This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command 
         <domain:name>dk-hostmaster.dk</domain:name>
         <domain:roid>DK_HOSTMASTER_DK-DK</domain:roid>
         <domain:status s="serverTransferProhibited" />
-        <domain:status s="serverUpdateProhibited" />
+        <domain:status s="serverupdateProhibited" />
         <domain:status s="serverRenewProhibited" />
         <domain:status s="serverDeleteProhibited" />
         <domain:registrant>DKHM1-DK</domain:registrant>
@@ -977,8 +983,8 @@ The command can be used in two scenarios:
 | 2306 | If the specified nameserver administrator is a registrar account  |
 | 2303 | If the contact-id pointed to in `dkhm:requestedNsAdmin` points to a non-existing contact object |
 | 2201 | If the authenticated user does not hold the privilege to update the specified host object |
-| 1000 | If the update host command is successful |
-| 1001 | If the update host command awaits acknowledgement by the contact-id specified in `dkhm:requestedNsAdmin` |
+| 1000 | If the create host command is successful |
+| 1001 | If the create host command awaits acknowledgement by the contact-id specified in `dkhm:requestedNsAdmin` |
 
 As for update domain `1001` holds higher precendence than `1000`, so if any of the sub-commands require additional review and are _pending_, the return code will be `1001`.
 
@@ -1228,14 +1234,16 @@ The update of a host object can only be requested by the adminstrator of the giv
 | Return Code  | Description |
 | ------------ | ------------ |
 | 2005 | Syntax of the command is not correct |
-| 2303 | If the specified host object does not exist |
 | 2004 | If the specified IP addresses are non-public addresses  |
-| 2303 | If the contact-id pointed to in `dkhm:requestedNsAdmin` points to a non-existing contact object |
 | 2201 | If the authenticated user does not hold the privilege to update the specified host object |
+| 2303 | If the specified host object does not exist |
+| 2303 | If the contact-id pointed to in `dkhm:requestedNsAdmin` points to a non-existing contact object |
 | 1000 | If the update host command is successful |
 | 1001 | If the update host command awaits acknowledgement by the contact-id specified in `dkhm:requestedNsAdmin` |
 
 As for update domain `1001` holds higher precendence than `1000`, so if any of the sub-commands require additional review and are _pending_, the return code will be `1001`.
+
+As described in Implementation Limitations, the service does not support setting of status via update host.
 
 ![Diagram of DKH update host][dkh_update_host]
 
