@@ -1225,6 +1225,14 @@ This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command 
 
 ![Diagram of EPP update host][epp_update_host]
 
+![Diagram of EPP update host change hostname][epp_update_host_change_hostname]
+
+![Diagram of EPP update host add IP][epp_update_host_add_ip]
+
+![Diagram of EPP update host remove IP][epp_update_host_remove_ip]
+
+![Diagram of EPP update host change admin][epp_update_host_change_admin]
+
 The command can be used in two scenarios:
 
 1. The command is used as described in the RFC and IP adresses can be administered
@@ -1823,7 +1831,15 @@ More information and documentation on the pre-activation service is available at
 
 [dkh_create_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/dkh_create_host_v1.0.png
 
-[epp_update_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/epp_update_host_v1.0.png
+[epp_update_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/epp_update_host_v1.1.png
+
+[epp_update_host_add_ip]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/epp_update_host_add_ip_v1.0.png
+
+[epp_update_host_change_admin]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/epp_update_host_change_admin_v1.0.png
+
+[epp_update_host_change_hostname]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/epp_update_host_change_hostname_v1.0.png
+
+[epp_update_host_remove_ip]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/epp_update_host_remove_ip_v1.0.png
 
 [dkh_update_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/dkh_update_host_v1.0.png
 
