@@ -78,6 +78,11 @@ Revision: 1.10
     - [create host response, from request to registrant of domain name](#create-host-response-from-request-to-registrant-of-domain-name)
     - [Delayed create host response, from request to registrant of domain name](#delayed-create-host-response-from-request-to-registrant-of-domain-name)
   - [update host](#update-host)
+    - [Proces](#proces)
+    - [Change hostname sub-proces](#change-hostname-sub-proces)
+    - [Add IP sub-proces](#add-ip-sub-proces)
+    - [Remove IP sub-proces](#remove-ip-sub-proces)
+    - [Change admin sub-proces](#change-admin-sub-proces)
     - [update host request, with request to new administrator](#update-host-request-with-request-to-new-administrator)
     - [update host response, with request to new administrator](#update-host-response-with-request-to-new-administrator)
     - [Delayed update host response, from request to new administrator](#delayed-update-host-response-from-request-to-new-administrator)
@@ -1223,13 +1228,28 @@ Please note the `paResult`, where `1` indicates an accept and `0` would indicate
 
 This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard, but is extended to service one special usage scenario. 
 
+<a name="proces"></a>
+### Proces
+
 ![Diagram of EPP update host][epp_update_host]
+
+<a name="change-hostname-sub-proces"></a>
+### Change hostname sub-proces
 
 ![Diagram of EPP update host change hostname][epp_update_host_change_hostname]
 
+<a name="add-ip-sub-proces"></a>
+### Add IP sub-proces
+
 ![Diagram of EPP update host add IP][epp_update_host_add_ip]
 
+<a name="remove-ip-sub-proces"></a>
+### Remove IP sub-proces
+
 ![Diagram of EPP update host remove IP][epp_update_host_remove_ip]
+
+<a name="change-admin-sub-proces"></a>
+### Change admin sub-proces
 
 ![Diagram of EPP update host change admin][epp_update_host_change_admin]
 
