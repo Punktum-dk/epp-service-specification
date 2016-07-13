@@ -976,15 +976,15 @@ The command can be used in two scenarios:
 
 | Return Code  | Description |
 | ------------ | ------------ |
-| 2005 | Syntax of the command is not correct |
-| 2302 | If the specified host object already exist |
-| 2003 | If the specified domain ends in '.dk', at least one IP address has to be specified |
-| 2004 | If the specified IP addresses are non-public addresses |
-| 2306 | If the specified nameserver administrator is a registrar account  |
-| 2303 | If the contact-id pointed to in `dkhm:requestedNsAdmin` points to a non-existing contact object |
-| 2201 | If the authenticated user does not hold the privilege to update the specified host object |
 | 1000 | If the create host command is successful |
 | 1001 | If the create host command awaits acknowledgement by the contact-id specified in `dkhm:requestedNsAdmin` |
+| 2003 | If the specified domain ends in '.dk', at least one IP address has to be specified |
+| 2004 | If the specified IP addresses are non-public addresses |
+| 2005 | Syntax of the command is not correct |
+| 2201 | If the authenticated user does not hold the privilege to update the specified host object |
+| 2302 | If the specified host object already exist |
+| 2303 | If the contact-id pointed to in `dkhm:requestedNsAdmin` points to a non-existing contact object |
+| 2306 | If the specified nameserver administrator is a registrar account or the domain name for the host ends in .dk, but is not registered |
 
 As for update domain `1001` holds higher precendence than `1000`, so if any of the sub-commands require additional review and are _pending_, the return code will be `1001`.
 
@@ -1818,7 +1818,7 @@ More information and documentation on the pre-activation service is available at
 
 [epp-address-resolution]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp-address-resolution.png
 
-[epp_create_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/epp_create_host_v1.0.png
+[epp_create_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/epp_create_host_v1.1.png
 
 [dkh_create_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/dkh_create_host_v1.0.png
 
