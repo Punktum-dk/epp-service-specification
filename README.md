@@ -1372,6 +1372,8 @@ The deletion of a host object can only be requested by the adminstrator.
 | 2303 | If the specified host object does not exist |
 | 2305 | If the specified host object links to domain name objects |
 
+![Diagram of DKH delete host][dkh_delete_host]
+
 <a name="delete-host-request"></a>
 ### delete host request
 
@@ -1864,6 +1866,8 @@ More information and documentation on the pre-activation service is available at
 [dkh_update_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/dkh_update_host_v1.0.png
 
 [epp_delete_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/epp_delete_host_v1.0.png
+
+[dkh_delete_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/dkh_delete_host_v1.0.png
 
 [XSD files]: https://github.com/DK-Hostmaster/epp-xsd-files
 
