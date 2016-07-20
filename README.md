@@ -1231,20 +1231,46 @@ This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command 
 <a name="proces"></a>
 ### Proces
 
+This is the overall proces, the proces is divided into sub-processes, please see the processes below for details.
+
 ![Diagram of EPP update host][epp_update_host]
 
 <a name="change-hostname-sub-proces"></a>
 ### Change hostname sub-proces
 
+The proces of changing a host name us unsupported by DK Hostmaster and will always result in an error code: `2102`.
+
 ![Diagram of EPP update host change hostname][epp_update_host_change_hostname]
+
+| Return Code  | Description |
+| ------------ | ------------ |
+| 2102 | Change of hostname is not supported |
 
 <a name="add-ip-sub-proces"></a>
 ### Add IP sub-proces
+
+Addition of IP addressed supports the additional of IPv4 and IPv6 adresses. These are required as part of our glue record policy. If additional status elements are added to this command it will fail.
+
+| Return Code  | Description |
+| ------------ | ------------ |
+| 1000 | If the update host command is successful |
+| 2004 | If the specified IP addresses are non-public addresses  |
+| 2005 | Syntax of the command is not correct |
+| 2102 | The command contains status elements |
 
 ![Diagram of EPP update host add IP][epp_update_host_add_ip]
 
 <a name="remove-ip-sub-proces"></a>
 ### Remove IP sub-proces
+
+Addition of IP addressed supports the additional of IPv4 and IPv6 adresses. These are required as part of our glue record policy. If additional status elements are added to this command it will fail.
+
+| Return Code  | Description |
+| ------------ | ------------ |
+| 1000 | If the update host command is successful |
+| 2005 | Syntax of the command is not correct |
+| 2102 | The command contains status elements |
+| 2304 | The number of IP addresses are below the required limit |
 
 ![Diagram of EPP update host remove IP][epp_update_host_remove_ip]
 
@@ -1266,9 +1292,11 @@ The update of a host object can only be requested by the adminstrator of the giv
 | 1001 | If the update host command awaits acknowledgement by the contact-id specified in `dkhm:requestedNsAdmin` |
 | 2004 | If the specified IP addresses are non-public addresses  |
 | 2005 | Syntax of the command is not correct |
+| 2102 | The command contains status elements |
 | 2201 | If the authenticated user does not hold the privilege to update the specified host object |
 | 2303 | If the specified host object does not exist |
 | 2303 | If the contact-id pointed to in `dkhm:requestedNsAdmin` points to a non-existing contact object |
+| 2304 | The number of IP addresses are below the required limit |
 
 As for update domain `1001` holds higher precendence than `1000`, so if any of the sub-commands require additional review and are _pending_, the return code will be `1001`.
 
