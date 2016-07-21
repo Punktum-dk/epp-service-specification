@@ -1298,7 +1298,7 @@ The update of a host object can only be requested by the adminstrator of the giv
 | 2303 | If the contact-id pointed to in `dkhm:requestedNsAdmin` points to a non-existing contact object |
 | 2304 | The number of IP addresses are below the required limit |
 
-As for update domain `1001` holds higher precendence than `1000`, so if any of the sub-commands require additional review and are _pending_, the return code will be `1001`.
+As for update host `1001` holds higher precendence than `1000`, so if any of the sub-commands require additional review and are _pending_, the return code will be `1001`.
 
 As described in Implementation Limitations, the service does not support setting of status via update host.
 
