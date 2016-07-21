@@ -1400,8 +1400,6 @@ The deletion of a host object can only be requested by the adminstrator.
 | 2303 | If the specified host object does not exist |
 | 2305 | If the specified host object links to domain name objects |
 
-![Diagram of DKH delete host][dkh_delete_host]
-
 <a name="delete-host-request"></a>
 ### delete host request
 
