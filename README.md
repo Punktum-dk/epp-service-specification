@@ -1256,7 +1256,7 @@ Addition of IP addressed supports the additional of IPv4 and IPv6 adresses. Thes
 | 1000 | If the update host command is successful |
 | 2004 | If the specified IP addresses are non-public addresses  |
 | 2005 | Syntax of the command is not correct |
-| 2102 | The command contains status elements |
+| 2102 | Change of status for host object is not supported |
 
 ![Diagram of EPP update host add IP][epp_update_host_add_ip]
 
