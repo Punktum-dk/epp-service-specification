@@ -989,8 +989,8 @@ The command can be used in two scenarios:
 | 2201 | If the authenticated user does not hold the privilege to update the specified host object |
 | 2302 | If the specified host object already exist |
 | 2303 | If the contact-id pointed to in `dkhm:requestedNsAdmin` points to a non-existing contact object |
+| 2303 | If the domain name for the host is not registered |
 | 2306 | If the specified nameserver administrator is a registrar account |
-| 2306 | If the domain name for the host ends is not registered |
 
 As for update domain `1001` holds higher precendence than `1000`, so if any of the sub-commands require additional review and are _pending_, the return code will be `1001`.
 
