@@ -71,8 +71,8 @@ Revision: 1.10
   - [create host](#create-host)
     - [create host request](#create-host-request)
     - [create host response](#create-host-response)
-    - [create host request, with request to new administrator](#create-host-request-with-request-to-new-administrator)
-    - [create host response, from request to new administrator](#create-host-response-from-request-to-new-administrator)
+    - [create host request with request to new administrator](#create-host-request-with-request-to-new-administrator)
+    - [create host response from request to new administrator](#create-host-response-from-request-to-new-administrator)
     - [Delayed create host response, from request to new administrator](#delayed-create-host-response-from-request-to-new-administrator)
     - [create host request, with request to registrant of host domain name](#create-host-request-with-request-to-registrant-of-host-domain-name)
     - [create host response, from request to registrant of domain name](#create-host-response-from-request-to-registrant-of-domain-name)
@@ -83,9 +83,9 @@ Revision: 1.10
     - [Add IP sub-proces](#add-ip-sub-proces)
     - [Remove IP sub-proces](#remove-ip-sub-proces)
     - [Change admin sub-proces](#change-admin-sub-proces)
-    - [update host request, with request to new administrator](#update-host-request-with-request-to-new-administrator)
-    - [update host response, with request to new administrator](#update-host-response-with-request-to-new-administrator)
-    - [Delayed update host response, from request to new administrator](#delayed-update-host-response-from-request-to-new-administrator)
+    - [update host request with request to new administrator](#update-host-request-with-request-to-new-administrator)
+    - [update host response with request to new administrator](#update-host-response-with-request-to-new-administrator)
+    - [Delayed update host response from request to new administrator](#delayed-update-host-response-from-request-to-new-administrator)
   - [delete host](#delete-host)
     - [delete host request](#delete-host-request)
     - [delete host response](#delete-host-response)
@@ -1047,7 +1047,7 @@ Response to the above request. The reponse indicates a succesful creation, since
 ```
 
 <a name="create-host-request-with-request-to-new-administrator"></a>
-### create host request, with request to new administrator
+### create host request with request to new administrator
 
 Request to create a host object, requesting a different adminstrator of the host object, hence requiring offline evaluation.
 
@@ -1073,7 +1073,7 @@ Request to create a host object, requesting a different adminstrator of the host
 ```
 
 <a name="create-host-response-from-request-to-new-administrator"></a>
-### create host response, from request to new administrator
+### create host response from request to new administrator
 
 Response to the above request. The response indicates a succesful accept of the requiest, but requires offline evaluation by the designated administrator of the host object, so the response indicates that the operation is pending.
 
@@ -1305,7 +1305,7 @@ As described in Implementation Limitations, the service does not support setting
 ![Diagram of DKH update host][dkh_update_host]
 
 <a name="update-host-request-with-request-to-new-administrator"></a>
-### update host request, with request to new administrator
+### update host request with request to new administrator
 
 Request to update a host object, requesting a different adminstrator of the host object, hence requiring offline evaluation.
 
@@ -1328,7 +1328,7 @@ Request to update a host object, requesting a different adminstrator of the host
 ```
 
 <a name="update-host-response-with-request-to-new-administrator"></a>
-### update host response, with request to new administrator
+### update host response with request to new administrator
 
 Response to the above request. The response indicates a succesful accept of the requiest, but requires offline evaluation by the designated administrator of the host object, so the response indicates that the operation is pending.
 
@@ -1348,7 +1348,7 @@ Response to the above request. The response indicates a succesful accept of the 
 ```
 
 <a name="delayed-update-host-response-from-request-to-new-administrator"></a>
-### Delayed update host response, from request to new administrator
+### Delayed update host response from request to new administrator
 
 If the creation of the host has resulting in a delayed operation, pending the designated nameserver administrator, the below example shows what a poll message for the final state of the operation looks like.
 
