@@ -983,7 +983,7 @@ The command can be used in two scenarios:
 | ------------ | ------------ |
 | 1000 | If the create host command is successful |
 | 1001 | If the create host command awaits acknowledgement by the contact-id specified in `dkhm:requestedNsAdmin` |
-| 2003 | If the specified domain ends in '.dk', at least one IP address has to be specified |
+| 2003 | If required IP address is not specified |
 | 2004 | If the specified IP addresses are non-public addresses |
 | 2005 | Syntax of the command is not correct |
 | 2201 | If the authenticated user does not hold the privilege to update the specified host object |
@@ -1875,7 +1875,7 @@ More information and documentation on the pre-activation service is available at
 
 [epp-address-resolution]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp-address-resolution.png
 
-[epp_create_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/epp_create_host_v1.1.png
+[epp_create_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/epp_create_host_v1.2.png
 
 [dkh_create_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/dkh_create_host_v1.0.png
 
