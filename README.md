@@ -890,9 +890,21 @@ The commands are then executed sequentially (order is dictates the precedence) a
 
 The command might be stopped if the sub-commands cannot be executed. For example if one of the sub-commands is a: change registrant, none of the other commands can be executed, since role changes will be implicit. 
 
-![Diagram of EPP proces for EPP update domain command evaluation][epp-update-domain-evaluate]
-
 When the command succeeds either `1000` or `1001` is returned the latter if one of the operations initiated by the sub-command require additional actions to be taken, `1001` will have precedence over `1000`. If a `1001` is returned the status code `pendingUpdate` might be set if an additional **update domain** command is issued.
+
+| Return Code  | Description |
+| ------------ | ------------ |
+| 1000 | If the update domain command is successful |
+| 1001 | If the update domain command awaits acknowledgement by 3rd. party |
+| 2005 | Syntax of the command is not correct |
+| 2102 | Change of status for host object is not supported |
+| 2201 | If the authenticated user does not hold the privilege to update the specified domain object |
+| 2303 | If the specified domain name does not exist |
+| 2303 | If the specified host name does not exist, for when adding a new nameserver |
+| 2303 | If the specified host name does not exist, for when removing a nameserver |
+| 2303 | If the specified userid  does not exist, for when adding a new billing contact |
+| 2304 | If the specified host name does not link with the specified domain name, for when removing a nameserver |
+| 2308 | The number of name servers are below the required limit |
 
 Please see the below sections for details on the different sub-commands.
 
@@ -1019,6 +1031,14 @@ The addition of a new nameserver to a domain name or a re-delegation requires th
 
 ![Update domain - Add nameserver][epp-update-domain-add-ns]
 
+| Return Code  | Description |
+| ------------ | ------------ |
+| 1000 | If the update domain command is successful |
+| 2005 | Syntax of the command is not correct |
+| 2201 | If the authenticated user does not hold the privilege to update the specified domain object |
+| 2303 | If the specified domain name does not exist |
+| 2303 | If the specified host name does not exist, for when adding a new nameserver |
+
 <a name="remove-nameserver"></a>
 ### remove nameserver
 
@@ -1048,6 +1068,16 @@ Since the update domain command can contain several sub-commands, this could be 
 ```
 
 ![Update domain - Remove nameserver][epp-update-domain-remove-ns]
+
+| Return Code  | Description |
+| ------------ | ------------ |
+| 1000 | If the update domain command is successful |
+| 2005 | Syntax of the command is not correct |
+| 2201 | If the authenticated user does not hold the privilege to update the specified domain object |
+| 2303 | If the specified domain name does not exist |
+| 2303 | If the specified host name does not exist, for when removing a nameserver |
+| 2304 | If the specified host name does not link with the specified domain name, for when removing a nameserver |
+| 2308 | The number of name servers are below the required limit |
 
 <a name="add-contact"></a>
 ### add contact
@@ -1704,7 +1734,7 @@ More information and documentation on the pre-activation service is available at
 
 [epp-update-domain-add-ns]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/epp_update_domain_add_ns_v1.0.png
 
-[epp-update-domain-remove-ns]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/epp_update_domain_remove_ns_v1.0.png
+[epp-update-domain-remove-ns]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/epp_update_domain_remove_ns_v1.1.png
 
 [epp-update-domain-change-registrant]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/epp_update_domain_change_registrant_v1.1.png
 
