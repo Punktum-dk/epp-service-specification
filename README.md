@@ -38,6 +38,7 @@ Revision: 1.10
   - [Authorization](#authorization)
   - [DNSSEC](#dnssec)
   - [Contact Creation](#contact-creation)
+  - [Domain Update](#domain-update)
   - [Waiting List](#waiting-list)
   - [Information Disclosure](#information-disclosure)
   - [Encoding and IDN domains](#encoding-and-idn-domains)
@@ -412,6 +413,11 @@ DK Hostmaster specifies rules ownership of DNSSEC keys. If you provide DNSSEC ke
 ## Contact Creation
 
 This command does not support the feature of providing own userid. The userid has to be specified as `auto` and the userid is assigned by DK Hostmaster. See also information on the create contact command.
+
+<a name="domain-update"></a>
+## Domain Update
+
+This command does not support the change of the registrant.
 
 <a name="waiting-list"></a>
 ## Waiting List
@@ -904,6 +910,7 @@ When the command succeeds either `1000` or `1001` is returned the latter if one 
 | 2303 | If the specified host name does not exist, for when removing a nameserver |
 | 2303 | If the specified userid  does not exist, for when adding a new billing contact |
 | 2304 | If the specified host name does not link with the specified domain name, for when removing a nameserver |
+| 2307 | Unimplemented object service, the service does not support change of registrant on a domain |
 | 2308 | The number of name servers are below the required limit |
 
 Please see the below sections for details on the different sub-commands.
@@ -974,35 +981,13 @@ The command might be blocked and the status code: `serverUpdateProhibited` is re
 <a name="change-registrant"></a>
 ### change registrant
 
-The change of registrant is a *special* command, it results in all privileges and rights being transferred to another entity. Normally a registrar would not have the privileges to make such a request.
-
-If a domain is not eligible for this update `2304` is returned with a status code indicating the reason: 
-
-- `serverUpdateProhibited` for policy domain policy
-- `clientUpdateProhibited` for service domain lock (VID)
-
-```XML
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <command>
-    <update>
-      <domain:update
-       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-        <domain:name>eksempel.dk</domain:name>
-        <domain:chg>
-          <domain:registrant>sh8013</domain:registrant>
-          <domain:authInfo>
-            <domain:pw>2BARfoo</domain:pw>
-          </domain:authInfo>
-        </domain:chg>
-      </domain:update>
-    </update>
-    <clTRID>ABC-12345</clTRID>
-  </command>
-</epp>
-```
+The change of registrant is a *special* command, it results in all privileges and rights being transferred to another entity. A registrar does not hold the privileges to make such a request, so the object service is unimplemented at this time.
 
 ![Update domain - Change registrant][epp-update-domain-change-registrant]
+
+| Return Code  | Description |
+| ------------ | ------------ |
+| 2307 | Unimplemented object service, the service does not support change of registrant on a domain |
 
 <a name="add-nameserver"></a>
 ### add nameserver
@@ -1736,7 +1721,7 @@ More information and documentation on the pre-activation service is available at
 
 [epp-update-domain-remove-ns]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/epp_update_domain_remove_ns_v1.1.png
 
-[epp-update-domain-change-registrant]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/epp_update_domain_change_registrant_v1.1.png
+[epp-update-domain-change-registrant]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/epp_update_domain_change_registrant_v1.2.png
 
 [XSD files]: https://github.com/DK-Hostmaster/epp-xsd-files
 
