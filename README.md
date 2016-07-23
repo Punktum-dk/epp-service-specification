@@ -1879,7 +1879,7 @@ More information and documentation on the pre-activation service is available at
 
 [dkh_create_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/dkh_create_host_v1.0.png
 
-[epp_update_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/epp_update_host_v1.1.png
+[epp_update_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/epp_update_host_v1.2.png
 
 [epp_update_host_add_ip]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/epp_update_host_add_ip_v1.0.png
 
