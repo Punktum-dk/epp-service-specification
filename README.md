@@ -876,7 +876,7 @@ The requirements for the command to commence with processing it that the followi
 
 If the request is not parsable the service responds with a `2005`.
 
-If the command is parsable, the command is separated into one of more of the following sub-commands (by order of precendence):
+If the command is parsable, the command is separated into one of more of the following sub-commands (by order of precedence):
 
 1. change registrant
 1. remove nameserver
