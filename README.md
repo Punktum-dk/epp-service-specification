@@ -61,8 +61,8 @@ Revision: 1.10 _currently being edited_
     - [info domain request](#info-domain-request)
     - [info domain response](#info-domain-response)
   - [renew domain](#renew-domain)
-    - [renew domain request:](#renew-domain-request)
-    - [renew domain response:](#renew-domain-response)
+    - [renew domain request](#renew-domain-request)
+    - [renew domain response](#renew-domain-response)
   - [check host](#check-host)
     - [check host request](#check-host-request)
     - [check host response](#check-host-response)
@@ -856,7 +856,7 @@ The sub-proces called, can be depicted as follows:
 ![Diagram of DKH sub-proces for EPP renew domain][dkh-renew-domain]
 
 <a name="renew-domain-request"></a>
-### renew domain request:
+### renew domain request
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -877,7 +877,7 @@ The sub-proces called, can be depicted as follows:
 The example is lifted from [RFC 5731][RFC5731] and modified, it will be replaced with improved examples post implementation.
 
 <a name="renew-domain-response"></a>
-### renew domain response:
+### renew domain response
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
