@@ -118,7 +118,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 * 1.3 2013-10-29
   * This revision of the specification is describing EPP service release 1.0.9
   * Added information on use of `clTRID` in context of create domain command
-  * Added more information on the domain check command, which has been extended with EPP service release 1.0.9. 
+  * Added more information on the domain check command, which has been extended with EPP service release 1.0.9.
   * This release also updates the [XSD][XSD Files] specification to revision 1.1
 
 * 1.4 2013-11-19
@@ -189,7 +189,7 @@ In addition, DK Hostmaster provides  a test environment for evaluation of future
 
 To validate the connection to our EPP service you need to use a [SSL certificate][SSL certificate].
 
-Use of the certificate is recommended and it should be use for all available environments. 
+Use of the certificate is recommended and it should be use for all available environments.
 
 <a name="available-environments"></a>
 ## Available Environments
@@ -212,7 +212,7 @@ DK Hostmaster offers the following environments:
   * create requests made to this environment will be serialised in the sandbox environment, provided that syntax and data are valid.
   * Domains will be enqueued, but will not be processed further nor be available for activation and propagation into the zone
   * Contacts (users) will be created, but will not be available in other systems like the self-service system etc.
-  * The Change Password operation will only change the password on the sandbox environment. 
+  * The Change Password operation will only change the password on the sandbox environment.
   * The sandbox environment is available at: epp-sandbox.dk-hostmaster.dk port 700
 
 <a name="implementation-requirements"></a>
@@ -240,6 +240,7 @@ Here follows a listed, the extensions are described separately and in detail bel
 * `dkhm:pnumber`
 * `dkhm:attention`
 * `dkhm:mobilephone`
+* `dkhm:secondaryEmail`
 * `dkhm:trackingNo`
 * `dkhm:domainAdvisory`
 * `dkhm:orderconfirmationToken`
@@ -313,6 +314,11 @@ This attribute points to the field where the `name` is saved if the organization
 
 Contact objects can have a mobilephone number in addition to `voice` and `fax`.
 
+<a name="dkhmsecondaryEmail"></a>
+## `dkhm:secondaryEmail`
+
+Contact objects can have a secondary e-mail-address in addition to `email`.
+
 <a name="implementation-limitations"></a>
 # Implementation Limitations
 
@@ -346,7 +352,7 @@ The following commands have not been implemented in the service described in thi
 
 The above commands was pulled out of scope, because the overall and primary goal of version 1, is to implement a standardised replacement for the existing [SMTP based form][Current domain registration form].
 
-In general the service is not localized and all EPP related errors and messages are provided in English. 
+In general the service is not localized and all EPP related errors and messages are provided in English.
 
 <a name="authorization"></a>
 ## Authorization
@@ -420,7 +426,7 @@ This part of the EPP protocol is described in [RFC 5730][RFC5730]. This command 
 
 The login uses the general AAA functionality in DK Hostmaster. This mean that in addition to the validation of username and password specified as part of the login request, an attempt is made to authorise the authenticated user for access to the actual EPP service and subsequent operations.
 
-Authorisation is currently only available to active registrars, therefore the username provided must point to an entity with the role of registrar with the DK Hostmaster registry. 
+Authorisation is currently only available to active registrars, therefore the username provided must point to an entity with the role of registrar with the DK Hostmaster registry.
 
 DK Hostmaster supports the change of passwords via EPP. Please refer to the chapter Available Environments for any special circumstances.
 
@@ -433,7 +439,7 @@ EPP supports  a password with at least 6 and max 16, where DK Hostmaster support
 * Numbers
 * Special Characters
 
-The following characters are legal special characters in passwords: 
+The following characters are legal special characters in passwords:
 
 ```
 % ` ' ( ) * + - , . / : ; < > = ! _ & ~ { } | ^ ? $ # @ " [ ]
@@ -1153,6 +1159,7 @@ This part of the EPP protocol is described in [RFC 5733][RFC5733]. This command 
 - [`dkhm:pnumber`](#dkhmpnumber)
 - [`dkhm:mobilephone`](#dkhmmobilephone)
 - [`dkhm:attention`](#dkhmattention)
+- [`dkhm:secondaryEmail`](#dkhmsecondaryEmail)
 
 These of course all controlled by relevant privileges.
 
@@ -1202,6 +1209,10 @@ These of course all controlled by relevant privileges.
         </contact:chg>
       </contact:update>
     </update>
+    <extension>
+        <dkhm:secondaryEmail xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.5">email@eksempel.dk</dkhm:secondaryEmail>
+        <dkhm:mobilephone xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.5">+1.7034444445</dkhm:mobilephone>
+    </extension>
     <clTRID>ABC-12345</clTRID>
   </command>
 </epp>
@@ -1282,7 +1293,7 @@ Please refer to the [greeting response example](#greeting) included in the [Appe
 <a name="access"></a>
 ## Access
 
-The EPP service provides access to identified data relating to all available entities (personal and organisational) under the terms and conditions that anonymity will be applied as specified by the entities in question, and in accordance with general terms and conditions and legislation. 
+The EPP service provides access to identified data relating to all available entities (personal and organisational) under the terms and conditions that anonymity will be applied as specified by the entities in question, and in accordance with general terms and conditions and legislation.
 
 <a name="purpose-statement"></a>
 ## Purpose Statement
@@ -1341,7 +1352,7 @@ The files are all available for [download][XSD files].
 
 * 1.0
   * EPP Service version 1.0.0
-  * Released 2014-02-25 
+  * Released 2014-02-25
 
 * 1.1
   * EPP Service version 1.0.9
