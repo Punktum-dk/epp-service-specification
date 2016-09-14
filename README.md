@@ -29,9 +29,9 @@ Revision: 1.10
   - [`dkhm:trackingNo`](#dkhmtrackingno)
   - [`dkhm:domainAdvisory`](#dkhmdomainadvisory)
   - [`dkhm:orderconfirmationToken`](#dkhmorderconfirmationtoken)
-  - [`dkhm:domain_confirmed`](#dkhmdomain_confirmed)
-  - [`dkhm:contact_validated`](#dkhmcontact_validated)
-  - [`dkhm:registrant_validated`](#dkhmregistrant_validated)
+  - [`dkhm:domain_confirmed`](#dkhmdomainconfirmed)
+  - [`dkhm:contact_validated`](#dkhmcontactvalidated)
+  - [`dkhm:registrant_validated`](#dkhmregistrantvalidated)
 - [Implementation Limitations](#implementation-limitations)
   - [Commands](#commands)
   - [Unimplemented commands](#unimplemented-commands)
@@ -335,19 +335,19 @@ Domain names registered with DK Hostmaster can hold a status blocked. This is us
 
 This is a special field for supporting a business flow where a domain can be pre-activated using the DK Hostmaster Pre-activation service. More information is available under the create domain command.
 
-<a name="dkhmdomain_confirmed"></a>
+<a name="dkhmdomainconfirmed"></a>
 ## `dkhm:domain_confirmed`
 
 Domain names registered with DK Hostmaster, has to be confirmed by the registrant, this is can either be done using pre-activation, see the `orderconfirmationToken` above or other systems with DK Hostmaster, the domain confirmation state is available via the create domain command using this extension.
 
 See also `orderconfirmationToken`.
 
-<a name="dkhmcontact_validated"></a>
+<a name="dkhmcontactvalidated"></a>
 ## `dkhm:contact_validated`
 
 Contact objects related to the role of registrant has to be validated, this field is used to indicate the status of a validation object via the info contact command.
 
-<a name="dkhmregistrant_validated"></a>
+<a name="dkhmregistrantvalidated"></a>
 ## `dkhm:registrant_validated`
 
 As described above, contact objects related to the role of registrant has to be validated, this field is used to indicate the status of a validation object via the create domain command.
@@ -408,6 +408,8 @@ Comparing the EPP implementation to the existing channel for domain registration
 I accordance with [RFC 5910][RFC5910]. We support DS only and not DNSKEY. In addition the maximum signature lifetime (`secDNS:maxSigLife`) is disregarded. See [section 3.3](http://tools.ietf.org/html/rfc5910#section-3.3) in the referenced RFC.
 
 DK Hostmaster specifies rules ownership of DNSSEC keys. If you provide DNSSEC keys a part of registration, the keys are associated with the registrant as owner. If you want to specify another owner, please specify the `tech` or `keyholder` role (see: Role Mapping under: create domain command).
+
+Not all algorithms are not supported, please refer to the [DK Hostmaster Name Service specification][dkhm-name-service-specifikation].
 
 <a name="contact-creation"></a>
 ## Contact Creation
@@ -1541,6 +1543,7 @@ Here is a list of documents and references used in this document
 * [DK Hostmaster: Current domain registration form][Current domain registration form]
 * [DK Hostmaster: Documentation on the current domain registration form][Documentation on the current domain registration form]
 * [DK Hostmaster: Pre-activation Service Specification][Pre-activation Service Specification]
+* [DK Hostmaster: Name Service Specification][dkhm-name-service-specification]
 
 <a name="resources"></a>
 # Resources
@@ -1752,3 +1755,5 @@ More information and documentation on the pre-activation service is available at
 [Current domain registration form]: https://www.dk-hostmaster.dk/fileadmin/formularer/dk-5.00en.txt
 
 [Documentation on the current domain registration form]: https://www.dk-hostmaster.dk/english/technical-administration/forms/register-domainname/
+
+[dkhm-name-service-specification]: https://github.com/DK-Hostmaster/dkhm-name-service-specification
