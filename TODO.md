@@ -1,7 +1,5 @@
 TODO for the DK Hostmaster EPP Service Specification
 
-- [ ] Add diagrams for commands and processes
-
 - [X] Add diagrams for commands and processes
 - [X] Add diagrams for DKH sub-processes
 - [X] Add more information on extensions required
@@ -16,8 +14,7 @@ https://github.com/DK-Hostmaster/epp-xsd-files/blob/epp_nameserver_admin_v1/host
 >>>>>>> epp_nameserver_admin_v1
 
 - [X] Clarify privileges for registrar vs. billing contact as initiator for renew domain
-
-- [ ] Add documentation on sub-processes
+- [ ] Add documentation on sub-processes for iådate domain
 - [ ] Clarify aspects of domain locks on processes
 - [x] Evaluate generic attribute manipulation (registration period etc)
 - [x] Implement matrix for privileges
