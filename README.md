@@ -380,9 +380,10 @@ The current implementation is limited to the following list of commands:
 * poll, including acknowledgement of messages
 * info (contact/domain/host)
 * check (contact/domain/host)
-* create (contact/domain)
+* create (contact/domain/host)
 * renew (domain)
-* update (domain)
+* update (contact/domain/host)
+* delete (host)
 
 All commands are described in detail below.
 
@@ -391,16 +392,8 @@ All commands are described in detail below.
 
 The following commands have not been implemented in the service described in this specification:
 
-* update (contact/domain)
-<a name="-delete-contactdomain"></a>
 * delete (contact/domain)
-* update (contact/host)
-* delete (contact/domain/host)
 * transfer (contact/domain)
-* renew
-* create host
-
-The above commands was pulled out of scope, because the overall and primary goal of version 1, is to implement a standardised replacement for the existing [SMTP based form][Current domain registration form].
 
 In general the service is not localized and all EPP related errors and messages are provided in English.
 
