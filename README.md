@@ -69,9 +69,10 @@ Revision: 2.0 _currently in draft_
     - [info domain response](#info-domain-response)
   - [renew domain](#renew-domain)
     - [renew domain request](#renew-domain-request)
+    - [renew domain response](#renew-domain-response)
+    - [renew domain response](#renew-domain-response-1)
   - [update domain](#update-domain)
     - [update domain request](#update-domain-request)
-    - [renew domain response](#renew-domain-response)
     - [update domain response](#update-domain-response)
     - [change registrant](#change-registrant)
     - [add nameserver](#add-nameserver)
@@ -969,6 +970,35 @@ The sub-proces called, can be depicted as follows:
     <clTRID>df49a47a9d1058186b97e8b916f0c23f</clTRID>
 ```
 
+<a name="renew-domain-response"></a>
+### renew domain response
+
+<a name="renew-domain-response-1"></a>
+### renew domain response
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <response>
+    <result code="1000">
+      <msg>Command completed successfully</msg>
+    </result>
+    <resData>
+      <domain:renData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>eksempel.dk</domain:name>
+        <domain:exDate>2021-05-12T22:00:00.0Z</domain:exDate>
+      </domain:renData>
+    </resData>
+    <trID>
+      <clTRID>df49a47a9d1058186b97e8b916f0c23f</clTRID>
+      <svTRID>40E74ED0-9BE6-11E4-8B24-9C0CC33995C9</svTRID>
+    </trID>
+   </response>
+</epp>
+```
+
+*Example lifted from [RFC 5731][RFC5731], will be exchanged*
+
 <a name="update-domain"></a>
 ## update domain
 
@@ -1078,11 +1108,6 @@ The command might be blocked and the status code: `serverUpdateProhibited` is re
 ```
 
 The example is lifted from [RFC 5731][RFC5731] and modified, it will be replaced with improved examples post implementation.
-
-<a name="renew-domain-response"></a>
-### renew domain response
-
-*Example lifted from [RFC 5731][RFC5731], will be exchanged*
 
 <a name="update-domain-response"></a>
 ### update domain response
