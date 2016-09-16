@@ -74,6 +74,7 @@ Revision: 2.0 _currently in draft_
     - [renew domain response](#renew-domain-response)
     - [update domain response](#update-domain-response)
   - [Privilege Matrix](#privilege-matrix)
+  - [Compatibility Matric](#compatibility-matric)
 
 <!-- /MarkdownTOC -->
 
@@ -2402,6 +2403,38 @@ More information and documentation on the pre-activation service is available at
 - \*6 request to registrant
 - \*7 only own profile
 - \*8 can only assign self
+
+<a name="compatibility-matric"></a>
+## Compatibility Matric
+
+
+| EPP Command  | Available since version | Exceptions and notes |
+| ------------ | ------------ | ------------ |
+| Log in | 1 | |
+| Change password | 1 | |
+| Log out | 1 | |
+| Check Domain | 1 | |
+| Create Domain | 1 | Asynchronous, requires orderconfirmation by the registrant. VID product not supported, PO numbers not supported |
+| Info Domain | 1 | Billing contact not disclosed, EPP status codes not supported completely |
+| Update Domain | 2 | Change of nameserver is asynchronous, requires approval by the registrant. Change of registrant is not supported |
+| Renew Domain | 2 | Requires that the requesting user is a registrar and billing contact for the domain. The domain name must nout have any financial outstanding |
+| Transfer Domain | N/A | |
+| Delete Domain | N/A | |
+| Check Contact | 1 | |
+| Create Contact | 1 | Supplied handle/user-id is not supported |
+| Info Contact | 1 | |
+| Update Contact | 2 | Updating email is asynchronous, but is regarded as non-atomic due to the email validation proces |
+| Transfer Contact | N/A | |
+| Delete Contact | N/A | |
+| Check Host | 1 | |
+| Create Host | 2 | Asynchronous, requires accept of the registrant of the domain name if the domain is under the .dk TLD and requires that the requesting user accepts the responsibility as nameserver administrator |
+| Info Host | 1 | |
+| Update Host | 2 |  Asynchronous, requires that the requested administrator accepts the responsibility as nameserver administrator |
+| Delete Host | 2 | |
+| Poll | 1 | |
+
+
+
 
 [General Terms and Conditions]: https://www.dk-hostmaster.dk/fileadmin/filer/pdf/generelle_vilkaar/general-conditions.pdf
 
