@@ -74,7 +74,7 @@ Revision: 2.0 _currently in draft_
     - [renew domain response](#renew-domain-response)
     - [update domain response](#update-domain-response)
   - [Privilege Matrix](#privilege-matrix)
-  - [Compatibility Matric](#compatibility-matric)
+  - [Compatibility Matrix](#compatibility-matrix)
 
 <!-- /MarkdownTOC -->
 
@@ -367,7 +367,7 @@ The extension is used for update and create host, where it is possible to reques
 <a name="implementation-limitations"></a>
 # Implementation Limitations
 
-As mentioned previously the EPP service comes with some limitations.
+As mentioned previously the EPP service comes with some limitations. Please see the [Compatibility Matrix](compatibility-matrix) in the appendices.
 
 <a name="commands"></a>
 ## Commands
@@ -475,7 +475,7 @@ As announced in the greeting, the following objects are available:
 With regard to extensions, the following are available:
 
 * [secDNS-1.1][XSD Files]
-* [dkhm-1.4][XSD Files]
+* [dkhm-2.0][XSD Files]
 
 Please see the greeting response included in the [appendices](greeting) for illustration of the actual announcement.
 
@@ -2402,8 +2402,8 @@ More information and documentation on the pre-activation service is available at
 - \*7 only own profile
 - \*8 can only assign self
 
-<a name="compatibility-matric"></a>
-## Compatibility Matric
+<a name="compatibility-matrix"></a>
+## Compatibility Matrix
 
 | EPP Command  | Available since version | Exceptions and notes |
 | ------------ | ------------ | ------------ |
