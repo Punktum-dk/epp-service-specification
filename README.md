@@ -357,7 +357,6 @@ Contact objects can have a mobilephone number in addition to `voice` and `fax`.
 <a name="dkhmsecondaryemail"></a>
 ## `dkhm:secondaryEmail`
 
-<a name="contact-objects-can-have-a-secondary-e-mail-address-in-addition-to-email"></a>
 Contact objects can have a secondary e-mail-address in addition to `email`.
 
 <a name="dkhmrequestednsadmin"></a>
