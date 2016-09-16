@@ -416,7 +416,7 @@ I accordance with [RFC 5910][RFC5910]. We support DS only and not DNSKEY. In add
 
 DK Hostmaster specifies rules ownership of DNSSEC keys. If you provide DNSSEC keys a part of registration, the keys are associated with the registrant as owner. If you want to specify another owner, please specify the `tech` or `keyholder` role (see: Role Mapping under: create domain command).
 
-Not all algorithms are not supported, please refer to the [DK Hostmaster Name Service specification][dkhm-name-service-specifikation].
+Not all algorithms are not supported, please refer to the [DK Hostmaster Name Service specification][dkhm-name-service-specification].
 
 <a name="contact-creation"></a>
 ## Contact Creation
