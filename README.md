@@ -29,9 +29,12 @@ Revision: 1.10
   - [`dkhm:trackingNo`](#dkhmtrackingno)
   - [`dkhm:domainAdvisory`](#dkhmdomainadvisory)
   - [`dkhm:orderconfirmationToken`](#dkhmorderconfirmationtoken)
-  - [`dkhm:domain_confirmed`](#dkhmdomain_confirmed)
-  - [`dkhm:contact_validated`](#dkhmcontact_validated)
-  - [`dkhm:registrant_validated`](#dkhmregistrant_validated)
+  - [`dkhm:domain_confirmed`](#dkhmdomainconfirmed)
+  - [`dkhm:contact_validated`](#dkhmcontactvalidated)
+  - [`dkhm:registrant_validated`](#dkhmregistrantvalidated)
+  - [`dkhm:attention`](#dkhmattention)
+  - [`dkhm:mobilephone`](#dkhmmobilephone)
+  - [`dkhm:secondaryEmail`](#dkhmsecondaryemail)
 - [Implementation Limitations](#implementation-limitations)
   - [Commands](#commands)
   - [Unimplemented commands](#unimplemented-commands)
@@ -75,6 +78,12 @@ Revision: 1.10
   - [info contact](#info-contact)
     - [info contact request](#info-contact-request)
     - [info contact response](#info-contact-response)
+  - [update contact](#update-contact)
+    - [update contact request](#update-contact-request)
+    - [update contact response](#update-contact-response)
+  - [delete contact](#delete-contact)
+    - [delete contact request](#delete-contact-request)
+    - [delete contact response](#delete-contact-response)
 - [Data Collection Policy](#data-collection-policy)
   - [Access](#access)
   - [Purpose Statement](#purpose-statement)
@@ -139,7 +148,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 * 1.3 2013-10-29
   * This revision of the specification is describing EPP service release 1.0.9
   * Added information on use of `clTRID` in context of create domain command
-  * Added more information on the domain check command, which has been extended with EPP service release 1.0.9. 
+  * Added more information on the domain check command, which has been extended with EPP service release 1.0.9.
   * This release also updates the [XSD][XSD Files] specification to revision 1.1
 
 * 1.4 2013-11-19
@@ -213,7 +222,7 @@ In addition, DK Hostmaster provides  a test environment for evaluation of future
 
 To validate the connection to our EPP service you need to use a [SSL certificate][SSL certificate].
 
-Use of the certificate is recommended and it should be use for all available environments. 
+Use of the certificate is recommended and it should be use for all available environments.
 
 <a name="available-environments"></a>
 ## Available Environments
@@ -242,6 +251,7 @@ DK Hostmaster offers the following environments:
   * create requests made to this environment will be serialised in the sandbox environment, provided that syntax and data are valid
   * Domains will be enqueued, but will not be processed further nor be available for activation and propagation into the zone
   * Contacts (users) will be created, but will not be available in other systems like the self-service system etc.
+
   * The Change Password operation will only change the password on the sandbox environment
   * The sandbox environment is available at: epp-sandbox.dk-hostmaster.dk port 700
 
@@ -279,6 +289,9 @@ Here follows a listed, the extensions are described separately and in detail bel
 * `dkhm:EAN`
 * `dkhm:CVR`
 * `dkhm:pnumber`
+* `dkhm:attention`
+* `dkhm:mobilephone`
+* `dkhm:secondaryEmail`
 * `dkhm:trackingNo`
 * `dkhm:domainAdvisory`
 * `dkhm:orderconfirmationToken`
@@ -323,24 +336,40 @@ Domain names registered with DK Hostmaster can hold a status blocked. This is us
 
 This is a special field for supporting a business flow where a domain can be pre-activated using the DK Hostmaster Pre-activation service. More information is available under the create domain command.
 
-<a name="dkhmdomain_confirmed"></a>
+<a name="dkhmdomainconfirmed"></a>
 ## `dkhm:domain_confirmed`
 
 Domain names registered with DK Hostmaster, has to be confirmed by the registrant, this is can either be done using pre-activation, see the `orderconfirmationToken` above or other systems with DK Hostmaster, the domain confirmation state is available via the create domain command using this extension.
 
 See also `orderconfirmationToken`.
 
-<a name="dkhmcontact_validated"></a>
+<a name="dkhmcontactvalidated"></a>
 ## `dkhm:contact_validated`
 
 Contact objects related to the role of registrant has to be validated, this field is used to indicate the status of a validation object via the info contact command.
 
-<a name="dkhmregistrant_validated"></a>
+<a name="dkhmregistrantvalidated"></a>
 ## `dkhm:registrant_validated`
 
 As described above, contact objects related to the role of registrant has to be validated, this field is used to indicate the status of a validation object via the create domain command.
 
 See also `contact_validated`.
+
+<a name="-head"></a>
+<a name="dkhmattention"></a>
+## `dkhm:attention`
+
+This attribute points to the field where the `name` is saved if the organization attribute is also specified.
+
+<a name="dkhmmobilephone"></a>
+## `dkhm:mobilephone`
+
+Contact objects can have a mobilephone number in addition to `voice` and `fax`.
+
+<a name="dkhmsecondaryemail"></a>
+## `dkhm:secondaryEmail`
+
+Contact objects can have a secondary e-mail-address in addition to `email`.
 
 <a name="implementation-limitations"></a>
 # Implementation Limitations
@@ -375,7 +404,7 @@ The following commands have not been implemented in the service described in thi
 
 The above commands was pulled out of scope, because the overall and primary goal of version 1, is to implement a standardised replacement for the existing [SMTP based form][Current domain registration form].
 
-In general the service is not localized and all EPP related errors and messages are provided in English. 
+In general the service is not localized and all EPP related errors and messages are provided in English.
 
 <a name="authorization"></a>
 ## Authorization
@@ -449,7 +478,7 @@ This part of the EPP protocol is described in [RFC 5730][RFC5730]. This command 
 
 The login uses the general AAA functionality in DK Hostmaster. This mean that in addition to the validation of username and password specified as part of the login request, an attempt is made to authorise the authenticated user for access to the actual EPP service and subsequent operations.
 
-Authorisation is currently only available to active registrars, therefore the username provided must point to an entity with the role of registrar with the DK Hostmaster registry. 
+Authorisation is currently only available to active registrars, therefore the username provided must point to an entity with the role of registrar with the DK Hostmaster registry.
 
 DK Hostmaster supports the change of passwords via EPP. Please refer to the chapter Available Environments for any special circumstances.
 
@@ -462,7 +491,7 @@ EPP supports  a password with at least 6 and max 16, where DK Hostmaster support
 * Numbers
 * Special Characters
 
-The following characters are legal special characters in passwords: 
+The following characters are legal special characters in passwords:
 
 ```
 % ` ' ( ) * + - , . / : ; < > = ! _ & ~ { } | ^ ? $ # @ " [ ]
@@ -1192,6 +1221,145 @@ Please note that the email address (`contact:email`) is masked and the value: `a
 </epp>
 ```
 
+<a name="update-contact"></a>
+## update contact
+
+This part of the EPP protocol is described in [RFC 5733][RFC5733]. This command adheres to the standard. In addition to the standard the command allows for manipulation of the extensions associated with contact objects, meaning that it is possible to update the following fields:
+
+- [`dkhm:userType`](#dkhmusertype)
+- [`dkhm:EAN`](#dkhmean)
+- [`dkhm:CVR`](#dkhmcvr)
+- [`dkhm:pnumber`](#dkhmpnumber)
+- [`dkhm:mobilephone`](#dkhmmobilephone)
+- [`dkhm:attention`](#dkhmattention)
+- [`dkhm:secondaryEmail`](#dkhmsecondaryEmail)
+
+These of course all controlled by relevant privileges.
+
+- Name / Organisation
+- Address
+- Country
+- Phone (voice)
+- Fax
+- Email
+
+![Diagram of EPP update contact][epp-update-contact]
+
+<a name="update-contact-request"></a>
+### update contact request
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <update>
+      <contact:update
+       xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
+        <contact:id>sh8013</contact:id>
+        <contact:add>
+          <contact:status s="clientDeleteProhibited"/>
+        </contact:add>
+        <contact:chg>
+          <contact:postalInfo type="int">
+            <contact:org/>
+            <contact:addr>
+              <contact:street>124 Example Dr.</contact:street>
+              <contact:street>Suite 200</contact:street>
+              <contact:city>Dulles</contact:city>
+              <contact:sp>VA</contact:sp>
+              <contact:pc>20166-6503</contact:pc>
+              <contact:cc>US</contact:cc>
+            </contact:addr>
+          </contact:postalInfo>
+          <contact:voice>+1.7034444444</contact:voice>
+          <contact:fax/>
+          <contact:authInfo>
+            <contact:pw>2fooBAR</contact:pw>
+          </contact:authInfo>
+          <contact:disclose flag="1">
+            <contact:voice/>
+            <contact:email/>
+          </contact:disclose>
+        </contact:chg>
+      </contact:update>
+    </update>
+    <extension>
+        <dkhm:secondaryEmail xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.5">email@eksempel.dk</dkhm:secondaryEmail>
+        <dkhm:mobilephone xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.5">+1.7034444445</dkhm:mobilephone>
+    </extension>
+    <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>
+```
+
+<a name="update-contact-response"></a>
+### update contact response
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <response>
+    <result code="1000">
+      <msg>Command completed successfully</msg>
+    </result>
+    <trID>
+      <clTRID>ABC-12345</clTRID>
+      <svTRID>54321-XYZ</svTRID>
+    </trID>
+  </response>
+</epp>
+```
+
+<a name="delete-contact"></a>
+## delete contact
+
+**This command is not supported.**
+
+This command will always return: `2101`, indicating unimplemented command.
+
+The deletion of contact objects is handled automatically by DK Hostmaster. The following status flags will be set:
+
+- clientDeleteProhibited
+- serverDeleteProhibited
+
+The later will only be lifted when the contact object is not linked to any other objects and automatic deletion is scheduled.
+
+<a name="delete-contact-request"></a>
+### delete contact request
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <delete>
+      <contact:delete
+       xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
+        <contact:id>sh8013</contact:id>
+      </contact:delete>
+    </delete>
+    <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>
+```
+
+<a name="delete-contact-response"></a>
+### delete contact response
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <response>
+    <result code="2101">
+      <msg>Unimplemented command</msg>
+    </result>
+    <trID>
+      <clTRID>ABC-12345</clTRID>
+      <svTRID>54321-XYZ</svTRID>
+    </trID>
+  </response>
+</epp>
+```
+
 <a name="data-collection-policy"></a>
 # Data Collection Policy
 
@@ -1202,7 +1370,7 @@ Please refer to the [greeting response example](#greeting) included in the [Appe
 <a name="access"></a>
 ## Access
 
-The EPP service provides access to identified data relating to all available entities (personal and organisational) under the terms and conditions that anonymity will be applied as specified by the entities in question, and in accordance with general terms and conditions and legislation. 
+The EPP service provides access to identified data relating to all available entities (personal and organisational) under the terms and conditions that anonymity will be applied as specified by the entities in question, and in accordance with general terms and conditions and legislation.
 
 <a name="purpose-statement"></a>
 ## Purpose Statement
@@ -1262,7 +1430,7 @@ The files are all available for [download][XSD files].
 
 * 1.0
   * EPP Service version 1.0.0
-  * Released 2014-02-25 
+  * Released 2014-02-25
 
 * 1.1
   * EPP Service version 1.0.9
@@ -1356,6 +1524,8 @@ More information and documentation on the pre-activation service is available at
 ```
 
 [General Terms and Conditions]: https://www.dk-hostmaster.dk/fileadmin/filer/pdf/generelle_vilkaar/general-conditions.pdf
+
+[epp-update-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_contact_admin_v1/images/epp_update_contact_v1.png
 
 [epp-role-mapping]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp-role-resolution.png
 
