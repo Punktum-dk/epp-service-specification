@@ -35,12 +35,14 @@ Revision: 1.10
   - [`dkhm:attention`](#dkhmattention)
   - [`dkhm:mobilephone`](#dkhmmobilephone)
   - [`dkhm:secondaryEmail`](#dkhmsecondaryemail)
+  - [`dkhm:requestedNsAdmin`](#dkhmrequestednsadmin)
 - [Implementation Limitations](#implementation-limitations)
   - [Commands](#commands)
   - [Unimplemented commands](#unimplemented-commands)
   - [Authorization](#authorization)
   - [DNSSEC](#dnssec)
   - [Contact Creation](#contact-creation)
+  - [Host Status Update](#host-status-update)
   - [Waiting List](#waiting-list)
   - [Information Disclosure](#information-disclosure)
   - [Encoding and IDN domains](#encoding-and-idn-domains)
@@ -69,6 +71,27 @@ Revision: 1.10
   - [info host](#info-host)
     - [info host request](#info-host-request)
     - [info host response](#info-host-response)
+  - [create host](#create-host)
+    - [create host request](#create-host-request)
+    - [create host response](#create-host-response)
+    - [create host request with request to new administrator](#create-host-request-with-request-to-new-administrator)
+    - [create host response from request to new administrator](#create-host-response-from-request-to-new-administrator)
+    - [Delayed create host response, from request to new administrator](#delayed-create-host-response-from-request-to-new-administrator)
+    - [create host request, with request to registrant of host domain name](#create-host-request-with-request-to-registrant-of-host-domain-name)
+    - [create host response, from request to registrant of domain name](#create-host-response-from-request-to-registrant-of-domain-name)
+    - [Delayed create host response, from request to registrant of domain name](#delayed-create-host-response-from-request-to-registrant-of-domain-name)
+  - [update host](#update-host)
+    - [Proces](#proces)
+    - [Change hostname sub-proces](#change-hostname-sub-proces)
+    - [Add IP sub-proces](#add-ip-sub-proces)
+    - [Remove IP sub-proces](#remove-ip-sub-proces)
+    - [Change admin sub-proces](#change-admin-sub-proces)
+    - [update host request with request to new administrator](#update-host-request-with-request-to-new-administrator)
+    - [update host response with request to new administrator](#update-host-response-with-request-to-new-administrator)
+    - [Delayed update host response from request to new administrator](#delayed-update-host-response-from-request-to-new-administrator)
+  - [delete host](#delete-host)
+    - [delete host request](#delete-host-request)
+    - [delete host response](#delete-host-response)
   - [create contact](#create-contact)
     - [create contact request](#create-contact-request)
     - [create contact response](#create-contact-response)
@@ -217,6 +240,12 @@ In addition to the assets, DK Hostmaster aims to assist users and developers of 
 
 In addition, DK Hostmaster provides  a test environment for evaluation of future releases of the service, both for evaluation of new features, but also for opening up for EPP users to assist and guide DK Hostmaster in the EPP service implementation work.
 
+The service is implemented under the following principles:
+
+1 Adhere to the standard to the extent possible or use non-intrusive extensions to support the requirements or finally use mandatory extensions to adhere to service requirements
+1 Use _in-band_ communication, meaning requests made via  EPP will be responded to via EPP unless the end-user have specified differently
+1 Use standard error code to the extent possible, communicating state more clearly and unambigiously
+
 <a name="ssl-certificate"></a>
 ## SSL Certificate
 
@@ -298,6 +327,7 @@ Here follows a listed, the extensions are described separately and in detail bel
 * `dkhm:domain_confirmed`
 * `dkhm:contact_validated`
 * `dkhm:registrant_validated`
+* `dkhm:requestedNsAdmin`
 
 <a name="dkhmusertype"></a>
 ## `dkhm:userType`
@@ -355,7 +385,6 @@ As described above, contact objects related to the role of registrant has to be 
 
 See also `contact_validated`.
 
-<a name="-head"></a>
 <a name="dkhmattention"></a>
 ## `dkhm:attention`
 
@@ -369,7 +398,13 @@ Contact objects can have a mobilephone number in addition to `voice` and `fax`.
 <a name="dkhmsecondaryemail"></a>
 ## `dkhm:secondaryEmail`
 
+<a name="contact-objects-can-have-a-secondary-e-mail-address-in-addition-to-email"></a>
 Contact objects can have a secondary e-mail-address in addition to `email`.
+
+<a name="dkhmrequestednsadmin"></a>
+## `dkhm:requestedNsAdmin`
+
+The extension is used for update and create host, where it is possible to request another nameserver administrator than the authenticated user. The extension was introduced in the DK Hostmaster XSD file set 1.5.
 
 <a name="implementation-limitations"></a>
 # Implementation Limitations
@@ -396,11 +431,10 @@ All commands will be described in detail below.
 
 The following commands have not been implemented in the service described in this specification:
 
-* update (contact/domain/host)
-* delete (contact/domain/host)
+* update (contact/domain)
+* delete (contact/domain)
 * transfer (contact/domain)
 * renew
-* create host
 
 The above commands was pulled out of scope, because the overall and primary goal of version 1, is to implement a standardised replacement for the existing [SMTP based form][Current domain registration form].
 
@@ -429,6 +463,11 @@ DK Hostmaster specifies rules ownership of DNSSEC keys. If you provide DNSSEC ke
 ## Contact Creation
 
 This command does not support the feature of providing own userid. The userid has to be specified as `auto` and the userid is assigned by DK Hostmaster. See also information on the create contact command.
+
+<a name="host-status-update"></a>
+## Host Status Update
+
+This command does not support the setting and removal of status using the XML element: `host:status`. The status is assigned by DK Hostmaster. See also information on the update host command.
 
 <a name="waiting-list"></a>
 ## Waiting List
@@ -699,7 +738,7 @@ As for the user entities some mappings are made so all relevant roles are specif
 
 Please note that the command supports punycode notation for specifying IDN domain names, but responses are in the specified UTF-8 character set.
 
-![Diagram of role mapping for EPP create domain][epp-role-mapping]
+![Diagram of role mapping for EPP create domain][epp-create-host]
 
 <a name="check-domain"></a>
 ## check domain
@@ -815,7 +854,7 @@ This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command 
         <domain:name>dk-hostmaster.dk</domain:name>
         <domain:roid>DK_HOSTMASTER_DK-DK</domain:roid>
         <domain:status s="serverTransferProhibited" />
-        <domain:status s="serverUpdateProhibited" />
+        <domain:status s="serverupdateProhibited" />
         <domain:status s="serverRenewProhibited" />
         <domain:status s="serverDeleteProhibited" />
         <domain:registrant>DKHM1-DK</domain:registrant>
@@ -950,6 +989,481 @@ Please note that according to the RFC [section 3.1.2][RFC5732-3.1.2], the `CLID`
     <trID>
       <clTRID>c109ef580c81dfca17b4680ddcde72c9</clTRID>
       <svTRID>0C96C812-F6F6-11E3-867F-A6B052036DCB</svTRID>
+    </trID>
+  </response>
+</epp>
+```
+
+<a name="create-host"></a>
+## create host
+
+This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard. The command can be extended to specify another nameserver administrator than the authenticated user.
+
+Please note that IP addresses are required for domain names ending in '.dk', please refer to the [glue record policy](https://github.com/DK-Hostmaster/dkhm-name-service-specification#glue-records).
+
+![Diagram of EPP create host][epp_create_host]
+
+The command can be used in two scenarios:
+
+1. The command is used as described in the RFC and the authenticated user is appointed as administrator for the nameserver created
+2. The command is extended with a contact object pointing to an existing user, which is requested to take the role as nameserver administrator for the host object requested created
+
+| Return Code  | Description |
+| ------------ | ------------ |
+| 1000 | If the create host command is successful |
+| 1001 | If the create host command awaits acknowledgement by the contact-id specified in `dkhm:requestedNsAdmin` |
+| 2003 | If required IP address is not specified |
+| 2004 | If the specified IP addresses are non-public addresses |
+| 2005 | Syntax of the command is not correct |
+| 2201 | If the authenticated user does not hold the privilege to update the specified host object |
+| 2302 | If the specified host object already exist |
+| 2303 | If the contact-id pointed to in `dkhm:requestedNsAdmin` points to a non-existing contact object |
+| 2303 | If the domain name for the host is not registered |
+| 2306 | If the specified nameserver administrator is a registrar account |
+
+As for update domain `1001` holds higher precendence than `1000`, so if any of the sub-commands require additional review and are _pending_, the return code will be `1001`.
+
+![Diagram of DKH create host][dkh_create_host]
+
+<a name="create-host-request"></a>
+### create host request
+
+Request to create a host object, using both IPv4 and IPv6 adresses and the authenticated user is the registrant of the specified domain name and requested adminstrator of the host object.
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <create>
+      <host:create
+       xmlns:host="urn:ietf:params:xml:ns:host-1.0">
+        <host:name>ns1.eksempel.dk</host:name>
+        <host:addr ip="v4">192.0.2.2</host:addr>
+        <host:addr ip="v4">192.0.2.29</host:addr>
+        <host:addr ip="v6">1080:0:0:0:8:800:200417A</host:addr>
+      </host:create>
+    </create>
+    <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>
+```
+
+<a name="create-host-response"></a>
+### create host response
+
+Response to the above request. The reponse indicates a succesful creation, since the operation could be completed successfully without requiring offline evaluation.
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <response>
+    <result code="1000">
+      <msg>Command completed successfully</msg>
+    </result>
+    <resData>
+      <host:creData
+       xmlnhost="urn:ietf:paramxml:nhost-1.0">
+        <host:name>ns1.eksempel.dk</host:name>
+        <host:crDate>1999-04-03T22:00:00.0Z</host:crDate>
+      </host:creData>
+    </resData>
+    <trID>
+      <clTRID>ABC-12345</clTRID>
+      <svTRID>54322-XYZ</svTRID>
+    </trID>
+  </response>
+</epp>
+```
+
+<a name="create-host-request-with-request-to-new-administrator"></a>
+### create host request with request to new administrator
+
+Request to create a host object, requesting a different adminstrator of the host object, hence requiring offline evaluation.
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <create>
+      <host:create
+       xmlns:host="urn:ietf:params:xml:ns:host-1.0">
+        <host:name>ns1.eksempel.dk</host:name>
+        <host:addr ip="v4">192.0.2.2</host:addr>
+        <host:addr ip="v4">192.0.2.29</host:addr>
+        <host:addr ip="v6">1080:0:0:0:8:800:200417A</host:addr>
+      </host:create>
+    </create>
+    <clTRID>ABC-12345</clTRID>
+    <extension>
+      <dkhm:requestedNsAdmin xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.5">ADMIN2-DK</dkhm:requestedNsAdmin>
+    </extension>
+  </command>
+</epp>
+```
+
+<a name="create-host-response-from-request-to-new-administrator"></a>
+### create host response from request to new administrator
+
+Response to the above request. The response indicates a succesful accept of the requiest, but requires offline evaluation by the designated administrator of the host object, so the response indicates that the operation is pending.
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <response>
+    <result code="1001">
+      <msg>Command completed successfully; action pending</msg>
+    </result>
+    <resData>
+      <host:creData
+       xmlnhost="urn:ietf:params:xml:ns:host-1.0">
+        <host:name>ns1.eksempel.dk</host:name>
+        <host:crDate>1999-04-03T22:00:00.0Z</host:crDate>
+      </host:creData>
+    </resData>
+    <trID>
+      <clTRID>ABC-12345</clTRID>
+      <svTRID>54322-XYZ</svTRID>
+    </trID>
+  </response>
+</epp>
+```
+
+<a name="delayed-create-host-response-from-request-to-new-administrator"></a>
+### Delayed create host response, from request to new administrator
+
+If the creation of the host has resulting in a delayed operation, pending the designated nameserver administrator, the below example shows what a poll message for the final state of the operation would look like.
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <response>
+    <result code="1301">
+      <msg>Command completed successfully; ack to dequeue</msg>
+    </result>
+    <msgQ count="5" id="12345">
+      <qDate>1999-04-04T22:01:00.0Z</qDate>
+      <msg>Pending action completed successfully.</msg>
+    </msgQ>
+    <resData>
+      <host:panData
+       xmlns:host="urn:ietf:params:xml:ns:host-1.0">
+        <host:name paResult="1">ns1.eksempel.dk</host:name>
+        <host:paTRID>
+          <clTRID>ABC-12345</clTRID>
+          <svTRID>54322-XYZ</svTRID>
+        </host:paTRID>
+        <host:paDate>1999-04-04T22:00:00.0Z</host:paDate>
+      </host:panData>
+    </resData>
+    <trID>
+      <clTRID>BCD-23456</clTRID>
+      <svTRID>65432-WXY</svTRID>
+    </trID>
+  </response>
+</epp>
+```
+
+Please note the `paResult`, where `1` indicates an accept and `0` would indicate a decline.
+
+<a name="create-host-request-with-request-to-registrant-of-host-domain-name"></a>
+### create host request, with request to registrant of host domain name
+
+Request to create a host object, where the authenticated use is not the registrant of the domain name naming the host object, hence requiring offline evaluation.
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <create>
+      <host:create
+       xmlns:host="urn:ietf:params:xml:ns:host-1.0">
+        <host:name>ns1.eksempel.dk</host:name>
+        <host:addr ip="v4">192.0.2.2</host:addr>
+        <host:addr ip="v4">192.0.2.29</host:addr>
+        <host:addr ip="v6">1080:0:0:0:8:800:200417A</host:addr>
+      </host:create>
+    </create>
+    <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>
+```
+
+<a name="create-host-response-from-request-to-registrant-of-domain-name"></a>
+### create host response, from request to registrant of domain name
+
+Response to the above request. The reponse indicates a succesful accept of the requiest, but requires offline evaluation by the registrant of the specified domain namem, so the response indicates that the operation is pending.
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <response>
+    <result code="1001">
+      <msg>Command completed successfully; action pending</msg>
+    </result>
+    <resData>
+      <host:creData
+       xmlnhost="urn:ietf:params:xml:ns:host-1.0">
+        <host:name>ns1.eksempel.dk</host:name>
+        <host:crDate>1999-04-03T22:00:00.0Z</host:crDate>
+      </host:creData>
+    </resData>
+    <trID>
+      <clTRID>ABC-12345</clTRID>
+      <svTRID>54322-XYZ</svTRID>
+    </trID>
+  </response>
+</epp>
+```
+
+<a name="delayed-create-host-response-from-request-to-registrant-of-domain-name"></a>
+### Delayed create host response, from request to registrant of domain name
+
+If the creation of the host has resulting in a delayed operation, pending the designated nameserver administrator, the below example shows what a poll message for the final state of the operation would look like.
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <response>
+    <result code="1301">
+      <msg>Command completed successfully; ack to dequeue</msg>
+    </result>
+    <msgQ count="5" id="12345">
+      <qDate>1999-04-04T22:01:00.0Z</qDate>
+      <msg>Pending action completed successfully.</msg>
+    </msgQ>
+    <resData>
+      <host:panData
+       xmlns:host="urn:ietf:params:xml:ns:host-1.0">
+        <host:name paResult="1">ns1.eksempel.dk</host:name>
+        <host:paTRID>
+          <clTRID>ABC-12345</clTRID>
+          <svTRID>54322-XYZ</svTRID>
+        </host:paTRID>
+        <host:paDate>1999-04-04T22:00:00.0Z</host:paDate>
+      </host:panData>
+    </resData>
+    <trID>
+      <clTRID>BCD-23456</clTRID>
+      <svTRID>65432-WXY</svTRID>
+    </trID>
+  </response>
+</epp>
+```
+
+Please note the `paResult`, where `1` indicates an accept and `0` would indicate a decline.
+
+<a name="update-host"></a>
+## update host
+
+This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard, but is extended to service one special usage scenario. 
+
+<a name="proces"></a>
+### Proces
+
+This is the overall proces, the proces is divided into sub-processes, please see the processes below for details.
+
+![Diagram of EPP update host][epp_update_host]
+
+<a name="change-hostname-sub-proces"></a>
+### Change hostname sub-proces
+
+The proces of changing a host name us unsupported by DK Hostmaster and will always result in an error code: `2102`.
+
+![Diagram of EPP update host change hostname][epp_update_host_change_hostname]
+
+| Return Code  | Description |
+| ------------ | ------------ |
+| 2102 | Change of hostname is not supported |
+
+<a name="add-ip-sub-proces"></a>
+### Add IP sub-proces
+
+Addition of IP addressed supports the additional of IPv4 and IPv6 adresses. These are required as part of our glue record policy. If additional status elements are added to this command it will fail.
+
+| Return Code  | Description |
+| ------------ | ------------ |
+| 1000 | If the update host command is successful |
+| 2004 | If the specified IP addresses are non-public addresses  |
+| 2005 | Syntax of the command is not correct |
+| 2102 | Change of status for host object is not supported |
+
+![Diagram of EPP update host add IP][epp_update_host_add_ip]
+
+<a name="remove-ip-sub-proces"></a>
+### Remove IP sub-proces
+
+Addition of IP addressed supports the additional of IPv4 and IPv6 adresses. These are required as part of our glue record policy. If additional status elements are added to this command it will fail.
+
+| Return Code  | Description |
+| ------------ | ------------ |
+| 1000 | If the update host command is successful |
+| 2005 | Syntax of the command is not correct |
+| 2102 | The command contains status elements |
+| 2304 | The number of IP addresses are below the required limit |
+
+![Diagram of EPP update host remove IP][epp_update_host_remove_ip]
+
+<a name="change-admin-sub-proces"></a>
+### Change admin sub-proces
+
+![Diagram of EPP update host change admin][epp_update_host_change_admin]
+
+The command can be used in two scenarios:
+
+1. The command is used as described in the RFC and IP adresses can be administered
+2. The command is extended with a contact object pointing to an existing user, which is requested to takeover the role as nameserver administrator for the host object requested updated
+
+The update of a host object can only be requested by the adminstrator of the given host.
+
+| Return Code  | Description |
+| ------------ | ------------ |
+| 1000 | If the update host command is successful |
+| 1001 | If the update host command awaits acknowledgement by the contact-id specified in `dkhm:requestedNsAdmin` |
+| 2004 | If the specified IP addresses are non-public addresses  |
+| 2005 | Syntax of the command is not correct |
+| 2102 | The command contains status elements |
+| 2201 | If the authenticated user does not hold the privilege to update the specified host object |
+| 2303 | If the specified host object does not exist |
+| 2303 | If the contact-id pointed to in `dkhm:requestedNsAdmin` points to a non-existing contact object |
+| 2304 | The number of IP addresses are below the required limit |
+
+As for update host `1001` holds higher precendence than `1000`, so if any of the sub-commands require additional review and are _pending_, the return code will be `1001`.
+
+As described in Implementation Limitations, the service does not support setting of status via update host.
+
+![Diagram of DKH update host][dkh_update_host]
+
+<a name="update-host-request-with-request-to-new-administrator"></a>
+### update host request with request to new administrator
+
+Request to update a host object, requesting a different adminstrator of the host object, hence requiring offline evaluation.
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <update>
+      <host:update
+       xmlns:host="urn:ietf:params:xml:ns:host-1.0">
+        <host:name>ns1.eksempel.dk</host:name>
+      </host:update>
+    </update>
+    <clTRID>ABC-12345</clTRID>
+    <extension>
+      <dkhm:requestedNsAdmin xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.5">ADMIN2-DK</dkhm:requestedNsAdmin>
+    </extension>    
+  </command>
+</epp>
+```
+
+<a name="update-host-response-with-request-to-new-administrator"></a>
+### update host response with request to new administrator
+
+Response to the above request. The response indicates a succesful accept of the requiest, but requires offline evaluation by the designated administrator of the host object, so the response indicates that the operation is pending.
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <response>
+    <result code="1001">
+      <msg>Command completed successfully; action pending</msg>
+    </result>
+    <trID>
+      <clTRID>ABC-12345</clTRID>
+      <svTRID>54321-XYZ</svTRID>
+    </trID>
+  </response>
+</epp>
+```
+
+<a name="delayed-update-host-response-from-request-to-new-administrator"></a>
+### Delayed update host response from request to new administrator
+
+If the creation of the host has resulting in a delayed operation, pending the designated nameserver administrator, the below example shows what a poll message for the final state of the operation looks like.
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <response>
+    <result code="1301">
+      <msg>Command completed successfully; ack to dequeue</msg>
+    </result>
+    <msgQ count="5" id="12345">
+      <qDate>1999-04-04T22:01:00.0Z</qDate>
+      <msg>Pending action completed successfully.</msg>
+    </msgQ>
+    <resData>
+      <host:panData
+       xmlns:host="urn:ietf:params:xml:ns:host-1.0">
+        <host:name paResult="1">ns1.example.com</host:name>
+        <host:paTRID>
+          <clTRID>ABC-12345</clTRID>
+          <svTRID>54322-XYZ</svTRID>
+        </host:paTRID>
+        <host:paDate>1999-04-04T22:00:00.0Z</host:paDate>
+      </host:panData>
+    </resData>
+    <trID>
+      <clTRID>BCD-23456</clTRID>
+      <svTRID>65432-WXY</svTRID>
+    </trID>
+  </response>
+</epp>
+```
+
+Please note the `paResult`, where `1` indicates an accept and `0` would indicate a decline.
+
+<a name="delete-host"></a>
+## delete host
+
+This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard.
+
+![Diagram of EPP delete host][epp_delete_host]
+
+The deletion of a host object can only be requested by the adminstrator.
+
+| Return Code  | Description |
+| ------------ | ------------ |
+| 1000 | If the delete host command is successful |
+| 2201 | If the authenticated user does not hold the privilege to update the specified host object |
+| 2303 | If the specified host object does not exist |
+| 2305 | If the specified host object links to domain name objects |
+
+<a name="delete-host-request"></a>
+### delete host request
+
+Request to delete a host object, the authenticated user is the current administrator of the specified host object.
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <delete>
+      <host:delete
+       xmlns:host="urn:ietf:params:xml:ns:host-1.0">
+        <host:name>ns1.eksempel.dk</host:name>
+      </host:delete>
+    </delete>
+    <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>
+```
+
+<a name="delete-host-response"></a>
+### delete host response
+
+Response to the above request. Since the authenticated user is the current administrator and all requirements are met the command completes successfully.
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <response>
+    <result code="1000">
+      <msg>Command completed successfully</msg>
+    </result>
+    <trID>
+      <clTRID>ABC-12345</clTRID>
+      <svTRID>54321-XYZ</svTRID>
     </trID>
   </response>
 </epp>
@@ -1530,6 +2044,26 @@ More information and documentation on the pre-activation service is available at
 [epp-role-mapping]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp-role-resolution.png
 
 [epp-address-resolution]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp-address-resolution.png
+
+[epp_create_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/epp_create_host_v1.2.png
+
+[dkh_create_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/dkh_create_host_v1.0.png
+
+[epp_update_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/epp_update_host_v1.2.png
+
+[epp_update_host_add_ip]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/epp_update_host_add_ip_v1.0.png
+
+[epp_update_host_change_admin]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/epp_update_host_change_admin_v1.0.png
+
+[epp_update_host_change_hostname]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/epp_update_host_change_hostname_v1.0.png
+
+[epp_update_host_remove_ip]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/epp_update_host_remove_ip_v1.0.png
+
+[dkh_update_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/dkh_update_host_v1.0.png
+
+[epp_delete_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/epp_delete_host_v1.1.png
+
+[dkh_delete_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/dkh_delete_host_v1.0.png
 
 [XSD files]: https://github.com/DK-Hostmaster/epp-xsd-files
 
