@@ -384,8 +384,7 @@ The current implementation is limited to the following list of commands:
 * renew (domain)
 * update (domain)
 
-
-All commands will be described in detail below.
+All commands are described in detail below.
 
 <a name="unimplemented-commands"></a>
 ## Unimplemented commands
