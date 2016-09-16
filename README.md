@@ -43,14 +43,16 @@ Revision: 1.10 _currently being edited_
   - [DNSSEC](#dnssec)
   - [Contact Creation](#contact-creation)
   - [Host Status Update](#host-status-update)
+  - [Domain Update](#domain-update)
   - [Waiting List](#waiting-list)
   - [Information Disclosure](#information-disclosure)
   - [Encoding and IDN domains](#encoding-and-idn-domains)
+  - [DNSSEC management for a domain](#dnssec-management-for-a-domain)
 - [Supported Object Transform and Query Commands](#supported-object-transform-and-query-commands)
   - [hello and greeting](#hello-and-greeting)
   - [login](#login)
     - [login request](#login-request)
-    - [login reponse:](#login-reponse)
+    - [login reponse](#login-reponse)
   - [logout](#logout)
     - [logout request](#logout-request)
     - [logout response](#logout-response)
@@ -67,64 +69,11 @@ Revision: 1.10 _currently being edited_
     - [info domain response](#info-domain-response)
   - [renew domain](#renew-domain)
     - [renew domain request](#renew-domain-request)
+  - [update domain](#update-domain)
+    - [update domain request](#update-domain-request)
     - [renew domain response](#renew-domain-response)
-  - [check host](#check-host)
-    - [check host request](#check-host-request)
-    - [check host response](#check-host-response)
-  - [info host](#info-host)
-    - [info host request](#info-host-request)
-    - [info host response](#info-host-response)
-  - [create host](#create-host)
-    - [create host request](#create-host-request)
-    - [create host response](#create-host-response)
-    - [create host request with request to new administrator](#create-host-request-with-request-to-new-administrator)
-    - [create host response from request to new administrator](#create-host-response-from-request-to-new-administrator)
-    - [Delayed create host response, from request to new administrator](#delayed-create-host-response-from-request-to-new-administrator)
-    - [create host request, with request to registrant of host domain name](#create-host-request-with-request-to-registrant-of-host-domain-name)
-    - [create host response, from request to registrant of domain name](#create-host-response-from-request-to-registrant-of-domain-name)
-    - [Delayed create host response, from request to registrant of domain name](#delayed-create-host-response-from-request-to-registrant-of-domain-name)
-  - [update host](#update-host)
-    - [Proces](#proces)
-    - [Change hostname sub-proces](#change-hostname-sub-proces)
-    - [Add IP sub-proces](#add-ip-sub-proces)
-    - [Remove IP sub-proces](#remove-ip-sub-proces)
-    - [Change admin sub-proces](#change-admin-sub-proces)
-    - [update host request with request to new administrator](#update-host-request-with-request-to-new-administrator)
-    - [update host response with request to new administrator](#update-host-response-with-request-to-new-administrator)
-    - [Delayed update host response from request to new administrator](#delayed-update-host-response-from-request-to-new-administrator)
-  - [delete host](#delete-host)
-    - [delete host request](#delete-host-request)
-    - [delete host response](#delete-host-response)
-  - [create contact](#create-contact)
-    - [create contact request](#create-contact-request)
-    - [create contact response](#create-contact-response)
-  - [check contact](#check-contact)
-    - [check contact request](#check-contact-request)
-    - [check contact response](#check-contact-response)
-  - [info contact](#info-contact)
-    - [info contact request](#info-contact-request)
-    - [info contact response](#info-contact-response)
-  - [update contact](#update-contact)
-    - [update contact request](#update-contact-request)
-    - [update contact response](#update-contact-response)
-  - [delete contact](#delete-contact)
-    - [delete contact request](#delete-contact-request)
-    - [delete contact response](#delete-contact-response)
-- [Data Collection Policy](#data-collection-policy)
-  - [Access](#access)
-  - [Purpose Statement](#purpose-statement)
-  - [Recipient Statement](#recipient-statement)
-  - [Retention Statement](#retention-statement)
-- [References](#references)
-- [Resources](#resources)
-  - [XML Schemas](#xml-schemas)
-    - [XSD Version History](#xsd-version-history)
-  - [Mailing list](#mailing-list)
-  - [Issue Reporting](#issue-reporting)
-  - [Additional Information](#additional-information)
-  - [Pre-activation Service](#pre-activation-service)
-- [Appendices](#appendices)
-  - [Greeting](#greeting)
+    - [update domain response](#update-domain-response)
+  - [Privilege Matrix](#privilege-matrix)
 
 <!-- /MarkdownTOC -->
 
@@ -427,6 +376,8 @@ The current implementation is limited to the following list of commands:
 * check (contact/domain/host)
 * create (contact/domain)
 * renew (domain)
+* update (domain)
+
 
 All commands will be described in detail below.
 
@@ -436,7 +387,10 @@ All commands will be described in detail below.
 The following commands have not been implemented in the service described in this specification:
 
 * update (contact/domain)
+<a name="-delete-contactdomain"></a>
 * delete (contact/domain)
+* update (contact/host)
+* delete (contact/domain/host)
 * transfer (contact/domain)
 * renew
 * create host
@@ -464,6 +418,8 @@ I accordance with [RFC 5910][RFC5910]. We support DS only and not DNSKEY. In add
 
 DK Hostmaster specifies rules ownership of DNSSEC keys. If you provide DNSSEC keys a part of registration, the keys are associated with the registrant as owner. If you want to specify another owner, please specify the `tech` or `keyholder` role (see: Role Mapping under: create domain command).
 
+Not all algorithms are not supported, please refer to the [DK Hostmaster Name Service specification][dkhm-name-service-specifikation].
+
 <a name="contact-creation"></a>
 ## Contact Creation
 
@@ -472,7 +428,13 @@ This command does not support the feature of providing own userid. The userid ha
 <a name="host-status-update"></a>
 ## Host Status Update
 
+<a name="this-command-does-not-support-the-setting-and-removal-of-status-using-the-xml-element-hoststatus-the-status-is-assigned-by-dk-hostmaster-see-also-information-on-the-update-host-command"></a>
 This command does not support the setting and removal of status using the XML element: `host:status`. The status is assigned by DK Hostmaster. See also information on the update host command.
+
+<a name="domain-update"></a>
+## Domain Update
+
+This command does not support the change of the registrant.
 
 <a name="waiting-list"></a>
 ## Waiting List
@@ -488,6 +450,11 @@ Please note that some information is not disclosed when using Object Query Comma
 ## Encoding and IDN domains
 
 The danish registry supports IDN domain names and the EPP commands support punycode notation for this in requests. We do however not support punycode notation in responses at this time.
+
+<a name="dnssec-management-for-a-domain"></a>
+## DNSSEC management for a domain
+
+The update domain command does not support DNSSEC management at this time.
 
 <a name="supported-object-transform-and-query-commands"></a>
 # Supported Object Transform and Query Commands
@@ -543,6 +510,7 @@ The following characters are legal special characters in passwords:
 
 Currently, the only language supported is English. So the language parameter is ignored and all responses are provided in English.
 
+
 <a name="login-request"></a>
 ### login request
 
@@ -569,7 +537,7 @@ Currently, the only language supported is English. So the language parameter is 
 ```
 
 <a name="login-reponse"></a>
-### login reponse:
+### login reponse
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
@@ -940,6 +908,112 @@ The sub-proces called, can be depicted as follows:
         </domain:renew>
       </renew>
     <clTRID>df49a47a9d1058186b97e8b916f0c23f</clTRID>
+```
+
+<a name="update-domain"></a>
+## update domain
+
+This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command does not adhere to the standard
+
+- `authInfo` section is ignored is not recommended for transport of end-user passwords
+- `contact` object in the  `ns` section is ignored
+
+This command covers a lot of functionality, it can complete operations such as:
+
+- change registrant for domain
+- add nameserver to domain
+- remove nameserver from domain
+- add admin contact
+- remove admin contact
+- add billing contact
+- remove billing contact
+
+In addition it will be extended with DNSSEC management capabilities.
+
+The command will be evaluated as an atomic command, even though it is dispatched to several sub-commands.
+
+![Diagram of EPP proces for EPP update domain][epp-update-domain]
+
+The requirements for the command to commence with processing it that the following data are available:
+
+- a valid domain name
+- a sub-command, consisting of either
+  - add (`add`)
+  - change (`chg`)
+  - remove (`rem`)
+
+If the request is not parsable the service responds with a `2005`.
+
+If the command is parsable, the command is separated into one of more of the following sub-commands (by order of precedence):
+
+1. change registrant
+1. remove nameserver
+1. remove admin contact
+1. remove billing contact
+1. add nameserver
+1. add admin contact
+1. add billing contact
+
+The commands are then executed sequentially (order is dictates the precedence) as a single transaction. If a single sub-command fails, the transaction is rolled-back and the relevant error code is returned (`2XXX`).
+
+The command might be stopped if the sub-commands cannot be executed. For example if one of the sub-commands is a: change registrant, none of the other commands can be executed, since role changes will be implicit. 
+
+When the command succeeds either `1000` or `1001` is returned the latter if one of the operations initiated by the sub-command require additional actions to be taken, `1001` will have precedence over `1000`. If a `1001` is returned the status code `pendingUpdate` might be set if an additional **update domain** command is issued.
+
+| Return Code  | Description |
+| ------------ | ------------ |
+| 1000 | If the update domain command is successful |
+| 1001 | If the update domain command awaits acknowledgement by 3rd. party |
+| 2005 | Syntax of the command is not correct |
+| 2102 | Change of status for host object is not supported |
+| 2201 | If the authenticated user does not hold the privilege to update the specified domain object |
+| 2303 | If the specified domain name does not exist |
+| 2303 | If the specified host name does not exist, for when adding a new nameserver |
+| 2303 | If the specified host name does not exist, for when removing a nameserver |
+| 2303 | If the specified userid  does not exist, for when adding a new billing contact |
+| 2304 | If the specified host name does not link with the specified domain name, for when removing a nameserver |
+| 2307 | Unimplemented object service, the service does not support change of registrant on a domain |
+| 2308 | The number of name servers are below the required limit |
+
+Please see the below sections for details on the different sub-commands.
+
+The command might be blocked and the status code: `serverUpdateProhibited` is returned indicating that an update is not possible. The status code `clientUpdateProhibited` will be returned if the issued update request cannot be fullfilled due to a domain lock with the registry. See also [ICANN description](https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en/) of status codes.
+
+<a name="update-domain-request"></a>
+### update domain request
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <update>
+      <domain:update
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>eksempel.dk</domain:name>
+        <domain:add>
+          <domain:ns>
+            <domain:hostObj>ns2.example.com</domain:hostObj>
+          </domain:ns>
+          <domain:contact type="tech">mak21</domain:contact>
+          <domain:status s="clientHold"
+           lang="en">Payment overdue.</domain:status>
+        </domain:add>
+        <domain:rem>
+          <domain:ns>
+            <domain:hostObj>ns1.example.com</domain:hostObj>
+          </domain:ns>
+          <domain:contact type="tech">sh8013</domain:contact>
+          <domain:status s="clientUpdateProhibited"/>
+        </domain:rem>
+        <domain:chg>
+          <domain:registrant>sh8013</domain:registrant>
+          <domain:authInfo>
+            <domain:pw>2BARfoo</domain:pw>
+          </domain:authInfo>
+        </domain:chg>
+      </domain:update>
+    </update>
+    <clTRID>ABC-12345</clTRID>
   </command>
 </epp>
 ```
@@ -948,6 +1022,11 @@ The example is lifted from [RFC 5731][RFC5731] and modified, it will be replaced
 
 <a name="renew-domain-response"></a>
 ### renew domain response
+
+*Example lifted from [RFC 5731][RFC5731], will be exchanged*
+
+<a name="update-domain-response"></a>
+### update domain response
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -970,7 +1049,172 @@ The example is lifted from [RFC 5731][RFC5731] and modified, it will be replaced
 </epp>
 ```
 
+<a name="the-example-is-lifted-from-rfc-5731rfc5731-and-modified-it-will-be-replaced-with-improved-examples-post-implementation"></a>
 The example is lifted from [RFC 5731][RFC5731] and modified, it will be replaced with improved examples post implementation.
+
+    <result code="1001">
+      <msg>Command completed successfully</msg>
+    </result>
+    <trID>
+      <clTRID>ABC-12345</clTRID>
+      <svTRID>54321-XYZ</svTRID>
+    </trID>
+  </response>
+</epp>
+```
+
+*Example lifted from [RFC 5731][RFC5731], will be exchanged*
+
+<a name="change-registrant"></a>
+### change registrant
+
+The change of registrant is a *special* command, it results in all privileges and rights being transferred to another entity. A registrar does not hold the privileges to make such a request, so the object service is unimplemented at this time.
+
+![Update domain - Change registrant][epp-update-domain-change-registrant]
+
+| Return Code  | Description |
+| ------------ | ------------ |
+| 2307 | Unimplemented object service, the service does not support change of registrant on a domain |
+
+<a name="add-nameserver"></a>
+### add nameserver
+
+The addition of a new nameserver to a domain name or a re-delegation requires that the new nameserver must offer resolution for the domain name in question.
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <update>
+      <domain:update
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>eksempel.dk</domain:name>
+        <domain:add>
+          <domain:ns>
+            <domain:hostObj>ns2.example.com</domain:hostObj>
+          </domain:ns>
+        </domain:add>
+      </domain:update>
+    </update>
+    <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>
+```
+
+![Update domain - Add nameserver][epp-update-domain-add-ns]
+
+| Return Code  | Description |
+| ------------ | ------------ |
+| 1000 | If the update domain command is successful |
+| 2005 | Syntax of the command is not correct |
+| 2201 | If the authenticated user does not hold the privilege to update the specified domain object |
+| 2303 | If the specified domain name does not exist |
+| 2303 | If the specified host name does not exist, for when adding a new nameserver |
+
+<a name="remove-nameserver"></a>
+### remove nameserver
+
+The removal of a existing nameserver from a domain name requires that at least two other name servers are offering resolution for the domain in question, else the command will fail.
+
+Since the update domain command can contain several sub-commands, this could be accompanied by an *add nameserver* (see above), so the policy requirement is met and resolution is kept.
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <update>
+      <domain:update
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>eksempel.dk</domain:name>
+        <domain:rem>
+          <domain:ns>
+            <domain:hostObj>ns1.example.com</domain:hostObj>
+          </domain:ns>
+          <domain:contact type="tech">sh8013</domain:contact>
+        </domain:rem>
+      </domain:update>
+    </update>
+    <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>
+```
+
+![Update domain - Remove nameserver][epp-update-domain-remove-ns]
+
+| Return Code  | Description |
+| ------------ | ------------ |
+| 1000 | If the update domain command is successful |
+| 2005 | Syntax of the command is not correct |
+| 2201 | If the authenticated user does not hold the privilege to update the specified domain object |
+| 2303 | If the specified domain name does not exist |
+| 2303 | If the specified host name does not exist, for when removing a nameserver |
+| 2304 | If the specified host name does not link with the specified domain name, for when removing a nameserver |
+| 2308 | The number of name servers are below the required limit |
+
+<a name="add-contact"></a>
+### add contact
+
+The addition of a new contact has to adhere to some policies.
+
+1. If the contact is the admin, only the billing role can be added
+2. If the authenticated user is a registrar only billing can be added
+3. The new contact is requested to accept the role, so the operation is asynchronous
+
+Additing new users require special privileges, currently only with the registrant, apart from the policy listed above.
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <update>
+      <domain:update
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>eksempel.dk</domain:name>
+        <domain:add>
+          <domain:contact type="tech">mak21</domain:contact>
+        </domain:add>
+      </domain:update>
+    </update>
+    <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>
+```
+
+![Update domain - Add billing/admin contact][epp-update-domain-add-contact]
+
+![Update domain - Add billing/admin contact sub-proces][dkh-update-domain-add-contact]
+
+<a name="remove-contact"></a>
+### remove contact
+
+The removal of a existing contact is possible for both billing and admin contacts.
+
+1. If the contact is the admin, both billing and admin roles can be removed
+2. The admin can add a new billing role (see above)
+3. If no addition the role defaults to the registrant becoming the inhabitant of the role, no request is made, the registrant is only informed of the change out of band
+
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <update>
+      <domain:update
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>eksempel.dk</domain:name>
+        <domain:rem>
+          <domain:contact type="tech">sh8013</domain:contact>
+        </domain:rem>
+      </domain:update>
+    </update>
+    <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>
+```
+
+![Update domain - Remove billing/admin contact][epp-update-domain-remove-contact]
+
+![Update domain - Remove billing/admin contact sub-proces][dkh-update-domain-remove-contact]
 
 <a name="check-host"></a>
 ## check host
@@ -1998,7 +2242,11 @@ Here is a list of documents and references used in this document
 * [DK Hostmaster: Current domain registration form][Current domain registration form]
 * [DK Hostmaster: Documentation on the current domain registration form][Documentation on the current domain registration form]
 * [DK Hostmaster: Pre-activation Service Specification][Pre-activation Service Specification]
+
+<a name="-icann-epp-status-codes"></a>
 * [ICANN: EPP status codes](https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en/)
+
+* [DK Hostmaster: Name Service Specification][dkhm-name-service-specification]
 
 <a name="resources"></a>
 # Resources
@@ -2118,6 +2366,45 @@ More information and documentation on the pre-activation service is available at
 </epp>
 ```
 
+<a name="privilege-matrix"></a>
+## Privilege Matrix
+
+| Command | Sub-command | Registrar | Domain admin | Domain billing | Nameserver admin |
+| --- | --- |:---:|:---:|:---:|:---:|
+| login | | :white_check_mark: | :white_check_mark: \*1 | :white_check_mark: \*1 | :white_check_mark: |
+| create domain | | :white_check_mark: | | | |
+| update domain | | | :white_check_mark: \*2 | | :white_check_mark: \*2 |
+| | add billing | :white_check_mark: \*8 | :white_check_mark: \*3 | | |
+| | remove billing | :white_check_mark: \*4 | :white_check_mark: \*4 | :white_check_mark: \*4 | |
+| | add admin | | :white_check_mark: \*5 | | |
+| | remove admin | | :white_check_mark: \*4 | | |
+| | change registrant | | :white_check_mark: \*6 | | |
+| | add nameserver | | :white_check_mark: \*6 | | :white_check_mark: \*6 |
+| | remove nameserver | | :white_check_mark: \*6 | | :white_check_mark: \*6 |
+| renew domain | | | | :white_check_mark: | |
+| delete domain | | | :white_check_mark: \*6 | | |
+| info domain | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| check domain | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| create contact | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| update contact | | :white_check_mark: \*7 | | | :white_check_mark: \*7 |
+| delete contact | | | | | |
+| info contact | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| check contact | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| create host | | :white_check_mark: | | | :white_check_mark: |
+| update host | | | | | :white_check_mark: |
+| delete host | | | | | :white_check_mark: |
+| info host | | :white_check_mark: | | | :white_check_mark: |
+| check host | | :white_check_mark: | | | :white_check_mark: |
+
+- \*1 as registrar
+- \*2 see sub-commands
+- \*3 request to new billing contact
+- \*4 defaults to registrant
+- \*5 request to to registrant and new admin contact
+- \*6 request to registrant
+- \*7 only own profile
+- \*8 can only assign self
+
 [General Terms and Conditions]: https://www.dk-hostmaster.dk/fileadmin/filer/pdf/generelle_vilkaar/general-conditions.pdf
 
 [epp-update-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_contact_admin_v1/images/epp_update_contact_v1.png
@@ -2150,6 +2437,24 @@ More information and documentation on the pre-activation service is available at
 
 [dkh-renew-domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_renew_domain_v1/images/dkh_renew_domain_v1.1.png
 
+[epp-update-domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/epp_update_domain_v1.1.png
+
+[epp-update-domain-evaluate]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/epp_update_domain_evaluate_command_v1.0.png
+
+[epp-update-domain-add-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/epp_update_domain_add_contact_v1.0.png
+
+[dkh-update-domain-add-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/dkh_update_domain_add_contact_v1.0.png
+
+[epp-update-domain-remove-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/epp_update_domain_remove_contact_v1.1.png
+
+[dkh-update-domain-remove-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/dkh_update_domain_remove_contact_v1.0.png
+
+[epp-update-domain-add-ns]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/epp_update_domain_add_ns_v1.0.png
+
+[epp-update-domain-remove-ns]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/epp_update_domain_remove_ns_v1.1.png
+
+[epp-update-domain-change-registrant]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_update_domain_v1/images/epp_update_domain_change_registrant_v1.2.png
+
 [XSD files]: https://github.com/DK-Hostmaster/epp-xsd-files
 
 [SSL certificate]: https://www.dk-hostmaster.dk/fileadmin/filer/epp/epp.dk-hostmaster.dk_700.pem
@@ -2179,3 +2484,5 @@ More information and documentation on the pre-activation service is available at
 [Current domain registration form]: https://www.dk-hostmaster.dk/fileadmin/formularer/dk-5.00en.txt
 
 [Documentation on the current domain registration form]: https://www.dk-hostmaster.dk/english/technical-administration/forms/register-domainname/
+
+[dkhm-name-service-specification]: https://github.com/DK-Hostmaster/dkhm-name-service-specification

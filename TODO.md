@@ -16,3 +16,9 @@ https://github.com/DK-Hostmaster/epp-xsd-files/blob/epp_nameserver_admin_v1/host
 >>>>>>> epp_nameserver_admin_v1
 
 - [X] Clarify privileges for registrar vs. billing contact as initiator for renew domain
+
+- [ ] Add documentation on sub-processes
+- [ ] Clarify aspects of domain locks on processes
+- [x] Evaluate generic attribute manipulation (registration period etc)
+- [x] Implement matrix for privileges
+- [ ] Evaluate whether a `2307` should be returned for update domain, change registrant, instead of `2306`. `2306` is more correct, but perhaps `2307` is better suited for the time being
