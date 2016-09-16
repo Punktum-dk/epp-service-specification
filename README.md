@@ -426,7 +426,6 @@ This command does not support the feature of providing own userid. The userid ha
 <a name="host-status-update"></a>
 ## Host Status Update
 
-<a name="this-command-does-not-support-the-setting-and-removal-of-status-using-the-xml-element-hoststatus-the-status-is-assigned-by-dk-hostmaster-see-also-information-on-the-update-host-command"></a>
 This command does not support the setting and removal of status using the XML element: `host:status`. The status is assigned by DK Hostmaster. See also information on the update host command.
 
 <a name="domain-update"></a>
