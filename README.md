@@ -243,7 +243,7 @@ DK Hostmaster offers the following environments:
   * The Change Password operation will only change the password on the sandbox environment
   * The sandbox environment is available at: epp-sandbox.dk-hostmaster.dk port 700
 
-Please note that when you first start to use the EPP sandbox environment, the access credentials are matching your production credentials. If these do not work. please contact: tech@dk-hostmaster.dk to get the synhcronized.
+Please note that when you first start to use the EPP sandbox environment, the access credentials are matching your production credentials. If these do not work as expected (e.g. error `2200`). please contact: tech@dk-hostmaster.dk to get the credentials synhcronized.
 
 <a name="implementation-requirements"></a>
 # Implementation Requirements
