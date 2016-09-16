@@ -1,7 +1,7 @@
 DK Hostmaster EPP Service Specification
 
-2016-06-08
-Revision: 1.10
+2016-04-12
+Revision: 1.10 _currently being edited_
 
 # Table of Contents
 
@@ -65,6 +65,9 @@ Revision: 1.10
   - [info domain](#info-domain)
     - [info domain request](#info-domain-request)
     - [info domain response](#info-domain-response)
+  - [renew domain](#renew-domain)
+    - [renew domain request](#renew-domain-request)
+    - [renew domain response](#renew-domain-response)
   - [check host](#check-host)
     - [check host request](#check-host-request)
     - [check host response](#check-host-response)
@@ -423,6 +426,7 @@ The current implementation is limited to the following list of commands:
 * info (contact/domain/host)
 * check (contact/domain/host)
 * create (contact/domain)
+* renew (domain)
 
 All commands will be described in detail below.
 
@@ -435,6 +439,7 @@ The following commands have not been implemented in the service described in thi
 * delete (contact/domain)
 * transfer (contact/domain)
 * renew
+* create host
 
 The above commands was pulled out of scope, because the overall and primary goal of version 1, is to implement a standardised replacement for the existing [SMTP based form][Current domain registration form].
 
@@ -891,6 +896,81 @@ This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command 
   </response>
 </epp>
 ```
+
+The example is obsolete and will be replaced with post implementation of the domain renew command (see below).
+
+<a name="renew-domain"></a>
+## renew domain
+
+This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command adheres to the standard.
+
+![Diagram of EPP proces for EPP renew domain][epp-renew-domain]
+
+| Return Code  | Description |
+| ------------ | ------------ |
+| 2005 | Syntax of the command is not correct |
+| 2303 | If the specified domain object does not exist |
+| 2201 | If the authenticated user does not hold the privilege to renew the specified domain object. This privilege is given to the billing contact for the domain name (see also the [login command](#login)) |
+| 2306 | If the specified expiry date is not valid. The provided expiration date has to be equal to the current expiration date or we return |
+| 2306 | If the calculated expiry date is not allowed. The new expiration date has to be lower than the current expiration date + 5 years, returning: `2306`. The current expiration date is available via the [info domain](#info-domain) command as `domain:exDate` |
+| 2105 | If the domain object is not eligible for renewal. The domain name has to be in the state ‘Active’. This will also be reflected in status value `serverRenewProhibited`. See also [ICANN description](https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en/#serverRenewProhibited) of status |
+| 2400 | In case of an exception |
+| 1000 | If the renew domain command is successful |
+
+This complete proces is atomic and might throw an unrecoverable exception: `2400` either due to unforeseen circumstances or a change in the state of the domain name.
+
+On success we emit the return code `1000`. No further communication is made via the EPP service. An invoice is generated and is distributed out of band for EPP as shown in the sub-proces and an additional *message* is sent out of band for EPP to the billing contact and the registrant
+
+The sub-proces called, can be depicted as follows:
+
+![Diagram of DKH sub-proces for EPP renew domain][dkh-renew-domain]
+
+<a name="renew-domain-request"></a>
+### renew domain request
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+  <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+    <command>
+      <renew>
+        <domain:renew xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+          <domain:name>eksempel.dk</domain:name>
+          <domain:curExpDate>2016-05-12</domain:curExpDate>
+          <domain:period unit="y">5</domain:period>
+        </domain:renew>
+      </renew>
+    <clTRID>df49a47a9d1058186b97e8b916f0c23f</clTRID>
+  </command>
+</epp>
+```
+
+The example is lifted from [RFC 5731][RFC5731] and modified, it will be replaced with improved examples post implementation.
+
+<a name="renew-domain-response"></a>
+### renew domain response
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <response>
+    <result code="1000">
+      <msg>Command completed successfully</msg>
+    </result>
+    <resData>
+      <domain:renData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>eksempel.dk</domain:name>
+        <domain:exDate>2021-05-12T22:00:00.0Z</domain:exDate>
+      </domain:renData>
+    </resData>
+    <trID>
+      <clTRID>df49a47a9d1058186b97e8b916f0c23f</clTRID>
+      <svTRID>40E74ED0-9BE6-11E4-8B24-9C0CC33995C9</svTRID>
+    </trID>
+   </response>
+</epp>
+```
+
+The example is lifted from [RFC 5731][RFC5731] and modified, it will be replaced with improved examples post implementation.
 
 <a name="check-host"></a>
 ## check host
@@ -1918,11 +1998,12 @@ Here is a list of documents and references used in this document
 * [DK Hostmaster: Current domain registration form][Current domain registration form]
 * [DK Hostmaster: Documentation on the current domain registration form][Documentation on the current domain registration form]
 * [DK Hostmaster: Pre-activation Service Specification][Pre-activation Service Specification]
+* [ICANN: EPP status codes](https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en/)
 
 <a name="resources"></a>
 # Resources
 
-A list of resources for DK Hostmaster EPP support is found below.
+A list of resources for DK Hostmaster EPP support is located below.
 
 <a name="xml-schemas"></a>
 ## XML Schemas
@@ -2064,6 +2145,10 @@ More information and documentation on the pre-activation service is available at
 [epp_delete_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/epp_delete_host_v1.1.png
 
 [dkh_delete_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_nameserver_admin_v1/images/dkh_delete_host_v1.0.png
+
+[epp-renew-domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_renew_domain_v1/images/epp_renew_domain_v1.1.png
+
+[dkh-renew-domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/epp_renew_domain_v1/images/dkh_renew_domain_v1.1.png
 
 [XSD files]: https://github.com/DK-Hostmaster/epp-xsd-files
 
