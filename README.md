@@ -104,37 +104,28 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 <a name="document-history"></a>
 ## Document History
 
-* 1.0 2013-02-25
-  * Initial revision
-  * Introduces [XSD][XSD Files] specification revision 1.0
+* 2.0 2016-09-16
+  * Describes EPP service 2.X.X 
+  * Added renew domain description
+  * Added update domain description
+  * Added create/update/delete host descriptions
+  * Added update contact description
 
-* 1.1 2013-05-31
-  * Added paragraph on passwords in section on the login command
-  * Added mention of standard port 700
-  * Corrected some of the XML examples, which had not been updated to reflect the correct use of [XSDs][XSD Files]
-  * Added important note on contact creation
+* 1.10 2016-06-08
+  * Added information on IP whitelisting 
 
-* 1.2 2013-08-07
-  * This revision of the specification is describing EPP service release 1.0.8
-  * Added note on domain check
+* 1.9 2016-01-30
+  * Information on new waiting list handling
+  * Information on new DNSSEC key handling
 
-* 1.3 2013-10-29
-  * This revision of the specification is describing EPP service release 1.0.9
-  * Added information on use of `clTRID` in context of create domain command
-  * Added more information on the domain check command, which has been extended with EPP service release 1.0.9.
-  * This release also updates the [XSD][XSD Files] specification to revision 1.1
+* 1.8 2015-09-03
+  * Minor corrections
+  * More information on extensions for possible registration of the DK Hostmaster extensions with IANA in relation to [RFC:7451][RFC:7451]
+  * Added [RFC:7451][RFC:7451] compliant descriptions in subdirectory: `rfc7451/`
 
-* 1.4 2013-11-19
-  * Corrected links in resources
-  * Empasized the use of the `auto` keyword for contact creation, this has also been listed in the implementation limitations section
-  * Added information on the restrictive use of `clTRID` in new section entitled: Implementation Requirements |
-
-* 1.5 2014-06-18
-  * This revision of the specification is describing EPP service release 1.1.X
-  * The test environment is no longer active
-  * Examples updated to latest [XSD][XSD Files] revision (1.2)
-  * Pre-activation token (`orderconfirmationToken`) can be transported via extension for create domain command
-  * Multiple examples of requests and responses added
+* 1.7 2015-05-12
+  * This revision of the specification is describing EPP service release 1.3.X
+  * This release also updates the [XSD][XSD Files] specification to revision 1.4, introducing the extension pnumber for transport of production unit numbers for validation of danish companies as part of the create contact command
 
 * 1.6 2015-01-06
   * This revision of the specification is describing EPP service release 1.2.X
@@ -145,21 +136,38 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
   * create domain command extended with validation information for registrant
   * create domain command extended with information on confirmation status for domain
 
-* 1.7 2015-05-12
-  * This revision of the specification is describing EPP service release 1.3.X
-  * This release also updates the [XSD][XSD Files] specification to revision 1.4, introducing the extension pnumber for transport of production unit numbers for validation of danish companies as part of the create contact command
+* 1.5 2014-06-18
+  * This revision of the specification is describing EPP service release 1.1.X
+  * The test environment is no longer active
+  * Examples updated to latest [XSD][XSD Files] revision (1.2)
+  * Pre-activation token (`orderconfirmationToken`) can be transported via extension for create domain command
+  * Multiple examples of requests and responses added
 
-* 1.8 2015-09-03
-  * Minor corrections
-  * More information on extensions for possible registration of the DK Hostmaster extensions with IANA in relation to [RFC:7451][RFC:7451]
-  * Added [RFC:7451][RFC:7451] compliant descriptions in subdirectory: `rfc7451/`
+* 1.4 2013-11-19
+  * Corrected links in resources
+  * Empasized the use of the `auto` keyword for contact creation, this has also been listed in the implementation limitations section
+  * Added information on the restrictive use of `clTRID` in new section entitled: Implementation Requirements
 
-* 1.9 2016-01-30
-  * Information on new waiting list handling
-  * Information on new DNSSEC key handling
+* 1.3 2013-10-29
+  * This revision of the specification is describing EPP service release 1.0.9
+  * Added information on use of `clTRID` in context of create domain command
+  * Added more information on the domain check command, which has been extended with EPP service release 1.0.9.
+  * This release also updates the [XSD][XSD Files] specification to revision 1.1
 
-* 1.10 2016-06-08
-  * Added information on IP whitelisting 
+* 1.2 2013-08-07
+  * This revision of the specification is describing EPP service release 1.0.8
+  * Added note on domain check
+
+* 1.1 2013-05-31
+  * Added paragraph on passwords in section on the login command
+  * Added mention of standard port 700
+  * Corrected some of the XML examples, which had not been updated to reflect the correct use of [XSDs][XSD Files]
+  * Added important note on contact creation
+
+* 1.0 2013-02-25
+  * Initial revision
+  * Describes EPP service 1.X.X
+  * Introduces [XSD][XSD Files] specification revision 1.0
 
 <a name="the-dk-registry-in-brief"></a>
 # The .dk Registry in Brief
