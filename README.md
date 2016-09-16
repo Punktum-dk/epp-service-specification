@@ -73,6 +73,68 @@ Revision: 2.0 _currently in draft_
     - [update domain request](#update-domain-request)
     - [renew domain response](#renew-domain-response)
     - [update domain response](#update-domain-response)
+    - [change registrant](#change-registrant)
+    - [add nameserver](#add-nameserver)
+    - [remove nameserver](#remove-nameserver)
+    - [add contact](#add-contact)
+    - [remove contact](#remove-contact)
+  - [check host](#check-host)
+    - [check host request](#check-host-request)
+    - [check host response](#check-host-response)
+  - [info host](#info-host)
+    - [info host request](#info-host-request)
+    - [info host response](#info-host-response)
+  - [create host](#create-host)
+    - [create host request](#create-host-request)
+    - [create host response](#create-host-response)
+    - [create host request with request to new administrator](#create-host-request-with-request-to-new-administrator)
+    - [create host response from request to new administrator](#create-host-response-from-request-to-new-administrator)
+    - [Delayed create host response, from request to new administrator](#delayed-create-host-response-from-request-to-new-administrator)
+    - [create host request, with request to registrant of host domain name](#create-host-request-with-request-to-registrant-of-host-domain-name)
+    - [create host response, from request to registrant of domain name](#create-host-response-from-request-to-registrant-of-domain-name)
+    - [Delayed create host response, from request to registrant of domain name](#delayed-create-host-response-from-request-to-registrant-of-domain-name)
+  - [update host](#update-host)
+    - [Proces](#proces)
+    - [Change hostname sub-proces](#change-hostname-sub-proces)
+    - [Add IP sub-proces](#add-ip-sub-proces)
+    - [Remove IP sub-proces](#remove-ip-sub-proces)
+    - [Change admin sub-proces](#change-admin-sub-proces)
+    - [update host request with request to new administrator](#update-host-request-with-request-to-new-administrator)
+    - [update host response with request to new administrator](#update-host-response-with-request-to-new-administrator)
+    - [Delayed update host response from request to new administrator](#delayed-update-host-response-from-request-to-new-administrator)
+  - [delete host](#delete-host)
+    - [delete host request](#delete-host-request)
+    - [delete host response](#delete-host-response)
+  - [create contact](#create-contact)
+    - [create contact request](#create-contact-request)
+    - [create contact response](#create-contact-response)
+  - [check contact](#check-contact)
+    - [check contact request](#check-contact-request)
+    - [check contact response](#check-contact-response)
+  - [info contact](#info-contact)
+    - [info contact request](#info-contact-request)
+    - [info contact response](#info-contact-response)
+  - [update contact](#update-contact)
+    - [update contact request](#update-contact-request)
+    - [update contact response](#update-contact-response)
+  - [delete contact](#delete-contact)
+    - [delete contact request](#delete-contact-request)
+    - [delete contact response](#delete-contact-response)
+- [Data Collection Policy](#data-collection-policy)
+  - [Access](#access)
+  - [Purpose Statement](#purpose-statement)
+  - [Recipient Statement](#recipient-statement)
+  - [Retention Statement](#retention-statement)
+- [References](#references)
+- [Resources](#resources)
+  - [XML Schemas](#xml-schemas)
+    - [XSD Version History](#xsd-version-history)
+  - [Mailing list](#mailing-list)
+  - [Issue Reporting](#issue-reporting)
+  - [Additional Information](#additional-information)
+  - [Pre-activation Service](#pre-activation-service)
+- [Appendices](#appendices)
+  - [Greeting](#greeting)
   - [Privilege Matrix](#privilege-matrix)
   - [Compatibility Matrix](#compatibility-matrix)
 
@@ -1046,9 +1108,12 @@ The example is lifted from [RFC 5731][RFC5731] and modified, it will be replaced
 </epp>
 ```
 
-<a name="the-example-is-lifted-from-rfc-5731rfc5731-and-modified-it-will-be-replaced-with-improved-examples-post-implementation"></a>
 The example is lifted from [RFC 5731][RFC5731] and modified, it will be replaced with improved examples post implementation.
 
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <response>    
     <result code="1001">
       <msg>Command completed successfully</msg>
     </result>
