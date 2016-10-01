@@ -2354,8 +2354,8 @@ The files are all available for [download][XSD files].
 ### XSD Version History
 
 * 2.0
-  * EPP Service version 2.0.X
-  * Introduction of `requestedNsAdmin` for update host and create host
+  * EPP Service version 2.0.X, 2.1.X and 2.2.X
+  * Introduction of `dkhm:requestedNsAdmin` for update host and create host
   * Introduction of `dkhm:mobilephone` on update contact
   * Introduction of `dkhm:secondaryEmail` on update contact
 
