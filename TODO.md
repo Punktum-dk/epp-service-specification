@@ -14,8 +14,19 @@ https://github.com/DK-Hostmaster/epp-xsd-files/blob/epp_nameserver_admin_v1/host
 >>>>>>> epp_nameserver_admin_v1
 
 - [X] Clarify privileges for registrar vs. billing contact as initiator for renew domain
-- [ ] Add documentation on sub-processes for iådate domain
+- [ ] Add documentation on sub-processes for update domain
 - [ ] Clarify aspects of domain locks on processes
-- [x] Evaluate generic attribute manipulation (registration period etc)
-- [x] Implement matrix for privileges
+- [X] Evaluate generic attribute manipulation (registration period etc)
+- [X] Implement matrix for privileges
 - [ ] Evaluate whether a `2307` should be returned for update domain, change registrant, instead of `2306`. `2306` is more correct, but perhaps `2307` is better suited for the time being
+
+- [ ] Investigate `dkhm:attention`, the use specification might be useless
+- [ ] Investigate setting of status codes for domain update and clarify
+- [ ] Clarify the use of keyholder for DNSSEC keys
+
+- [ ] Exchange XML examples for renew domain
+- [ ] Exchange XML examples for update domain
+- [ ] Exchange XML examples for create host
+- [ ] Exchange XML examples for update host
+- [ ] Evaluate delete contact status codes (clientDeleteProhibited and serverDeleteProhibited)
+- [ ] Document status codes in general

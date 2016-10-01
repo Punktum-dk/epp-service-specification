@@ -1,7 +1,7 @@
 DK Hostmaster EPP Service Specification
 
-2016-09-16
-Revision: 2.0 _currently in draft_
+2016-10-01
+Revision: 2.0
 
 # Table of Contents
 
@@ -39,15 +39,14 @@ Revision: 2.0 _currently in draft_
 - [Implementation Limitations](#implementation-limitations)
   - [Commands](#commands)
   - [Unimplemented commands](#unimplemented-commands)
-  - [Authorization](#authorization)
+  - [Additional limitations](#additional-limitations)
   - [DNSSEC](#dnssec)
   - [Contact Creation](#contact-creation)
-  - [Host Status Update](#host-status-update)
+  - [Host Update](#host-update)
   - [Domain Update](#domain-update)
   - [Waiting List](#waiting-list)
   - [Information Disclosure](#information-disclosure)
   - [Encoding and IDN domains](#encoding-and-idn-domains)
-  - [DNSSEC management for a domain](#dnssec-management-for-a-domain)
 - [Supported Object Transform and Query Commands](#supported-object-transform-and-query-commands)
   - [hello and greeting](#hello-and-greeting)
   - [login](#login)
@@ -70,7 +69,6 @@ Revision: 2.0 _currently in draft_
   - [renew domain](#renew-domain)
     - [renew domain request](#renew-domain-request)
     - [renew domain response](#renew-domain-response)
-    - [renew domain response](#renew-domain-response-1)
   - [update domain](#update-domain)
     - [update domain request](#update-domain-request)
     - [update domain response](#update-domain-response)
@@ -168,12 +166,13 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 <a name="document-history"></a>
 ## Document History
 
-* 2.0 2016-09-16
+* 2.0 2016-10-01
   * Describes EPP service 2.X.X 
   * Added renew domain description
   * Added update domain description
   * Added create/update/delete host descriptions
   * Added update contact description
+  * Added XSD 2.0 description
 
 * 1.10 2016-06-08
   * Added information on IP whitelisting 
@@ -289,22 +288,24 @@ DK Hostmaster offers the following environments:
   * Approved domains will be processed for possible activation and propagation into the zone
   * Contacts (users) will be created and will be available in other systems like the self-service system etc.
   * Hosts (name servers) will be processed for possible activation
-  * The Change Password operation will be available in this environment
+  * The Change Password operation is available in this environment
   * Please note that this operation will change the password and this change will be reflected in other systems.
   * The production environment is available at: epp.dk-hostmaster.dk port 700
   * This is environment is using [IP Whitelisting](#ip-whitelisting)
+  * This environment is only available to registrars
 
 <a name="sandbox"></a>
 ### sandbox
 
   * This environment is intended for client development towards the DK Hostmaster EPP service
-  * info and check requests made to this environment will reflect sandbox data. For host objects, static content synched in by DK Hostmaster
+  * info and check requests made to this environment will reflect sandbox data. For host objects, some static content synched in by DK Hostmaster, in addition to sandbox data
   * create requests made to this environment will be serialised in the sandbox environment, provided that syntax and data are valid
   * Domains will be enqueued, but will not be processed further nor be available for activation and propagation into the zone
-  * Contacts (users) will be created, but will not be available in other systems like the self-service system etc.
+  * Contacts (users) can be created, but will not be available in other systems like the self-service system etc.
 
   * The Change Password operation will only change the password on the sandbox environment
   * The sandbox environment is available at: epp-sandbox.dk-hostmaster.dk port 700
+  * This environment is available to both registrars and nameserver administrators
 
 Please note that when you first start to use the EPP sandbox environment, the access credentials are matching your production credentials. If these do not work as expected (e.g. error `2200`). please contact: tech@dk-hostmaster.dk to get the credentials synhcronized.
 
@@ -332,7 +333,9 @@ Please contact:
 <a name="implementation-extensions"></a>
 # Implementation Extensions
 
-The EPP service implemented by DK Hostmaster holds several extensions, these are documented where appropriate for the specific commands etc. This section serves to give an overview of the extensions as a whole.
+The EPP service implemented by DK Hostmaster holds several extensions, these are documented where appropriate for the specific commands etc. This section serves to give an overview of the extensions as a whole. 
+
+Please refer to the [dkhm-2.0][XSD Files] for implementation details.
 
 Here follows a listed, the extensions are described separately and in detail below.
 
@@ -415,12 +418,12 @@ This attribute points to the field where the `name` is saved if the organization
 <a name="dkhmmobilephone"></a>
 ## `dkhm:mobilephone`
 
-Contact objects can have a mobilephone number in addition to `voice` and `fax`.
+Contact objects can have a mobilephone number in addition to `voice` and `fax`. The extension was introduced in the DK Hostmaster XSD file set 1.6.
 
 <a name="dkhmsecondaryemail"></a>
 ## `dkhm:secondaryEmail`
 
-Contact objects can have a secondary e-mail-address in addition to `email`.
+Contact objects can have a secondary email address in addition to `email`. The extension was introduced in the DK Hostmaster XSD file set 1.6.
 
 <a name="dkhmrequestednsadmin"></a>
 ## `dkhm:requestedNsAdmin`
@@ -435,7 +438,7 @@ As mentioned previously the EPP service comes with some limitations. Please see 
 <a name="commands"></a>
 ## Commands
 
-The current implementation is limited to the following list of commands:
+The current implementation implements the following list of commands:
 
 * hello
 * login, including change password
@@ -460,10 +463,10 @@ The following commands have not been implemented in the service described in thi
 
 In general the service is not localized and all EPP related errors and messages are provided in English.
 
-<a name="authorization"></a>
-## Authorization
+<a name="additional-limitations"></a>
+## Additional limitations
 
-More specifically, the service does not support the following features of the EPP protocol:
+The service does not support the following features of the EPP protocol:
 
 * Authorization
 
@@ -479,22 +482,22 @@ I accordance with [RFC 5910][RFC5910]. We support DS only and not DNSKEY. In add
 
 DK Hostmaster specifies rules ownership of DNSSEC keys. If you provide DNSSEC keys a part of registration, the keys are associated with the registrant as owner. If you want to specify another owner, please specify the `tech` or `keyholder` role (see: Role Mapping under: create domain command).
 
-Not all algorithms are not supported, please refer to the [DK Hostmaster Name Service specification][dkhm-name-service-specification].
+Not all algorithms are supported, please refer to the [DK Hostmaster Name Service specification][dkhm-name-service-specification] for a complete list of supported algorithms.
 
 <a name="contact-creation"></a>
 ## Contact Creation
 
-This command does not support the feature of providing own userid. The userid has to be specified as `auto` and the userid is assigned by DK Hostmaster. See also information on the create contact command.
+This command does not support the feature of providing a predefined userid. The userid has to be specified as `auto` and the userid is assigned by DK Hostmaster. See also information on the create contact command.
 
-<a name="host-status-update"></a>
-## Host Status Update
+<a name="host-update"></a>
+## Host Update
 
 This command does not support the setting and removal of status using the XML element: `host:status`. The status is assigned by DK Hostmaster. See also information on the update host command.
 
 <a name="domain-update"></a>
 ## Domain Update
 
-This command does not support the change of the registrant.
+This command does not support the change of the registrant and the setting and removal of status using the XML element: `domain:status`. The status is assigned by DK Hostmaster. See also information on the update domain command.
 
 <a name="waiting-list"></a>
 ## Waiting List
@@ -511,11 +514,6 @@ Please note that some information is not disclosed when using Object Query Comma
 
 The danish registry supports IDN domain names and the EPP commands support punycode notation for this in requests. We do however not support punycode notation in responses at this time.
 
-<a name="dnssec-management-for-a-domain"></a>
-## DNSSEC management for a domain
-
-The update domain command does not support DNSSEC management at this time.
-
 <a name="supported-object-transform-and-query-commands"></a>
 # Supported Object Transform and Query Commands
 
@@ -526,8 +524,7 @@ Commands that have not been extended are not described in much detail, please re
 <a name="hello-and-greeting"></a>
 ## hello and greeting
 
-This part of the EPP protocol is described in [RFC 5730][RFC5730]. This command adheres to the standard.
-For a more detailed explanation of the data collection policy announced via the greeting, please see the Data Collection Policy chapter.
+This part of the EPP protocol is described in [RFC 5730][RFC5730]. This command adheres to the standard. For a more detailed explanation of the data collection policy announced via the greeting, please see the Data Collection Policy chapter.
 
 As announced in the greeting, the following objects are available:
 
@@ -549,7 +546,7 @@ This part of the EPP protocol is described in [RFC 5730][RFC5730]. This command 
 
 The login uses the general AAA functionality in DK Hostmaster. This mean that in addition to the validation of username and password specified as part of the login request, an attempt is made to authorise the authenticated user for access to the actual EPP service and subsequent operations.
 
-Authorisation is currently only available to active registrars, therefore the username provided must point to an entity with the role of registrar with the DK Hostmaster registry.
+Authorisation is currently only available to specified user roles, therefore the username provided must point to an entity with the role of registrar or nameserver administrator with the DK Hostmaster registry. See also Available Environments above.
 
 DK Hostmaster supports the change of passwords via EPP. Please refer to the chapter Available Environments for any special circumstances.
 
@@ -569,7 +566,6 @@ The following characters are legal special characters in passwords:
 ```
 
 Currently, the only language supported is English. So the language parameter is ignored and all responses are provided in English.
-
 
 <a name="login-request"></a>
 ### login request
@@ -659,7 +655,7 @@ This part of the EPP protocol is described in [RFC 5730][RFC5730]. This command 
 
 There are no special additions or alterations to the specification or use of this command.
 
-For clarification 2303 is returned in case a provided message-id (`msgID`) point to a non-existing message.
+For clarification `2303` is returned in case a provided message-id (`msgID`) point to a non-existing message.
 
 <a name="create-domain"></a>
 ## create domain
@@ -776,7 +772,7 @@ Please note that the command supports punycode notation for specifying IDN domai
 <a name="check-domain"></a>
 ## check domain
 
-Since DK Hostmaster does support a concept of blocked domains. A domain name will be indicated as available if the domain name has the status of blocked. For an explanation of the process please see section 3.3 and in particular section 3.3.2 in the [General Terms and Conditions][General Terms and Conditions].
+Since DK Hostmaster does support a concept of blocked domains. A domain name will be indicated as available if the domain name has the status of `blocked`. For an explanation of the process please see section 3.3 and in particular section 3.3.2 in the [General Terms and Conditions][General Terms and Conditions].
 
 <a name="check-domain-request"></a>
 ### check domain request
@@ -973,9 +969,6 @@ The sub-proces called, can be depicted as follows:
 <a name="renew-domain-response"></a>
 ### renew domain response
 
-<a name="renew-domain-response-1"></a>
-### renew domain response
-
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -1017,7 +1010,7 @@ This command covers a lot of functionality, it can complete operations such as:
 - add billing contact
 - remove billing contact
 
-In addition it will be extended with DNSSEC management capabilities.
+In addition it supports DNSSEC management capabilities as specified in [RFC 5910][RFC5910]
 
 The command will be evaluated as an atomic command, even though it is dispatched to several sub-commands.
 
@@ -1155,7 +1148,7 @@ The example is lifted from [RFC 5731][RFC5731] and modified, it will be replaced
 <a name="change-registrant"></a>
 ### change registrant
 
-The change of registrant is a *special* command, it results in all privileges and rights being transferred to another entity. A registrar does not hold the privileges to make such a request, so the object service is unimplemented at this time.
+The change of registrant is a *special* operation, it results in all privileges and rights being transferred to another entity. A registrar does not hold the privileges to complete such a request, so the object service is unimplemented at this time.
 
 ![Update domain - Change registrant][epp-update-domain-change-registrant]
 
@@ -1887,7 +1880,7 @@ This part of the EPP protocol is described in [RFC 5733][RFC5733].
 
 This command has been extended with the following fields:
 
-* User type, which has to be one of:
+* `dkhm:usertype`, which has to be one of:
   * `company` - indicating a company
   * `public_organization` - indicating a public organisation
   * `association` - indicating an association
@@ -1899,7 +1892,7 @@ The user type will result in context-specific interpretation of the following fi
 * CVR - (VAT number) this is only supported for user types: `company`, `public_organization` and `association`. The number is required for handling VAT correctly, mandatory for user types `company` and `public_organization` and optional for the user type `association`.
 * pnumber - (production unit number) this is only supported for user types: `company`, `public_organization` and `association`. The number is used for handling validation correctly and the field is optional.
 
-The contact-id field is auto-generated and assigned by DK Hostmaster. EPP do however open for providing a contact-id in the context of the create contact command, this is not supported by DK Hostmaster at this point.
+The `contact-id` field is auto-generated and assigned by DK Hostmaster. EPP do however open for providing a contact-id in the context of the create contact command, this is not supported by DK Hostmaster at this point.
 
 This field is validated on the server site, it is however recommended to perform a check contact on the requested contact-id prior to the create domain request if a userid is already known from a contact create or previous domain creation.
 
@@ -2167,6 +2160,8 @@ These of course all controlled by relevant privileges.
 - Phone (voice)
 - Fax
 - Email
+- Secondary email
+- Mobilephone
 
 ![Diagram of EPP update contact][epp-update-contact]
 
@@ -2350,7 +2345,7 @@ This is a list of the schemas currently used in the DKHM EPP Service described i
 * contact-1.0.xsd
 * domain-1.0.xsd
 * host-1.0.xsd
-* dkhm-1.4.xsd
+* dkhm-2.0.xsd
 * secDNS-1.1.xsd
 
 The files are all available for [download][XSD files].
@@ -2358,17 +2353,15 @@ The files are all available for [download][XSD files].
 <a name="xsd-version-history"></a>
 ### XSD Version History
 
-* 1.0
-  * EPP Service version 1.0.0
-  * Released 2014-02-25
+* 2.0
+  * EPP Service version 2.0.X
+  * Introduction of `requestedNsAdmin` for update host and create host
+  * Introduction of `dkhm:mobilephone` on update contact
+  * Introduction of `dkhm:secondaryEmail` on update contact
 
-* 1.1
-  * EPP Service version 1.0.9
-  * Introduction of `dkhm:domainAdvisory` for support of blocked status for create domain for blocked domain names
-
-* 1.2
-  * EPP Service version 1.1.X
-  * Introduction of `dkhm:orderConfirmation` for create domain and support of [Pre-activation Service](#pre-activation-service)
+* 1.4
+  * EPP Service version 1.3.X
+  * Introduction of `dkhm:pnumber` for production unit number information for create contact
 
 * 1.3
   * EPP Service version 1.2.X
@@ -2376,9 +2369,17 @@ The files are all available for [download][XSD files].
   * Introduction of `dkhm:contact_validated` for information for info contact
   * Introduction of `dkhm:registrant_validated` for information for create domain
 
-* 1.4
-  * EPP Service version 1.3.X
-  * Introduction of `dkhm:pnumber` for production unit number information for create contact
+* 1.2
+  * EPP Service version 1.1.X
+  * Introduction of `dkhm:orderConfirmation` for create domain and support of [Pre-activation Service](#pre-activation-service)
+
+* 1.1
+  * EPP Service version 1.0.9
+  * Introduction of `dkhm:domainAdvisory` for support of blocked status for create domain for blocked domain names
+
+* 1.0
+  * EPP Service version 1.0.0
+  * Released 2014-02-25
 
 <a name="mailing-list"></a>
 ## Mailing list
