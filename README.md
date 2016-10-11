@@ -2402,14 +2402,14 @@ The client is available at:
 
 More information is available at the DK Hostmaster website:
 
-* https://www.dk-hostmaster.dk/english/tech-notes/epp/
+* https://www.dk-hostmaster.dk/en/epp
 
 <a name="pre-activation-service"></a>
 ## Pre-activation Service
 
 More information and documentation on the pre-activation service is available at the DK Hostmaster website:
 
-* https://www.dk-hostmaster.dk/english/technical-administration/tech-notes/pre-activation/
+* https://www.dk-hostmaster.dk/en/pre-act
 
 <a name="appendices"></a>
 # Appendices
@@ -2601,6 +2601,6 @@ More information and documentation on the pre-activation service is available at
 
 [Current domain registration form]: https://www.dk-hostmaster.dk/fileadmin/formularer/dk-5.00en.txt
 
-[Documentation on the current domain registration form]: https://www.dk-hostmaster.dk/english/technical-administration/forms/register-domainname/
+[Documentation on the current domain registration form]: https://www.dk-hostmaster.dk/en/mailform-registration
 
 [dkhm-name-service-specification]: https://github.com/DK-Hostmaster/dkhm-name-service-specification

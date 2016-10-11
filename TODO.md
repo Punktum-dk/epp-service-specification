@@ -31,6 +31,6 @@ https://github.com/DK-Hostmaster/epp-xsd-files/blob/epp_nameserver_admin_v1/host
 - [ ] Evaluate delete contact status codes (clientDeleteProhibited and serverDeleteProhibited)
 - [ ] Document status codes in general
 
-- [ ] Correct preact link
-- [ ] Correct mailform link
-- [ ] Add EPP service link
+- [X] Correct preact link
+- [X] Correct mailform link
+- [X] Add EPP service link
