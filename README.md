@@ -803,6 +803,7 @@ Since DK Hostmaster does support a concept of blocked domains. A domain name wil
       <domain:chkData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
         <domain:cd>
           <domain:name avail="0">dk-hostmaster.dk</domain:name>
+          <domain:reason>In use</domain:reason>
         </domain:cd>
       </domain:chkData>
     </resData>
@@ -852,15 +853,16 @@ This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command 
 ### info domain request
 
 ```XML
-<?xml version="1.0" encoding="utf-8"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
   <command>
     <info>
-      <domain:info xmlns:domain="urn:ietf:params:xml:ns:domain-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:domain-1.0 domain-1.0.xsd">
+      <domain:info xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
         <domain:name>dk-hostmaster.dk</domain:name>
       </domain:info>
     </info>
-    <clTRID>b3350ae28dc86f30feb8d789f795ff67</clTRID>
+    <clTRID>e007d4d21ec089623bd71b65f33f2865</clTRID>
   </command>
 </epp>
 ```
@@ -869,53 +871,66 @@ This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command 
 ### info domain response
 
 ```XML
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-  <response>
+  <response>    
     <result code="1000">
       <msg>Info result</msg>
-    </result>
-    <msgQ count="12" id="242">    </msgQ>
+    </result>    
+    <msgQ count="1" id="4">
+    </msgQ>    
     <resData>
       <domain:infData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
         <domain:name>dk-hostmaster.dk</domain:name>
         <domain:roid>DK_HOSTMASTER_DK-DK</domain:roid>
-        <domain:status s="serverTransferProhibited" />
-        <domain:status s="serverupdateProhibited" />
-        <domain:status s="serverRenewProhibited" />
-        <domain:status s="serverDeleteProhibited" />
+        <domain:status s="serverDeleteProhibited"/>
+        <domain:status s="serverUpdateProhibited"/>
+        <domain:status s="serverRenewProhibited"/>
+        <domain:status s="serverTransferProhibited"/>
         <domain:registrant>DKHM1-DK</domain:registrant>
         <domain:contact type="admin">DKHM1-DK</domain:contact>
         <domain:ns>
           <domain:hostObj>auth01.ns.dk-hostmaster.dk</domain:hostObj>
           <domain:hostObj>auth02.ns.dk-hostmaster.dk</domain:hostObj>
-          <domain:hostObj>authns1.ngdc.net</domain:hostObj>
+          <domain:hostObj>p.nic.dk</domain:hostObj>
         </domain:ns>
-        <domain:host>auth01.ns.dk-hostmaster.dk</domain:host>
-        <domain:host>auth02.ns.dk-hostmaster.dk</domain:host>
-        <domain:host>blocked1.ns.dk-hostmaster.dk</domain:host>
-        <domain:host>blocked2.ns.dk-hostmaster.dk</domain:host>
+        <domain:host>ns10.dk-hostmaster.dk</domain:host>
         <domain:host>gr1.dk-hostmaster.dk</domain:host>
         <domain:host>gr2.dk-hostmaster.dk</domain:host>
-        <domain:host>missing1nameserver.dk-hostmaster.dk</domain:host>
-        <domain:host>missing2nameservers.dk-hostmaster.dk</domain:host>
         <domain:host>ns.dk-hostmaster.dk</domain:host>
+        <domain:host>auth01.ns.dk-hostmaster.dk</domain:host>
         <domain:host>ns1.dk-hostmaster.dk</domain:host>
-        <domain:host>ns2.dk-hostmaster.dk</domain:host>
+        <domain:host>papkasse.dk-hostmaster.dk</domain:host>
+        <domain:host>papkassehuset.dk-hostmaster.dk</domain:host>
         <domain:host>parat1.dk-hostmaster.dk</domain:host>
         <domain:host>parat2.dk-hostmaster.dk</domain:host>
+        <domain:host>smukkehansi.dk-hostmaster.dk</domain:host>
+        <domain:host>smukkehansi15.dk-hostmaster.dk</domain:host>
+        <domain:host>ns4.dk-hostmaster.dk</domain:host>
+        <domain:host>hostcount.dk-hostmaster.dk</domain:host>
         <domain:host>venteliste1.dk-hostmaster.dk</domain:host>
         <domain:host>venteliste2.dk-hostmaster.dk</domain:host>
+        <domain:host>dnegle.dk-hostmaster.dk</domain:host>
+        <domain:host>blocked1.ns.dk-hostmaster.dk</domain:host>
+        <domain:host>blocked2.ns.dk-hostmaster.dk</domain:host>
+        <domain:host>auth02.ns.dk-hostmaster.dk</domain:host>
+        <domain:host>ns2.dk-hostmaster.dk</domain:host>
+        <domain:host>ns.25.dnegle.dk-hostmaster.dk</domain:host>
+        <domain:host>ns3.dk-hostmaster.dk</domain:host>
+        <domain:host>ææ.dk-hostmaster.dk</domain:host>
+        <domain:host>æøö.dk-hostmaster.dk</domain:host>
+        <domain:host>øæå.dk-hostmaster.dk</domain:host>
         <domain:clID>DKHM1-DK</domain:clID>
-        <domain:crID>n/a</domain:crID>
+        <domain:crID>DK_WHOIS</domain:crID>
         <domain:crDate>1998-01-19T00:00:00.0Z</domain:crDate>
+        <domain:exDate>2020-03-31T00:00:00.0Z</domain:exDate>
       </domain:infData>
-    </resData>
+    </resData>    
     <trID>
-      <clTRID>df49a47a9d1058186b97e8b916f0c23f</clTRID>
-      <svTRID>40E74ED0-9BE6-11E4-8B24-9C0CC33995C9</svTRID>
-    </trID>
-  </response>
+      <clTRID>71e77199292ea1a5fd5e7918f2da7cc0</clTRID>
+      <svTRID>30DB64F6-8F8F-11E6-A066-DCC11F9D93B1</svTRID>    
+    </trID></response>
 </epp>
 ```
 
