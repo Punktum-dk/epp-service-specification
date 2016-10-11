@@ -28,7 +28,7 @@ https://github.com/DK-Hostmaster/epp-xsd-files/blob/epp_nameserver_admin_v1/host
 - [ ] Exchange XML examples for update domain
 - [ ] Exchange XML examples for create host
 - [ ] Exchange XML examples for update host
-- [ ] Evaluate delete contact status codes (clientDeleteProhibited and serverDeleteProhibited)
+- [X] Evaluate delete contact status codes (clientDeleteProhibited and serverDeleteProhibited)
 - [X] Document status codes in general
 
 - [X] Correct preact link
