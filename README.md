@@ -849,6 +849,8 @@ In general this part of the EPP protocol is described in [RFC 5731][RFC5731] and
 
 This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command adheres to the standard.
 
+Please see the addendum on domain status codes.
+
 <a name="info-domain-request"></a>
 ### info domain request
 
