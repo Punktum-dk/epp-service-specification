@@ -30,3 +30,7 @@ https://github.com/DK-Hostmaster/epp-xsd-files/blob/epp_nameserver_admin_v1/host
 - [ ] Exchange XML examples for update host
 - [ ] Evaluate delete contact status codes (clientDeleteProhibited and serverDeleteProhibited)
 - [ ] Document status codes in general
+
+- [ ] Correct preact link
+- [ ] Correct mailform link
+- [ ] Add EPP service link

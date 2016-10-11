@@ -130,6 +130,7 @@ Revision: 2.0
     - [XSD Version History](#xsd-version-history)
   - [Mailing list](#mailing-list)
   - [Issue Reporting](#issue-reporting)
+  - [Demo/Test Client](#demotest-client)
   - [Additional Information](#additional-information)
   - [Pre-activation Service](#pre-activation-service)
 - [Appendices](#appendices)
@@ -2394,6 +2395,15 @@ DK Hostmaster operates a mailing list for discussion and inquiries  about the DK
 For issue reporting related to this specification, the EPP implementation or test, sandbox or production environments, please contact us.  You are of course welcome to post these to the mailing list mentioned above, otherwise use the address specified below:
 
 * tech@dk-hostmaster.dk
+
+<a name="demotest-client"></a>
+## Demo/Test Client
+
+We have developed a demo/test client, which is freely available and open sourced under a MIT license.
+
+The client is available at:
+
+- https://github.com/DK-Hostmaster/epp-demo-client-mojolicious
 
 <a name="additional-information"></a>
 ## Additional Information
