@@ -134,6 +134,8 @@ Revision: 2.0
   - [Pre-activation Service](#pre-activation-service)
 - [Appendices](#appendices)
   - [Greeting](#greeting)
+  - [Status Codes](#status-codes)
+    - [Domain](#domain)
   - [Privilege Matrix](#privilege-matrix)
   - [Compatibility Matrix](#compatibility-matrix)
 
@@ -682,6 +684,8 @@ In addition a create domain contains information on whether the domain has been 
 
 The requirement for the registrant to be valid is also communicated via the response, using the extension:
 `dkhm:registrant_validated`. Please see the command info contact for more information. The state is communicated in this response in order to provide information on the further flow and process of the create domain request.
+
+The status codes applying to domain are described in the addendum: Status Codes: Domain.
 
 <a name="create-domain-request"></a>
 ### create domain request
@@ -2455,6 +2459,38 @@ More information and documentation on the pre-activation service is available at
     </greeting>
 </epp>
 ```
+
+<a name="status-codes"></a>
+## Status Codes
+
+<a name="domain"></a>
+### Domain
+
+| Status Code | Description  |
+| ------------ | ------------ |
+| `addPeriod` | *unsupported* |
+| `autoRenewPeriod` | *unspported* |
+| `inactive` | *unspported at this time* |
+| `ok` | exclusive for all other status codes |
+| `pendingCreate` | indication that a the given domain is enqueue for possible creation |
+| `pendingDelete` | deletion is pending, an advisory date is applicable |
+| `pendingRenew` | *unsupported* |
+| `pendingRestore` | *unsupported* |
+| `pendingTransfer` | *unsupported* |
+| `pendingUpdate` | the domain has active asynchronous requests |
+| `redemptionPeriod` | *unsupported* |
+| `renewPeriod` | *unsupported* |
+| `serverDeleteProhibited` | indicates whether the registrant can delete the domain |
+| `serverHold` | a given domain is not active, it can hold a number of different states rendering it not-active |
+| `serverRenewProhibited` | indicates whether the billing contact can renew the domain |
+| `serverTransferProhibited` | *unsupported* |
+| `serverUpdateProhibited` | indicates whether the registrant for a given domain can have ownership transferred, can appoint new proxy/admin contact, can appoint new billing contact, change nameservers and can associate DS Records |
+| `transferPeriod` | *unsupported* |
+| `clientDeleteProhibited` | *unsupported* |
+| `clientHold` | *unsupported* |
+| `clientRenewProhibited` | *unsupported* |
+| `clientTransferProhibited` | *unsupported* |
+| `clientUpdateProhibited` | *unsupported* |
 
 <a name="privilege-matrix"></a>
 ## Privilege Matrix

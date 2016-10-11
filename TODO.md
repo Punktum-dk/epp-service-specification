@@ -21,7 +21,7 @@ https://github.com/DK-Hostmaster/epp-xsd-files/blob/epp_nameserver_admin_v1/host
 - [X] Evaluate whether a `2307` should be returned for update domain, change registrant, instead of `2306`. `2306` is more correct, but perhaps `2307` is better suited for the time being
 
 - [X] Investigate `dkhm:attention`, the use might be useless
-- [ ] Investigate setting of status codes for domain update and clarify
+- [X] Investigate setting of status codes for domain update and clarify
 - [ ] Clarify the use of keyholder for DNSSEC keys
 
 - [ ] Exchange XML examples for renew domain
@@ -29,7 +29,7 @@ https://github.com/DK-Hostmaster/epp-xsd-files/blob/epp_nameserver_admin_v1/host
 - [ ] Exchange XML examples for create host
 - [ ] Exchange XML examples for update host
 - [ ] Evaluate delete contact status codes (clientDeleteProhibited and serverDeleteProhibited)
-- [ ] Document status codes in general
+- [X] Document status codes in general
 
 - [X] Correct preact link
 - [X] Correct mailform link
