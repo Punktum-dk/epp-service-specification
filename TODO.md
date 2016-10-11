@@ -18,9 +18,9 @@ https://github.com/DK-Hostmaster/epp-xsd-files/blob/epp_nameserver_admin_v1/host
 - [ ] Clarify aspects of domain locks on processes
 - [X] Evaluate generic attribute manipulation (registration period etc)
 - [X] Implement matrix for privileges
-- [ ] Evaluate whether a `2307` should be returned for update domain, change registrant, instead of `2306`. `2306` is more correct, but perhaps `2307` is better suited for the time being
+- [X] Evaluate whether a `2307` should be returned for update domain, change registrant, instead of `2306`. `2306` is more correct, but perhaps `2307` is better suited for the time being
 
-- [ ] Investigate `dkhm:attention`, the use specification might be useless
+- [X] Investigate `dkhm:attention`, the use might be useless
 - [ ] Investigate setting of status codes for domain update and clarify
 - [ ] Clarify the use of keyholder for DNSSEC keys
 

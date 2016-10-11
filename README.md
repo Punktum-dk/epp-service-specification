@@ -32,7 +32,6 @@ Revision: 2.0
   - [`dkhm:domain_confirmed`](#dkhmdomainconfirmed)
   - [`dkhm:contact_validated`](#dkhmcontactvalidated)
   - [`dkhm:registrant_validated`](#dkhmregistrantvalidated)
-  - [`dkhm:attention`](#dkhmattention)
   - [`dkhm:mobilephone`](#dkhmmobilephone)
   - [`dkhm:secondaryEmail`](#dkhmsecondaryemail)
   - [`dkhm:requestedNsAdmin`](#dkhmrequestednsadmin)
@@ -344,7 +343,6 @@ Here follows a listed, the extensions are described separately and in detail bel
 * `dkhm:EAN`
 * `dkhm:CVR`
 * `dkhm:pnumber`
-* `dkhm:attention`
 * `dkhm:mobilephone`
 * `dkhm:secondaryEmail`
 * `dkhm:trackingNo`
@@ -410,11 +408,6 @@ Contact objects related to the role of registrant has to be validated, this fiel
 As described above, contact objects related to the role of registrant has to be validated, this field is used to indicate the status of a validation object via the create domain command.
 
 See also `contact_validated`.
-
-<a name="dkhmattention"></a>
-## `dkhm:attention`
-
-This attribute points to the field where the `name` is saved if the organization attribute is also specified.
 
 <a name="dkhmmobilephone"></a>
 ## `dkhm:mobilephone`
@@ -2150,7 +2143,6 @@ This part of the EPP protocol is described in [RFC 5733][RFC5733]. This command 
 - [`dkhm:CVR`](#dkhmcvr)
 - [`dkhm:pnumber`](#dkhmpnumber)
 - [`dkhm:mobilephone`](#dkhmmobilephone)
-- [`dkhm:attention`](#dkhmattention)
 - [`dkhm:secondaryEmail`](#dkhmsecondaryEmail)
 
 These of course all controlled by relevant privileges.
