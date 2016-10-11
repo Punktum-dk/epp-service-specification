@@ -765,7 +765,7 @@ As for the user entities some mappings are made so all relevant roles are specif
 
 Please note that the command supports punycode notation for specifying IDN domain names, but responses are in the specified UTF-8 character set.
 
-![Diagram of role mapping for EPP create domain][epp-create-host]
+![Diagram of role mapping for EPP create domain][epp-role-mapping]
 
 <a name="check-domain"></a>
 ## check domain
