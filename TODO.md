@@ -14,7 +14,7 @@ https://github.com/DK-Hostmaster/epp-xsd-files/blob/epp_nameserver_admin_v1/host
 >>>>>>> epp_nameserver_admin_v1
 
 - [X] Clarify privileges for registrar vs. billing contact as initiator for renew domain
-- [ ] Add documentation on sub-processes for update domain
+- [X] Add documentation on sub-processes for update domain
 - [ ] Clarify aspects of domain locks on processes
 - [X] Evaluate generic attribute manipulation (registration period etc)
 - [X] Implement matrix for privileges
