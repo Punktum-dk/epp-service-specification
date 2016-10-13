@@ -968,17 +968,20 @@ The sub-proces called, can be depicted as follows:
 ### renew domain request
 
 ```XML
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-  <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-    <command>
-      <renew>
-        <domain:renew xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-          <domain:name>eksempel.dk</domain:name>
-          <domain:curExpDate>2016-05-12</domain:curExpDate>
-          <domain:period unit="y">5</domain:period>
-        </domain:renew>
-      </renew>
-    <clTRID>df49a47a9d1058186b97e8b916f0c23f</clTRID>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <renew>
+      <domain:renew xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>dk-hostmaster.dk</domain:name>
+        <domain:curExpDate>2017-03-31</domain:curExpDate>
+        <domain:period unit="y">1</domain:period>
+      </domain:renew>
+    </renew>
+    <clTRID>541b6801ab3cecdda7da5f735e4f1473</clTRID>
+  </command>
+</epp>
 ```
 
 <a name="renew-domain-response"></a>
