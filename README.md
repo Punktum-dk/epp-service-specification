@@ -2579,7 +2579,7 @@ More information and documentation on the pre-activation service is available at
 | Delete Host | 2 | |
 | Poll | 1 | |
 
-[General Terms and Conditions]: https://www.dk-hostmaster.dk/fileadmin/filer/pdf/generelle_vilkaar/general-conditions.pdf
+[General Terms and Conditions]: https://www.dk-hostmaster.dk/en/general-conditions
 
 [epp-update-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/prerelease-2.0/images/epp_update_contact_v1.png
 
