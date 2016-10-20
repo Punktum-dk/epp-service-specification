@@ -14,7 +14,7 @@ Revision: 2.0
 - [The .dk Registry in Brief](#the-dk-registry-in-brief)
 - [EPP in Brief](#epp-in-brief)
 - [EPP Service](#epp-service)
-  - [SSL Certificate](#ssl-certificate)
+  - [SSL/TLS Support](#ssltls-support)
   - [Available Environments](#available-environments)
     - [production](#production)
     - [sandbox](#sandbox)
@@ -269,12 +269,14 @@ The service is implemented under the following principles:
 1 Use _in-band_ communication, meaning requests made via  EPP will be responded to via EPP unless the end-user have specified differently
 1 Use standard error code to the extent possible, communicating state more clearly and unambigiously
 
-<a name="ssl-certificate"></a>
-## SSL Certificate
+<a name="ssltls-support"></a>
+## SSL/TLS Support
 
-To validate the connection to our EPP service you need to use a [SSL certificate][SSL certificate].
+The EPP service supports the following protocols for transport security:
 
-Use of the certificate is recommended and it should be use for all available environments.
+- TLSv1.0
+- TLSv1.1
+- TLSv1.2 
 
 <a name="available-environments"></a>
 ## Available Environments
@@ -2632,8 +2634,6 @@ More information and documentation on the pre-activation service is available at
 [epp-update-domain-change-registrant]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/prerelease-2.0/images/epp_update_domain_change_registrant_v1.2.png
 
 [XSD files]: https://github.com/DK-Hostmaster/epp-xsd-files
-
-[SSL certificate]: https://www.dk-hostmaster.dk/fileadmin/filer/epp/epp.dk-hostmaster.dk_700.pem
 
 [RFC3735]: http://tools.ietf.org/html/rfc3735
 
