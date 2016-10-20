@@ -770,7 +770,7 @@ Please note that the command supports punycode notation for specifying IDN domai
 <a name="check-domain"></a>
 ## check domain
 
-Since DK Hostmaster does support a concept of blocked domains. A domain name will be indicated as available if the domain name has the status of `blocked`. For an explanation of the process please see section 3.3 and in particular section 3.3.2 in the [General Terms and Conditions][General Terms and Conditions].
+Since DK Hostmaster does support a concept of blocked domains. A domain name will be indicated as available if the domain name has the status of `blocked`. For an explanation of the process please see section [3.3][General Terms and Conditions 3_3] and in particular section 3.3.2 in the [General Terms and Conditions][General Terms and Conditions].
 
 <a name="check-domain-request"></a>
 ### check domain request
@@ -2307,7 +2307,7 @@ Please refer to the [greeting response example](#greeting) included in the [Appe
 <a name="access"></a>
 ## Access
 
-The EPP service provides access to identified data relating to all available entities (personal and organisational) under the terms and conditions that anonymity will be applied as specified by the entities in question, and in accordance with general terms and conditions and legislation.
+The EPP service provides access to identified data relating to all available entities (personal and organisational) under the terms and conditions that anonymity will be applied as specified by the entities in question, and in accordance with [General Terms and Conditions][General Terms and Conditions] and legislation.
 
 <a name="purpose-statement"></a>
 ## Purpose Statement
@@ -2580,6 +2580,8 @@ More information and documentation on the pre-activation service is available at
 | Poll | 1 | |
 
 [General Terms and Conditions]: https://www.dk-hostmaster.dk/en/general-conditions
+
+[General Terms and Conditions 3_3]: https://www.dk-hostmaster.dk/en/general-conditions#3.3
 
 [epp-update-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/prerelease-2.0/images/epp_update_contact_v1.png
 
