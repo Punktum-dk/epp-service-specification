@@ -2657,7 +2657,7 @@ More information and documentation on the pre-activation service is available at
 
 [EAN description]: https://en.wikipedia.org/wiki/International_Article_Number_(EAN)
 
-[Current domain registration form]: https://www.dk-hostmaster.dk/fileadmin/formularer/dk-5.00en.txt
+[Current domain registration form]: https://raw.githubusercontent.com/DK-Hostmaster/mailform-service-specification/master/5.00/5.00en.txt
 
 [Documentation on the current domain registration form]: https://www.dk-hostmaster.dk/en/mailform-registration
 
