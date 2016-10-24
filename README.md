@@ -1,6 +1,6 @@
 DK Hostmaster EPP Service Specification
 
-2016-10-01
+2016-10-24
 Revision: 2.0
 
 # Table of Contents
@@ -168,7 +168,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 <a name="document-history"></a>
 ## Document History
 
-* 2.0 2016-10-01
+* 2.0 2016-10-24
   * Describes EPP service 2.X.X 
   * Added renew domain description
   * Added update domain description
@@ -2585,53 +2585,53 @@ More information and documentation on the pre-activation service is available at
 
 [General Terms and Conditions 3_3]: https://www.dk-hostmaster.dk/en/general-conditions#3.3
 
-[epp-update-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/prerelease-2.0/images/epp_update_contact_v1.png
+[epp-update-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_contact_v1.png
 
 [epp-role-mapping]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp-role-resolution.png
 
 [epp-address-resolution]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp-address-resolution.png
 
-[epp_create_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/prerelease-2.0/images/epp_create_host_v1.2.png
+[epp_create_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_create_host_v1.2.png
 
-[dkh_create_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/prerelease-2.0/images/dkh_create_host_v1.0.png
+[dkh_create_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/dkh_create_host_v1.0.png
 
-[epp_update_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/prerelease-2.0/images/epp_update_host_v1.2.png
+[epp_update_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_host_v1.2.png
 
-[epp_update_host_add_ip]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/prerelease-2.0/images/epp_update_host_add_ip_v1.0.png
+[epp_update_host_add_ip]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_host_add_ip_v1.0.png
 
-[epp_update_host_change_admin]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/prerelease-2.0/images/epp_update_host_change_admin_v1.0.png
+[epp_update_host_change_admin]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_host_change_admin_v1.0.png
 
-[epp_update_host_change_hostname]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/prerelease-2.0/images/epp_update_host_change_hostname_v1.0.png
+[epp_update_host_change_hostname]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_host_change_hostname_v1.0.png
 
-[epp_update_host_remove_ip]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/prerelease-2.0/images/epp_update_host_remove_ip_v1.0.png
+[epp_update_host_remove_ip]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_host_remove_ip_v1.0.png
 
-[dkh_update_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/prerelease-2.0/images/dkh_update_host_v1.0.png
+[dkh_update_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/dkh_update_host_v1.0.png
 
-[epp_delete_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/prerelease-2.0/images/epp_delete_host_v1.1.png
+[epp_delete_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_delete_host_v1.1.png
 
-[dkh_delete_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/prerelease-2.0/images/dkh_delete_host_v1.0.png
+[dkh_delete_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/dkh_delete_host_v1.0.png
 
-[epp-renew-domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/prerelease-2.0/images/epp_renew_domain_v1.1.png
+[epp-renew-domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_renew_domain_v1.1.png
 
-[dkh-renew-domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/prerelease-2.0/images/dkh_renew_domain_v1.1.png
+[dkh-renew-domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/dkh_renew_domain_v1.1.png
 
-[epp-update-domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/prerelease-2.0/images/epp_update_domain_v1.1.png
+[epp-update-domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_domain_v1.1.png
 
-[epp-update-domain-evaluate]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/prerelease-2.0/images/epp_update_domain_evaluate_command_v1.0.png
+[epp-update-domain-evaluate]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_domain_evaluate_command_v1.0.png
 
-[epp-update-domain-add-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/prerelease-2.0/images/epp_update_domain_add_contact_v1.0.png
+[epp-update-domain-add-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_domain_add_contact_v1.0.png
 
-[dkh-update-domain-add-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/prerelease-2.0/images/dkh_update_domain_add_contact_v1.0.png
+[dkh-update-domain-add-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/dkh_update_domain_add_contact_v1.0.png
 
-[epp-update-domain-remove-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/prerelease-2.0/images/epp_update_domain_remove_contact_v1.1.png
+[epp-update-domain-remove-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_domain_remove_contact_v1.1.png
 
-[dkh-update-domain-remove-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/prerelease-2.0/images/dkh_update_domain_remove_contact_v1.0.png
+[dkh-update-domain-remove-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/dkh_update_domain_remove_contact_v1.0.png
 
-[epp-update-domain-add-ns]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/prerelease-2.0/images/epp_update_domain_add_ns_v1.0.png
+[epp-update-domain-add-ns]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_domain_add_ns_v1.0.png
 
-[epp-update-domain-remove-ns]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/prerelease-2.0/images/epp_update_domain_remove_ns_v1.1.png
+[epp-update-domain-remove-ns]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_domain_remove_ns_v1.1.png
 
-[epp-update-domain-change-registrant]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/prerelease-2.0/images/epp_update_domain_change_registrant_v1.2.png
+[epp-update-domain-change-registrant]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_domain_change_registrant_v1.2.png
 
 [XSD files]: https://github.com/DK-Hostmaster/epp-xsd-files
 
