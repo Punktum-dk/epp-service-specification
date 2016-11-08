@@ -319,7 +319,7 @@ This environment runs EPP service version 1.X.X
   * The sandbox environment is available at: epp-evaluation.dk-hostmaster.dk port 700
   * This environment is available to both registrars and nameserver administrators
 
-Please note that when you first start to use the EPP sandbox environment, the access credentials are matching your production credentials. If these do not work as expected (e.g. error `2200`). please contact: tech@dk-hostmaster.dk to get the credentials synhcronized.
+Please note that when you first start to use the EPP sandbox environment, the access credentials are matching your production credentials. If these do not work as expected (e.g. error `2200`). please contact: info@dk-hostmaster.dk to get the credentials synhcronized.
 
 <a name="evaluation"></a>
 ### evaluation
@@ -336,7 +336,7 @@ This environment runs EPP service version 2.X.X
   * The evaluation environment is available at: epp-evaluation.dk-hostmaster.dk port 700
   * This environment is available to both registrars and nameserver administrators
 
-Please note that when you first start to use the EPP sandbox environment, the access credentials are matching your production credentials. If these do not work as expected (e.g. error `2200`). please contact: tech@dk-hostmaster.dk to get the credentials synhcronized.
+Please note that when you first start to use the EPP sandbox environment, the access credentials are matching your production credentials. If these do not work as expected (e.g. error `2200`). please contact: info@dk-hostmaster.dk to get the credentials synhcronized.
 
 
 <a name="implementation-requirements"></a>
@@ -358,7 +358,7 @@ Since 2016-02-29 DK Hostmaster has enforced IP whitelisting of IPs for access to
 
 Please contact: 
 
-* tech@dk-hostmaster.dk
+* info@dk-hostmaster.dk
 
 <a name="implementation-extensions"></a>
 # Implementation Extensions
@@ -2023,7 +2023,7 @@ The data is collected as required by danish legislation. See also the data colle
         </contact:postalInfo>
         <contact:voice>+45.33646060</contact:voice>
         <contact:fax />
-        <contact:email>tech@dk-hostmaster.dk</contact:email>
+        <contact:email>info@dk-hostmaster.dk</contact:email>
         <contact:authInfo>
           <contact:pw />
         </contact:authInfo>
@@ -2438,7 +2438,7 @@ DK Hostmaster operates a mailing list for discussion and inquiries  about the DK
 
 For issue reporting related to this specification, the EPP implementation or test, sandbox or production environments, please contact us.  You are of course welcome to post these to the mailing list mentioned above, otherwise use the address specified below:
 
-* tech@dk-hostmaster.dk
+* info@dk-hostmaster.dk
 
 <a name="demotest-client"></a>
 ## Demo/Test Client
