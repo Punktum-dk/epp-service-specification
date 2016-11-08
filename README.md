@@ -18,6 +18,7 @@ Revision: 2.0
   - [Available Environments](#available-environments)
     - [production](#production)
     - [sandbox](#sandbox)
+    - [evaluation](#evaluation)
 - [Implementation Requirements](#implementation-requirements)
   - [Client Transaction ID \(`clTRID`\)](#client-transaction-id-cltrid)
   - [IP Whitelisting](#ip-whitelisting)
@@ -286,20 +287,27 @@ DK Hostmaster offers the following environments:
 <a name="production"></a>
 ### production
 
-  * This environment is the production environment
-  * info and check requests made to this environment will reflect live production data
-  * create requests made to this environment will be carried out provided that  they comply with business rules and general terms.
+Currently two production environments co-exist.
+
+  epp.dk-hostmaster.dk runs the EPP service 1.X.X
+  epp2.dk-hostmaster.dk runs the EPP service 2.X.X
+
+  * These environments are the production environments
+  * info and check requests made to these environments will reflect live production data
+  * create requests made to these environments will be carried out provided that  they comply with business rules and general terms.
   * Approved domains will be processed for possible activation and propagation into the zone
   * Contacts (users) will be created and will be available in other systems like the self-service system etc.
   * Hosts (name servers) will be processed for possible activation
-  * The Change Password operation is available in this environment
+  * The Change Password operation is available in these environments
   * Please note that this operation will change the password and this change will be reflected in other systems.
-  * The production environment is available at: epp.dk-hostmaster.dk port 700
   * This is environment is using [IP Whitelisting](#ip-whitelisting)
   * This environment is only available to registrars
+  * Both environments respond on port 700
 
 <a name="sandbox"></a>
 ### sandbox
+
+This environment runs EPP service version 1.X.X
 
   * This environment is intended for client development towards the DK Hostmaster EPP service
   * info and check requests made to this environment will reflect sandbox data. For host objects, some static content synched in by DK Hostmaster, in addition to sandbox data
@@ -308,10 +316,28 @@ DK Hostmaster offers the following environments:
   * Contacts (users) can be created, but will not be available in other systems like the self-service system etc.
 
   * The Change Password operation will only change the password on the sandbox environment
-  * The sandbox environment is available at: epp-sandbox.dk-hostmaster.dk port 700
+  * The sandbox environment is available at: epp-evaluation.dk-hostmaster.dk port 700
   * This environment is available to both registrars and nameserver administrators
 
 Please note that when you first start to use the EPP sandbox environment, the access credentials are matching your production credentials. If these do not work as expected (e.g. error `2200`). please contact: tech@dk-hostmaster.dk to get the credentials synhcronized.
+
+<a name="evaluation"></a>
+### evaluation
+
+This environment runs EPP service version 2.X.X
+
+  * This environment is intended for client development towards the DK Hostmaster EPP service
+  * info and check requests made to this environment will reflect environment only data. For host objects, some static content synched in by DK Hostmaster, in addition to environment data
+  * create requests made to this environment will be serialised in the evaluation environment, provided that syntax and data are valid
+  * Domains will be enqueued, but will not be processed further nor be available for activation and propagation into the zone
+  * Contacts (users) can be created, but will not be available in other systems like the self-service system etc.
+
+  * The Change Password operation will only change the password on the evaluation environment
+  * The evaluation environment is available at: epp-evaluation.dk-hostmaster.dk port 700
+  * This environment is available to both registrars and nameserver administrators
+
+Please note that when you first start to use the EPP sandbox environment, the access credentials are matching your production credentials. If these do not work as expected (e.g. error `2200`). please contact: tech@dk-hostmaster.dk to get the credentials synhcronized.
+
 
 <a name="implementation-requirements"></a>
 # Implementation Requirements
