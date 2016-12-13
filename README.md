@@ -319,7 +319,7 @@ This environment runs EPP service version 1.X.X
   * The sandbox environment is available at: epp-evaluation.dk-hostmaster.dk port 700
   * This environment is available to both registrars and nameserver administrators
 
-Please note that when you first start to use the EPP sandbox environment, the access credentials are matching your production credentials. If these do not work as expected (e.g. error `2200`). please contact: info@dk-hostmaster.dk to get the credentials synhcronized.
+Please note that when you first start to use the EPP sandbox environment, the access credentials are matching your production credentials. If these do not work as expected (e.g. error `2200`). please contact: tech@dk-hostmaster.dk to get the credentials synhcronized.
 
 <a name="evaluation"></a>
 ### evaluation
@@ -336,7 +336,7 @@ This environment runs EPP service version 2.X.X
   * The evaluation environment is available at: epp-evaluation.dk-hostmaster.dk port 700
   * This environment is available to both registrars and nameserver administrators
 
-Please note that when you first start to use the EPP sandbox environment, the access credentials are matching your production credentials. If these do not work as expected (e.g. error `2200`). please contact: info@dk-hostmaster.dk to get the credentials synhcronized.
+Please note that when you first start to use the EPP sandbox environment, the access credentials are matching your production credentials. If these do not work as expected (e.g. error `2200`). please contact: tech@dk-hostmaster.dk to get the credentials synhcronized.
 
 
 <a name="implementation-requirements"></a>
@@ -2431,7 +2431,7 @@ The files are all available for [download][XSD files].
 
 DK Hostmaster operates a mailing list for discussion and inquiries  about the DK Hostmaster EPP implementation. To subscribe to this list, write to the address below and follow the instructions. Please note that the list is for technical discussion only, any issues beyond the technical scope will not be responded to, please send these to the contact issue reporting address below and they will be passed on to the appropriate entities within DK Hostmaster.
 
-* epp-discuss+subscribe@liste.dk-hostmaster.dk
+* tech-discuss+subscribe@liste.dk-hostmaster.dk
 
 <a name="issue-reporting"></a>
 ## Issue Reporting
