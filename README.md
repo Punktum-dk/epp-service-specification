@@ -1543,10 +1543,10 @@ Request to create a host object, requesting a different adminstrator of the host
         <host:addr ip="v6">1080:0:0:0:8:800:200417A</host:addr>
       </host:create>
     </create>
-    <clTRID>ABC-12345</clTRID>
     <extension>
-      <dkhm:requestedNsAdmin xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.5">ADMIN2-DK</dkhm:requestedNsAdmin>
+      <dkhm:requestedNsAdmin xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.0">ADMIN2-DK</dkhm:requestedNsAdmin>
     </extension>
+    <clTRID>ABC-12345</clTRID>
   </command>
 </epp>
 ```
