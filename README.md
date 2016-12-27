@@ -681,6 +681,94 @@ There are no special additions or alterations to the specification or use of thi
 
 For clarification `2303` is returned in case a provided message-id (`msgID`) point to a non-existing message.
 
+### poll req request
+
+```XML
+<?xml version="1.0" encoding="UTF-8"?>
+
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <poll op="req"/>
+    <clTRID>09ed6c730e5c4c671c69ea8a4325ac06</clTRID>
+  </command>
+</epp>
+```
+
+### poll req response
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+  <response>    
+    <result code="1301">
+      <msg>Command completed successfully; ack to dequeue</msg>    </result>    
+    <msgQ count="10" id="1">
+      <msg>Create domain pending for eksempel.dk</msg>    </msgQ>    
+    <resData>
+      <domain:creData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>eksempel.dk</domain:name>
+        <domain:crDate>2013-02-13T13:43:24.0Z</domain:crDate>
+      </domain:creData>
+    </resData>    
+    <trID>
+      <clTRID>bb96ddfcbe2becbe1e7d974a5b22e29a</clTRID>
+      <svTRID>EFE89190-CC4B-11E6-B51D-4F7D3A107CA1</svTRID>    
+    </trID>
+  </response>
+</epp>
+```
+
+### poll ack request
+
+```XML
+<?xml version="1.0" encoding="UTF-8"?>
+
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <poll msgID="1" op="ack"/>
+    <clTRID>a05bd42e77b26fe18801cbf5216ee199</clTRID>
+  </command>
+</epp>
+```
+
+### poll ack response
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+  <response>    
+    <result code="1000">
+      <msg>Command completed successfully</msg>
+    </result>    
+    <msgQ count="9" id="2">
+    </msgQ>    
+    <trID>
+      <clTRID>770e65ed92827c810421faf709b5523c</clTRID>
+      <svTRID>4ECFA0E0-CC4C-11E6-A3CB-78843A107CA1</svTRID>
+    </trID></response>
+</epp>
+```
+
+### poll ack response for non-existant message (or previously acknowledged message)
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+  <response>    
+    <result code="2303">
+      <msg>Object does not exist</msg>
+    </result>    
+    <msgQ count="8" id="5">
+    </msgQ>    
+    <trID>
+      <clTRID>9bee91be9f7d15808ce3425af406ddc4</clTRID>
+      <svTRID>A615AEDA-CC4C-11E6-9191-4F7D3A107CA1</svTRID>    </trID></response>
+</epp>
+```
+
 <a name="create-domain"></a>
 ## create domain
 
