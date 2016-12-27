@@ -1211,7 +1211,7 @@ The command might be blocked and the status code: `serverUpdateProhibited` is re
 </epp>
 ```
 
-The above example is error prone, it will be replaced with a correct example.
+TODO: The above example is error prone, it will be replaced with a correct example.
 
 <a name="update-domain-response"></a>
 ### update domain response
