@@ -2473,8 +2473,8 @@ More information and documentation on the pre-activation service is available at
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
     <greeting>
-        <svID>DK Hostmaster EPP Service: 2.2.0</svID>
-        <svDate>2016-10-11T08:41:27.0Z</svDate>
+        <svID>DK Hostmaster EPP Service: 2.2.3</svID>
+        <svDate>2016-12-27T15:19:26.0Z</svDate>
         <svcMenu>
             <version>1.0</version>
             <lang>en</lang>
@@ -2483,7 +2483,7 @@ More information and documentation on the pre-activation service is available at
             <objURI>urn:ietf:params:xml:ns:contact-1.0</objURI>
             <svcExtension>
                 <extURI>urn:ietf:params:xml:ns:secDNS-1.1</extURI>
-                <extURI>urn:dkhm:params:xml:ns:dkhm-1.3</extURI>
+                <extURI>urn:dkhm:params:xml:ns:dkhm-2.0</extURI>
             </svcExtension>
         </svcMenu>
         <dcp>
