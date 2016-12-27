@@ -765,7 +765,9 @@ For clarification `2303` is returned in case a provided message-id (`msgID`) poi
     </msgQ>    
     <trID>
       <clTRID>9bee91be9f7d15808ce3425af406ddc4</clTRID>
-      <svTRID>A615AEDA-CC4C-11E6-9191-4F7D3A107CA1</svTRID>    </trID></response>
+      <svTRID>A615AEDA-CC4C-11E6-9191-4F7D3A107CA1</svTRID>
+    </trID>
+  </response>
 </epp>
 ```
 
