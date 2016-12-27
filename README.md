@@ -51,7 +51,7 @@ Revision: 2.0
   - [hello and greeting](#hello-and-greeting)
   - [login](#login)
     - [login request](#login-request)
-    - [login reponse](#login-reponse)
+    - [login response](#login-response)
   - [logout](#logout)
     - [logout request](#logout-request)
     - [logout response](#logout-response)
@@ -621,8 +621,8 @@ Currently, the only language supported is English. So the language parameter is 
 </epp>
 ```
 
-<a name="login-reponse"></a>
-### login reponse
+<a name="login-response"></a>
+### login response
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
