@@ -1017,26 +1017,19 @@ The sub-proces called, can be depicted as follows:
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <response>
+
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+  <response>    
     <result code="1000">
-      <msg>Command completed successfully</msg>
-    </result>
-    <resData>
-      <domain:renData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-        <domain:name>eksempel.dk</domain:name>
-        <domain:exDate>2021-05-12T22:00:00.0Z</domain:exDate>
-      </domain:renData>
-    </resData>
+      <msg>OK</msg>
+    </result>    
+    <msgQ count="10" id="1">    
+    </msgQ>    
     <trID>
-      <clTRID>df49a47a9d1058186b97e8b916f0c23f</clTRID>
-      <svTRID>40E74ED0-9BE6-11E4-8B24-9C0CC33995C9</svTRID>
-    </trID>
-   </response>
+      <clTRID>be781a6d19d320867d06e6e80a84a614</clTRID>
+      <svTRID>64278BDE-CC4B-11E6-8068-487D3A107CA1</svTRID>    </trID></response>
 </epp>
 ```
-
-*Example lifted from [RFC 5731][RFC5731], will be exchanged*
 
 <a name="update-domain"></a>
 ## update domain
@@ -1111,85 +1104,41 @@ The command might be blocked and the status code: `serverUpdateProhibited` is re
 ### update domain request
 
 ```XML
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
+
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
   <command>
     <update>
-      <domain:update
-       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+      <domain:update xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
         <domain:name>eksempel.dk</domain:name>
-        <domain:add>
-          <domain:ns>
-            <domain:hostObj>ns2.example.com</domain:hostObj>
-          </domain:ns>
-          <domain:contact type="tech">mak21</domain:contact>
-          <domain:status s="clientHold"
-           lang="en">Payment overdue.</domain:status>
-        </domain:add>
-        <domain:rem>
-          <domain:ns>
-            <domain:hostObj>ns1.example.com</domain:hostObj>
-          </domain:ns>
-          <domain:contact type="tech">sh8013</domain:contact>
-          <domain:status s="clientUpdateProhibited"/>
-        </domain:rem>
-        <domain:chg>
-          <domain:registrant>sh8013</domain:registrant>
-          <domain:authInfo>
-            <domain:pw>2BARfoo</domain:pw>
-          </domain:authInfo>
-        </domain:chg>
+        <domain:add/>
+        <domain:rem/>
+        <domain:chg/>
       </domain:update>
     </update>
-    <clTRID>ABC-12345</clTRID>
+    <clTRID>c6a678333c526109dea562b42a678398</clTRID>
   </command>
 </epp>
 ```
 
-The example is lifted from [RFC 5731][RFC5731] and modified, it will be replaced with improved examples post implementation.
+The above example is error prone, it will be replaced with a correct example.
 
 <a name="update-domain-response"></a>
 ### update domain response
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <response>
-    <result code="1000">
-      <msg>Command completed successfully</msg>
-    </result>
-    <resData>
-      <domain:renData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-        <domain:name>eksempel.dk</domain:name>
-        <domain:exDate>2021-05-12T22:00:00.0Z</domain:exDate>
-      </domain:renData>
-    </resData>
-    <trID>
-      <clTRID>df49a47a9d1058186b97e8b916f0c23f</clTRID>
-      <svTRID>40E74ED0-9BE6-11E4-8B24-9C0CC33995C9</svTRID>
-    </trID>
-   </response>
-</epp>
-```
 
-The example is lifted from [RFC 5731][RFC5731] and modified, it will be replaced with improved examples post implementation.
-
-```XML
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
   <response>    
-    <result code="1001">
-      <msg>Command completed successfully</msg>
-    </result>
+    <result code="1000">
+      <msg>Command completed successfully</msg>    </result>    
+    <msgQ count="10" id="1">    </msgQ>    
     <trID>
-      <clTRID>ABC-12345</clTRID>
-      <svTRID>54321-XYZ</svTRID>
-    </trID>
-  </response>
+      <clTRID>16465c9766e24e1d1d92d5254a3f3717</clTRID>
+      <svTRID>B9B4777A-CC4A-11E6-84D4-467D3A107CA1</svTRID>    </trID></response>
 </epp>
 ```
-
-*Example lifted from [RFC 5731][RFC5731], will be exchanged*
 
 <a name="change-registrant"></a>
 ### change registrant
@@ -1789,19 +1738,19 @@ As described in Implementation Limitations, the service does not support setting
 Request to update a host object, requesting a different adminstrator of the host object, hence requiring offline evaluation.
 
 ```XML
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
+
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
   <command>
     <update>
-      <host:update
-       xmlns:host="urn:ietf:params:xml:ns:host-1.0">
+      <host:update xmlns:host="urn:ietf:params:xml:ns:host-1.0">
         <host:name>ns1.eksempel.dk</host:name>
       </host:update>
     </update>
-    <clTRID>ABC-12345</clTRID>
     <extension>
-      <dkhm:requestedNsAdmin xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.5">ADMIN2-DK</dkhm:requestedNsAdmin>
-    </extension>    
+      <dkhm:requestedNsAdmin xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.0">DKHM1-DK</dkhm:requestedNsAdmin>
+    </extension>
+    <clTRID>7a4ac69d335ae661e29fc2c262c5800e</clTRID>
   </command>
 </epp>
 ```
@@ -1813,16 +1762,14 @@ Response to the above request. The response indicates a succesful accept of the 
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <response>
+
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+  <response>    
     <result code="1001">
-      <msg>Command completed successfully; action pending</msg>
-    </result>
+      <msg>Command completed successfully; action pending</msg>    </result>    
     <trID>
-      <clTRID>ABC-12345</clTRID>
-      <svTRID>54321-XYZ</svTRID>
-    </trID>
-  </response>
+      <clTRID>6e95dc191e922be727fd5af4c2d20bc5</clTRID>
+      <svTRID>631DABC6-CC49-11E6-A165-4F7D3A107CA1</svTRID>    </trID></response>
 </epp>
 ```
 
