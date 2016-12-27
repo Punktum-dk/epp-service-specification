@@ -2611,7 +2611,7 @@ More information and documentation on the pre-activation service is available at
 
 [General Terms and Conditions 3_3]: https://www.dk-hostmaster.dk/en/general-conditions#3.3
 
-[epp-update-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_contact_v1.png
+[epp-update-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_contact_v1.0.png
 
 [epp-role-mapping]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp-role-resolution.png
 
