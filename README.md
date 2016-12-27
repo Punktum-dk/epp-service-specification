@@ -893,7 +893,7 @@ As for the user entities some mappings are made so all relevant roles are specif
 
 Please note that the command supports punycode notation for specifying IDN domain names, but responses are in the specified UTF-8 character set.
 
-![Diagram of role mapping for EPP create domain][epp-role-mapping]
+![Diagram of role resolution for EPP create domain][epp-role-resolution]
 
 <a name="check-domain"></a>
 ## check domain
@@ -2664,9 +2664,9 @@ More information and documentation on the pre-activation service is available at
 
 [epp-update-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_contact_v1.0.png
 
-[epp-role-mapping]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp-role-resolution.png
+[epp-role-resolution]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp-role-resolution_v1.0.png
 
-[epp-address-resolution]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp-address-resolution.png
+[epp-address-resolution]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp-address-resolution_v1.0.png
 
 [epp_create_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_create_host_v1.2.png
 
