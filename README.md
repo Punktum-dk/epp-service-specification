@@ -56,6 +56,11 @@ Revision: 2.0
     - [logout request](#logout-request)
     - [logout response](#logout-response)
   - [poll and message queue](#poll-and-message-queue)
+    - [poll req request](#poll-req-request)
+    - [poll req response](#poll-req-response)
+    - [poll ack request](#poll-ack-request)
+    - [poll ack response](#poll-ack-response)
+    - [poll ack response for non-existant message \(or previously acknowledged message\)](#poll-ack-response-for-non-existant-message-or-previously-acknowledged-message)
   - [create domain](#create-domain)
     - [create domain request](#create-domain-request)
     - [create domain response](#create-domain-response)
@@ -681,6 +686,7 @@ There are no special additions or alterations to the specification or use of thi
 
 For clarification `2303` is returned in case a provided message-id (`msgID`) point to a non-existing message.
 
+<a name="poll-req-request"></a>
 ### poll req request
 
 ```XML
@@ -694,6 +700,7 @@ For clarification `2303` is returned in case a provided message-id (`msgID`) poi
 </epp>
 ```
 
+<a name="poll-req-response"></a>
 ### poll req response
 
 ```XML
@@ -719,6 +726,7 @@ For clarification `2303` is returned in case a provided message-id (`msgID`) poi
 </epp>
 ```
 
+<a name="poll-ack-request"></a>
 ### poll ack request
 
 ```XML
@@ -732,6 +740,7 @@ For clarification `2303` is returned in case a provided message-id (`msgID`) poi
 </epp>
 ```
 
+<a name="poll-ack-response"></a>
 ### poll ack response
 
 ```XML
@@ -751,6 +760,7 @@ For clarification `2303` is returned in case a provided message-id (`msgID`) poi
 </epp>
 ```
 
+<a name="poll-ack-response-for-non-existant-message-or-previously-acknowledged-message"></a>
 ### poll ack response for non-existant message (or previously acknowledged message)
 
 ```XML
@@ -1222,11 +1232,15 @@ TODO: The above example is error prone, it will be replaced with a correct examp
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
   <response>    
     <result code="1000">
-      <msg>Command completed successfully</msg>    </result>    
-    <msgQ count="10" id="1">    </msgQ>    
+      <msg>Command completed successfully</msg>
+    </result>    
+    <msgQ count="10" id="1">
+    </msgQ>    
     <trID>
       <clTRID>16465c9766e24e1d1d92d5254a3f3717</clTRID>
-      <svTRID>B9B4777A-CC4A-11E6-84D4-467D3A107CA1</svTRID>    </trID></response>
+      <svTRID>B9B4777A-CC4A-11E6-84D4-467D3A107CA1</svTRID>
+    </trID>
+  </response>
 </epp>
 ```
 
