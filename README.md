@@ -1127,7 +1127,9 @@ The sub-proces called, can be depicted as follows:
     </msgQ>    
     <trID>
       <clTRID>be781a6d19d320867d06e6e80a84a614</clTRID>
-      <svTRID>64278BDE-CC4B-11E6-8068-487D3A107CA1</svTRID>    </trID></response>
+      <svTRID>64278BDE-CC4B-11E6-8068-487D3A107CA1</svTRID>
+    </trID>
+  </response>
 </epp>
 ```
 
