@@ -1931,7 +1931,7 @@ The deletion of a host object can only be requested by the adminstrator.
 | Return Code  | Description |
 | ------------ | ------------ |
 | 1000 | If the delete host command is successful |
-| 2201 | If the authenticated user does not hold the privilege to update the specified host object |
+| 2201 | If the authenticated user does not hold the privilege to delete the specified host object |
 | 2303 | If the specified host object does not exist |
 | 2305 | If the specified host object links to domain name objects |
 
