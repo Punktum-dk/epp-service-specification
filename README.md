@@ -1872,10 +1872,13 @@ Response to the above request. The response indicates a succesful accept of the 
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
   <response>    
     <result code="1001">
-      <msg>Command completed successfully; action pending</msg>    </result>    
+      <msg>Command completed successfully; action pending</msg>
+    </result>    
     <trID>
       <clTRID>6e95dc191e922be727fd5af4c2d20bc5</clTRID>
-      <svTRID>631DABC6-CC49-11E6-A165-4F7D3A107CA1</svTRID>    </trID></response>
+      <svTRID>631DABC6-CC49-11E6-A165-4F7D3A107CA1</svTRID>
+    </trID>
+  </response>
 </epp>
 ```
 
