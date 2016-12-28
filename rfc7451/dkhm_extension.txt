@@ -12,4 +12,4 @@ IPR Disclosure: None
 
 Status: Active
 
-Notes: This extension includes a number of domain and contact object extension elements for use with the dk ccTLD.
+Notes: This extension includes a number of domain, host and contact object extension elements for use with the dk ccTLD.
