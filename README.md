@@ -498,6 +498,7 @@ In general the service is not localized and all EPP related errors and messages 
 The service does not support the following features of the EPP protocol:
 
 * Authorization
+* Transport of `authInfo`, the section is ignored is not recommended for transport of end-user passwords
 
 Comparing the EPP implementation to the existing channel for domain registration using the form via SMTP, the following fields are not supported.
 
@@ -785,6 +786,10 @@ For clarification `2303` is returned in case a provided message-id (`msgID`) poi
 ## create domain
 
 This part of the EPP protocol is described in [RFC 5730][RFC5730]. This command adheres to the standard. DK Hostmaster, however, is based on an asynchronous domain creation workflow. All domain requests are enqueued for further processing and their creation will be in a state of pending.
+
+Please note:
+
+- `authInfo` section is ignored is not recommended for transport of end-user passwords
 
 A well-formed request for domain creation will then always result in:
 
@@ -2047,6 +2052,10 @@ Please note that a registrant cannot have a attention field specified, so you sh
 
 The data is collected as required by danish legislation. See also the data collection policy section below.
 
+Please note:
+
+- `authInfo` section is ignored is not recommended for transport of end-user passwords
+
 <a name="create-contact-request"></a>
 ### create contact request
 
@@ -2265,6 +2274,10 @@ These of course all controlled by relevant privileges.
 - Mobilephone
 
 ![Diagram of EPP update contact][epp-update-contact]
+
+Please note:
+
+- `authInfo` section is ignored is not recommended for transport of end-user passwords
 
 <a name="update-contact-request"></a>
 ### update contact request
