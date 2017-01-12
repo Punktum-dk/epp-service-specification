@@ -2055,6 +2055,7 @@ The data is collected as required by danish legislation. See also the data colle
 Please note:
 
 - `authInfo` section is ignored is not recommended for transport of end-user passwords
+- User-creation is silent and the designated user is not notified about the the creation, unless this is a part of the proces of associating the user with other objects
 
 <a name="create-contact-request"></a>
 ### create contact request
