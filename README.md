@@ -280,8 +280,6 @@ The service is implemented under the following principles:
 
 The EPP service supports the following protocols for transport security:
 
-- TLSv1.0
-- TLSv1.1
 - TLSv1.2 
 
 <a name="available-environments"></a>
