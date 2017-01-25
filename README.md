@@ -18,7 +18,6 @@ Revision: 2.0
   - [Available Environments](#available-environments)
     - [production](#production)
     - [sandbox](#sandbox)
-    - [evaluation](#evaluation)
 - [Implementation Requirements](#implementation-requirements)
   - [Client Transaction ID \(`clTRID`\)](#client-transaction-id-cltrid)
   - [IP Whitelisting](#ip-whitelisting)
@@ -267,8 +266,6 @@ The EPP service requires the use of and possible development of EPP client softw
 
 In addition to the assets, DK Hostmaster aims to assist users and developers of EPP client software with integration towards DK Hostmaster and therefore provide facilities to ease this integration. This is primarily centered around a sandbox environment and related documentation.
 
-In addition, DK Hostmaster provides  a test environment for evaluation of future releases of the service, both for evaluation of new features, but also for opening up for EPP users to assist and guide DK Hostmaster in the EPP service implementation work.
-
 The service is implemented under the following principles:
 
 1 Adhere to the standard to the extent possible or use non-intrusive extensions to support the requirements or finally use mandatory extensions to adhere to service requirements
@@ -319,28 +316,12 @@ This environment runs EPP service version 1.X.X
   * Contacts (users) can be created, but will not be available in other systems like the self-service system etc.
 
   * The Change Password operation will only change the password on the sandbox environment
-  * The sandbox environment is available at: epp-evaluation.dk-hostmaster.dk port 700
+  * The sandbox environment is available at: epp-sandbox.dk-hostmaster.dk port 700
   * This environment is available to both registrars and nameserver administrators
 
 Please note that when you first start to use the EPP sandbox environment, the access credentials are matching your production credentials. If these do not work as expected (e.g. error `2200`). please contact: tech@dk-hostmaster.dk to get the credentials synhcronized.
 
-<a name="evaluation"></a>
-### evaluation
-
-This environment runs EPP service version 2.X.X
-
-  * This environment is intended for client development towards the DK Hostmaster EPP service
-  * info and check requests made to this environment will reflect environment only data. For host objects, some static content synched in by DK Hostmaster, in addition to environment data
-  * create requests made to this environment will be serialised in the evaluation environment, provided that syntax and data are valid
-  * Domains will be enqueued, but will not be processed further nor be available for activation and propagation into the zone
-  * Contacts (users) can be created, but will not be available in other systems like the self-service system etc.
-
-  * The Change Password operation will only change the password on the evaluation environment
-  * The evaluation environment is available at: epp-evaluation.dk-hostmaster.dk port 700
-  * This environment is available to both registrars and nameserver administrators
-
 Please note that when you first start to use the EPP sandbox environment, the access credentials are matching your production credentials. If these do not work as expected (e.g. error `2200`). please contact: tech@dk-hostmaster.dk to get the credentials synhcronized.
-
 
 <a name="implementation-requirements"></a>
 # Implementation Requirements
