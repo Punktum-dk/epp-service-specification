@@ -289,8 +289,7 @@ DK Hostmaster offers the following environments:
 
 Currently two production environments co-exist.
 
-  epp.dk-hostmaster.dk runs the EPP service 1.X.X
-  epp2.dk-hostmaster.dk runs the EPP service 2.X.X
+  * epp.dk-hostmaster.dk runs the EPP service 2.X.X
 
   * These environments are the production environments
   * info and check requests made to these environments will reflect live production data
@@ -307,7 +306,7 @@ Currently two production environments co-exist.
 <a name="sandbox"></a>
 ### sandbox
 
-This environment runs EPP service version 1.X.X
+  * This environment runs EPP service version 2.X.X
 
   * This environment is intended for client development towards the DK Hostmaster EPP service
   * info and check requests made to this environment will reflect sandbox data. For host objects, some static content synched in by DK Hostmaster, in addition to sandbox data
