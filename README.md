@@ -287,18 +287,16 @@ DK Hostmaster offers the following environments:
 <a name="production"></a>
 ### production
 
-Currently two production environments co-exist.
-
   * epp.dk-hostmaster.dk runs the EPP service 2.X.X
 
-  * These environments are the production environments
-  * info and check requests made to these environments will reflect live production data
-  * create requests made to these environments will be carried out provided that  they comply with business rules and general terms.
+  * This environment is the production environment
+  * info and check requests made to this environment will reflect live production data
+  * create requests made to this environment will be carried out provided that they comply with business rules and general terms
   * Approved domains will be processed for possible activation and propagation into the zone
   * Contacts (users) will be created and will be available in other systems like the self-service system etc.
   * Hosts (name servers) will be processed for possible activation
-  * The Change Password operation is available in these environments
-  * Please note that this operation will change the password and this change will be reflected in other systems.
+  * The Change Password operation is available in this environment
+  * Please note that this operation will change the password and this change will be reflected in other systems
   * This is environment is using [IP Whitelisting](#ip-whitelisting)
   * This environment is only available to registrars
   * Both environments respond on port 700
