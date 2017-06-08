@@ -1,7 +1,7 @@
 DK Hostmaster EPP Service Specification
 
-2016-10-24
-Revision: 2.0
+2017-06-08
+Revision: 2.1
 
 # Table of Contents
 
@@ -171,6 +171,9 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 <a name="document-history"></a>
 ## Document History
+
+* 2.1 2017-06-08
+  * Removed information on waiting list handling, since this is being revisited
 
 * 2.0 2016-10-24
   * Describes EPP service 2.X.X 
