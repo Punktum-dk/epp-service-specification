@@ -337,9 +337,9 @@ The `clTRID` is recommended to be unique for all transactions and is required to
 
 Since 2016-02-29 DK Hostmaster has enforced IP whitelisting of IPs for access to the EPP service. Additions and removals of IP addresses is currently a manual proces handled by DK Hostmaster. 
 
-Please contact: 
+Please submit change requests including registrar handle information to:
 
-* info@dk-hostmaster.dk
+* tech@dk-hostmaster.dk
 
 <a name="implementation-extensions"></a>
 # Implementation Extensions
