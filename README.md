@@ -1,7 +1,7 @@
 DK Hostmaster EPP Service Specification
 
-2017-06-08
-Revision: 2.1
+2017-12-19
+Revision: 2.2
 
 # Table of Contents
 
@@ -394,7 +394,7 @@ A unique tracking number for a domain registration for uniformity with the mail 
 <a name="dkhmdomainadvisory"></a>
 ## `dkhm:domainAdvisory`
 
-Domain names registered with DK Hostmaster can hold a status blocked. This is used for communicating this special status for the check domain command.
+Any special circumstances in relation to a domain name, can be communicated using this special field. Please see the specific commands for examples.
 
 <a name="dkhmorderconfirmationtoken"></a>
 ## `dkhm:orderconfirmationToken`
@@ -874,8 +874,6 @@ Please note that the command supports punycode notation for specifying IDN domai
 <a name="check-domain"></a>
 ## check domain
 
-Since DK Hostmaster does support a concept of blocked domains. A domain name will be indicated as available if the domain name has the status of `blocked`. For an explanation of the process please see section [3.3][General Terms and Conditions 3_3] and in particular section 3.3.2 in the [General Terms and Conditions][General Terms and Conditions].
-
 <a name="check-domain-request"></a>
 ### check domain request
 
@@ -916,33 +914,6 @@ Since DK Hostmaster does support a concept of blocked domains. A domain name wil
       <svTRID>36FB99DC-F6F3-11E3-867F-A6B052036DCB</svTRID>
     </trID>
   </response>
-</epp>
-```
-
-We have extended the result for the check domain command to reflect this using an extension named `domainAdvisory`. An example response on a blocked domain would look at follows.
-
-```XML
-<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-    <response>
-        <result code="1000">
-            <msg>Check result</msg>
-        </result>
-        <resData>
-            <domain:chkData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-                <domain:cd>
-                    <domain:name avail="1">blockeddomain.dk</domain:name>
-                </domain:cd>
-            </domain:chkData>
-        </resData>
-        <extension>
-            <dkhm:domainAdvisory xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.2" domain="blockeddomain.dk" advisory="Blocked" />
-        </extension>
-        <trID>
-            <clTRID>2734c8487b96dd80a973edbb3cd73b77</clTRID>
-            <svTRID>3475FA4C-4099-11E3-BE43-654514178544</svTRID>
-        </trID>
-    </response>
 </epp>
 ```
 
