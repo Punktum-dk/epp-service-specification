@@ -1,6 +1,6 @@
 DK Hostmaster EPP Service Specification
 
-2017-12-19
+2018-02-05
 Revision: 2.2
 
 # Table of Contents
@@ -171,6 +171,9 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 <a name="document-history"></a>
 ## Document History
+
+* 2.2 2018-02-05
+  * Updated XSD history 
 
 * 2.1 2017-06-08
   * Removed information on waiting list handling, since this is being revisited
@@ -2409,6 +2412,11 @@ The files are all available for [download][XSD files].
 
 <a name="xsd-version-history"></a>
 ### XSD Version History
+
+* 2.1
+  * **Warning!** This release includes a change to the standard XSD from [RFC:5730](https://tools.ietf.org/html/rfc5730), aligning the values for the password type. It has not been possible to get the patch applied using the XML Schema feature: `redefine` or `overwrite`. When this succeeds this change will have to be rolled-back. The change has been applied so the schema file conforms with the schema file used at DK Hostmaster A/S.
+
+  * The DKHM Schema file has been updated to revision 2.1, the file does not contain any changes apart from the import, this file was created for a uniform communication in regard to revision numbers etc.
 
 * 2.0
   * EPP Service version 2.0.X, 2.1.X and 2.2.X
