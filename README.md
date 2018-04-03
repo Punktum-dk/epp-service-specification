@@ -825,21 +825,55 @@ The extension in response will provide a unique tracking number, which can be us
 
 So the customised response for a domain creation request looks as below.
 
-The create domain command has also been extended so it is possible to assign a pre-activation token to the request using the `orderconfirmationToken`.
+The create domain command has been extended with a field (`orderconfirmationToken`.) making it possible to assign a token indicating that the registrant has agreed to the terms and coniditions for DK Hostmaster with the registrar.
 
 ```XML
-<dkhm:orderconfirmationToken xmlns:dkhm=“urn:dkhm:params:xml:ns:dkhm-1.2”>
-	testtoken
+<dkhm:orderconfirmationToken xmlns:dkhm=“urn:dkhm:params:xml:ns:dkhm-2.1”>
+	91751cee0a1ab8414400238a761411daa29643ab4b8243e9a91649e25be53ada
 </dkhm:orderconfirmationToken>
 ```
 
-The token is only validated from an XML perspective by the EPP service if not present is is simply ignored and registration carries on as it was not there. It’s validity is not validated until later in the process and possible interaction with the registrant is required.
+The token has to adhere to the following format:
 
-The `orderconfirmationToken` can be obtained via the [Pre-activation Service](#pre-activation-service), please see references and resources below.
+- A text string containing, the following colon separated values:
+  - current time in **epoch**
+  - User-id for the registrant in the application
+  - Punycode encoded domain name
 
-In addition a create domain contains information on whether the domain has been confirmed, this is communicated via the extension: `dkhm:domain_confirmed`. This indicated is based on whether the provided `orderconfirmationToken` is valid.
+```
+<epoch>:<registrant user-id>:<punycode encoded domain name>
+```
 
-The requirement for the registrant to be valid is also communicated via the response, using the extension:
+Example:
+
+```
+1522744544:DKHM-1:eksempel.dk
+```
+
+Example with punycode encoded domain name (æøåöäüé.dk):
+
+```
+1522744544:DKHM-1:xn--4cabco7dk5a.dk
+```
+
+From the string a checksum has to be calculated using SHA256 in hexidecimal format. The last example would be calculated to: 
+
+`8880a2f2c3435857513e9ec0bce341a44d1dde19a969a7a28fb5b6428ff52ce4`
+
+The token is handled the following way:
+
+- If absent DK Hostmaster will require the agreement for the terms and conditions be accepted with DK Hostmaster, this process is handled by DK Hostmaster
+
+- If present. The token will be validated by DK Hostmaster
+  - if not valid the request with result in an error and the requist will be dismissed
+  - if valid the request will be accepted and processed
+
+The timestamp is regarded as valid for 4 days, so the validation accepts timestamps within the following interval:
+
+- Up to 5 days old
+- Up to 5 minutes into the future
+
+The requirement for the registrant to be valid is communicated via the response, using the extension:
 `dkhm:registrant_validated`. Please see the command info contact for more information. The state is communicated in this response in order to provide information on the further flow and process of the create domain request.
 
 The status codes applying to domain are described in the addendum: Status Codes: Domain.
