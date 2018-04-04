@@ -845,7 +845,7 @@ The `token` is handled the following way:
 
 The timestamp is regarded as valid for 4 days, so the validation accepts timestamps within the following interval:
 
-- Up to 5 days old
+- Up to 4 days old
 - Up to 5 minutes into the future
 
 Do note that the validation of the timestamp is based on the UTC timezone.
