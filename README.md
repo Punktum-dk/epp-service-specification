@@ -848,6 +848,8 @@ The timestamp is regarded as valid for 4 days, so the validation accepts timesta
 - Up to 5 days old
 - Up to 5 minutes into the future
 
+Do note that the validation of the timestamp is based on the UTC timezone.
+
 The requirement for the registrant to be valid is communicated via the response, using the extension:
 `dkhm:registrant_validated`. Please see the command info contact for more information. The state is communicated in this response in order to provide information on the further flow and process of the create domain request.
 
