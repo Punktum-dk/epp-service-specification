@@ -829,38 +829,13 @@ The create domain command has been extended with a field (`orderconfirmationToke
 
 ```XML
 <dkhm:orderconfirmationToken xmlns:dkhm=“urn:dkhm:params:xml:ns:dkhm-2.1”>
-	91751cee0a1ab8414400238a761411daa29643ab4b8243e9a91649e25be53ada
+	1522744544
 </dkhm:orderconfirmationToken>
 ```
 
-The token has to adhere to the following format:
+The token is a timestamp in EPOCH format, indicating when the agreement was accepted.
 
-- A text string containing, the following colon separated values:
-  - current time in **epoch**
-  - User-id for the registrant in the application
-  - Punycode encoded domain name
-
-```
-<epoch>:<registrant user-id>:<punycode encoded domain name>
-```
-
-Example:
-
-```
-1522744544:DKHM-1:eksempel.dk
-```
-
-Example with punycode encoded domain name (æøåöäüé.dk):
-
-```
-1522744544:DKHM-1:xn--4cabco7dk5a.dk
-```
-
-From the string a checksum has to be calculated using SHA256 in hexidecimal format. The last example would be calculated to: 
-
-`8880a2f2c3435857513e9ec0bce341a44d1dde19a969a7a28fb5b6428ff52ce4`
-
-The token is handled the following way:
+The `token` is handled the following way:
 
 - If absent DK Hostmaster will require the agreement for the terms and conditions be accepted with DK Hostmaster, this process is handled by DK Hostmaster
 
