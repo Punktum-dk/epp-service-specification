@@ -840,7 +840,7 @@ The `token` is handled the following way:
 - If absent DK Hostmaster will require the agreement for the terms and conditions be accepted with DK Hostmaster, this process is handled by DK Hostmaster
 
 - If present. The token will be validated by DK Hostmaster
-  - if not valid the request with result in an error and the requist will be dismissed
+  - if not valid the request with result in an error and the request will be dismissed
   - if valid the request will be accepted and processed
 
 The timestamp is regarded as valid for 4 days, so the validation accepts timestamps within the following interval:
