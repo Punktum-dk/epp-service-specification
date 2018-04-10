@@ -899,7 +899,7 @@ The status codes applying to domain are described in the addendum: Status Codes:
     <msgQ count="1" id="1"/>
     <extension>
       <dkhm:trackingNo xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.3">2013010100030</dkhm:trackingNo>
-      <dkhm:domain_confirmed xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.3">0</dkhm:domain_confirmed>
+      <dkhm:domain_confirmed xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.3">1</dkhm:domain_confirmed>
       <dkhm:registrant_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.3">1</dkhm:registrant_validated>
     </extension>
     <trID>
