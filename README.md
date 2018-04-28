@@ -843,10 +843,10 @@ The `token` is handled the following way:
   - if not valid the request with result in an error and the request will be dismissed
   - if valid the request will be accepted and processed
 
-The timestamp is regarded as valid for 4 days, so the validation accepts timestamps within the following interval:
+The validation accepts timestamps within the following interval:
 
-- Up to 4 days old
-- Up to 5 minutes into the future
+- In the past
+- and up to 5 minutes into the future
 
 Do note that the validation of the timestamp is based on the UTC timezone.
 
