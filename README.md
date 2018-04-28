@@ -35,6 +35,7 @@ Revision: 2.2
 	- [`dkhm:mobilephone`](#dkhmmobilephone)
 	- [`dkhm:secondaryEmail`](#dkhmsecondaryemail)
 	- [`dkhm:requestedNsAdmin`](#dkhmrequestednsadmin)
+	- [`dkhm:url`](#dkhmurl)
 - [Implementation Limitations](#implementation-limitations)
 	- [Commands](#commands)
 	- [Unimplemented commands](#unimplemented-commands)
@@ -379,6 +380,7 @@ Here follows a listed, the extensions are described separately and in detail bel
 * `dkhm:contact_validated`
 * `dkhm:registrant_validated`
 * `dkhm:requestedNsAdmin`
+* `dkhm:url`
 
 
 <a id="dkhmusertype"></a>
@@ -464,6 +466,11 @@ Contact objects can have a secondary email address in addition to `email`. The e
 
 The extension is used for update and create host, where it is possible to request another nameserver administrator than the authenticated user. The extension was introduced in the DK Hostmaster XSD file set 1.5.
 
+
+<a id="dkhmurl"></a>
+## `dkhm:url`
+
+This extension can be used to redirect and end-user to the next step. For now it is used in relation to domain creation, where the user can be directed to the next step if this is handled by DK Hostmaster. More information is available under the create domain command.
 
 <a id="implementation-limitations"></a>
 # Implementation Limitations
@@ -851,7 +858,13 @@ The validation accepts timestamps within the following interval:
 Do note that the validation of the timestamp is based on the UTC timezone.
 
 The requirement for the registrant to be valid is communicated via the response, using the extension:
-`dkhm:registrant_validated`. Please see the command info contact for more information. The state is communicated in this response in order to provide information on the further flow and process of the create domain request.
+`dkhm:registrant_validated`. Please see the command info contact for more information. The state is communicated in this response in order to provide information on the further flow and process of the create domain request. 
+
+An additional URL is specified in the response via the extension `dkhm:url`, this URL can be presented to the end-user for further processing and for the following scenarios in particular:
+
+1. End-user has not agreed to the terms and conditions
+2. End-user has agreed to the terms and conditions, but ID-control is required
+3. End-user has agreed to the terms and conditions and ID-control has been completed - no further actions are necessary, self-service access is avaiable and active
 
 The status codes applying to domain are described in the addendum: Status Codes: Domain.
 
@@ -901,6 +914,7 @@ The status codes applying to domain are described in the addendum: Status Codes:
       <dkhm:trackingNo xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.3">2013010100030</dkhm:trackingNo>
       <dkhm:domain_confirmed xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.3">1</dkhm:domain_confirmed>
       <dkhm:registrant_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.3">1</dkhm:registrant_validated>
+      <dkhm:url xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.2">https://selfservice-dk-hostmaster.dk/6102505a2e8d0cfbe8c3c99ea49977f36e2d4ee3</dkhm:url>
     </extension>
     <trID>
       <clTRID>47a4178679f26909ebcfcfd8572f315c</clTRID>
