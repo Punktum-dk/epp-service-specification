@@ -1,7 +1,12 @@
 DK Hostmaster EPP Service Specification
 
+<<<<<<< HEAD
 2018-02-05
 Revision: 2.2
+=======
+2018-05-01
+Revision: 2.3
+>>>>>>> master
 
 # Table of Contents
 
@@ -172,8 +177,15 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 <a name="document-history"></a>
 ## Document History
 
-* 2.2 2018-02-05
+
+* HEAD 2018-02-05
   * Updated XSD history 
+
+* 2.3 2018-05-01
+  * Added diagram for create domain 
+
+* 2.2 2017-12-19
+  * Removed information on status blocked, which has been deprecated 
 
 * 2.1 2017-06-08
   * Removed information on waiting list handling, since this is being revisited
@@ -793,6 +805,8 @@ The requirement for the registrant to be valid is also communicated via the resp
 `dkhm:registrant_validated`. Please see the command info contact for more information. The state is communicated in this response in order to provide information on the further flow and process of the create domain request.
 
 The status codes applying to domain are described in the addendum: Status Codes: Domain.
+
+![Create domain][epp_create_domain]
 
 <a name="create-domain-request"></a>
 ### create domain request
@@ -2678,6 +2692,8 @@ More information and documentation on the pre-activation service is available at
 [epp-update-domain-remove-ns]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_domain_remove_ns_v1.1.png
 
 [epp-update-domain-change-registrant]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_domain_change_registrant_v1.2.png
+
+[epp_create_domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_create_domain_v1.0.png
 
 [XSD files]: https://github.com/DK-Hostmaster/epp-xsd-files
 
