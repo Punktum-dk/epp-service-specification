@@ -1,7 +1,7 @@
 DK Hostmaster EPP Service Specification
 
-2017-12-19
-Revision: 2.2
+2018-05-01
+Revision: 2.3
 
 # Table of Contents
 
@@ -177,6 +177,12 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 * HEAD 2018-04-03
   * Added information on format of Orderconfirmation Token
+
+* 2.3 2018-05-0
+  * Added diagram for create domain 
+
+* 2.2 2017-12-19
+  * Removed information on status blocked, which has been deprecated 
 
 * 2.1 2017-06-08
   * Removed information on waiting list handling, since this is being revisited
@@ -868,6 +874,7 @@ An additional URL is specified in the response via the extension `dkhm:url`, thi
 
 The status codes applying to domain are described in the addendum: Status Codes: Domain.
 
+![Create domain][epp_create_domain]
 
 <a id="create-domain-request"></a>
 ### create domain request
@@ -2830,6 +2837,8 @@ More information and documentation on the pre-activation service is available at
 [epp-update-domain-remove-ns]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_domain_remove_ns_v1.1.png
 
 [epp-update-domain-change-registrant]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_domain_change_registrant_v1.2.png
+
+[epp_create_domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_create_domain_v1.0.png
 
 [XSD files]: https://github.com/DK-Hostmaster/epp-xsd-files
 
