@@ -172,7 +172,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 <a name="document-history"></a>
 ## Document History
 
-* 2.3 2018-05-01
+* 2.3 2018-05-0
   * Added diagram for create domain 
 
 * 2.2 2017-12-19
@@ -797,7 +797,7 @@ The requirement for the registrant to be valid is also communicated via the resp
 
 The status codes applying to domain are described in the addendum: Status Codes: Domain.
 
-![Create domain][epp-create-domain]
+![Create domain][epp_create_domain]
 
 <a name="create-domain-request"></a>
 ### create domain request
