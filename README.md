@@ -1,7 +1,7 @@
 DK Hostmaster EPP Service Specification
 
-2017-02-07
-Revision: HEAD
+2018-05-01
+Revision: 2.3
 
 # Table of Contents
 
@@ -173,8 +173,15 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 <a name="document-history"></a>
 ## Document History
 
-* HEAD 2017-02-07
+
+* HEAD 
   * Addition of risk assessment for create domain command poll response. The XSD files revision 2.2 describes the changes to the XSD and supports the new extension: `dkhm:risk_assessment`
+
+* 2.3 2018-05-0
+  * Added diagram for create domain 
+
+* 2.2 2017-12-19
+  * Removed information on status blocked, which has been deprecated 
 
 * 2.1 2017-06-08
   * Removed information on waiting list handling, since this is being revisited
@@ -809,6 +816,8 @@ As part of the process the final response to a create domain is communicated via
 The procedures for ID-control are [described on the DK Hostmaster DK website](https://www.dk-hostmaster.dk/en/identification).
 
 The status codes applying to domain are described in the addendum: Status Codes: Domain.
+
+![Create domain][epp_create_domain]
 
 <a name="create-domain-request"></a>
 ### create domain request
@@ -2689,6 +2698,8 @@ More information and documentation on the pre-activation service is available at
 [epp-update-domain-remove-ns]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_domain_remove_ns_v1.1.png
 
 [epp-update-domain-change-registrant]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_domain_change_registrant_v1.2.png
+
+[epp_create_domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_create_domain_v1.0.png
 
 [XSD files]: https://github.com/DK-Hostmaster/epp-xsd-files
 
