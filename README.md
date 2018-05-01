@@ -1,7 +1,7 @@
 DK Hostmaster EPP Service Specification
 
-2016-10-24
-Revision: 2.0
+2018-05-01
+Revision: 2.3
 
 # Table of Contents
 
@@ -173,6 +173,15 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 <a name="document-history"></a>
 ## Document History
 
+* 2.3 2018-05-0
+  * Added diagram for create domain 
+
+* 2.2 2017-12-19
+  * Removed information on status blocked, which has been deprecated 
+
+* 2.1 2017-06-08
+  * Removed information on waiting list handling, since this is being revisited
+
 * 2.0 2016-10-24
   * Describes EPP service 2.X.X 
   * Added renew domain description
@@ -335,9 +344,9 @@ The `clTRID` is recommended to be unique for all transactions and is required to
 
 Since 2016-02-29 DK Hostmaster has enforced IP whitelisting of IPs for access to the EPP service. Additions and removals of IP addresses is currently a manual proces handled by DK Hostmaster. 
 
-Please contact: 
+Please submit change requests including registrar handle information to:
 
-* info@dk-hostmaster.dk
+* tech@dk-hostmaster.dk
 
 <a name="implementation-extensions"></a>
 # Implementation Extensions
@@ -392,7 +401,7 @@ A unique tracking number for a domain registration for uniformity with the mail 
 <a name="dkhmdomainadvisory"></a>
 ## `dkhm:domainAdvisory`
 
-Domain names registered with DK Hostmaster can hold a status blocked. This is used for communicating this special status for the check domain command.
+Any special circumstances in relation to a domain name, can be communicated using this special field. Please see the specific commands for examples.
 
 <a name="dkhmorderconfirmationtoken"></a>
 ## `dkhm:orderconfirmationToken`
@@ -796,6 +805,8 @@ The requirement for the registrant to be valid is also communicated via the resp
 
 The status codes applying to domain are described in the addendum: Status Codes: Domain.
 
+![Create domain][epp_create_domain]
+
 <a name="create-domain-request"></a>
 ### create domain request
 
@@ -879,8 +890,6 @@ Please note that the command supports punycode notation for specifying IDN domai
 <a name="check-domain"></a>
 ## check domain
 
-Since DK Hostmaster does support a concept of blocked domains. A domain name will be indicated as available if the domain name has the status of `blocked`. For an explanation of the process please see section [3.3][General Terms and Conditions 3_3] and in particular section 3.3.2 in the [General Terms and Conditions][General Terms and Conditions].
-
 <a name="check-domain-request"></a>
 ### check domain request
 
@@ -921,33 +930,6 @@ Since DK Hostmaster does support a concept of blocked domains. A domain name wil
       <svTRID>36FB99DC-F6F3-11E3-867F-A6B052036DCB</svTRID>
     </trID>
   </response>
-</epp>
-```
-
-We have extended the result for the check domain command to reflect this using an extension named `domainAdvisory`. An example response on a blocked domain would look at follows.
-
-```XML
-<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-    <response>
-        <result code="1000">
-            <msg>Check result</msg>
-        </result>
-        <resData>
-            <domain:chkData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-                <domain:cd>
-                    <domain:name avail="1">blockeddomain.dk</domain:name>
-                </domain:cd>
-            </domain:chkData>
-        </resData>
-        <extension>
-            <dkhm:domainAdvisory xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.2" domain="blockeddomain.dk" advisory="Blocked" />
-        </extension>
-        <trID>
-            <clTRID>2734c8487b96dd80a973edbb3cd73b77</clTRID>
-            <svTRID>3475FA4C-4099-11E3-BE43-654514178544</svTRID>
-        </trID>
-    </response>
 </epp>
 ```
 
@@ -2704,6 +2686,8 @@ More information and documentation on the pre-activation service is available at
 [epp-update-domain-remove-ns]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_domain_remove_ns_v1.1.png
 
 [epp-update-domain-change-registrant]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_domain_change_registrant_v1.2.png
+
+[epp_create_domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_create_domain_v1.0.png
 
 [XSD files]: https://github.com/DK-Hostmaster/epp-xsd-files
 
