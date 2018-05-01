@@ -172,7 +172,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 <a name="document-history"></a>
 ## Document History
 
-* 2.3 2017-06-08
+* 2.3 2018-05-01
   * Added diagram for create domain 
 
 * 2.2 2017-12-19
