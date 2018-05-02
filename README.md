@@ -838,7 +838,7 @@ The extension in response will provide a unique tracking number, which can be us
 
 So the customised response for a domain creation request looks as below.
 
-The create domain command has been extended with a field (`orderconfirmationToken`.) making it possible to assign a token indicating that the registrant has agreed to the terms and coniditions for DK Hostmaster with the registrar.
+The create domain command has been extended with a field (`orderconfirmationToken`) making it possible to assign a token indicating that the registrant has agreed to the terms and coniditions for DK Hostmaster with the registrar.
 
 ```XML
 <dkhm:orderconfirmationToken xmlns:dkhm=“urn:dkhm:params:xml:ns:dkhm-2.1”>
@@ -846,7 +846,7 @@ The create domain command has been extended with a field (`orderconfirmationToke
 </dkhm:orderconfirmationToken>
 ```
 
-The token is a timestamp in EPOCH format, indicating when the agreement was accepted.
+The token is a timestamp in [EPOCH] format, indicating when the agreement was accepted.
 
 The `token` is handled the following way:
 
@@ -2869,3 +2869,5 @@ More information and documentation on the pre-activation service is available at
 [Documentation on the current domain registration form]: https://www.dk-hostmaster.dk/en/mailform-registration
 
 [dkhm-name-service-specification]: https://github.com/DK-Hostmaster/dkhm-name-service-specification
+
+[EPOCH]: https://en.wikipedia.org/wiki/Unix_time
