@@ -2054,6 +2054,8 @@ Please note:
 </epp>
 ```
 
+Do note that the `authInfo` part is ignored, but cannot be omitted.
+
 <a name="create-contact-response"></a>
 ### create contact response
 
