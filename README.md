@@ -176,12 +176,11 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 <a id="document-history"></a>
 ## Document History
 
-* HEAD 2018-04-03
+* 2.3 2018-05-01
   * Added information on format of Orderconfirmation Token
   * Addition of risk assessment for create domain command poll response. The XSD files revision 2.2 describes the changes to the XSD and supports the new extension: `dkhm:risk_assessment`
-
-* 2.3 2018-05-0
   * Added diagram for create domain 
+  * Updated XSD history 
 
 * 2.2 2017-12-19
   * Removed information on status blocked, which has been deprecated 
@@ -2497,6 +2496,11 @@ The files are all available for [download][XSD files].
 
 <a id="xsd-version-history"></a>
 ### XSD Version History
+
+* 2.1
+  * **Warning!** This release includes a change to the standard XSD from [RFC:5730](https://tools.ietf.org/html/rfc5730), aligning the values for the password type. It has not been possible to get the patch applied using the XML Schema feature: `redefine` or `overwrite`. When this succeeds this change will have to be rolled-back. The change has been applied so the schema file conforms with the schema file used at DK Hostmaster A/S.
+
+  * The DKHM Schema file has been updated to revision 2.1, the file does not contain any changes apart from the import, this file was created for a uniform communication in regard to revision numbers etc.
 
 * 2.0
   * EPP Service version 2.0.X, 2.1.X and 2.2.X
