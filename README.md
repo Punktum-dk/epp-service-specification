@@ -489,7 +489,7 @@ In general the service is not localized and all EPP related errors and messages 
 
 The service does not support the following features of the EPP protocol:
 
-* Authorization
+* Authorization, meaning the use of `authInfo` for commands extended the authorization for the command in question. Generel authorization based on the client authentication works as described in [RFC5730].
 * Transport of `authInfo`, the section is ignored is not recommended for transport of end-user passwords
 
 Comparing the EPP implementation to the existing channel for domain registration using the form via SMTP, the following fields are not supported.
@@ -2073,6 +2073,8 @@ Please note:
   </command>
 </epp>
 ```
+
+Do note that the `authInfo` part is ignored, but cannot be omitted.
 
 <a name="create-contact-response"></a>
 ### create contact response
