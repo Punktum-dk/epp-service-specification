@@ -35,6 +35,7 @@ Revision: 2.3
 	- [`dkhm:mobilephone`](#dkhmmobilephone)
 	- [`dkhm:secondaryEmail`](#dkhmsecondaryemail)
 	- [`dkhm:requestedNsAdmin`](#dkhmrequestednsadmin)
+	- [`dkhm:risk_assessment`](#dkhmriskassessment)
 - [Implementation Limitations](#implementation-limitations)
 	- [Commands](#commands)
 	- [Unimplemented commands](#unimplemented-commands)
@@ -177,6 +178,10 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 <a name="document-history"></a>
 <a id="document-history"></a>
 ## Document History
+
+
+* HEAD 
+  * Addition of risk assessment for create domain command poll response. The XSD files revision 2.2 describes the changes to the XSD and supports the new extension: `dkhm:risk_assessment`
 
 * 2.3 2018-05-0
   * Added diagram for create domain 
@@ -470,6 +475,11 @@ Contact objects can have a secondary email address in addition to `email`. The e
 ## `dkhm:requestedNsAdmin`
 
 The extension is used for update and create host, where it is possible to request another nameserver administrator than the authenticated user. The extension was introduced in the DK Hostmaster XSD file set 1.5.
+
+<a name="dkhmriskassessment"></a>
+## `dkhm:risk_assessment`
+
+This extension is used in the poll response in relation to domain creation. The extension provides information on the risk assessment made by DK Hostmaster A/S. Please see the create domain command. 
 
 <a name="implementation-limitations"></a>
 <a id="implementation-limitations"></a>
@@ -849,6 +859,16 @@ In addition a create domain contains information on whether the domain has been 
 
 The requirement for the registrant to be valid is also communicated via the response, using the extension:
 `dkhm:registrant_validated`. Please see the command info contact for more information. The state is communicated in this response in order to provide information on the further flow and process of the create domain request.
+
+As part of the process the final response to a create domain is communicated via the message queue. In this response the DK Hostmaster A/S risk assessment is included, it can hold one of the following values:
+
+- `RED` - the registrant is requested to pass successful ID-control before the domain name application can be fullfilled and the registrant is requested to activate the domain name
+- `YELLOW` - the registrant is requested to pass successful ID-control in parallel the registrant is requested to activate the domain name, which will then be made available in the zone
+- `BLUE` - the registrant is requested to pass successful ID-control before the domain name application can be fullfilled and the registrant can be requested to activate the domain name
+- `GREEN` - the registrant is requested to activate the domain name, which will then be made available in the zone
+- `N/A` - the risk assessment could not be performed, the registrant is requested to activate the domain name. ID-control will be requested subsequently
+
+The procedures for ID-control are [described on the DK Hostmaster DK website](https://www.dk-hostmaster.dk/en/identification).
 
 The status codes applying to domain are described in the addendum: Status Codes: Domain.
 
