@@ -1,7 +1,7 @@
 DK Hostmaster EPP Service Specification
 
-2018-05-01
-Revision: 2.3
+2018-05-25
+Revision: 2.4
 
 # Table of Contents
 
@@ -36,7 +36,7 @@ Revision: 2.3
 	- [`dkhm:secondaryEmail`](#dkhmsecondaryemail)
 	- [`dkhm:requestedNsAdmin`](#dkhmrequestednsadmin)
 	- [`dkhm:url`](#dkhmurl)
-	- [`dkhm:risk_assessment`](#dkhmriskassessment)
+	- [`dkhm:risk_assessment`](#dkhmrisk_assessment)
 - [Implementation Limitations](#implementation-limitations)
 	- [Commands](#commands)
 	- [Unimplemented commands](#unimplemented-commands)
@@ -176,11 +176,14 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 <a id="document-history"></a>
 ## Document History
 
-* 2.3 2018-05-01
-  * Added information on format of Orderconfirmation Token
+* 2.4 2018-05-25
+  * Added information on format of Orderconfirmation Token, this is implemented with EPP release 2.3.0 currently only available in sandbox and introduces the new extension: `dkhm:url`
   * Addition of risk assessment for create domain command poll response. The XSD files revision 2.2 describes the changes to the XSD and supports the new extension: `dkhm:risk_assessment`
-  * Added diagram for create domain 
+
+* 2.3 2018-05-01  
   * Updated XSD history 
+  * Added diagram for create domain 
+
 
 * 2.2 2017-12-19
   * Removed information on status blocked, which has been deprecated 
@@ -415,19 +418,19 @@ Any special circumstances in relation to a domain name, can be communicated usin
 
 This is a special field for supporting the business flow where the agreement for a domain name is accepted by the registrant with the registrar. More information is available under the create domain command.
 
-<a id="dkhmdomainconfirmed"></a>
+<a id="dkhmdomain_confirmed"></a>
 ## `dkhm:domain_confirmed`
 
 Domain names registered with DK Hostmaster, has to be confirmed by the registrant, this is can either be done using pre-activation, see the `orderconfirmationToken` above or other systems with DK Hostmaster, the domain confirmation state is available via the create domain command using this extension.
 
 See also `orderconfirmationToken`.
 
-<a id="dkhmcontactvalidated"></a>
+<a id="dkhmcontact_validated"></a>
 ## `dkhm:contact_validated`
 
 Contact objects related to the role of registrant has to be validated, this field is used to indicate the status of a validation object via the info contact command.
 
-<a id="dkhmregistrantvalidated"></a>
+<a id="dkhmregistrant_validated"></a>
 ## `dkhm:registrant_validated`
 
 As described above, contact objects related to the role of registrant has to be validated, this field is used to indicate the status of a validation object via the create domain command.
@@ -455,6 +458,7 @@ The extension is used for update and create host, where it is possible to reques
 This extension can be used to redirect and end-user to the next step. For now it is used in relation to domain creation, where the user can be directed to the next step if this is handled by DK Hostmaster. More information is available under the create domain command.
 
 <a name="dkhmriskassessment"></a>
+<a id="dkhmrisk_assessment"></a>
 ## `dkhm:risk_assessment`
 
 This extension is used in the poll response in relation to domain creation. The extension provides information on the risk assessment made by DK Hostmaster A/S. Please see the create domain command. 
