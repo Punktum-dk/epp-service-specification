@@ -162,6 +162,12 @@ This specification describes version 2.X.X of the DK Hostmaster EPP Implementati
 
 The document describes the current DK Hostmaster EPP implementation, for more general documentation on the EPP protocol, EPP client development or configuration, please refer to the RFCs and additional resources in the [References](#references) and [Resources](#resources) chapters below.
 
+Do note that the specification describes the latest released service. Service version is listed in the [Document History](#document-history), 
+so given changes implemented in the service are reflected in the specification. Do note that a service might be released to the sandbox environment
+prior to being released to production after a grace period. 
+
+The current service version can be obtained from the [Greeting](#greeting) message, from the service.
+
 Any future extensions and possible additions and changes to the implementation are not within the scope of this document and will not be discussed or mentioned throughout this document.
 
 This document is owned and maintained by DK Hostmaster A/S and must not be distributed without this information.
@@ -176,6 +182,10 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 <a id="document-history"></a>
 ## Document History
 
+* 2.5 2018-06-19
+  * Updated XSD history and information on XSD version 2.4
+  * Added information on service and specification versions and retrieving of version information from the service
+
 * 2.4 2018-05-25
   * Added information on format of Orderconfirmation Token, this is implemented with EPP release 2.3.0 currently only available in sandbox and introduces the new extension: `dkhm:url`
   * Addition of risk assessment for create domain command poll response. The XSD files revision 2.2 describes the changes to the XSD and supports the new extension: `dkhm:risk_assessment`
@@ -183,7 +193,6 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 * 2.3 2018-05-01  
   * Updated XSD history 
   * Added diagram for create domain 
-
 
 * 2.2 2017-12-19
   * Removed information on status blocked, which has been deprecated 
@@ -2589,6 +2598,9 @@ More information and documentation on the pre-activation service is available at
 
 <a id="greeting"></a>
 ## Greeting
+
+Do note the service version is available in the svID tag, meaning you can see what given version of the 
+EPP service is running in the environment queried.
 
 ```XML
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
