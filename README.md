@@ -565,7 +565,7 @@ As announced in the greeting, the following objects are available:
 With regard to extensions, the following are available:
 
 * [secDNS-1.1][XSD Files]
-* [dkhm-2.0][XSD Files]
+* [dkhm-2.4][XSD Files]
 
 Please see the greeting response included in the [appendices](greeting) for illustration of the actual announcement.
 
@@ -2494,13 +2494,25 @@ This is a list of the schemas currently used in the DKHM EPP Service described i
 * contact-1.0.xsd
 * domain-1.0.xsd
 * host-1.0.xsd
-* dkhm-2.0.xsd
+* dkhm-2.4.xsd
 * secDNS-1.1.xsd
 
 The files are all available for [download][XSD files].
 
 <a id="xsd-version-history"></a>
 ### XSD Version History
+
+* 2.4
+  * EPP Service version 2.3.X
+  * Minor bug fix release as 2.4, since 2.3 had some minor issues
+
+* 2.3
+  * EPP Service version 2.3.X
+  * Introduction of `dkhm:url` for poll messages in relation to domain creation, where a URL is communicated, which can be presented to the end-user as part of the domain creation process.
+
+* 2.2
+  * EPP Service version 2.3.X
+  * Introduction of `dkhm:risk_assessment` for poll messages in relation to domain creation, where the risk assessment is communicated as part of the domain creation process.
 
 * 2.1
   * **Warning!** This release includes a change to the standard XSD from [RFC:5730](https://tools.ietf.org/html/rfc5730), aligning the values for the password type. It has not been possible to get the patch applied using the XML Schema feature: `redefine` or `overwrite`. When this succeeds this change will have to be rolled-back. The change has been applied so the schema file conforms with the schema file used at DK Hostmaster A/S.
