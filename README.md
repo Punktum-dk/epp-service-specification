@@ -380,6 +380,7 @@ Here follows a listed, the extensions are described separately and in detail bel
 * `dkhm:registrant_validated`
 * `dkhm:requestedNsAdmin`
 * `dkhm:url`
+* `dkhm:dkhmrisk_assessment`
 
 <a id="dkhmusertype"></a>
 ## `dkhm:userType`
