@@ -1,7 +1,7 @@
 DK Hostmaster EPP Service Specification
 
-2018-05-25
-Revision: 2.4
+2018-06-19
+Revision: 2.5
 
 # Table of Contents
 
