@@ -1,6 +1,6 @@
 DK Hostmaster EPP Service Specification
 
-2018-06-19
+2018-06-22
 Revision: 2.5
 
 # Table of Contents
@@ -64,6 +64,7 @@ Revision: 2.5
 	- [create domain](#create-domain)
 		- [create domain request](#create-domain-request)
 		- [create domain response](#create-domain-response)
+		- [Poll and Messages](#poll-and-messages)
 		- [Role Mapping](#role-mapping)
 	- [check domain](#check-domain)
 		- [check domain request](#check-domain-request)
@@ -182,9 +183,10 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 <a id="document-history"></a>
 ## Document History
 
-- 2.5 2018-06-19
+- 2.5 2018-06-22
   - Updated XSD history and information on XSD version 2.4
   - Added information on service and specification versions and retrieving of version information from the service
+  - Added examples of poll messages related to domain creation
 
 - 2.4 2018-05-25
   - Added information on format of Orderconfirmation Token, this is implemented with EPP release 2.3.0 currently only available in sandbox and introduces the new extension: `dkhm:url`
@@ -806,7 +808,7 @@ A well-formed request for domain creation will then always result in:
 1001, “Commmand completed successfully; action pending”
 ```
 
-The extension in response will provide a unique tracking number, which can be used to identify the creation request across provisioning channels offered by DK Hostmaster. The result of the further processing will be relayed back via EPP, see poll and message queue above.
+The extension in response will provide a unique tracking number, which can be used to identify the creation request across provisioning channels offered by DK Hostmaster. The result of the further processing will be relayed back via EPP, see Poll and Messages below.
 
 So the customised response for a domain creation request looks as below.
 
@@ -921,6 +923,73 @@ This tracking number (`trackingNo`), listed as an extension and does not replace
 An important note is that the `clTRID` is mandatory for this command. Since we use the `clTRID` to report back via the message polling functionality, when the domain creation request changes state.
 
 The default value for domain value, if not specified, is one year.
+
+<a id="poll-and-messages"></a>
+### Poll and Messages
+
+As described above the creation of domain names is not synchronous, after the successfull creation of a domain
+request, resulting in a pending state, will have to be probed using the poll command.
+
+The outcome can be one of two, please see the examples below:
+
+#### create domain poll message for succesful creation
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+  <response>
+    <result code="1301">
+      <msg>Command completed successfully; ack to dequeue</msg>
+	</result>
+    <msgQ count="1" id="2">
+      <msg>Created domain for eksempel.dk has been approved</msg>
+	</msgQ>
+    <resData>
+      <domain:panData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name paResult="1">eksempel.dk</domain:name>
+        <domain:paTRID>
+          <clTRID>916e2f64ca0956a1bfc24140b23b8fb3</clTRID>
+          <svTRID>001C6E66-761D-11E8-8775-F5EABB5937F7-2018062200008</svTRID>
+		</domain:paTRID>
+        <domain:paDate>2018-06-22T15:07:00.0Z</domain:paDate></domain:panData>
+	</resData>
+    <extension>
+      <dkhm:risk_assessment xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.2">N/A</dkhm:risk_assessment>    </extension>
+    <trID>
+      <clTRID>4fc3af83a40f85dd01bf5110727ee943</clTRID>
+      <svTRID>7F3D4CD8-761D-11E8-8775-F5EABB5937F7</svTRID>    </trID></response>
+</epp>
+```
+
+#### create domain poll message for unsuccesful creation, existing domain
+
+```xml
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+  <response>
+    <result code="1301">
+      <msg>Command completed successfully; ack to dequeue</msg>
+	</result>
+    <msgQ count="1" id="1">
+      <msg>Object exists</msg>
+	</msgQ>
+    <resData>
+      <domain:creData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>dk-hostmaster.dk</domain:name>
+        <domain:crDate>2018-06-22T14:08:08.0Z</domain:crDate>
+        <domain:exDate>2022-03-31T00:00:00.0Z</domain:exDate>
+      </domain:creData>
+	</resData>
+    <extension>
+      <dkhm:risk_assessment xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.2">N/A</dkhm:risk_assessment>
+	</extension>
+    <trID>
+      <clTRID>71a61d8181fce08fc1c087f409a6168b</clTRID>
+      <svTRID>DD118802-761C-11E8-8775-F5EABB5937F7</svTRID>
+	</trID>
+  </response>
+</epp>
+````
 
 <a id="role-mapping"></a>
 ### Role Mapping
