@@ -769,20 +769,21 @@ For clarification `2303` is returned in case a provided message-id (`msgID`) poi
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-  <response>    
+  <response>
     <result code="1301">
-      <msg>Command completed successfully; ack to dequeue</msg>    </result>    
+      <msg>Command completed successfully; ack to dequeue</msg>
+    </result>
     <msgQ count="10" id="1">
-      <msg>Create domain pending for eksempel.dk</msg>    </msgQ>    
+      <msg>Create domain pending for eksempel.dk</msg>    </msgQ>
     <resData>
       <domain:creData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
         <domain:name>eksempel.dk</domain:name>
         <domain:crDate>2013-02-13T13:43:24.0Z</domain:crDate>
       </domain:creData>
-    </resData>    
+    </resData>
     <trID>
       <clTRID>bb96ddfcbe2becbe1e7d974a5b22e29a</clTRID>
-      <svTRID>EFE89190-CC4B-11E6-B51D-4F7D3A107CA1</svTRID>    
+      <svTRID>EFE89190-CC4B-11E6-B51D-4F7D3A107CA1</svTRID>
     </trID>
   </response>
 </epp>
@@ -811,12 +812,12 @@ For clarification `2303` is returned in case a provided message-id (`msgID`) poi
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-  <response>    
+  <response>
     <result code="1000">
       <msg>Command completed successfully</msg>
-    </result>    
+    </result>
     <msgQ count="9" id="2">
-    </msgQ>    
+    </msgQ>
     <trID>
       <clTRID>770e65ed92827c810421faf709b5523c</clTRID>
       <svTRID>4ECFA0E0-CC4C-11E6-A3CB-78843A107CA1</svTRID>
@@ -832,12 +833,12 @@ For clarification `2303` is returned in case a provided message-id (`msgID`) poi
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-  <response>    
+  <response>
     <result code="2303">
       <msg>Object does not exist</msg>
-    </result>    
+    </result>
     <msgQ count="8" id="5">
-    </msgQ>    
+    </msgQ>
     <trID>
       <clTRID>9bee91be9f7d15808ce3425af406ddc4</clTRID>
       <svTRID>A615AEDA-CC4C-11E6-9191-4F7D3A107CA1</svTRID>
@@ -870,7 +871,7 @@ The create domain command has been extended with a field (`orderconfirmationToke
 
 ```XML
 <dkhm:orderconfirmationToken xmlns:dkhm=“urn:dkhm:params:xml:ns:dkhm-2.1”>
-	1522744544
+    1522744544
 </dkhm:orderconfirmationToken>
 ```
 
@@ -998,19 +999,19 @@ The outcome can be one of two, please see the examples below:
   <response>
     <result code="1301">
       <msg>Command completed successfully; ack to dequeue</msg>
-	</result>
+    </result>
     <msgQ count="1" id="2">
       <msg>Created domain for eksempel.dk has been approved</msg>
-	</msgQ>
+    </msgQ>
     <resData>
       <domain:panData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
         <domain:name paResult="1">eksempel.dk</domain:name>
         <domain:paTRID>
           <clTRID>916e2f64ca0956a1bfc24140b23b8fb3</clTRID>
           <svTRID>001C6E66-761D-11E8-8775-F5EABB5937F7-2018062200008</svTRID>
-		</domain:paTRID>
+        </domain:paTRID>
         <domain:paDate>2018-06-22T15:07:00.0Z</domain:paDate></domain:panData>
-	</resData>
+    </resData>
     <extension>
       <dkhm:risk_assessment xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.2">N/A</dkhm:risk_assessment>    </extension>
     <trID>
@@ -1026,24 +1027,24 @@ The outcome can be one of two, please see the examples below:
   <response>
     <result code="1301">
       <msg>Command completed successfully; ack to dequeue</msg>
-	</result>
+    </result>
     <msgQ count="1" id="1">
       <msg>Object exists</msg>
-	</msgQ>
+    </msgQ>
     <resData>
       <domain:creData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
         <domain:name>dk-hostmaster.dk</domain:name>
         <domain:crDate>2018-06-22T14:08:08.0Z</domain:crDate>
         <domain:exDate>2022-03-31T00:00:00.0Z</domain:exDate>
       </domain:creData>
-	</resData>
+    </resData>
     <extension>
       <dkhm:risk_assessment xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.2">N/A</dkhm:risk_assessment>
-	</extension>
+    </extension>
     <trID>
       <clTRID>71a61d8181fce08fc1c087f409a6168b</clTRID>
       <svTRID>DD118802-761C-11E8-8775-F5EABB5937F7</svTRID>
-	</trID>
+    </trID>
   </response>
 </epp>
 ````
@@ -1152,12 +1153,12 @@ Please see the addendum on domain status codes.
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-  <response>    
+  <response>
     <result code="1000">
       <msg>Info result</msg>
-    </result>    
+    </result>
     <msgQ count="1" id="4">
-    </msgQ>    
+    </msgQ>
     <resData>
       <domain:infData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
         <domain:name>dk-hostmaster.dk</domain:name>
@@ -1204,10 +1205,10 @@ Please see the addendum on domain status codes.
         <domain:crDate>1998-01-19T00:00:00.0Z</domain:crDate>
         <domain:exDate>2020-03-31T00:00:00.0Z</domain:exDate>
       </domain:infData>
-    </resData>    
+    </resData>
     <trID>
       <clTRID>71e77199292ea1a5fd5e7918f2da7cc0</clTRID>
-      <svTRID>30DB64F6-8F8F-11E6-A066-DCC11F9D93B1</svTRID>    
+      <svTRID>30DB64F6-8F8F-11E6-A066-DCC11F9D93B1</svTRID>
     </trID></response>
 </epp>
 ```
@@ -1270,12 +1271,12 @@ The sub-proces called, can be depicted as follows:
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-  <response>    
+  <response>
     <result code="1000">
       <msg>OK</msg>
-    </result>    
-    <msgQ count="10" id="1">    
-    </msgQ>    
+    </result>
+    <msgQ count="10" id="1">
+    </msgQ>
     <trID>
       <clTRID>be781a6d19d320867d06e6e80a84a614</clTRID>
       <svTRID>64278BDE-CC4B-11E6-8068-487D3A107CA1</svTRID>
@@ -1386,12 +1387,12 @@ TODO: The above example is error prone, it will be replaced with a correct examp
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-  <response>    
+  <response>
     <result code="1000">
       <msg>Command completed successfully</msg>
-    </result>    
+    </result>
     <msgQ count="10" id="1">
-    </msgQ>    
+    </msgQ>
     <trID>
       <clTRID>16465c9766e24e1d1d92d5254a3f3717</clTRID>
       <svTRID>B9B4777A-CC4A-11E6-84D4-467D3A107CA1</svTRID>
@@ -2052,10 +2053,10 @@ Response to the above request. The response indicates a succesful accept of the 
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-  <response>    
+  <response>
     <result code="1001">
       <msg>Command completed successfully; action pending</msg>
-    </result>    
+    </result>
     <trID>
       <clTRID>6e95dc191e922be727fd5af4c2d20bc5</clTRID>
       <svTRID>631DABC6-CC49-11E6-A165-4F7D3A107CA1</svTRID>
