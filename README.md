@@ -325,35 +325,35 @@ DK Hostmaster offers the following environments:
 
 ### production
 
-  * epp.dk-hostmaster.dk runs the EPP service 2.X.X
+  - epp.dk-hostmaster.dk runs the EPP service 2.X.X
 
-  * This environment is the production environment
-  * info and check requests made to this environment will reflect live production data
-  * create requests made to this environment will be carried out provided that they comply with business rules and general terms
-  * Approved domains will be processed for possible activation and propagation into the zone
-  * Contacts (users) will be created and will be available in other systems like the self-service system etc.
-  * Hosts (name servers) will be processed for possible activation
-  * The Change Password operation is available in this environment
-  * Please note that this operation will change the password and this change will be reflected in other systems
-  * This is environment is using [IP Whitelisting](#ip-whitelisting)
-  * This environment is only available to registrars
-  * Both environments respond on port 700
+  - This environment is the production environment
+  - info and check requests made to this environment will reflect live production data
+  - create requests made to this environment will be carried out provided that they comply with business rules and general terms
+  - Approved domains will be processed for possible activation and propagation into the zone
+  - Contacts (users) will be created and will be available in other systems like the self-service system etc.
+  - Hosts (name servers) will be processed for possible activation
+  - The Change Password operation is available in this environment
+  - Please note that this operation will change the password and this change will be reflected in other systems
+  - This is environment is using [IP Whitelisting](#ip-whitelisting)
+  - This environment is only available to registrars
+  - Both environments respond on port 700
 
 <a id="sandbox"></a>
 
 ### sandbox
 
-  * This environment runs EPP service version 2.X.X
+  - This environment runs EPP service version 2.X.X
 
-  * This environment is intended for client development towards the DK Hostmaster EPP service
-  * info and check requests made to this environment will reflect sandbox data. For host objects, some static content synched in by DK Hostmaster, in addition to sandbox data
-  * create requests made to this environment will be serialised in the sandbox environment, provided that syntax and data are valid
-  * Domains will be enqueued, but will not be processed further nor be available for activation and propagation into the zone
-  * Contacts (users) can be created, but will not be available in other systems like the self-service system etc.
+  - This environment is intended for client development towards the DK Hostmaster EPP service
+  - info and check requests made to this environment will reflect sandbox data. For host objects, some static content synched in by DK Hostmaster, in addition to sandbox data
+  - create requests made to this environment will be serialised in the sandbox environment, provided that syntax and data are valid
+  - Domains will be enqueued, but will not be processed further nor be available for activation and propagation into the zone
+  - Contacts (users) can be created, but will not be available in other systems like the self-service system etc.
 
-  * The Change Password operation will only change the password on the sandbox environment
-  * The sandbox environment is available at: epp-sandbox.dk-hostmaster.dk port 700
-  * This environment is available to both registrars and nameserver administrators
+  - The Change Password operation will only change the password on the sandbox environment
+  - The sandbox environment is available at: epp-sandbox.dk-hostmaster.dk port 700
+  - This environment is available to both registrars and nameserver administrators
 
 Please note that when you first start to use the EPP sandbox environment, the access credentials are matching your production credentials. If these do not work as expected (e.g. error `2200`). please contact: tech@dk-hostmaster.dk to get the credentials synhcronized.
 
@@ -2171,10 +2171,10 @@ This part of the EPP protocol is described in [RFC 5733][RFC5733].
 This command has been extended with the following fields:
 
 - `dkhm:usertype`, which has to be one of:
-  * `company` - indicating a company
-  * `public_organization` - indicating a public organisation
-  * `association` - indicating an association
-  * `individual` - indicating an individual
+  - `company` - indicating a company
+  - `public_organization` - indicating a public organisation
+  - `association` - indicating an association
+  - `individual` - indicating an individual
 
 The user type will result in context-specific interpretation of the following fields:
 
@@ -2710,49 +2710,49 @@ The files are all available for [download][XSD files].
 ### XSD Version History
 
 - 2.4
-  * EPP Service version 2.3.X
-  * Minor bug fix release as 2.4, since 2.3 had some minor issues
+  - EPP Service version 2.3.X
+  - Minor bug fix release as 2.4, since 2.3 had some minor issues
 
 - 2.3
-  * EPP Service version 2.3.X
-  * Introduction of `dkhm:url` for poll messages in relation to domain creation, where a URL is communicated, which can be presented to the end-user as part of the domain creation process.
+  - EPP Service version 2.3.X
+  - Introduction of `dkhm:url` for poll messages in relation to domain creation, where a URL is communicated, which can be presented to the end-user as part of the domain creation process.
 
 - 2.2
-  * EPP Service version 2.3.X
-  * Introduction of `dkhm:risk_assessment` for poll messages in relation to domain creation, where the risk assessment is communicated as part of the domain creation process.
+  - EPP Service version 2.3.X
+  - Introduction of `dkhm:risk_assessment` for poll messages in relation to domain creation, where the risk assessment is communicated as part of the domain creation process.
 
 - 2.1
-  * **Warning!** This release includes a change to the standard XSD from [RFC:5730](https://tools.ietf.org/html/rfc5730), aligning the values for the password type. It has not been possible to get the patch applied using the XML Schema feature: `redefine` or `overwrite`. When this succeeds this change will have to be rolled-back. The change has been applied so the schema file conforms with the schema file used at DK Hostmaster A/S.
+  - **Warning!** This release includes a change to the standard XSD from [RFC:5730](https://tools.ietf.org/html/rfc5730), aligning the values for the password type. It has not been possible to get the patch applied using the XML Schema feature: `redefine` or `overwrite`. When this succeeds this change will have to be rolled-back. The change has been applied so the schema file conforms with the schema file used at DK Hostmaster A/S.
 
-  * The DKHM Schema file has been updated to revision 2.1, the file does not contain any changes apart from the import, this file was created for a uniform communication in regard to revision numbers etc.
+  - The DKHM Schema file has been updated to revision 2.1, the file does not contain any changes apart from the import, this file was created for a uniform communication in regard to revision numbers etc.
 
 - 2.0
-  * EPP Service version 2.0.X, 2.1.X and 2.2.X
-  * Introduction of `dkhm:requestedNsAdmin` for update host and create host
-  * Introduction of `dkhm:mobilephone` on update contact
-  * Introduction of `dkhm:secondaryEmail` on update contact
+  - EPP Service version 2.0.X, 2.1.X and 2.2.X
+  - Introduction of `dkhm:requestedNsAdmin` for update host and create host
+  - Introduction of `dkhm:mobilephone` on update contact
+  - Introduction of `dkhm:secondaryEmail` on update contact
 
 - 1.4
-  * EPP Service version 1.3.X
-  * Introduction of `dkhm:pnumber` for production unit number information for create contact
+  - EPP Service version 1.3.X
+  - Introduction of `dkhm:pnumber` for production unit number information for create contact
 
 - 1.3
-  * EPP Service version 1.2.X
-  * Introduction of `dkhm:domain_confirmed` for information for create domain
-  * Introduction of `dkhm:contact_validated` for information for info contact
-  * Introduction of `dkhm:registrant_validated` for information for create domain
+  - EPP Service version 1.2.X
+  - Introduction of `dkhm:domain_confirmed` for information for create domain
+  - Introduction of `dkhm:contact_validated` for information for info contact
+  - Introduction of `dkhm:registrant_validated` for information for create domain
 
 - 1.2
-  * EPP Service version 1.1.X
-  * Introduction of `dkhm:orderConfirmation` for create domain and support of [Pre-activation Service](#pre-activation-service)
+  - EPP Service version 1.1.X
+  - Introduction of `dkhm:orderConfirmation` for create domain and support of [Pre-activation Service](#pre-activation-service)
 
 - 1.1
-  * EPP Service version 1.0.9
-  * Introduction of `dkhm:domainAdvisory` for support of blocked status for create domain for blocked domain names
+  - EPP Service version 1.0.9
+  - Introduction of `dkhm:domainAdvisory` for support of blocked status for create domain for blocked domain names
 
 - 1.0
-  * EPP Service version 1.0.0
-  * Released 2014-02-25
+  - EPP Service version 1.0.0
+  - Released 2014-02-25
 
 <a id="mailing-list"></a>
 
