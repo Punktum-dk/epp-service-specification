@@ -200,7 +200,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
   - Added diagram for create domain
 
 - 2.2 2017-12-19
-  - Removed information on status blocked, which has been deprecated 
+  - Removed information on status blocked, which has been deprecated
 
 - 2.1 2017-06-08
   - Removed information on waiting list handling, since this is being revisited
@@ -214,7 +214,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
   - Added XSD 2.0 description
 
 - 1.10 2016-06-08
-  - Added information on IP whitelisting 
+  - Added information on IP whitelisting
 
 - 1.9 2016-01-30
   - Information on new waiting list handling
@@ -313,7 +313,7 @@ The service is implemented under the following principles:
 
 The EPP service supports the following protocols for transport security:
 
-- TLSv1.2 
+- TLSv1.2
 
 <a id="available-environments"></a>
 
@@ -375,7 +375,7 @@ The `clTRID` is recommended to be unique for all transactions and is required to
 
 ## IP Whitelisting
 
-Since 2016-02-29 DK Hostmaster has enforced IP whitelisting of IPs for access to the EPP service. Additions and removals of IP addresses is currently a manual proces handled by DK Hostmaster. 
+Since 2016-02-29 DK Hostmaster has enforced IP whitelisting of IPs for access to the EPP service. Additions and removals of IP addresses is currently a manual proces handled by DK Hostmaster.
 
 Please submit change requests including registrar handle information to:
 
@@ -385,7 +385,7 @@ Please submit change requests including registrar handle information to:
 
 # Implementation Extensions
 
-The EPP service implemented by DK Hostmaster holds several extensions, these are documented where appropriate for the specific commands etc. This section serves to give an overview of the extensions as a whole. 
+The EPP service implemented by DK Hostmaster holds several extensions, these are documented where appropriate for the specific commands etc. This section serves to give an overview of the extensions as a whole.
 
 Please refer to the [dkhm-2.0][XSD Files] for implementation details.
 
@@ -502,7 +502,7 @@ This extension can be used to redirect and end-user to the next step. For now it
 
 ## `dkhm:risk_assessment`
 
-This extension is used in the poll response in relation to domain creation. The extension provides information on the risk assessment made by DK Hostmaster A/S. Please see the create domain command. 
+This extension is used in the poll response in relation to domain creation. The extension provides information on the risk assessment made by DK Hostmaster A/S. Please see the create domain command.
 
 <a id="implementation-limitations"></a>
 
@@ -893,7 +893,7 @@ The validation accepts timestamps within the following interval:
 Do note that the validation of the timestamp is based on the UTC timezone.
 
 The requirement for the registrant to be valid is communicated via the response, using the extension:
-`dkhm:registrant_validated`. Please see the command info contact for more information. The state is communicated in this response in order to provide information on the further flow and process of the create domain request. 
+`dkhm:registrant_validated`. Please see the command info contact for more information. The state is communicated in this response in order to provide information on the further flow and process of the create domain request.
 
 An additional URL is specified in the response via the extension `dkhm:url`, this URL can be presented to the end-user for further processing and for the following scenarios in particular:
 
@@ -1332,7 +1332,7 @@ If the command is parsable, the command is separated into one of more of the fol
 
 The commands are then executed sequentially (order is dictates the precedence) as a single transaction. If a single sub-command fails, the transaction is rolled-back and the relevant error code is returned (`2XXX`).
 
-The command might be stopped if the sub-commands cannot be executed. For example if one of the sub-commands is a: change registrant, none of the other commands can be executed, since role changes will be implicit. 
+The command might be stopped if the sub-commands cannot be executed. For example if one of the sub-commands is a: change registrant, none of the other commands can be executed, since role changes will be implicit.
 
 When the command succeeds either `1000` or `1001` is returned the latter if one of the operations initiated by the sub-command require additional actions to be taken, `1001` will have precedence over `1000`. If a `1001` is returned the status code `pendingUpdate` might be set if an additional **update domain** command is issued.
 
@@ -1533,7 +1533,6 @@ The removal of a existing contact is possible for both billing and admin contact
 1. If the contact is the admin, both billing and admin roles can be removed
 2. The admin can add a new billing role (see above)
 3. If no addition the role defaults to the registrant becoming the inhabitant of the role, no request is made, the registrant is only informed of the change out of band
-
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1936,7 +1935,7 @@ Please note the `paResult`, where `1` indicates an accept and `0` would indicate
 
 ## update host
 
-This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard, but is extended to service one special usage scenario. 
+This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard, but is extended to service one special usage scenario.
 
 <a id="proces"></a>
 
@@ -2678,7 +2677,6 @@ Here is a list of documents and references used in this document
 - [DK Hostmaster: Documentation on the current domain registration form][Documentation on the current domain registration form]
 - [DK Hostmaster: Pre-activation Service Specification][Pre-activation Service Specification]
 
-
 - [ICANN: EPP status codes](https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en/)
 
 - [DK Hostmaster: Name Service Specification][dkhm-name-service-specification]
@@ -2804,7 +2802,7 @@ More information and documentation on the pre-activation service is available at
 
 ## Greeting
 
-Do note the service version is available in the svID tag, meaning you can see what given version of the 
+Do note the service version is available in the svID tag, meaning you can see what given version of the
 EPP service is running in the environment queried.
 
 ```XML
@@ -2849,7 +2847,6 @@ EPP service is running in the environment queried.
 <a id="status-codes"></a>
 
 ## Status Codes
-
 
 <a id="domain"></a>
 
