@@ -379,7 +379,7 @@ Since 2016-02-29 DK Hostmaster has enforced IP whitelisting of IPs for access to
 
 Please submit change requests including registrar handle information to:
 
-* tech@dk-hostmaster.dk
+- tech@dk-hostmaster.dk
 
 <a id="implementation-extensions"></a>
 
@@ -391,21 +391,21 @@ Please refer to the [dkhm-2.0][XSD Files] for implementation details.
 
 Here follows a listed, the extensions are described separately and in detail below.
 
-* `dkhm:userType`
-* `dkhm:EAN`
-* `dkhm:CVR`
-* `dkhm:pnumber`
-* `dkhm:mobilephone`
-* `dkhm:secondaryEmail`
-* `dkhm:trackingNo`
-* `dkhm:domainAdvisory`
-* `dkhm:orderconfirmationToken`
-* `dkhm:domain_confirmed`
-* `dkhm:contact_validated`
-* `dkhm:registrant_validated`
-* `dkhm:requestedNsAdmin`
-* `dkhm:url`
-* `dkhm:dkhmrisk_assessment`
+- `dkhm:userType`
+- `dkhm:EAN`
+- `dkhm:CVR`
+- `dkhm:pnumber`
+- `dkhm:mobilephone`
+- `dkhm:secondaryEmail`
+- `dkhm:trackingNo`
+- `dkhm:domainAdvisory`
+- `dkhm:orderconfirmationToken`
+- `dkhm:domain_confirmed`
+- `dkhm:contact_validated`
+- `dkhm:registrant_validated`
+- `dkhm:requestedNsAdmin`
+- `dkhm:url`
+- `dkhm:dkhmrisk_assessment`
 
 <a id="dkhmusertype"></a>
 
@@ -516,16 +516,16 @@ As mentioned previously the EPP service comes with some limitations. Please see 
 
 The current implementation implements the following list of commands:
 
-* hello
-* login, including change password
-* logout
-* poll, including acknowledgement of messages
-* info (contact/domain/host)
-* check (contact/domain/host)
-* create (contact/domain/host)
-* renew (domain)
-* update (contact/domain/host)
-* delete (host)
+- hello
+- login, including change password
+- logout
+- poll, including acknowledgement of messages
+- info (contact/domain/host)
+- check (contact/domain/host)
+- create (contact/domain/host)
+- renew (domain)
+- update (contact/domain/host)
+- delete (host)
 
 All commands are described in detail below.
 
@@ -535,8 +535,8 @@ All commands are described in detail below.
 
 The following commands have not been implemented in the service described in this specification:
 
-* delete (contact/domain)
-* transfer (contact/domain)
+- delete (contact/domain)
+- transfer (contact/domain)
 
 In general the service is not localized and all EPP related errors and messages are provided in English.
 
@@ -546,13 +546,13 @@ In general the service is not localized and all EPP related errors and messages 
 
 The service does not support the following features of the EPP protocol:
 
-* Authorization, meaning the use of `authInfo` for commands extended the authorization for the command in question. Generel authorization based on the client authentication works as described in [RFC5730].
-* Transport of `authInfo`, the section is ignored is not recommended for transport of end-user passwords
+- Authorization, meaning the use of `authInfo` for commands extended the authorization for the command in question. Generel authorization based on the client authentication works as described in [RFC5730].
+- Transport of `authInfo`, the section is ignored is not recommended for transport of end-user passwords
 
 Comparing the EPP implementation to the existing channel for domain registration using the form via SMTP, the following fields are not supported.
 
-* VID (VIP domain name)
-* Billing contact's purchase order (PO) number
+- VID (VIP domain name)
+- Billing contact's purchase order (PO) number
 
 <a id="dnssec"></a>
 
@@ -610,14 +610,14 @@ This part of the EPP protocol is described in [RFC 5730][RFC5730]. This command 
 
 As announced in the greeting, the following objects are available:
 
-* Host
-* Domain
-* Contact
+- Host
+- Domain
+- Contact
 
 With regard to extensions, the following are available:
 
-* [secDNS-1.1][XSD Files]
-* [dkhm-2.4][XSD Files]
+- [secDNS-1.1][XSD Files]
+- [dkhm-2.4][XSD Files]
 
 Please see the greeting response included in the [appendices](greeting) for illustration of the actual announcement.
 
@@ -637,10 +637,10 @@ Password should adhere to the following requirements:
 
 EPP supports  a password with at least 6 and max 16, where DK Hostmaster supports 8 - 64 characters. The password must include at least three of these four character types:
 
-* Lower-case letters
-* Upper-case letters
-* Numbers
-* Special Characters
+- Lower-case letters
+- Upper-case letters
+- Numbers
+- Special Characters
 
 The following characters are legal special characters in passwords:
 
@@ -2169,7 +2169,7 @@ This part of the EPP protocol is described in [RFC 5733][RFC5733].
 
 This command has been extended with the following fields:
 
-* `dkhm:usertype`, which has to be one of:
+- `dkhm:usertype`, which has to be one of:
   * `company` - indicating a company
   * `public_organization` - indicating a public organisation
   * `association` - indicating an association
@@ -2177,9 +2177,9 @@ This command has been extended with the following fields:
 
 The user type will result in context-specific interpretation of the following fields:
 
-* EAN - this number is only supported for user types: `company`, `public_organization` and `association`. It is only mandatory for `public_organization` and optional for `company` and `association`. [EAN][EAN description] is used by the public sector in Denmark for electronic invoicing, private companies can also be assigned EAN, but this it not so widespread at this time. EAN is required by law for public sector organisations, so this field has to be completed and it has to validate for this type.
-* CVR - (VAT number) this is only supported for user types: `company`, `public_organization` and `association`. The number is required for handling VAT correctly, mandatory for user types `company` and `public_organization` and optional for the user type `association`.
-* pnumber - (production unit number) this is only supported for user types: `company`, `public_organization` and `association`. The number is used for handling validation correctly and the field is optional.
+- EAN - this number is only supported for user types: `company`, `public_organization` and `association`. It is only mandatory for `public_organization` and optional for `company` and `association`. [EAN][EAN description] is used by the public sector in Denmark for electronic invoicing, private companies can also be assigned EAN, but this it not so widespread at this time. EAN is required by law for public sector organisations, so this field has to be completed and it has to validate for this type.
+- CVR - (VAT number) this is only supported for user types: `company`, `public_organization` and `association`. The number is required for handling VAT correctly, mandatory for user types `company` and `public_organization` and optional for the user type `association`.
+- pnumber - (production unit number) this is only supported for user types: `company`, `public_organization` and `association`. The number is used for handling validation correctly and the field is optional.
 
 The `contact-id` field is auto-generated and assigned by DK Hostmaster. EPP do however open for providing a contact-id in the context of the create contact command, this is not supported by DK Hostmaster at this point.
 
@@ -2666,21 +2666,21 @@ Data will be retained with DK Hostmaster as required by Danish legislation.
 
 Here is a list of documents and references used in this document
 
-* [DK Hostmasters General Terms and Conditions][General Terms and Conditions]
-* [RFC 3735: Guidelines for Extending Extensible Provisioning Protocol][RFC3735]
-* [RFC 5730: EPP Basic Protocol][RFC5730]
-* [RFC 5731: EPP Domain Name Mapping][RFC5731]
-* [RFC 5732: EPP Host Mapping][RFC5732]
-* [RFC 5733: EPP Contact Mapping][RFC5733]
-* [RFC 5910: Domain Name System (DNS) Security Extensions for the Extensible Provisioning Protocol][RFC5910]
-* [DK Hostmaster: Current domain registration form][Current domain registration form]
-* [DK Hostmaster: Documentation on the current domain registration form][Documentation on the current domain registration form]
-* [DK Hostmaster: Pre-activation Service Specification][Pre-activation Service Specification]
+- [DK Hostmasters General Terms and Conditions][General Terms and Conditions]
+- [RFC 3735: Guidelines for Extending Extensible Provisioning Protocol][RFC3735]
+- [RFC 5730: EPP Basic Protocol][RFC5730]
+- [RFC 5731: EPP Domain Name Mapping][RFC5731]
+- [RFC 5732: EPP Host Mapping][RFC5732]
+- [RFC 5733: EPP Contact Mapping][RFC5733]
+- [RFC 5910: Domain Name System (DNS) Security Extensions for the Extensible Provisioning Protocol][RFC5910]
+- [DK Hostmaster: Current domain registration form][Current domain registration form]
+- [DK Hostmaster: Documentation on the current domain registration form][Documentation on the current domain registration form]
+- [DK Hostmaster: Pre-activation Service Specification][Pre-activation Service Specification]
 
 
-* [ICANN: EPP status codes](https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en/)
+- [ICANN: EPP status codes](https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en/)
 
-* [DK Hostmaster: Name Service Specification][dkhm-name-service-specification]
+- [DK Hostmaster: Name Service Specification][dkhm-name-service-specification]
 
 <a id="resources"></a>
 
@@ -2694,13 +2694,13 @@ A list of resources for DK Hostmaster EPP support is located below.
 
 This is a list of the schemas currently used in the DKHM EPP Service described in this document. Please note that the XSD implementation preserves the original namespace and does not make alterations to this apart from adding the already described XML elements.
 
-* epp-1.0.xsd
-* eppcom-1.0.xsd
-* contact-1.0.xsd
-* domain-1.0.xsd
-* host-1.0.xsd
-* dkhm-2.4.xsd
-* secDNS-1.1.xsd
+- epp-1.0.xsd
+- eppcom-1.0.xsd
+- contact-1.0.xsd
+- domain-1.0.xsd
+- host-1.0.xsd
+- dkhm-2.4.xsd
+- secDNS-1.1.xsd
 
 The files are all available for [download][XSD files].
 
@@ -2708,48 +2708,48 @@ The files are all available for [download][XSD files].
 
 ### XSD Version History
 
-* 2.4
+- 2.4
   * EPP Service version 2.3.X
   * Minor bug fix release as 2.4, since 2.3 had some minor issues
 
-* 2.3
+- 2.3
   * EPP Service version 2.3.X
   * Introduction of `dkhm:url` for poll messages in relation to domain creation, where a URL is communicated, which can be presented to the end-user as part of the domain creation process.
 
-* 2.2
+- 2.2
   * EPP Service version 2.3.X
   * Introduction of `dkhm:risk_assessment` for poll messages in relation to domain creation, where the risk assessment is communicated as part of the domain creation process.
 
-* 2.1
+- 2.1
   * **Warning!** This release includes a change to the standard XSD from [RFC:5730](https://tools.ietf.org/html/rfc5730), aligning the values for the password type. It has not been possible to get the patch applied using the XML Schema feature: `redefine` or `overwrite`. When this succeeds this change will have to be rolled-back. The change has been applied so the schema file conforms with the schema file used at DK Hostmaster A/S.
 
   * The DKHM Schema file has been updated to revision 2.1, the file does not contain any changes apart from the import, this file was created for a uniform communication in regard to revision numbers etc.
 
-* 2.0
+- 2.0
   * EPP Service version 2.0.X, 2.1.X and 2.2.X
   * Introduction of `dkhm:requestedNsAdmin` for update host and create host
   * Introduction of `dkhm:mobilephone` on update contact
   * Introduction of `dkhm:secondaryEmail` on update contact
 
-* 1.4
+- 1.4
   * EPP Service version 1.3.X
   * Introduction of `dkhm:pnumber` for production unit number information for create contact
 
-* 1.3
+- 1.3
   * EPP Service version 1.2.X
   * Introduction of `dkhm:domain_confirmed` for information for create domain
   * Introduction of `dkhm:contact_validated` for information for info contact
   * Introduction of `dkhm:registrant_validated` for information for create domain
 
-* 1.2
+- 1.2
   * EPP Service version 1.1.X
   * Introduction of `dkhm:orderConfirmation` for create domain and support of [Pre-activation Service](#pre-activation-service)
 
-* 1.1
+- 1.1
   * EPP Service version 1.0.9
   * Introduction of `dkhm:domainAdvisory` for support of blocked status for create domain for blocked domain names
 
-* 1.0
+- 1.0
   * EPP Service version 1.0.0
   * Released 2014-02-25
 
@@ -2759,7 +2759,7 @@ The files are all available for [download][XSD files].
 
 DK Hostmaster operates a mailing list for discussion and inquiries  about the DK Hostmaster EPP implementation. To subscribe to this list, write to the address below and follow the instructions. Please note that the list is for technical discussion only, any issues beyond the technical scope will not be responded to, please send these to the contact issue reporting address below and they will be passed on to the appropriate entities within DK Hostmaster.
 
-* tech-discuss+subscribe@liste.dk-hostmaster.dk
+- tech-discuss+subscribe@liste.dk-hostmaster.dk
 
 <a id="issue-reporting"></a>
 
@@ -2767,7 +2767,7 @@ DK Hostmaster operates a mailing list for discussion and inquiries  about the DK
 
 For issue reporting related to this specification, the EPP implementation or test, sandbox or production environments, please contact us.  You are of course welcome to post these to the mailing list mentioned above, otherwise use the address specified below:
 
-* info@dk-hostmaster.dk
+- info@dk-hostmaster.dk
 
 <a id="demotest-client"></a>
 
@@ -2785,7 +2785,7 @@ The client is available at:
 
 More information is available at the DK Hostmaster website:
 
-* https://www.dk-hostmaster.dk/en/epp
+- https://www.dk-hostmaster.dk/en/epp
 
 <a id="pre-activation-service"></a>
 
@@ -2793,7 +2793,7 @@ More information is available at the DK Hostmaster website:
 
 More information and documentation on the pre-activation service is available at the DK Hostmaster website:
 
-* https://www.dk-hostmaster.dk/en/pre-act
+- https://www.dk-hostmaster.dk/en/pre-act
 
 <a id="appendices"></a>
 
