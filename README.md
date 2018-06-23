@@ -164,9 +164,9 @@ This specification describes version 2.X.X of the DK Hostmaster EPP Implementati
 
 The document describes the current DK Hostmaster EPP implementation, for more general documentation on the EPP protocol, EPP client development or configuration, please refer to the RFCs and additional resources in the [References](#references) and [Resources](#resources) chapters below.
 
-Do note that the specification describes the latest released service. Service version is listed in the [Document History](#document-history), 
+Do note that the specification describes the latest released service. Service version is listed in the [Document History](#document-history),
 so given changes implemented in the service are reflected in the specification. Do note that a service might be released to the sandbox environment
-prior to being released to production after a grace period. 
+prior to being released to production after a grace period.
 
 The current service version can be obtained from the [Greeting](#greeting) message, from the service.
 
@@ -196,8 +196,8 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
   - Addition of risk assessment for create domain command poll response. The XSD files revision 2.2 describes the changes to the XSD and supports the new extension: `dkhm:risk_assessment`
 
 - 2.3 2018-05-01  
-  - Updated XSD history 
-  - Added diagram for create domain 
+  - Updated XSD history
+  - Added diagram for create domain
 
 - 2.2 2017-12-19
   - Removed information on status blocked, which has been deprecated 
@@ -206,7 +206,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
   - Removed information on waiting list handling, since this is being revisited
 
 - 2.0 2016-10-24
-  - Describes EPP service 2.X.X 
+  - Describes EPP service 2.X.X
   - Added renew domain description
   - Added update domain description
   - Added create/update/delete host descriptions
@@ -325,35 +325,35 @@ DK Hostmaster offers the following environments:
 
 ### production
 
-  - epp.dk-hostmaster.dk runs the EPP service 2.X.X
+- epp.dk-hostmaster.dk runs the EPP service 2.X.X
 
-  - This environment is the production environment
-  - info and check requests made to this environment will reflect live production data
-  - create requests made to this environment will be carried out provided that they comply with business rules and general terms
-  - Approved domains will be processed for possible activation and propagation into the zone
-  - Contacts (users) will be created and will be available in other systems like the self-service system etc.
-  - Hosts (name servers) will be processed for possible activation
-  - The Change Password operation is available in this environment
-  - Please note that this operation will change the password and this change will be reflected in other systems
-  - This is environment is using [IP Whitelisting](#ip-whitelisting)
-  - This environment is only available to registrars
-  - Both environments respond on port 700
+- This environment is the production environment
+- info and check requests made to this environment will reflect live production data
+- create requests made to this environment will be carried out provided that they comply with business rules and general terms
+- Approved domains will be processed for possible activation and propagation into the zone
+- Contacts (users) will be created and will be available in other systems like the self-service system etc.
+- Hosts (name servers) will be processed for possible activation
+- The Change Password operation is available in this environment
+- Please note that this operation will change the password and this change will be reflected in other systems
+- This is environment is using [IP Whitelisting](#ip-whitelisting)
+- This environment is only available to registrars
+- Both environments respond on port 700
 
 <a id="sandbox"></a>
 
 ### sandbox
 
-  - This environment runs EPP service version 2.X.X
+- This environment runs EPP service version 2.X.X
 
-  - This environment is intended for client development towards the DK Hostmaster EPP service
-  - info and check requests made to this environment will reflect sandbox data. For host objects, some static content synched in by DK Hostmaster, in addition to sandbox data
-  - create requests made to this environment will be serialised in the sandbox environment, provided that syntax and data are valid
-  - Domains will be enqueued, but will not be processed further nor be available for activation and propagation into the zone
-  - Contacts (users) can be created, but will not be available in other systems like the self-service system etc.
+- This environment is intended for client development towards the DK Hostmaster EPP service
+- info and check requests made to this environment will reflect sandbox data. For host objects, some static content synched in by DK Hostmaster, in addition to sandbox data
+- create requests made to this environment will be serialised in the sandbox environment, provided that syntax and data are valid
+- Domains will be enqueued, but will not be processed further nor be available for activation and propagation into the zone
+- Contacts (users) can be created, but will not be available in other systems like the self-service system etc.
 
-  - The Change Password operation will only change the password on the sandbox environment
-  - The sandbox environment is available at: epp-sandbox.dk-hostmaster.dk port 700
-  - This environment is available to both registrars and nameserver administrators
+- The Change Password operation will only change the password on the sandbox environment
+- The sandbox environment is available at: epp-sandbox.dk-hostmaster.dk port 700
+- This environment is available to both registrars and nameserver administrators
 
 Please note that when you first start to use the EPP sandbox environment, the access credentials are matching your production credentials. If these do not work as expected (e.g. error `2200`). please contact: tech@dk-hostmaster.dk to get the credentials synhcronized.
 
@@ -2188,7 +2188,7 @@ This field is validated on the server site, it is however recommended to perform
 
 <a id="forced-and-smart-contact-creation"></a>
 
-### Forced and Smart Contact Creation 
+### Forced and Smart Contact Creation
 
 For contact creation DK Hostmaster supports two ways:
 
@@ -2246,21 +2246,21 @@ The handling of name and organisation is also a special case. Where the followin
 
 <table>
 <tr>
-	<th></th><th colspan="2">Name and Organisation Provided</th><th>Only name provided</th>
+    <th></th><th colspan="2">Name and Organisation Provided</th><th>Only name provided</th>
 <tr>
-	<th>User type</th><th>Name (<i>mandatory</i>)</th><th>Organisation (<i>optional</i>)</th><th>Name (<i>mandatory</i>)</th>
+    <th>User type</th><th>Name (<i>mandatory</i>)</th><th>Organisation (<i>optional</i>)</th><th>Name (<i>mandatory</i>)</th>
 </tr>
 <tr>
-	<td>C (Company)</td><td>attention</td><td>name</td><td>name</td>
+    <td>C (Company)</td><td>attention</td><td>name</td><td>name</td>
 </tr>
 <tr>
-	<td>P (Public organisation)</td><td>attention</td><td>name</td><td>name</td>
+    <td>P (Public organisation)</td><td>attention</td><td>name</td><td>name</td>
 </tr>
 <tr>
-	<td>A (Association)</td><td>attention</td><td>name</td><td>name</td>
+    <td>A (Association)</td><td>attention</td><td>name</td><td>name</td>
 </tr>
 <tr>
-	<td>I (Individual)</td><td>name</td><td>-</td><td>name</td>
+    <td>I (Individual)</td><td>name</td><td>-</td><td>name</td>
 </tr>
 </table>
 
