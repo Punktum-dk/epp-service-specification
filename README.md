@@ -1,9 +1,9 @@
-DK Hostmaster EPP Service Specification
+# DK Hostmaster EPP Service Specification
 
 2018-06-22
 Revision: 2.5
 
-# Table of Contents
+## Table of Contents
 
 <!-- MarkdownTOC bracket=round levels="1,2,3" indent="  " -->
 
@@ -152,13 +152,13 @@ Revision: 2.5
 
 <a id="introduction"></a>
 
-# Introduction
+## Introduction
 
 This document describes and specifies the implementation offered by DK Hostmaster for interaction with the central registry for the ccTLD dk using the Extensible Provisioning Protocol (EPP). It is primarily aimed at a technical audience, and the reader is required to have prior knowledge of DNS registration and EPP.
 
 <a id="about-this-document"></a>
 
-## About this Document
+### About this Document
 
 This specification describes version 2.X.X of the DK Hostmaster EPP Implementation. Future releases will be reflected in updates to this specification, please see the document history section below.
 
@@ -178,13 +178,13 @@ All examples provided in the document are fabricated or changed from real data t
 
 <a id="license"></a>
 
-## License
+### License
 
 This document is copyright by DK Hostmaster A/S and is licensed under the MIT License, please see the separate LICENSE file for details.
 
 <a id="document-history"></a>
 
-## Document History
+### Document History
 
 - 2.5 2018-06-22
   - Updated XSD history and information on XSD version 2.4
@@ -273,7 +273,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 <a id="the-dk-registry-in-brief"></a>
 
-# The .dk Registry in Brief
+## The .dk Registry in Brief
 
 DK Hostmaster is the registry for the ccTLD for Denmark (dk). The current model used in Denmark is based on a sole registry, with DK Hostmaster maintaining the central DNS registry.
 
@@ -285,7 +285,7 @@ Our EPP extensions are registered with the [IANA EPP Extension Repository][IANA 
 
 <a id="epp-in-brief"></a>
 
-# EPP in Brief
+## EPP in Brief
 
 EPP is an XML-based protocol aimed at provisioning data between registries. The protocol is intended for machine-to-machine communication in a client-server setup. Please see the References chapter for more information on specifications and references for EPP.
 
@@ -293,7 +293,7 @@ Please note that the service does not support XML entity expansion on the server
 
 <a id="epp-service"></a>
 
-# EPP Service
+## EPP Service
 
 The DK Hostmaster’s EPP Service is based on an SOA architecture. EPP implementation is regarded as a service offered to external parties requiring provisioning actions towards DK Hostmaster.
 
@@ -309,7 +309,7 @@ The service is implemented under the following principles:
 
 <a id="ssltls-support"></a>
 
-## SSL/TLS Support
+### SSL/TLS Support
 
 The EPP service supports the following protocols for transport security:
 
@@ -317,13 +317,13 @@ The EPP service supports the following protocols for transport security:
 
 <a id="available-environments"></a>
 
-## Available Environments
+### Available Environments
 
 DK Hostmaster offers the following environments:
 
 <a id="production"></a>
 
-### production
+#### production
 
 - epp.dk-hostmaster.dk runs the EPP service 2.X.X
 
@@ -341,7 +341,7 @@ DK Hostmaster offers the following environments:
 
 <a id="sandbox"></a>
 
-### sandbox
+#### sandbox
 
 - This environment runs EPP service version 2.X.X
 
@@ -359,13 +359,13 @@ Please note that when you first start to use the EPP sandbox environment, the ac
 
 <a id="implementation-requirements"></a>
 
-# Implementation Requirements
+## Implementation Requirements
 
 This section outlines the overall requirements in regard to implementing an EPP client to work with the DK Hostmaster EPP service.
 
 <a id="client-transaction-id-cltrid"></a>
 
-## Client Transaction ID (`clTRID`)
+### Client Transaction ID (`clTRID`)
 
 In order to ensure transactional integrity and due to the asynchronous nature of some of the EPP commands, we rely on the client transaction id to be unique. This is unique as per client id. The assists in ensuring that a delayed response can be easily identified by simple means.
 
@@ -373,7 +373,7 @@ The `clTRID` is recommended to be unique for all transactions and is required to
 
 <a id="ip-whitelisting"></a>
 
-## IP Whitelisting
+### IP Whitelisting
 
 Since 2016-02-29 DK Hostmaster has enforced IP whitelisting of IPs for access to the EPP service. Additions and removals of IP addresses is currently a manual proces handled by DK Hostmaster.
 
@@ -383,7 +383,7 @@ Please submit change requests including registrar handle information to:
 
 <a id="implementation-extensions"></a>
 
-# Implementation Extensions
+## Implementation Extensions
 
 The EPP service implemented by DK Hostmaster holds several extensions, these are documented where appropriate for the specific commands etc. This section serves to give an overview of the extensions as a whole.
 
@@ -409,7 +409,7 @@ Here follows a listed, the extensions are described separately and in detail bel
 
 <a id="dkhmusertype"></a>
 
-## `dkhm:userType`
+### `dkhm:userType`
 
 The `userType` extension is used to categorize a contact type, since the requirements for data differs between the different usertypes, we need to be able to differenciate between: company, individual, public organisation and association. More information is available under the create contact command.
 
@@ -417,43 +417,43 @@ Related extensions are `dkhm:EAN`, `dkhm:CVR` and `dkhm:pnumber`.
 
 <a id="dkhmean"></a>
 
-## `dkhm:EAN`
+### `dkhm:EAN`
 
 The EAN extension, holds the EAN number associated with public organisations in Denmark. The field is mandatory for this type of contact objects and is required for electronic invoicing, more information is available under the create contact command.
 
 <a id="dkhmcvr"></a>
 
-## `dkhm:CVR`
+### `dkhm:CVR`
 
 The CVR extension is for holding VAT registration numbers. The number is used for validation and VAT accounting. More information is available under the create contact command.
 
 <a id="dkhmpnumber"></a>
 
-## `dkhm:pnumber`
+### `dkhm:pnumber`
 
 The pnumber extension is for holding production-unit numbers, used for validation for danish companies, with more physical addressed related to one VAT number. More information is available under the create contact command.
 
 <a id="dkhmtrackingno"></a>
 
-## `dkhm:trackingNo`
+### `dkhm:trackingNo`
 
 A unique tracking number for a domain registration for uniformity with the mail form. EPP it not the only channel of domain registration and in order to handle registrations via multiple channel, a unique tracking-id is assigned to every request. More information is available under the create domain command.
 
 <a id="dkhmdomainadvisory"></a>
 
-## `dkhm:domainAdvisory`
+### `dkhm:domainAdvisory`
 
 Any special circumstances in relation to a domain name, can be communicated using this special field. Please see the specific commands for examples.
 
 <a id="dkhmorderconfirmationtoken"></a>
 
-## `dkhm:orderconfirmationToken`
+### `dkhm:orderconfirmationToken`
 
 This is a special field for supporting the business flow where the agreement for a domain name is accepted by the registrant with the registrar. More information is available under the create domain command.
 
 <a id="dkhmdomain_confirmed"></a>
 
-## `dkhm:domain_confirmed`
+### `dkhm:domain_confirmed`
 
 Domain names registered with DK Hostmaster, has to be confirmed by the registrant, this is can either be done using pre-activation, see the `orderconfirmationToken` above or other systems with DK Hostmaster, the domain confirmation state is available via the create domain command using this extension.
 
@@ -461,13 +461,13 @@ See also `orderconfirmationToken`.
 
 <a id="dkhmcontact_validated"></a>
 
-## `dkhm:contact_validated`
+### `dkhm:contact_validated`
 
 Contact objects related to the role of registrant has to be validated, this field is used to indicate the status of a validation object via the info contact command.
 
 <a id="dkhmregistrant_validated"></a>
 
-## `dkhm:registrant_validated`
+### `dkhm:registrant_validated`
 
 As described above, contact objects related to the role of registrant has to be validated, this field is used to indicate the status of a validation object via the create domain command.
 
@@ -475,44 +475,44 @@ See also `contact_validated`.
 
 <a id="dkhmmobilephone"></a>
 
-## `dkhm:mobilephone`
+### `dkhm:mobilephone`
 
 Contact objects can have a mobilephone number in addition to `voice` and `fax`. The extension was introduced in the DK Hostmaster XSD file set 1.6.
 
 <a id="dkhmsecondaryemail"></a>
 
-## `dkhm:secondaryEmail`
+### `dkhm:secondaryEmail`
 
 Contact objects can have a secondary email address in addition to `email`. The extension was introduced in the DK Hostmaster XSD file set 1.6.
 
 <a id="dkhmrequestednsadmin"></a>
 
-## `dkhm:requestedNsAdmin`
+### `dkhm:requestedNsAdmin`
 
 The extension is used for update and create host, where it is possible to request another nameserver administrator than the authenticated user. The extension was introduced in the DK Hostmaster XSD file set 1.5.
 
 <a id="dkhmurl"></a>
 
-## `dkhm:url`
+### `dkhm:url`
 
 This extension can be used to redirect and end-user to the next step. For now it is used in relation to domain creation, where the user can be directed to the next step if this is handled by DK Hostmaster. More information is available under the create domain command.
 
 <a name="dkhmriskassessment"></a>
 <a id="dkhmrisk_assessment"></a>
 
-## `dkhm:risk_assessment`
+### `dkhm:risk_assessment`
 
 This extension is used in the poll response in relation to domain creation. The extension provides information on the risk assessment made by DK Hostmaster A/S. Please see the create domain command.
 
 <a id="implementation-limitations"></a>
 
-# Implementation Limitations
+## Implementation Limitations
 
 As mentioned previously the EPP service comes with some limitations. Please see the [Compatibility Matrix](compatibility-matrix) in the appendices.
 
 <a id="commands"></a>
 
-## Commands
+### Commands
 
 The current implementation implements the following list of commands:
 
@@ -531,7 +531,7 @@ All commands are described in detail below.
 
 <a id="unimplemented-commands"></a>
 
-## Unimplemented commands
+### Unimplemented commands
 
 The following commands have not been implemented in the service described in this specification:
 
@@ -542,7 +542,7 @@ In general the service is not localized and all EPP related errors and messages 
 
 <a id="additional-limitations"></a>
 
-## Additional limitations
+### Additional limitations
 
 The service does not support the following features of the EPP protocol:
 
@@ -556,7 +556,7 @@ Comparing the EPP implementation to the existing channel for domain registration
 
 <a id="dnssec"></a>
 
-## DNSSEC
+### DNSSEC
 
 I accordance with [RFC 5910][RFC5910]. We support DS only and not DNSKEY. In addition the maximum signature lifetime (`secDNS:maxSigLife`) is disregarded. See [section 3.3](http://tools.ietf.org/html/rfc5910#section-3.3) in the referenced RFC.
 
@@ -566,37 +566,37 @@ Not all algorithms are supported, please refer to the [DK Hostmaster Name Servic
 
 <a id="contact-creation"></a>
 
-## Contact Creation
+### Contact Creation
 
 This command does not support the feature of providing a predefined userid. The userid has to be specified as `auto` and the userid is assigned by DK Hostmaster. See also information on the create contact command.
 
 <a id="host-update"></a>
 
-## Host Update
+### Host Update
 
 This command does not support the setting and removal of status using the XML element: `host:status`. The status is assigned by DK Hostmaster. See also information on the update host command.
 
 <a id="domain-update"></a>
 
-## Domain Update
+### Domain Update
 
 This command does not support the change of the registrant and the setting and removal of status using the XML element: `domain:status`. The status is assigned by DK Hostmaster. See also information on the update domain command.
 
 <a id="information-disclosure"></a>
 
-## Information Disclosure
+### Information Disclosure
 
 Please note that some information is not disclosed when using Object Query Commands. See the specific commands for more information.
 
 <a id="encoding-and-idn-domains"></a>
 
-## Encoding and IDN domains
+### Encoding and IDN domains
 
 The danish registry supports IDN domain names and the EPP commands support punycode notation for this in requests. We do however not support punycode notation in responses at this time.
 
 <a id="supported-object-transform-and-query-commands"></a>
 
-# Supported Object Transform and Query Commands
+## Supported Object Transform and Query Commands
 
 The following describes the currently supported EPP commands. As mentioned previously, some of the commands have been extended beyond the basic capabilities of EPP. These minor extensions are described separately under each command and are included in the [XSD files][XSD Files] listed in the Resources chapter.
 
@@ -604,7 +604,7 @@ Commands that have not been extended are not described in much detail, please re
 
 <a id="hello-and-greeting"></a>
 
-## hello and greeting
+### hello and greeting
 
 This part of the EPP protocol is described in [RFC 5730][RFC5730]. This command adheres to the standard. For a more detailed explanation of the data collection policy announced via the greeting, please see the Data Collection Policy chapter.
 
@@ -623,7 +623,7 @@ Please see the greeting response included in the [appendices](greeting) for illu
 
 <a id="login"></a>
 
-## login
+### login
 
 This part of the EPP protocol is described in [RFC 5730][RFC5730]. This command adheres to the standard.
 
@@ -652,7 +652,7 @@ Currently, the only language supported is English. So the language parameter is 
 
 <a id="login-request"></a>
 
-### login request
+#### login request
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
@@ -678,7 +678,7 @@ Currently, the only language supported is English. So the language parameter is 
 
 <a id="login-response"></a>
 
-### login response
+#### login response
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
@@ -697,7 +697,7 @@ Currently, the only language supported is English. So the language parameter is 
 
 <a id="logout"></a>
 
-## logout
+### logout
 
 This part of the EPP protocol is described in [RFC 5730][RFC5730]. This command adheres to the standard.
 
@@ -705,7 +705,7 @@ There are no special additions or alterations to the specification or use of thi
 
 <a id="logout-request"></a>
 
-### logout request
+#### logout request
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
@@ -719,7 +719,7 @@ There are no special additions or alterations to the specification or use of thi
 
 <a id="logout-response"></a>
 
-### logout response
+#### logout response
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
@@ -738,7 +738,7 @@ There are no special additions or alterations to the specification or use of thi
 
 <a id="poll-and-message-queue"></a>
 
-## poll and message queue
+### poll and message queue
 
 This part of the EPP protocol is described in [RFC 5730][RFC5730]. This command adheres to the standard.
 
@@ -748,7 +748,7 @@ For clarification `2303` is returned in case a provided message-id (`msgID`) poi
 
 <a id="poll-req-request"></a>
 
-### poll req request
+#### poll req request
 
 ```XML
 <?xml version="1.0" encoding="UTF-8"?>
@@ -763,7 +763,7 @@ For clarification `2303` is returned in case a provided message-id (`msgID`) poi
 
 <a id="poll-req-response"></a>
 
-### poll req response
+#### poll req response
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -791,7 +791,7 @@ For clarification `2303` is returned in case a provided message-id (`msgID`) poi
 
 <a id="poll-ack-request"></a>
 
-### poll ack request
+#### poll ack request
 
 ```XML
 <?xml version="1.0" encoding="UTF-8"?>
@@ -806,7 +806,7 @@ For clarification `2303` is returned in case a provided message-id (`msgID`) poi
 
 <a id="poll-ack-response"></a>
 
-### poll ack response
+#### poll ack response
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -827,7 +827,7 @@ For clarification `2303` is returned in case a provided message-id (`msgID`) poi
 
 <a id="poll-ack-response-for-non-existant-message-or-previously-acknowledged-message"></a>
 
-### poll ack response for non-existant message (or previously acknowledged message)
+#### poll ack response for non-existant message (or previously acknowledged message)
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -849,7 +849,7 @@ For clarification `2303` is returned in case a provided message-id (`msgID`) poi
 
 <a id="create-domain"></a>
 
-## create domain
+### create domain
 
 This part of the EPP protocol is described in [RFC 5730][RFC5730]. This command adheres to the standard. DK Hostmaster, however, is based on an asynchronous domain creation workflow. All domain requests are enqueued for further processing and their creation will be in a state of pending.
 
@@ -917,7 +917,7 @@ The status codes applying to domain are described in the addendum: Status Codes:
 
 <a id="create-domain-request"></a>
 
-### create domain request
+#### create domain request
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
@@ -947,7 +947,7 @@ The status codes applying to domain are described in the addendum: Status Codes:
 
 <a id="create-domain-response"></a>
 
-### create domain response
+#### create domain response
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -983,14 +983,14 @@ The default value for domain value, if not specified, is one year.
 
 <a id="poll-and-messages"></a>
 
-### Poll and Messages
+#### Poll and Messages
 
 As described above the creation of domain names is not synchronous, after the successfull creation of a domain
 request, resulting in a pending state, will have to be probed using the poll command.
 
 The outcome can be one of two, please see the examples below:
 
-#### create domain poll message for succesful creation
+##### create domain poll message for succesful creation
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1020,7 +1020,7 @@ The outcome can be one of two, please see the examples below:
 </epp>
 ```
 
-#### create domain poll message for unsuccesful creation, existing domain
+##### create domain poll message for unsuccesful creation, existing domain
 
 ```xml
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
@@ -1051,7 +1051,7 @@ The outcome can be one of two, please see the examples below:
 
 <a id="role-mapping"></a>
 
-### Role Mapping
+#### Role Mapping
 
 As for the user entities some mappings are made so all relevant roles are specified.
 
@@ -1069,11 +1069,11 @@ Please note that the command supports punycode notation for specifying IDN domai
 
 <a id="check-domain"></a>
 
-## check domain
+### check domain
 
 <a id="check-domain-request"></a>
 
-### check domain request
+#### check domain request
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
@@ -1091,7 +1091,7 @@ Please note that the command supports punycode notation for specifying IDN domai
 
 <a id="check-domain-response"></a>
 
-### check domain response
+#### check domain response
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
@@ -1120,7 +1120,7 @@ In general this part of the EPP protocol is described in [RFC 5731][RFC5731] and
 
 <a id="info-domain"></a>
 
-## info domain
+### info domain
 
 This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command adheres to the standard.
 
@@ -1128,7 +1128,7 @@ Please see the addendum on domain status codes.
 
 <a id="info-domain-request"></a>
 
-### info domain request
+#### info domain request
 
 ```XML
 <?xml version="1.0" encoding="UTF-8"?>
@@ -1147,7 +1147,7 @@ Please see the addendum on domain status codes.
 
 <a id="info-domain-response"></a>
 
-### info domain response
+#### info domain response
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1217,7 +1217,7 @@ The example is obsolete and will be replaced with post implementation of the dom
 
 <a id="renew-domain"></a>
 
-## renew domain
+### renew domain
 
 This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command adheres to the standard.
 
@@ -1244,7 +1244,7 @@ The sub-proces called, can be depicted as follows:
 
 <a id="renew-domain-request"></a>
 
-### renew domain request
+#### renew domain request
 
 ```XML
 <?xml version="1.0" encoding="UTF-8"?>
@@ -1265,7 +1265,7 @@ The sub-proces called, can be depicted as follows:
 
 <a id="renew-domain-response"></a>
 
-### renew domain response
+#### renew domain response
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1287,7 +1287,7 @@ The sub-proces called, can be depicted as follows:
 
 <a id="update-domain"></a>
 
-## update domain
+### update domain
 
 This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command does not adhere to the standard
 
@@ -1357,7 +1357,7 @@ The command might be blocked and the status code: `serverUpdateProhibited` is re
 
 <a id="update-domain-request"></a>
 
-### update domain request
+#### update domain request
 
 ```XML
 <?xml version="1.0" encoding="UTF-8"?>
@@ -1381,7 +1381,7 @@ TODO: The above example is error prone, it will be replaced with a correct examp
 
 <a id="update-domain-response"></a>
 
-### update domain response
+#### update domain response
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1403,7 +1403,7 @@ TODO: The above example is error prone, it will be replaced with a correct examp
 
 <a id="change-registrant"></a>
 
-### change registrant
+#### change registrant
 
 The change of registrant is a *special* operation, it results in all privileges and rights being transferred to another entity. A registrar does not hold the privileges to complete such a request, so the object service is unimplemented at this time.
 
@@ -1415,7 +1415,7 @@ The change of registrant is a *special* operation, it results in all privileges 
 
 <a id="add-nameserver"></a>
 
-### add nameserver
+#### add nameserver
 
 The addition of a new nameserver to a domain name or a re-delegation requires that the new nameserver must offer resolution for the domain name in question.
 
@@ -1451,7 +1451,7 @@ The addition of a new nameserver to a domain name or a re-delegation requires th
 
 <a id="remove-nameserver"></a>
 
-### remove nameserver
+#### remove nameserver
 
 The removal of a existing nameserver from a domain name requires that at least two other name servers are offering resolution for the domain in question, else the command will fail.
 
@@ -1492,7 +1492,7 @@ Since the update domain command can contain several sub-commands, this could be 
 
 <a id="add-contact"></a>
 
-### add contact
+#### add contact
 
 The addition of a new contact has to adhere to some policies.
 
@@ -1526,7 +1526,7 @@ Additing new users require special privileges, currently only with the registran
 
 <a id="remove-contact"></a>
 
-### remove contact
+#### remove contact
 
 The removal of a existing contact is possible for both billing and admin contacts.
 
@@ -1558,13 +1558,13 @@ The removal of a existing contact is possible for both billing and admin contact
 
 <a id="check-host"></a>
 
-## check host
+### check host
 
 This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard.
 
 <a id="check-host-request"></a>
 
-### check host request
+#### check host request
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
@@ -1582,7 +1582,7 @@ This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command 
 
 <a id="check-host-response"></a>
 
-### check host response
+#### check host response
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
@@ -1609,7 +1609,7 @@ This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command 
 
 <a id="info-host"></a>
 
-## info host
+### info host
 
 This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard.
 
@@ -1617,7 +1617,7 @@ Please note that according to the RFC [section 3.1.2][RFC5732-3.1.2], the `CLID`
 
 <a id="info-host-request"></a>
 
-### info host request
+#### info host request
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
@@ -1635,7 +1635,7 @@ Please note that according to the RFC [section 3.1.2][RFC5732-3.1.2], the `CLID`
 
 <a id="info-host-response"></a>
 
-### info host response
+#### info host response
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
@@ -1666,7 +1666,7 @@ Please note that according to the RFC [section 3.1.2][RFC5732-3.1.2], the `CLID`
 
 <a id="create-host"></a>
 
-## create host
+### create host
 
 This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard. The command can be extended to specify another nameserver administrator than the authenticated user.
 
@@ -1698,7 +1698,7 @@ As for update domain `1001` holds higher precendence than `1000`, so if any of t
 
 <a id="create-host-request"></a>
 
-### create host request
+#### create host request
 
 Request to create a host object, using both IPv4 and IPv6 adresses and the authenticated user is the registrant of the specified domain name and requested adminstrator of the host object.
 
@@ -1722,7 +1722,7 @@ Request to create a host object, using both IPv4 and IPv6 adresses and the authe
 
 <a id="create-host-response"></a>
 
-### create host response
+#### create host response
 
 Response to the above request. The reponse indicates a succesful creation, since the operation could be completed successfully without requiring offline evaluation.
 
@@ -1750,7 +1750,7 @@ Response to the above request. The reponse indicates a succesful creation, since
 
 <a id="create-host-request-with-request-to-new-administrator"></a>
 
-### create host request with request to new administrator
+#### create host request with request to new administrator
 
 Request to create a host object, requesting a different adminstrator of the host object, hence requiring offline evaluation.
 
@@ -1777,7 +1777,7 @@ Request to create a host object, requesting a different adminstrator of the host
 
 <a id="create-host-response-from-request-to-new-administrator"></a>
 
-### create host response from request to new administrator
+#### create host response from request to new administrator
 
 Response to the above request. The response indicates a succesful accept of the requiest, but requires offline evaluation by the designated administrator of the host object, so the response indicates that the operation is pending.
 
@@ -1805,7 +1805,7 @@ Response to the above request. The response indicates a succesful accept of the 
 
 <a id="delayed-create-host-response-from-request-to-new-administrator"></a>
 
-### Delayed create host response, from request to new administrator
+#### Delayed create host response, from request to new administrator
 
 If the creation of the host has resulting in a delayed operation, pending the designated nameserver administrator, the below example shows what a poll message for the final state of the operation would look like.
 
@@ -1843,7 +1843,7 @@ Please note the `paResult`, where `1` indicates an accept and `0` would indicate
 
 <a id="create-host-request-with-request-to-registrant-of-host-domain-name"></a>
 
-### create host request, with request to registrant of host domain name
+#### create host request, with request to registrant of host domain name
 
 Request to create a host object, where the authenticated use is not the registrant of the domain name naming the host object, hence requiring offline evaluation.
 
@@ -1867,7 +1867,7 @@ Request to create a host object, where the authenticated use is not the registra
 
 <a id="create-host-response-from-request-to-registrant-of-domain-name"></a>
 
-### create host response, from request to registrant of domain name
+#### create host response, from request to registrant of domain name
 
 Response to the above request. The reponse indicates a succesful accept of the requiest, but requires offline evaluation by the registrant of the specified domain namem, so the response indicates that the operation is pending.
 
@@ -1895,7 +1895,7 @@ Response to the above request. The reponse indicates a succesful accept of the r
 
 <a id="delayed-create-host-response-from-request-to-registrant-of-domain-name"></a>
 
-### Delayed create host response, from request to registrant of domain name
+#### Delayed create host response, from request to registrant of domain name
 
 If the creation of the host has resulting in a delayed operation, pending the designated nameserver administrator, the below example shows what a poll message for the final state of the operation would look like.
 
@@ -1933,13 +1933,13 @@ Please note the `paResult`, where `1` indicates an accept and `0` would indicate
 
 <a id="update-host"></a>
 
-## update host
+### update host
 
 This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard, but is extended to service one special usage scenario.
 
 <a id="proces"></a>
 
-### Proces
+#### Proces
 
 This is the overall proces, the proces is divided into sub-processes, please see the processes below for details.
 
@@ -1947,7 +1947,7 @@ This is the overall proces, the proces is divided into sub-processes, please see
 
 <a id="change-hostname-sub-proces"></a>
 
-### Change hostname sub-proces
+#### Change hostname sub-proces
 
 The proces of changing a host name us unsupported by DK Hostmaster and will always result in an error code: `2102`.
 
@@ -1959,7 +1959,7 @@ The proces of changing a host name us unsupported by DK Hostmaster and will alwa
 
 <a id="add-ip-sub-proces"></a>
 
-### Add IP sub-proces
+#### Add IP sub-proces
 
 Addition of IP addressed supports the additional of IPv4 and IPv6 adresses. These are required as part of our glue record policy. If additional status elements are added to this command it will fail.
 
@@ -1974,7 +1974,7 @@ Addition of IP addressed supports the additional of IPv4 and IPv6 adresses. Thes
 
 <a id="remove-ip-sub-proces"></a>
 
-### Remove IP sub-proces
+#### Remove IP sub-proces
 
 Addition of IP addressed supports the additional of IPv4 and IPv6 adresses. These are required as part of our glue record policy. If additional status elements are added to this command it will fail.
 
@@ -1989,7 +1989,7 @@ Addition of IP addressed supports the additional of IPv4 and IPv6 adresses. Thes
 
 <a id="change-admin-sub-proces"></a>
 
-### Change admin sub-proces
+#### Change admin sub-proces
 
 ![Diagram of EPP update host change admin][epp_update_host_change_admin]
 
@@ -2020,7 +2020,7 @@ As described in Implementation Limitations, the service does not support setting
 
 <a id="update-host-request-with-request-to-new-administrator"></a>
 
-### update host request with request to new administrator
+#### update host request with request to new administrator
 
 Request to update a host object, requesting a different adminstrator of the host object, hence requiring offline evaluation.
 
@@ -2044,7 +2044,7 @@ Request to update a host object, requesting a different adminstrator of the host
 
 <a id="update-host-response-with-request-to-new-administrator"></a>
 
-### update host response with request to new administrator
+#### update host response with request to new administrator
 
 Response to the above request. The response indicates a succesful accept of the requiest, but requires offline evaluation by the designated administrator of the host object, so the response indicates that the operation is pending.
 
@@ -2066,7 +2066,7 @@ Response to the above request. The response indicates a succesful accept of the 
 
 <a id="delayed-update-host-response-from-request-to-new-administrator"></a>
 
-### Delayed update host response from request to new administrator
+#### Delayed update host response from request to new administrator
 
 If the creation of the host has resulting in a delayed operation, pending the designated nameserver administrator, the below example shows what a poll message for the final state of the operation looks like.
 
@@ -2104,7 +2104,7 @@ Please note the `paResult`, where `1` indicates an accept and `0` would indicate
 
 <a id="delete-host"></a>
 
-## delete host
+### delete host
 
 This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard.
 
@@ -2121,7 +2121,7 @@ The deletion of a host object can only be requested by the adminstrator.
 
 <a id="delete-host-request"></a>
 
-### delete host request
+#### delete host request
 
 Request to delete a host object, the authenticated user is the current administrator of the specified host object.
 
@@ -2142,7 +2142,7 @@ Request to delete a host object, the authenticated user is the current administr
 
 <a id="delete-host-response"></a>
 
-### delete host response
+#### delete host response
 
 Response to the above request. Since the authenticated user is the current administrator and all requirements are met the command completes successfully.
 
@@ -2163,7 +2163,7 @@ Response to the above request. Since the authenticated user is the current admin
 
 <a id="create-contact"></a>
 
-## create contact
+### create contact
 
 This part of the EPP protocol is described in [RFC 5733][RFC5733].
 
@@ -2187,7 +2187,7 @@ This field is validated on the server site, it is however recommended to perform
 
 <a id="forced-and-smart-contact-creation"></a>
 
-### Forced and Smart Contact Creation
+#### Forced and Smart Contact Creation
 
 For contact creation DK Hostmaster supports two ways:
 
@@ -2224,7 +2224,7 @@ The match has to be exact in order for the command to return an existing user-id
 
 <a id="address-handling"></a>
 
-### Address Handling
+#### Address Handling
 
 Contact creation under EPP opens for the ability to represent postal information in both local and international representations. Due to the representation in DK Hostmasters system for handling contacts the following rules are applied to postal information.
 
@@ -2274,7 +2274,7 @@ Please note:
 
 <a id="create-contact-request"></a>
 
-### create contact request
+#### create contact request
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
@@ -2324,7 +2324,7 @@ Do note that the `authInfo` part is ignored, but cannot be omitted.
 
 <a id="create-contact-response"></a>
 
-### create contact response
+#### create contact response
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
@@ -2350,13 +2350,13 @@ Do note that the `authInfo` part is ignored, but cannot be omitted.
 
 <a id="check-contact"></a>
 
-## check contact
+### check contact
 
 This part of the EPP protocol is described in [RFC 5733][RFC5733]. This command adheres to the standard.
 
 <a id="check-contact-request"></a>
 
-### check contact request
+#### check contact request
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
@@ -2374,7 +2374,7 @@ This part of the EPP protocol is described in [RFC 5733][RFC5733]. This command 
 
 <a id="check-contact-response"></a>
 
-### check contact response
+#### check contact response
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
@@ -2404,7 +2404,7 @@ This part of the EPP protocol is described in [RFC 5733][RFC5733]. This command 
 
 <a id="info-contact"></a>
 
-## info contact
+### info contact
 
 This part of the EPP protocol is described in [RFC 5733][RFC5733]. This command has been extended with information on whether the contact in queried has been validated according to requirements and policies with DK Hostmaster.
 
@@ -2414,7 +2414,7 @@ Please note that the email address (`contact:email`) is masked and the value: `a
 
 <a id="info-contact-request"></a>
 
-### info contact request
+#### info contact request
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
@@ -2432,7 +2432,7 @@ Please note that the email address (`contact:email`) is masked and the value: `a
 
 <a id="info-contact-response"></a>
 
-### info contact response
+#### info contact response
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -2478,7 +2478,7 @@ Please note that the email address (`contact:email`) is masked and the value: `a
 
 <a id="update-contact"></a>
 
-## update contact
+### update contact
 
 This part of the EPP protocol is described in [RFC 5733][RFC5733]. This command adheres to the standard. In addition to the standard the command allows for manipulation of the extensions associated with contact objects, meaning that it is possible to update the following fields:
 
@@ -2508,7 +2508,7 @@ Please note:
 
 <a id="update-contact-request"></a>
 
-### update contact request
+#### update contact request
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -2556,7 +2556,7 @@ Please note:
 
 <a id="update-contact-response"></a>
 
-### update contact response
+#### update contact response
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -2575,7 +2575,7 @@ Please note:
 
 <a id="delete-contact"></a>
 
-## delete contact
+### delete contact
 
 **This command is not supported.**
 
@@ -2590,7 +2590,7 @@ The later will only be lifted when the contact object is not linked to any other
 
 <a id="delete-contact-request"></a>
 
-### delete contact request
+#### delete contact request
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -2609,7 +2609,7 @@ The later will only be lifted when the contact object is not linked to any other
 
 <a id="delete-contact-response"></a>
 
-### delete contact response
+#### delete contact response
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -2628,7 +2628,7 @@ The later will only be lifted when the contact object is not linked to any other
 
 <a id="data-collection-policy"></a>
 
-# Data Collection Policy
+## Data Collection Policy
 
 This chapter describes the data collection policy announced via the greeting available using the hello command.
 
@@ -2636,13 +2636,13 @@ Please refer to the [greeting response example](#greeting) included in the [Appe
 
 <a id="access"></a>
 
-## Access
+### Access
 
 The EPP service provides access to identified data relating to all available entities (personal and organisational) under the terms and conditions that anonymity will be applied as specified by the entities in question, and in accordance with [General Terms and Conditions][General Terms and Conditions] and legislation.
 
 <a id="purpose-statement"></a>
 
-## Purpose Statement
+### Purpose Statement
 
 The collected data will be used solely for provisioning and administrative purposes. As specified under access above, and in the recipient statement below, some data are required to be publicly available and therefore some data will be accessible to the public under the circumstances specified in the referred sections.
 
@@ -2650,19 +2650,19 @@ Address data and contact information is collected as required by danish legislat
 
 <a id="recipient-statement"></a>
 
-## Recipient Statement
+### Recipient Statement
 
 Recipients of data are specified as other and unrelated. As specified in the purpose statement section and under access, identified data is made publicly available, therefore DK Hostmaster will not be able to control how the publicly available information is used.
 
 <a id="retention-statement"></a>
 
-## Retention Statement
+### Retention Statement
 
 Data will be retained with DK Hostmaster as required by Danish legislation.
 
 <a id="references"></a>
 
-# References
+## References
 
 Here is a list of documents and references used in this document
 
@@ -2683,13 +2683,13 @@ Here is a list of documents and references used in this document
 
 <a id="resources"></a>
 
-# Resources
+## Resources
 
 A list of resources for DK Hostmaster EPP support is located below.
 
 <a id="xml-schemas"></a>
 
-## XML Schemas
+### XML Schemas
 
 This is a list of the schemas currently used in the DKHM EPP Service described in this document. Please note that the XSD implementation preserves the original namespace and does not make alterations to this apart from adding the already described XML elements.
 
@@ -2705,7 +2705,7 @@ The files are all available for [download][XSD files].
 
 <a id="xsd-version-history"></a>
 
-### XSD Version History
+#### XSD Version History
 
 - 2.4
   - EPP Service version 2.3.X
@@ -2754,7 +2754,7 @@ The files are all available for [download][XSD files].
 
 <a id="mailing-list"></a>
 
-## Mailing list
+### Mailing list
 
 DK Hostmaster operates a mailing list for discussion and inquiries  about the DK Hostmaster EPP implementation. To subscribe to this list, write to the address below and follow the instructions. Please note that the list is for technical discussion only, any issues beyond the technical scope will not be responded to, please send these to the contact issue reporting address below and they will be passed on to the appropriate entities within DK Hostmaster.
 
@@ -2762,7 +2762,7 @@ DK Hostmaster operates a mailing list for discussion and inquiries  about the DK
 
 <a id="issue-reporting"></a>
 
-## Issue Reporting
+### Issue Reporting
 
 For issue reporting related to this specification, the EPP implementation or test, sandbox or production environments, please contact us.  You are of course welcome to post these to the mailing list mentioned above, otherwise use the address specified below:
 
@@ -2770,7 +2770,7 @@ For issue reporting related to this specification, the EPP implementation or tes
 
 <a id="demotest-client"></a>
 
-## Demo/Test Client
+### Demo/Test Client
 
 We have developed a demo/test client, which is freely available and open sourced under a MIT license.
 
@@ -2780,7 +2780,7 @@ The client is available at:
 
 <a id="additional-information"></a>
 
-## Additional Information
+### Additional Information
 
 More information is available at the DK Hostmaster website:
 
@@ -2788,7 +2788,7 @@ More information is available at the DK Hostmaster website:
 
 <a id="pre-activation-service"></a>
 
-## Pre-activation Service
+### Pre-activation Service
 
 More information and documentation on the pre-activation service is available at the DK Hostmaster website:
 
@@ -2796,11 +2796,11 @@ More information and documentation on the pre-activation service is available at
 
 <a id="appendices"></a>
 
-# Appendices
+## Appendices
 
 <a id="greeting"></a>
 
-## Greeting
+### Greeting
 
 Do note the service version is available in the svID tag, meaning you can see what given version of the
 EPP service is running in the environment queried.
@@ -2846,11 +2846,11 @@ EPP service is running in the environment queried.
 
 <a id="status-codes"></a>
 
-## Status Codes
+### Status Codes
 
 <a id="domain"></a>
 
-### Domain
+#### Domain
 
 | Status Code | Description  |
 | ------------ | ------------ |
@@ -2880,7 +2880,7 @@ EPP service is running in the environment queried.
 
 <a id="privilege-matrix"></a>
 
-## Privilege Matrix
+### Privilege Matrix
 
 | Command | Sub-command | Registrar | Domain admin | Domain billing | Nameserver admin |
 | --- | --- |:---:|:---:|:---:|:---:|
@@ -2920,7 +2920,7 @@ EPP service is running in the environment queried.
 
 <a id="compatibility-matrix"></a>
 
-## Compatibility Matrix
+### Compatibility Matrix
 
 | EPP Command  | Available since version | Exceptions and notes |
 | ------------ | ------------ | ------------ |
