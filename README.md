@@ -2776,7 +2776,7 @@ We have developed a demo/test client, which is freely available and open sourced
 
 The client is available at:
 
-- https://github.com/DK-Hostmaster/epp-demo-client-mojolicious
+- <https://github.com/DK-Hostmaster/epp-demo-client-mojolicious>
 
 <a id="additional-information"></a>
 
@@ -2784,7 +2784,7 @@ The client is available at:
 
 More information is available at the DK Hostmaster website:
 
-- https://www.dk-hostmaster.dk/en/epp
+- <https://www.dk-hostmaster.dk/en/epp>
 
 <a id="pre-activation-service"></a>
 
@@ -2792,7 +2792,7 @@ More information is available at the DK Hostmaster website:
 
 More information and documentation on the pre-activation service is available at the DK Hostmaster website:
 
-- https://www.dk-hostmaster.dk/en/pre-act
+- <https://www.dk-hostmaster.dk/en/pre-act>
 
 <a id="appendices"></a>
 
