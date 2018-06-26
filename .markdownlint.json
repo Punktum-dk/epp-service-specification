@@ -3,5 +3,8 @@
     "MD004": { "style": "dash" },
     "html": false,
     "line-length": false,
-    "fenced-code-language": false
+    "fenced-code-language": false,
+    "no-hard-tabs": false,
+    "blanks-around-headings": false,
+    "ul-indent": false
 }

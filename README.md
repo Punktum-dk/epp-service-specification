@@ -5,7 +5,7 @@ Revision: 2.5
 
 ## Table of Contents
 
-<!-- MarkdownTOC bracket=round levels="1,2,3, 4, 5" indent="  " -->
+<!-- MarkdownTOC bracket=round levels="1,2,3,4,5" indent="  " -->
 
 - [Introduction](#introduction)
   - [About this Document](#about-this-document)
@@ -153,13 +153,9 @@ Revision: 2.5
 <!-- /MarkdownTOC -->
 
 <a id="introduction"></a>
-
-<a id="introduction"></a>
 ## Introduction
 
 This document describes and specifies the implementation offered by DK Hostmaster for interaction with the central registry for the ccTLD dk using the Extensible Provisioning Protocol (EPP). It is primarily aimed at a technical audience, and the reader is required to have prior knowledge of DNS registration and EPP.
-
-<a id="about-this-document"></a>
 
 <a id="about-this-document"></a>
 ### About this Document
@@ -181,103 +177,97 @@ This document is owned and maintained by DK Hostmaster A/S and must not be distr
 All examples provided in the document are fabricated or changed from real data to demonstrate commands etc. any resemblence to actual data are coincidental.
 
 <a id="license"></a>
-
-<a id="license"></a>
 ### License
 
 This document is copyright by DK Hostmaster A/S and is licensed under the MIT License, please see the separate LICENSE file for details.
 
 <a id="document-history"></a>
-
-<a id="document-history"></a>
 ### Document History
 
 - 2.5 2018-06-22
-  - Updated XSD history and information on XSD version 2.4
-  - Added information on service and specification versions and retrieving of version information from the service
-  - Added examples of poll messages related to domain creation
+	- Updated XSD history and information on XSD version 2.4
+	- Added information on service and specification versions and retrieving of version information from the service
+	- Added examples of poll messages related to domain creation
 
 - 2.4 2018-05-25
-  - Added information on format of Orderconfirmation Token, this is implemented with EPP release 2.3.0 currently only available in sandbox and introduces the new extension: `dkhm:url`
-  - Addition of risk assessment for create domain command poll response. The XSD files revision 2.2 describes the changes to the XSD and supports the new extension: `dkhm:risk_assessment`
+	- Added information on format of Orderconfirmation Token, this is implemented with EPP release 2.3.0 currently only available in sandbox and introduces the new extension: `dkhm:url`
+	- Addition of risk assessment for create domain command poll response. The XSD files revision 2.2 describes the changes to the XSD and supports the new extension: `dkhm:risk_assessment`
 
 - 2.3 2018-05-01  
-  - Updated XSD history
-  - Added diagram for create domain
+	- Updated XSD history
+	- Added diagram for create domain
 
 - 2.2 2017-12-19
-  - Removed information on status blocked, which has been deprecated
+	- Removed information on status blocked, which has been deprecated
 
 - 2.1 2017-06-08
-  - Removed information on waiting list handling, since this is being revisited
+	- Removed information on waiting list handling, since this is being revisited
 
 - 2.0 2016-10-24
-  - Describes EPP service 2.X.X
-  - Added renew domain description
-  - Added update domain description
-  - Added create/update/delete host descriptions
-  - Added update contact description
-  - Added XSD 2.0 description
+	- Describes EPP service 2.X.X
+	- Added renew domain description
+	- Added update domain description
+	- Added create/update/delete host descriptions
+	- Added update contact description
+	- Added XSD 2.0 description
 
 - 1.10 2016-06-08
-  - Added information on IP whitelisting
+	- Added information on IP whitelisting
 
 - 1.9 2016-01-30
-  - Information on new waiting list handling
-  - Information on new DNSSEC key handling
+	- Information on new waiting list handling
+	- Information on new DNSSEC key handling
 
 - 1.8 2015-09-03
-  - Minor corrections
-  - More information on extensions for possible registration of the DK Hostmaster extensions with IANA in relation to [RFC:7451][RFC:7451]
-  - Added [RFC:7451][RFC:7451] compliant descriptions in subdirectory: `rfc7451/`
+	- Minor corrections
+	- More information on extensions for possible registration of the DK Hostmaster extensions with IANA in relation to [RFC:7451][RFC:7451]
+	- Added [RFC:7451][RFC:7451] compliant descriptions in subdirectory: `rfc7451/`
 
 - 1.7 2015-05-12
-  - This revision of the specification is describing EPP service release 1.3.X
-  - This release also updates the [XSD][XSD Files] specification to revision 1.4, introducing the extension pnumber for transport of production unit numbers for validation of danish companies as part of the create contact command
+	- This revision of the specification is describing EPP service release 1.3.X
+	- This release also updates the [XSD][XSD Files] specification to revision 1.4, introducing the extension pnumber for transport of production unit numbers for validation of danish companies as part of the create contact command
 
 - 1.6 2015-01-06
-  - This revision of the specification is describing EPP service release 1.2.X
-  - This release also updates the [XSD][XSD Files] specification to revision 1.3
-  - The document has with this revision been ported from a proprietary format to markdown and is being hosted on github for easier maintenance and distribution, this has resultet in a lot of minor corrections and clarifications.
-  - Extended the section about this document, due to the migration to Github, so copyright is now explicitly mentioned
-  - info contact command extended with validation information
-  - create domain command extended with validation information for registrant
-  - create domain command extended with information on confirmation status for domain
+	- This revision of the specification is describing EPP service release 1.2.X
+	- This release also updates the [XSD][XSD Files] specification to revision 1.3
+	- The document has with this revision been ported from a proprietary format to markdown and is being hosted on github for easier maintenance and distribution, this has resultet in a lot of minor corrections and clarifications.
+	- Extended the section about this document, due to the migration to Github, so copyright is now explicitly mentioned
+	- info contact command extended with validation information
+	- create domain command extended with validation information for registrant
+	- create domain command extended with information on confirmation status for domain
 
 - 1.5 2014-06-18
-  - This revision of the specification is describing EPP service release 1.1.X
-  - The test environment is no longer active
-  - Examples updated to latest [XSD][XSD Files] revision (1.2)
-  - Pre-activation token (`orderconfirmationToken`) can be transported via extension for create domain command
-  - Multiple examples of requests and responses added
+	- This revision of the specification is describing EPP service release 1.1.X
+	- The test environment is no longer active
+	- Examples updated to latest [XSD][XSD Files] revision (1.2)
+	- Pre-activation token (`orderconfirmationToken`) can be transported via extension for create domain command
+	- Multiple examples of requests and responses added
 
 - 1.4 2013-11-19
-  - Corrected links in resources
-  - Empasized the use of the `auto` keyword for contact creation, this has also been listed in the implementation limitations section
-  - Added information on the restrictive use of `clTRID` in new section entitled: Implementation Requirements
+	- Corrected links in resources
+	- Empasized the use of the `auto` keyword for contact creation, this has also been listed in the implementation limitations section
+	- Added information on the restrictive use of `clTRID` in new section entitled: Implementation Requirements
 
 - 1.3 2013-10-29
-  - This revision of the specification is describing EPP service release 1.0.9
-  - Added information on use of `clTRID` in context of create domain command
-  - Added more information on the domain check command, which has been extended with EPP service release 1.0.9.
-  - This release also updates the [XSD][XSD Files] specification to revision 1.1
+	- This revision of the specification is describing EPP service release 1.0.9
+	- Added information on use of `clTRID` in context of create domain command
+	- Added more information on the domain check command, which has been extended with EPP service release 1.0.9.
+	- This release also updates the [XSD][XSD Files] specification to revision 1.1
 
 - 1.2 2013-08-07
-  - This revision of the specification is describing EPP service release 1.0.8
-  - Added note on domain check
+	- This revision of the specification is describing EPP service release 1.0.8
+	- Added note on domain check
 
 - 1.1 2013-05-31
-  - Added paragraph on passwords in section on the login command
-  - Added mention of standard port 700
-  - Corrected some of the XML examples, which had not been updated to reflect the correct use of [XSDs][XSD Files]
-  - Added important note on contact creation
+	- Added paragraph on passwords in section on the login command
+	- Added mention of standard port 700
+	- Corrected some of the XML examples, which had not been updated to reflect the correct use of [XSDs][XSD Files]
+	- Added important note on contact creation
 
 - 1.0 2013-02-25
-  - Initial revision
-  - Describes EPP service 1.X.X
-  - Introduces [XSD][XSD Files] specification revision 1.0
-
-<a id="the-dk-registry-in-brief"></a>
+	- Initial revision
+	- Describes EPP service 1.X.X
+	- Introduces [XSD][XSD Files] specification revision 1.0
 
 <a id="the-dk-registry-in-brief"></a>
 ## The .dk Registry in Brief
@@ -291,15 +281,11 @@ These limitations are described in detail below in the chapter entitled Implemen
 Our EPP extensions are registered with the [IANA EPP Extension Repository][IANA EPP Extension Repository].
 
 <a id="epp-in-brief"></a>
-
-<a id="epp-in-brief"></a>
 ## EPP in Brief
 
 EPP is an XML-based protocol aimed at provisioning data between registries. The protocol is intended for machine-to-machine communication in a client-server setup. Please see the References chapter for more information on specifications and references for EPP.
 
 Please note that the service does not support XML entity expansion on the server side, due to security implications related to this feature.
-
-<a id="epp-service"></a>
 
 <a id="epp-service"></a>
 ## EPP Service
@@ -317,8 +303,6 @@ The service is implemented under the following principles:
 1 Use standard error code to the extent possible, communicating state more clearly and unambigiously
 
 <a id="ssltls-support"></a>
-
-<a id="ssltls-support"></a>
 ### SSL/TLS Support
 
 The EPP service supports the following protocols for transport security:
@@ -326,13 +310,9 @@ The EPP service supports the following protocols for transport security:
 - TLSv1.2
 
 <a id="available-environments"></a>
-
-<a id="available-environments"></a>
 ### Available Environments
 
 DK Hostmaster offers the following environments:
-
-<a id="production"></a>
 
 <a id="production"></a>
 #### production
@@ -352,8 +332,6 @@ DK Hostmaster offers the following environments:
 - Both environments respond on port 700
 
 <a id="sandbox"></a>
-
-<a id="sandbox"></a>
 #### sandbox
 
 - This environment runs EPP service version 2.X.X
@@ -371,13 +349,9 @@ DK Hostmaster offers the following environments:
 Please note that when you first start to use the EPP sandbox environment, the access credentials are matching your production credentials. If these do not work as expected (e.g. error `2200`). please contact: tech@dk-hostmaster.dk to get the credentials synhcronized.
 
 <a id="implementation-requirements"></a>
-
-<a id="implementation-requirements"></a>
 ## Implementation Requirements
 
 This section outlines the overall requirements in regard to implementing an EPP client to work with the DK Hostmaster EPP service.
-
-<a id="client-transaction-id-cltrid"></a>
 
 <a id="client-transaction-id-cltrid"></a>
 ### Client Transaction ID (`clTRID`)
@@ -387,8 +361,6 @@ In order to ensure transactional integrity and due to the asynchronous nature of
 The `clTRID` is recommended to be unique for all transactions and is required to be unique for the create domain command. This might change in the future.
 
 <a id="ip-whitelisting"></a>
-
-<a id="ip-whitelisting"></a>
 ### IP Whitelisting
 
 Since 2016-02-29 DK Hostmaster has enforced IP whitelisting of IPs for access to the EPP service. Additions and removals of IP addresses is currently a manual proces handled by DK Hostmaster.
@@ -396,8 +368,6 @@ Since 2016-02-29 DK Hostmaster has enforced IP whitelisting of IPs for access to
 Please submit change requests including registrar handle information to:
 
 - tech@dk-hostmaster.dk
-
-<a id="implementation-extensions"></a>
 
 <a id="implementation-extensions"></a>
 ## Implementation Extensions
@@ -425,8 +395,6 @@ Here follows a listed, the extensions are described separately and in detail bel
 - `dkhm:dkhmrisk_assessment`
 
 <a id="dkhmusertype"></a>
-
-<a id="dkhmusertype"></a>
 ### `dkhm:userType`
 
 The `userType` extension is used to categorize a contact type, since the requirements for data differs between the different usertypes, we need to be able to differenciate between: company, individual, public organisation and association. More information is available under the create contact command.
@@ -434,13 +402,9 @@ The `userType` extension is used to categorize a contact type, since the require
 Related extensions are `dkhm:EAN`, `dkhm:CVR` and `dkhm:pnumber`.
 
 <a id="dkhmean"></a>
-
-<a id="dkhmean"></a>
 ### `dkhm:EAN`
 
 The EAN extension, holds the EAN number associated with public organisations in Denmark. The field is mandatory for this type of contact objects and is required for electronic invoicing, more information is available under the create contact command.
-
-<a id="dkhmcvr"></a>
 
 <a id="dkhmcvr"></a>
 ### `dkhm:CVR`
@@ -448,13 +412,9 @@ The EAN extension, holds the EAN number associated with public organisations in 
 The CVR extension is for holding VAT registration numbers. The number is used for validation and VAT accounting. More information is available under the create contact command.
 
 <a id="dkhmpnumber"></a>
-
-<a id="dkhmpnumber"></a>
 ### `dkhm:pnumber`
 
 The pnumber extension is for holding production-unit numbers, used for validation for danish companies, with more physical addressed related to one VAT number. More information is available under the create contact command.
-
-<a id="dkhmtrackingno"></a>
 
 <a id="dkhmtrackingno"></a>
 ### `dkhm:trackingNo`
@@ -462,20 +422,14 @@ The pnumber extension is for holding production-unit numbers, used for validatio
 A unique tracking number for a domain registration for uniformity with the mail form. EPP it not the only channel of domain registration and in order to handle registrations via multiple channel, a unique tracking-id is assigned to every request. More information is available under the create domain command.
 
 <a id="dkhmdomainadvisory"></a>
-
-<a id="dkhmdomainadvisory"></a>
 ### `dkhm:domainAdvisory`
 
 Any special circumstances in relation to a domain name, can be communicated using this special field. Please see the specific commands for examples.
 
 <a id="dkhmorderconfirmationtoken"></a>
-
-<a id="dkhmorderconfirmationtoken"></a>
 ### `dkhm:orderconfirmationToken`
 
 This is a special field for supporting the business flow where the agreement for a domain name is accepted by the registrant with the registrar. More information is available under the create domain command.
-
-<a id="dkhmdomain_confirmed"></a>
 
 <a id="dkhmdomain_confirmed"></a>
 ### `dkhm:domain_confirmed`
@@ -485,13 +439,9 @@ Domain names registered with DK Hostmaster, has to be confirmed by the registran
 See also `orderconfirmationToken`.
 
 <a id="dkhmcontact_validated"></a>
-
-<a id="dkhmcontact_validated"></a>
 ### `dkhm:contact_validated`
 
 Contact objects related to the role of registrant has to be validated, this field is used to indicate the status of a validation object via the info contact command.
-
-<a id="dkhmregistrant_validated"></a>
 
 <a id="dkhmregistrant_validated"></a>
 ### `dkhm:registrant_validated`
@@ -501,13 +451,9 @@ As described above, contact objects related to the role of registrant has to be 
 See also `contact_validated`.
 
 <a id="dkhmmobilephone"></a>
-
-<a id="dkhmmobilephone"></a>
 ### `dkhm:mobilephone`
 
 Contact objects can have a mobilephone number in addition to `voice` and `fax`. The extension was introduced in the DK Hostmaster XSD file set 1.6.
-
-<a id="dkhmsecondaryemail"></a>
 
 <a id="dkhmsecondaryemail"></a>
 ### `dkhm:secondaryEmail`
@@ -515,21 +461,14 @@ Contact objects can have a mobilephone number in addition to `voice` and `fax`. 
 Contact objects can have a secondary email address in addition to `email`. The extension was introduced in the DK Hostmaster XSD file set 1.6.
 
 <a id="dkhmrequestednsadmin"></a>
-
-<a id="dkhmrequestednsadmin"></a>
 ### `dkhm:requestedNsAdmin`
 
 The extension is used for update and create host, where it is possible to request another nameserver administrator than the authenticated user. The extension was introduced in the DK Hostmaster XSD file set 1.5.
 
 <a id="dkhmurl"></a>
-
-<a id="dkhmurl"></a>
 ### `dkhm:url`
 
 This extension can be used to redirect and end-user to the next step. For now it is used in relation to domain creation, where the user can be directed to the next step if this is handled by DK Hostmaster. More information is available under the create domain command.
-
-<a name="dkhmriskassessment"></a>
-<a id="dkhmrisk_assessment"></a>
 
 <a id="dkhmrisk_assessment"></a>
 ### `dkhm:risk_assessment`
@@ -537,13 +476,9 @@ This extension can be used to redirect and end-user to the next step. For now it
 This extension is used in the poll response in relation to domain creation. The extension provides information on the risk assessment made by DK Hostmaster A/S. Please see the create domain command.
 
 <a id="implementation-limitations"></a>
-
-<a id="implementation-limitations"></a>
 ## Implementation Limitations
 
 As mentioned previously the EPP service comes with some limitations. Please see the [Compatibility Matrix](compatibility-matrix) in the appendices.
-
-<a id="commands"></a>
 
 <a id="commands"></a>
 ### Commands
@@ -564,8 +499,6 @@ The current implementation implements the following list of commands:
 All commands are described in detail below.
 
 <a id="unimplemented-commands"></a>
-
-<a id="unimplemented-commands"></a>
 ### Unimplemented commands
 
 The following commands have not been implemented in the service described in this specification:
@@ -574,8 +507,6 @@ The following commands have not been implemented in the service described in thi
 - transfer (contact/domain)
 
 In general the service is not localized and all EPP related errors and messages are provided in English.
-
-<a id="additional-limitations"></a>
 
 <a id="additional-limitations"></a>
 ### Additional limitations
@@ -591,8 +522,6 @@ Comparing the EPP implementation to the existing channel for domain registration
 - Billing contact's purchase order (PO) number
 
 <a id="dnssec"></a>
-
-<a id="dnssec"></a>
 ### DNSSEC
 
 I accordance with [RFC 5910][RFC5910]. We support DS only and not DNSKEY. In addition the maximum signature lifetime (`secDNS:maxSigLife`) is disregarded. See [section 3.3](http://tools.ietf.org/html/rfc5910#section-3.3) in the referenced RFC.
@@ -602,13 +531,9 @@ DK Hostmaster specifies rules ownership of DNSSEC keys. If you provide DNSSEC ke
 Not all algorithms are supported, please refer to the [DK Hostmaster Name Service specification][dkhm-name-service-specification] for a complete list of supported algorithms.
 
 <a id="contact-creation"></a>
-
-<a id="contact-creation"></a>
 ### Contact Creation
 
 This command does not support the feature of providing a predefined userid. The userid has to be specified as `auto` and the userid is assigned by DK Hostmaster. See also information on the create contact command.
-
-<a id="host-update"></a>
 
 <a id="host-update"></a>
 ### Host Update
@@ -616,13 +541,9 @@ This command does not support the feature of providing a predefined userid. The 
 This command does not support the setting and removal of status using the XML element: `host:status`. The status is assigned by DK Hostmaster. See also information on the update host command.
 
 <a id="domain-update"></a>
-
-<a id="domain-update"></a>
 ### Domain Update
 
 This command does not support the change of the registrant and the setting and removal of status using the XML element: `domain:status`. The status is assigned by DK Hostmaster. See also information on the update domain command.
-
-<a id="information-disclosure"></a>
 
 <a id="information-disclosure"></a>
 ### Information Disclosure
@@ -630,13 +551,9 @@ This command does not support the change of the registrant and the setting and r
 Please note that some information is not disclosed when using Object Query Commands. See the specific commands for more information.
 
 <a id="encoding-and-idn-domains"></a>
-
-<a id="encoding-and-idn-domains"></a>
 ### Encoding and IDN domains
 
 The danish registry supports IDN domain names and the EPP commands support punycode notation for this in requests. We do however not support punycode notation in responses at this time.
-
-<a id="supported-object-transform-and-query-commands"></a>
 
 <a id="supported-object-transform-and-query-commands"></a>
 ## Supported Object Transform and Query Commands
@@ -644,8 +561,6 @@ The danish registry supports IDN domain names and the EPP commands support punyc
 The following describes the currently supported EPP commands. As mentioned previously, some of the commands have been extended beyond the basic capabilities of EPP. These minor extensions are described separately under each command and are included in the [XSD files][XSD Files] listed in the Resources chapter.
 
 Commands that have not been extended are not described in much detail, please refer to the general EPP documentation from IETF (see: the RFCs listed in References).
-
-<a id="hello-and-greeting"></a>
 
 <a id="hello-and-greeting"></a>
 ### hello and greeting
@@ -664,8 +579,6 @@ With regard to extensions, the following are available:
 - [dkhm-2.4][XSD Files]
 
 Please see the greeting response included in the [appendices](greeting) for illustration of the actual announcement.
-
-<a id="login"></a>
 
 <a id="login"></a>
 ### login
@@ -696,33 +609,29 @@ The following characters are legal special characters in passwords:
 Currently, the only language supported is English. So the language parameter is ignored and all responses are provided in English.
 
 <a id="login-request"></a>
-
-<a id="login-request"></a>
 #### login request
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-  <command>
-    <login>
-      <clID>REG-999999</clID>
-      <pw>*********</pw>
-      <options>
-        <version>1.0</version>
-        <lang>en</lang>
-      </options>
-      <svcs>
-        <objURI>domainurn:ietf:params:xml:ns:domain-1.0urn:ietf:params:xml:ns:domain-1.0 domain-1.0.xsd</objURI>
-        <objURI>hosturn:ietf:params:xml:ns:host-1.0urn:ietf:params:xml:ns:host-1.0 host-1.0.xsd</objURI>
-        <objURI>contacturn:ietf:params:xml:ns:contact-1.0urn:ietf:params:xml:ns:contact-1.0 contact-1.0.xsd</objURI>
-      </svcs>
-    </login>
-    <clTRID>d52eaf8995d2b679fe9dc53ee5bc3ad9</clTRID>
-  </command>
+	<command>
+		<login>
+			<clID>REG-999999</clID>
+			<pw>*********</pw>
+			<options>
+				<version>1.0</version>
+				<lang>en</lang>
+			</options>
+			<svcs>
+				<objURI>domainurn:ietf:params:xml:ns:domain-1.0urn:ietf:params:xml:ns:domain-1.0 domain-1.0.xsd</objURI>
+				<objURI>hosturn:ietf:params:xml:ns:host-1.0urn:ietf:params:xml:ns:host-1.0 host-1.0.xsd</objURI>
+				<objURI>contacturn:ietf:params:xml:ns:contact-1.0urn:ietf:params:xml:ns:contact-1.0 contact-1.0.xsd</objURI>
+			</svcs>
+		</login>
+		<clTRID>d52eaf8995d2b679fe9dc53ee5bc3ad9</clTRID>
+	</command>
 </epp>
 ```
-
-<a id="login-response"></a>
 
 <a id="login-response"></a>
 #### login response
@@ -730,19 +639,17 @@ Currently, the only language supported is English. So the language parameter is 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-  <response>
-    <result code="1000">
-      <msg>User REG-999999 logged in.</msg>
-    </result>
-    <trID>
-      <clTRID>d52eaf8995d2b679fe9dc53ee5bc3ad9</clTRID>
-      <svTRID>63BE4FAE-F6F9-11E3-867F-A6B052036DCB</svTRID>
-    </trID>
-  </response>
+	<response>
+		<result code="1000">
+			<msg>User REG-999999 logged in.</msg>
+		</result>
+		<trID>
+			<clTRID>d52eaf8995d2b679fe9dc53ee5bc3ad9</clTRID>
+			<svTRID>63BE4FAE-F6F9-11E3-867F-A6B052036DCB</svTRID>
+		</trID>
+	</response>
 </epp>
 ```
-
-<a id="logout"></a>
 
 <a id="logout"></a>
 ### logout
@@ -752,21 +659,17 @@ This part of the EPP protocol is described in [RFC 5730][RFC5730]. This command 
 There are no special additions or alterations to the specification or use of this command.
 
 <a id="logout-request"></a>
-
-<a id="logout-request"></a>
 #### logout request
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-  <command>
-    <logout />
-    <clTRID>9450488c8280671c051f273285d7bec7</clTRID>
-  </command>
+	<command>
+		<logout />
+		<clTRID>9450488c8280671c051f273285d7bec7</clTRID>
+	</command>
 </epp>
 ```
-
-<a id="logout-response"></a>
 
 <a id="logout-response"></a>
 #### logout response
@@ -774,19 +677,17 @@ There are no special additions or alterations to the specification or use of thi
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-  <response>
-    <result code="1500">
-      <msg>User logged out. Closing Connection.</msg>
-    </result>
-    <trID>
-      <clTRID>9450488c8280671c051f273285d7bec7</clTRID>
-      <svTRID>370F8F46-F6F3-11E3-867F-A6B052036DCB</svTRID>
-    </trID>
-  </response>
+	<response>
+		<result code="1500">
+			<msg>User logged out. Closing Connection.</msg>
+		</result>
+		<trID>
+			<clTRID>9450488c8280671c051f273285d7bec7</clTRID>
+			<svTRID>370F8F46-F6F3-11E3-867F-A6B052036DCB</svTRID>
+		</trID>
+	</response>
 </epp>
 ```
-
-<a id="poll-and-message-queue"></a>
 
 <a id="poll-and-message-queue"></a>
 ### poll and message queue
@@ -798,22 +699,18 @@ There are no special additions or alterations to the specification or use of thi
 For clarification `2303` is returned in case a provided message-id (`msgID`) point to a non-existing message.
 
 <a id="poll-req-request"></a>
-
-<a id="poll-req-request"></a>
 #### poll req request
 
 ```XML
 <?xml version="1.0" encoding="UTF-8"?>
 
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <command>
-    <poll op="req"/>
-    <clTRID>09ed6c730e5c4c671c69ea8a4325ac06</clTRID>
-  </command>
+	<command>
+		<poll op="req"/>
+		<clTRID>09ed6c730e5c4c671c69ea8a4325ac06</clTRID>
+	</command>
 </epp>
 ```
-
-<a id="poll-req-response"></a>
 
 <a id="poll-req-response"></a>
 #### poll req response
@@ -822,27 +719,25 @@ For clarification `2303` is returned in case a provided message-id (`msgID`) poi
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-  <response>
-    <result code="1301">
-      <msg>Command completed successfully; ack to dequeue</msg>
-    </result>
-    <msgQ count="10" id="1">
-      <msg>Create domain pending for eksempel.dk</msg>    </msgQ>
-    <resData>
-      <domain:creData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-        <domain:name>eksempel.dk</domain:name>
-        <domain:crDate>2013-02-13T13:43:24.0Z</domain:crDate>
-      </domain:creData>
-    </resData>
-    <trID>
-      <clTRID>bb96ddfcbe2becbe1e7d974a5b22e29a</clTRID>
-      <svTRID>EFE89190-CC4B-11E6-B51D-4F7D3A107CA1</svTRID>
-    </trID>
-  </response>
+	<response>
+		<result code="1301">
+			<msg>Command completed successfully; ack to dequeue</msg>
+		</result>
+		<msgQ count="10" id="1">
+			<msg>Create domain pending for eksempel.dk</msg>    </msgQ>
+		<resData>
+			<domain:creData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+				<domain:name>eksempel.dk</domain:name>
+				<domain:crDate>2013-02-13T13:43:24.0Z</domain:crDate>
+			</domain:creData>
+		</resData>
+		<trID>
+			<clTRID>bb96ddfcbe2becbe1e7d974a5b22e29a</clTRID>
+			<svTRID>EFE89190-CC4B-11E6-B51D-4F7D3A107CA1</svTRID>
+		</trID>
+	</response>
 </epp>
 ```
-
-<a id="poll-ack-request"></a>
 
 <a id="poll-ack-request"></a>
 #### poll ack request
@@ -851,14 +746,12 @@ For clarification `2303` is returned in case a provided message-id (`msgID`) poi
 <?xml version="1.0" encoding="UTF-8"?>
 
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <command>
-    <poll msgID="1" op="ack"/>
-    <clTRID>a05bd42e77b26fe18801cbf5216ee199</clTRID>
-  </command>
+	<command>
+		<poll msgID="1" op="ack"/>
+		<clTRID>a05bd42e77b26fe18801cbf5216ee199</clTRID>
+	</command>
 </epp>
 ```
-
-<a id="poll-ack-response"></a>
 
 <a id="poll-ack-response"></a>
 #### poll ack response
@@ -867,20 +760,18 @@ For clarification `2303` is returned in case a provided message-id (`msgID`) poi
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-  <response>
-    <result code="1000">
-      <msg>Command completed successfully</msg>
-    </result>
-    <msgQ count="9" id="2">
-    </msgQ>
-    <trID>
-      <clTRID>770e65ed92827c810421faf709b5523c</clTRID>
-      <svTRID>4ECFA0E0-CC4C-11E6-A3CB-78843A107CA1</svTRID>
-    </trID></response>
+	<response>
+		<result code="1000">
+			<msg>Command completed successfully</msg>
+		</result>
+		<msgQ count="9" id="2">
+		</msgQ>
+		<trID>
+			<clTRID>770e65ed92827c810421faf709b5523c</clTRID>
+			<svTRID>4ECFA0E0-CC4C-11E6-A3CB-78843A107CA1</svTRID>
+		</trID></response>
 </epp>
 ```
-
-<a id="poll-ack-response-for-non-existant-message-or-previously-acknowledged-message"></a>
 
 <a id="poll-ack-response-for-non-existant-message-or-previously-acknowledged-message"></a>
 #### poll ack response for non-existant message (or previously acknowledged message)
@@ -889,21 +780,19 @@ For clarification `2303` is returned in case a provided message-id (`msgID`) poi
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-  <response>
-    <result code="2303">
-      <msg>Object does not exist</msg>
-    </result>
-    <msgQ count="8" id="5">
-    </msgQ>
-    <trID>
-      <clTRID>9bee91be9f7d15808ce3425af406ddc4</clTRID>
-      <svTRID>A615AEDA-CC4C-11E6-9191-4F7D3A107CA1</svTRID>
-    </trID>
-  </response>
+	<response>
+		<result code="2303">
+			<msg>Object does not exist</msg>
+		</result>
+		<msgQ count="8" id="5">
+		</msgQ>
+		<trID>
+			<clTRID>9bee91be9f7d15808ce3425af406ddc4</clTRID>
+			<svTRID>A615AEDA-CC4C-11E6-9191-4F7D3A107CA1</svTRID>
+		</trID>
+	</response>
 </epp>
 ```
-
-<a id="create-domain"></a>
 
 <a id="create-domain"></a>
 ### create domain
@@ -928,7 +817,7 @@ The create domain command has been extended with a field (`orderconfirmationToke
 
 ```XML
 <dkhm:orderconfirmationToken xmlns:dkhm=“urn:dkhm:params:xml:ns:dkhm-2.1”>
-    1522744544
+		1522744544
 </dkhm:orderconfirmationToken>
 ```
 
@@ -939,8 +828,8 @@ The `token` is handled the following way:
 - If absent DK Hostmaster will require the agreement for the terms and conditions be accepted with DK Hostmaster, this process is handled by DK Hostmaster
 
 - If present. The token will be validated by DK Hostmaster
-  - if not valid the request with result in an error and the request will be dismissed
-  - if valid the request will be accepted and processed
+- if not valid the request with result in an error and the request will be dismissed
+- if valid the request will be accepted and processed
 
 The validation accepts timestamps within the following interval:
 
@@ -973,37 +862,33 @@ The status codes applying to domain are described in the addendum: Status Codes:
 ![Create domain][epp_create_domain]
 
 <a id="create-domain-request"></a>
-
-<a id="create-domain-request"></a>
 #### create domain request
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-  <command>
-    <create>
-      <domain:create xmlns:domain="urn:ietf:params:xml:ns:domain-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:domain-1.0 domain-1.0.xsd">
-        <domain:name>dk-hostmaster-test-906.dk</domain:name>
-        <domain:period unit="y">1</domain:period>
-        <domain:ns>
-          <domain:hostObj>ns1.dk-hostmaster.dk</domain:hostObj>
-          <domain:hostObj>ns2.dk-hostmaster.dk</domain:hostObj>
-        </domain:ns>
-        <domain:registrant>DKHM1-DK</domain:registrant>
-        <domain:authInfo>
-          <domain:pw />
-        </domain:authInfo>
-      </domain:create>
-    </create>
-    <extension>
-      <dkhm:orderconfirmationToken xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.2">testtoken</dkhm:orderconfirmationToken>
-    </extension>
-    <clTRID>92724843f12a3e958588679551aa988d</clTRID>
-  </command>
+	<command>
+		<create>
+			<domain:create xmlns:domain="urn:ietf:params:xml:ns:domain-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:domain-1.0 domain-1.0.xsd">
+				<domain:name>dk-hostmaster-test-906.dk</domain:name>
+				<domain:period unit="y">1</domain:period>
+				<domain:ns>
+					<domain:hostObj>ns1.dk-hostmaster.dk</domain:hostObj>
+					<domain:hostObj>ns2.dk-hostmaster.dk</domain:hostObj>
+				</domain:ns>
+				<domain:registrant>DKHM1-DK</domain:registrant>
+				<domain:authInfo>
+					<domain:pw />
+				</domain:authInfo>
+			</domain:create>
+		</create>
+		<extension>
+			<dkhm:orderconfirmationToken xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.2">testtoken</dkhm:orderconfirmationToken>
+		</extension>
+		<clTRID>92724843f12a3e958588679551aa988d</clTRID>
+	</command>
 </epp>
 ```
-
-<a id="create-domain-response"></a>
 
 <a id="create-domain-response"></a>
 #### create domain response
@@ -1011,22 +896,22 @@ The status codes applying to domain are described in the addendum: Status Codes:
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-  <response>
-    <result code="1001">
-      <msg>Create domain pending for domain1.dk</msg>
-    </result>
-    <msgQ count="1" id="1"/>
-    <extension>
-      <dkhm:trackingNo xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.3">2013010100030</dkhm:trackingNo>
-      <dkhm:domain_confirmed xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.3">1</dkhm:domain_confirmed>
-      <dkhm:registrant_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.3">1</dkhm:registrant_validated>
-      <dkhm:url xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.2">https://selfservice-dk-hostmaster.dk/6102505a2e8d0cfbe8c3c99ea49977f36e2d4ee3</dkhm:url>
-    </extension>
-    <trID>
-      <clTRID>47a4178679f26909ebcfcfd8572f315c</clTRID>
-      <svTRID>EDF4F436-9CC9-11E4-AC57-51CB2AC2711D-2013010100030</svTRID>
-    </trID>
-  </response>
+	<response>
+		<result code="1001">
+			<msg>Create domain pending for domain1.dk</msg>
+		</result>
+		<msgQ count="1" id="1"/>
+		<extension>
+			<dkhm:trackingNo xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.3">2013010100030</dkhm:trackingNo>
+			<dkhm:domain_confirmed xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.3">1</dkhm:domain_confirmed>
+			<dkhm:registrant_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.3">1</dkhm:registrant_validated>
+			<dkhm:url xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.2">https://selfservice-dk-hostmaster.dk/6102505a2e8d0cfbe8c3c99ea49977f36e2d4ee3</dkhm:url>
+		</extension>
+		<trID>
+			<clTRID>47a4178679f26909ebcfcfd8572f315c</clTRID>
+			<svTRID>EDF4F436-9CC9-11E4-AC57-51CB2AC2711D-2013010100030</svTRID>
+		</trID>
+	</response>
 </epp>
 ```
 
@@ -1039,8 +924,6 @@ This tracking number (`trackingNo`), listed as an extension and does not replace
 An important note is that the `clTRID` is mandatory for this command. Since we use the `clTRID` to report back via the message polling functionality, when the domain creation request changes state.
 
 The default value for domain value, if not specified, is one year.
-
-<a id="poll-and-messages"></a>
 
 <a id="poll-and-messages"></a>
 #### Poll and Messages
@@ -1057,27 +940,27 @@ The outcome can be one of two, please see the examples below:
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-  <response>
-    <result code="1301">
-      <msg>Command completed successfully; ack to dequeue</msg>
-    </result>
-    <msgQ count="1" id="2">
-      <msg>Created domain for eksempel.dk has been approved</msg>
-    </msgQ>
-    <resData>
-      <domain:panData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-        <domain:name paResult="1">eksempel.dk</domain:name>
-        <domain:paTRID>
-          <clTRID>916e2f64ca0956a1bfc24140b23b8fb3</clTRID>
-          <svTRID>001C6E66-761D-11E8-8775-F5EABB5937F7-2018062200008</svTRID>
-        </domain:paTRID>
-        <domain:paDate>2018-06-22T15:07:00.0Z</domain:paDate></domain:panData>
-    </resData>
-    <extension>
-      <dkhm:risk_assessment xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.2">N/A</dkhm:risk_assessment>    </extension>
-    <trID>
-      <clTRID>4fc3af83a40f85dd01bf5110727ee943</clTRID>
-      <svTRID>7F3D4CD8-761D-11E8-8775-F5EABB5937F7</svTRID>    </trID></response>
+	<response>
+		<result code="1301">
+			<msg>Command completed successfully; ack to dequeue</msg>
+		</result>
+		<msgQ count="1" id="2">
+			<msg>Created domain for eksempel.dk has been approved</msg>
+		</msgQ>
+		<resData>
+			<domain:panData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+				<domain:name paResult="1">eksempel.dk</domain:name>
+				<domain:paTRID>
+					<clTRID>916e2f64ca0956a1bfc24140b23b8fb3</clTRID>
+					<svTRID>001C6E66-761D-11E8-8775-F5EABB5937F7-2018062200008</svTRID>
+				</domain:paTRID>
+				<domain:paDate>2018-06-22T15:07:00.0Z</domain:paDate></domain:panData>
+		</resData>
+		<extension>
+			<dkhm:risk_assessment xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.2">N/A</dkhm:risk_assessment>    </extension>
+		<trID>
+			<clTRID>4fc3af83a40f85dd01bf5110727ee943</clTRID>
+			<svTRID>7F3D4CD8-761D-11E8-8775-F5EABB5937F7</svTRID>    </trID></response>
 </epp>
 ```
 
@@ -1086,32 +969,30 @@ The outcome can be one of two, please see the examples below:
 
 ```xml
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-  <response>
-    <result code="1301">
-      <msg>Command completed successfully; ack to dequeue</msg>
-    </result>
-    <msgQ count="1" id="1">
-      <msg>Object exists</msg>
-    </msgQ>
-    <resData>
-      <domain:creData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-        <domain:name>dk-hostmaster.dk</domain:name>
-        <domain:crDate>2018-06-22T14:08:08.0Z</domain:crDate>
-        <domain:exDate>2022-03-31T00:00:00.0Z</domain:exDate>
-      </domain:creData>
-    </resData>
-    <extension>
-      <dkhm:risk_assessment xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.2">N/A</dkhm:risk_assessment>
-    </extension>
-    <trID>
-      <clTRID>71a61d8181fce08fc1c087f409a6168b</clTRID>
-      <svTRID>DD118802-761C-11E8-8775-F5EABB5937F7</svTRID>
-    </trID>
-  </response>
+	<response>
+		<result code="1301">
+			<msg>Command completed successfully; ack to dequeue</msg>
+		</result>
+		<msgQ count="1" id="1">
+			<msg>Object exists</msg>
+		</msgQ>
+		<resData>
+			<domain:creData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+				<domain:name>dk-hostmaster.dk</domain:name>
+				<domain:crDate>2018-06-22T14:08:08.0Z</domain:crDate>
+				<domain:exDate>2022-03-31T00:00:00.0Z</domain:exDate>
+			</domain:creData>
+		</resData>
+		<extension>
+			<dkhm:risk_assessment xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.2">N/A</dkhm:risk_assessment>
+		</extension>
+		<trID>
+			<clTRID>71a61d8181fce08fc1c087f409a6168b</clTRID>
+			<svTRID>DD118802-761C-11E8-8775-F5EABB5937F7</svTRID>
+		</trID>
+	</response>
 </epp>
-````
-
-<a id="role-mapping"></a>
+```
 
 <a id="role-mapping"></a>
 #### Role Mapping
@@ -1131,11 +1012,7 @@ Please note that the command supports punycode notation for specifying IDN domai
 ![Diagram of role resolution for EPP create domain][epp-role-resolution]
 
 <a id="check-domain"></a>
-
-<a id="check-domain"></a>
 ### check domain
-
-<a id="check-domain-request"></a>
 
 <a id="check-domain-request"></a>
 #### check domain request
@@ -1143,18 +1020,16 @@ Please note that the command supports punycode notation for specifying IDN domai
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-  <command>
-    <check>
-      <domain:check xmlns:domain="urn:ietf:params:xml:ns:domain-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:domain-1.0 domain-1.0.xsd">
-        <domain:name>dk-hostmaster.dk</domain:name>
-      </domain:check>
-    </check>
-    <clTRID>82d73f4f441bcc5fa50952196bb19de5</clTRID>
-  </command>
+	<command>
+		<check>
+			<domain:check xmlns:domain="urn:ietf:params:xml:ns:domain-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:domain-1.0 domain-1.0.xsd">
+				<domain:name>dk-hostmaster.dk</domain:name>
+			</domain:check>
+		</check>
+		<clTRID>82d73f4f441bcc5fa50952196bb19de5</clTRID>
+	</command>
 </epp>
 ```
-
-<a id="check-domain-response"></a>
 
 <a id="check-domain-response"></a>
 #### check domain response
@@ -1162,29 +1037,27 @@ Please note that the command supports punycode notation for specifying IDN domai
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-  <response>
-    <result code="1000">
-      <msg>Check result</msg>
-    </result>
-    <resData>
-      <domain:chkData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-        <domain:cd>
-          <domain:name avail="0">dk-hostmaster.dk</domain:name>
-          <domain:reason>In use</domain:reason>
-        </domain:cd>
-      </domain:chkData>
-    </resData>
-    <trID>
-      <clTRID>82d73f4f441bcc5fa50952196bb19de5</clTRID>
-      <svTRID>36FB99DC-F6F3-11E3-867F-A6B052036DCB</svTRID>
-    </trID>
-  </response>
+	<response>
+		<result code="1000">
+			<msg>Check result</msg>
+		</result>
+		<resData>
+			<domain:chkData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+				<domain:cd>
+					<domain:name avail="0">dk-hostmaster.dk</domain:name>
+					<domain:reason>In use</domain:reason>
+				</domain:cd>
+			</domain:chkData>
+		</resData>
+		<trID>
+			<clTRID>82d73f4f441bcc5fa50952196bb19de5</clTRID>
+			<svTRID>36FB99DC-F6F3-11E3-867F-A6B052036DCB</svTRID>
+		</trID>
+	</response>
 </epp>
 ```
 
 In general this part of the EPP protocol is described in [RFC 5731][RFC5731] and his command adheres to the standard.
-
-<a id="info-domain"></a>
 
 <a id="info-domain"></a>
 ### info domain
@@ -1194,26 +1067,22 @@ This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command 
 Please see the addendum on domain status codes.
 
 <a id="info-domain-request"></a>
-
-<a id="info-domain-request"></a>
 #### info domain request
 
 ```XML
 <?xml version="1.0" encoding="UTF-8"?>
 
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <command>
-    <info>
-      <domain:info xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-        <domain:name>dk-hostmaster.dk</domain:name>
-      </domain:info>
-    </info>
-    <clTRID>e007d4d21ec089623bd71b65f33f2865</clTRID>
-  </command>
+	<command>
+		<info>
+			<domain:info xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+				<domain:name>dk-hostmaster.dk</domain:name>
+			</domain:info>
+		</info>
+		<clTRID>e007d4d21ec089623bd71b65f33f2865</clTRID>
+	</command>
 </epp>
 ```
-
-<a id="info-domain-response"></a>
 
 <a id="info-domain-response"></a>
 #### info domain response
@@ -1222,69 +1091,67 @@ Please see the addendum on domain status codes.
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-  <response>
-    <result code="1000">
-      <msg>Info result</msg>
-    </result>
-    <msgQ count="1" id="4">
-    </msgQ>
-    <resData>
-      <domain:infData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-        <domain:name>dk-hostmaster.dk</domain:name>
-        <domain:roid>DK_HOSTMASTER_DK-DK</domain:roid>
-        <domain:status s="serverDeleteProhibited"/>
-        <domain:status s="serverUpdateProhibited"/>
-        <domain:status s="serverRenewProhibited"/>
-        <domain:status s="serverTransferProhibited"/>
-        <domain:registrant>DKHM1-DK</domain:registrant>
-        <domain:contact type="admin">DKHM1-DK</domain:contact>
-        <domain:ns>
-          <domain:hostObj>auth01.ns.dk-hostmaster.dk</domain:hostObj>
-          <domain:hostObj>auth02.ns.dk-hostmaster.dk</domain:hostObj>
-          <domain:hostObj>p.nic.dk</domain:hostObj>
-        </domain:ns>
-        <domain:host>ns10.dk-hostmaster.dk</domain:host>
-        <domain:host>gr1.dk-hostmaster.dk</domain:host>
-        <domain:host>gr2.dk-hostmaster.dk</domain:host>
-        <domain:host>ns.dk-hostmaster.dk</domain:host>
-        <domain:host>auth01.ns.dk-hostmaster.dk</domain:host>
-        <domain:host>ns1.dk-hostmaster.dk</domain:host>
-        <domain:host>papkasse.dk-hostmaster.dk</domain:host>
-        <domain:host>papkassehuset.dk-hostmaster.dk</domain:host>
-        <domain:host>parat1.dk-hostmaster.dk</domain:host>
-        <domain:host>parat2.dk-hostmaster.dk</domain:host>
-        <domain:host>smukkehansi.dk-hostmaster.dk</domain:host>
-        <domain:host>smukkehansi15.dk-hostmaster.dk</domain:host>
-        <domain:host>ns4.dk-hostmaster.dk</domain:host>
-        <domain:host>hostcount.dk-hostmaster.dk</domain:host>
-        <domain:host>venteliste1.dk-hostmaster.dk</domain:host>
-        <domain:host>venteliste2.dk-hostmaster.dk</domain:host>
-        <domain:host>dnegle.dk-hostmaster.dk</domain:host>
-        <domain:host>blocked1.ns.dk-hostmaster.dk</domain:host>
-        <domain:host>blocked2.ns.dk-hostmaster.dk</domain:host>
-        <domain:host>auth02.ns.dk-hostmaster.dk</domain:host>
-        <domain:host>ns2.dk-hostmaster.dk</domain:host>
-        <domain:host>ns.25.dnegle.dk-hostmaster.dk</domain:host>
-        <domain:host>ns3.dk-hostmaster.dk</domain:host>
-        <domain:host>ææ.dk-hostmaster.dk</domain:host>
-        <domain:host>æøö.dk-hostmaster.dk</domain:host>
-        <domain:host>øæå.dk-hostmaster.dk</domain:host>
-        <domain:clID>DKHM1-DK</domain:clID>
-        <domain:crID>DK_WHOIS</domain:crID>
-        <domain:crDate>1998-01-19T00:00:00.0Z</domain:crDate>
-        <domain:exDate>2020-03-31T00:00:00.0Z</domain:exDate>
-      </domain:infData>
-    </resData>
-    <trID>
-      <clTRID>71e77199292ea1a5fd5e7918f2da7cc0</clTRID>
-      <svTRID>30DB64F6-8F8F-11E6-A066-DCC11F9D93B1</svTRID>
-    </trID></response>
+	<response>
+		<result code="1000">
+			<msg>Info result</msg>
+		</result>
+		<msgQ count="1" id="4">
+		</msgQ>
+		<resData>
+			<domain:infData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+				<domain:name>dk-hostmaster.dk</domain:name>
+				<domain:roid>DK_HOSTMASTER_DK-DK</domain:roid>
+				<domain:status s="serverDeleteProhibited"/>
+				<domain:status s="serverUpdateProhibited"/>
+				<domain:status s="serverRenewProhibited"/>
+				<domain:status s="serverTransferProhibited"/>
+				<domain:registrant>DKHM1-DK</domain:registrant>
+				<domain:contact type="admin">DKHM1-DK</domain:contact>
+				<domain:ns>
+					<domain:hostObj>auth01.ns.dk-hostmaster.dk</domain:hostObj>
+					<domain:hostObj>auth02.ns.dk-hostmaster.dk</domain:hostObj>
+					<domain:hostObj>p.nic.dk</domain:hostObj>
+				</domain:ns>
+				<domain:host>ns10.dk-hostmaster.dk</domain:host>
+				<domain:host>gr1.dk-hostmaster.dk</domain:host>
+				<domain:host>gr2.dk-hostmaster.dk</domain:host>
+				<domain:host>ns.dk-hostmaster.dk</domain:host>
+				<domain:host>auth01.ns.dk-hostmaster.dk</domain:host>
+				<domain:host>ns1.dk-hostmaster.dk</domain:host>
+				<domain:host>papkasse.dk-hostmaster.dk</domain:host>
+				<domain:host>papkassehuset.dk-hostmaster.dk</domain:host>
+				<domain:host>parat1.dk-hostmaster.dk</domain:host>
+				<domain:host>parat2.dk-hostmaster.dk</domain:host>
+				<domain:host>smukkehansi.dk-hostmaster.dk</domain:host>
+				<domain:host>smukkehansi15.dk-hostmaster.dk</domain:host>
+				<domain:host>ns4.dk-hostmaster.dk</domain:host>
+				<domain:host>hostcount.dk-hostmaster.dk</domain:host>
+				<domain:host>venteliste1.dk-hostmaster.dk</domain:host>
+				<domain:host>venteliste2.dk-hostmaster.dk</domain:host>
+				<domain:host>dnegle.dk-hostmaster.dk</domain:host>
+				<domain:host>blocked1.ns.dk-hostmaster.dk</domain:host>
+				<domain:host>blocked2.ns.dk-hostmaster.dk</domain:host>
+				<domain:host>auth02.ns.dk-hostmaster.dk</domain:host>
+				<domain:host>ns2.dk-hostmaster.dk</domain:host>
+				<domain:host>ns.25.dnegle.dk-hostmaster.dk</domain:host>
+				<domain:host>ns3.dk-hostmaster.dk</domain:host>
+				<domain:host>ææ.dk-hostmaster.dk</domain:host>
+				<domain:host>æøö.dk-hostmaster.dk</domain:host>
+				<domain:host>øæå.dk-hostmaster.dk</domain:host>
+				<domain:clID>DKHM1-DK</domain:clID>
+				<domain:crID>DK_WHOIS</domain:crID>
+				<domain:crDate>1998-01-19T00:00:00.0Z</domain:crDate>
+				<domain:exDate>2020-03-31T00:00:00.0Z</domain:exDate>
+			</domain:infData>
+		</resData>
+		<trID>
+			<clTRID>71e77199292ea1a5fd5e7918f2da7cc0</clTRID>
+			<svTRID>30DB64F6-8F8F-11E6-A066-DCC11F9D93B1</svTRID>
+		</trID></response>
 </epp>
 ```
 
 The example is obsolete and will be replaced with post implementation of the domain renew command (see below).
-
-<a id="renew-domain"></a>
 
 <a id="renew-domain"></a>
 ### renew domain
@@ -1313,28 +1180,24 @@ The sub-proces called, can be depicted as follows:
 ![Diagram of DKH sub-proces for EPP renew domain][dkh-renew-domain]
 
 <a id="renew-domain-request"></a>
-
-<a id="renew-domain-request"></a>
 #### renew domain request
 
 ```XML
 <?xml version="1.0" encoding="UTF-8"?>
 
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <command>
-    <renew>
-      <domain:renew xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-        <domain:name>dk-hostmaster.dk</domain:name>
-        <domain:curExpDate>2017-03-31</domain:curExpDate>
-        <domain:period unit="y">1</domain:period>
-      </domain:renew>
-    </renew>
-    <clTRID>541b6801ab3cecdda7da5f735e4f1473</clTRID>
-  </command>
+	<command>
+		<renew>
+			<domain:renew xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+				<domain:name>dk-hostmaster.dk</domain:name>
+				<domain:curExpDate>2017-03-31</domain:curExpDate>
+				<domain:period unit="y">1</domain:period>
+			</domain:renew>
+		</renew>
+		<clTRID>541b6801ab3cecdda7da5f735e4f1473</clTRID>
+	</command>
 </epp>
 ```
-
-<a id="renew-domain-response"></a>
 
 <a id="renew-domain-response"></a>
 #### renew domain response
@@ -1343,21 +1206,19 @@ The sub-proces called, can be depicted as follows:
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-  <response>
-    <result code="1000">
-      <msg>OK</msg>
-    </result>
-    <msgQ count="10" id="1">
-    </msgQ>
-    <trID>
-      <clTRID>be781a6d19d320867d06e6e80a84a614</clTRID>
-      <svTRID>64278BDE-CC4B-11E6-8068-487D3A107CA1</svTRID>
-    </trID>
-  </response>
+	<response>
+		<result code="1000">
+			<msg>OK</msg>
+		</result>
+		<msgQ count="10" id="1">
+		</msgQ>
+		<trID>
+			<clTRID>be781a6d19d320867d06e6e80a84a614</clTRID>
+			<svTRID>64278BDE-CC4B-11E6-8068-487D3A107CA1</svTRID>
+		</trID>
+	</response>
 </epp>
 ```
-
-<a id="update-domain"></a>
 
 <a id="update-domain"></a>
 ### update domain
@@ -1387,9 +1248,9 @@ The requirements for the command to commence with processing it that the followi
 
 - a valid domain name
 - a sub-command, consisting of either
-  - add (`add`)
-  - change (`chg`)
-  - remove (`rem`)
+	- add (`add`)
+	- change (`chg`)
+	- remove (`rem`)
 
 If the request is not parsable the service responds with a `2005`.
 
@@ -1429,31 +1290,27 @@ Please see the below sections for details on the different sub-commands.
 The command might be blocked and the status code: `serverUpdateProhibited` is returned indicating that an update is not possible. The status code `clientUpdateProhibited` will be returned if the issued update request cannot be fullfilled due to a domain lock with the registry. See also [ICANN description](https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en/) of status codes.
 
 <a id="update-domain-request"></a>
-
-<a id="update-domain-request"></a>
 #### update domain request
 
 ```XML
 <?xml version="1.0" encoding="UTF-8"?>
 
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <command>
-    <update>
-      <domain:update xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-        <domain:name>eksempel.dk</domain:name>
-        <domain:add/>
-        <domain:rem/>
-        <domain:chg/>
-      </domain:update>
-    </update>
-    <clTRID>c6a678333c526109dea562b42a678398</clTRID>
-  </command>
+	<command>
+		<update>
+			<domain:update xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+				<domain:name>eksempel.dk</domain:name>
+				<domain:add/>
+				<domain:rem/>
+				<domain:chg/>
+			</domain:update>
+		</update>
+		<clTRID>c6a678333c526109dea562b42a678398</clTRID>
+	</command>
 </epp>
 ```
 
 TODO: The above example is error prone, it will be replaced with a correct example.
-
-<a id="update-domain-response"></a>
 
 <a id="update-domain-response"></a>
 #### update domain response
@@ -1462,21 +1319,19 @@ TODO: The above example is error prone, it will be replaced with a correct examp
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-  <response>
-    <result code="1000">
-      <msg>Command completed successfully</msg>
-    </result>
-    <msgQ count="10" id="1">
-    </msgQ>
-    <trID>
-      <clTRID>16465c9766e24e1d1d92d5254a3f3717</clTRID>
-      <svTRID>B9B4777A-CC4A-11E6-84D4-467D3A107CA1</svTRID>
-    </trID>
-  </response>
+	<response>
+		<result code="1000">
+			<msg>Command completed successfully</msg>
+		</result>
+		<msgQ count="10" id="1">
+		</msgQ>
+		<trID>
+			<clTRID>16465c9766e24e1d1d92d5254a3f3717</clTRID>
+			<svTRID>B9B4777A-CC4A-11E6-84D4-467D3A107CA1</svTRID>
+		</trID>
+	</response>
 </epp>
 ```
-
-<a id="change-registrant"></a>
 
 <a id="change-registrant"></a>
 #### change registrant
@@ -1490,8 +1345,6 @@ The change of registrant is a *special* operation, it results in all privileges 
 | 2307 | Unimplemented object service, the service does not support change of registrant on a domain |
 
 <a id="add-nameserver"></a>
-
-<a id="add-nameserver"></a>
 #### add nameserver
 
 The addition of a new nameserver to a domain name or a re-delegation requires that the new nameserver must offer resolution for the domain name in question.
@@ -1499,20 +1352,20 @@ The addition of a new nameserver to a domain name or a re-delegation requires th
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <command>
-    <update>
-      <domain:update
-       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-        <domain:name>eksempel.dk</domain:name>
-        <domain:add>
-          <domain:ns>
-            <domain:hostObj>ns2.example.com</domain:hostObj>
-          </domain:ns>
-        </domain:add>
-      </domain:update>
-    </update>
-    <clTRID>ABC-12345</clTRID>
-  </command>
+	<command>
+		<update>
+			<domain:update
+			 xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+				<domain:name>eksempel.dk</domain:name>
+				<domain:add>
+					<domain:ns>
+						<domain:hostObj>ns2.example.com</domain:hostObj>
+					</domain:ns>
+				</domain:add>
+			</domain:update>
+		</update>
+		<clTRID>ABC-12345</clTRID>
+	</command>
 </epp>
 ```
 
@@ -1527,8 +1380,6 @@ The addition of a new nameserver to a domain name or a re-delegation requires th
 | 2303 | If the specified host name does not exist, for when adding a new nameserver |
 
 <a id="remove-nameserver"></a>
-
-<a id="remove-nameserver"></a>
 #### remove nameserver
 
 The removal of a existing nameserver from a domain name requires that at least two other name servers are offering resolution for the domain in question, else the command will fail.
@@ -1538,21 +1389,21 @@ Since the update domain command can contain several sub-commands, this could be 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <command>
-    <update>
-      <domain:update
-       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-        <domain:name>eksempel.dk</domain:name>
-        <domain:rem>
-          <domain:ns>
-            <domain:hostObj>ns1.example.com</domain:hostObj>
-          </domain:ns>
-          <domain:contact type="tech">sh8013</domain:contact>
-        </domain:rem>
-      </domain:update>
-    </update>
-    <clTRID>ABC-12345</clTRID>
-  </command>
+	<command>
+		<update>
+			<domain:update
+			 xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+				<domain:name>eksempel.dk</domain:name>
+				<domain:rem>
+					<domain:ns>
+						<domain:hostObj>ns1.example.com</domain:hostObj>
+					</domain:ns>
+					<domain:contact type="tech">sh8013</domain:contact>
+				</domain:rem>
+			</domain:update>
+		</update>
+		<clTRID>ABC-12345</clTRID>
+	</command>
 </epp>
 ```
 
@@ -1569,8 +1420,6 @@ Since the update domain command can contain several sub-commands, this could be 
 | 2308 | The number of name servers are below the required limit |
 
 <a id="add-contact"></a>
-
-<a id="add-contact"></a>
 #### add contact
 
 The addition of a new contact has to adhere to some policies.
@@ -1584,26 +1433,24 @@ Additing new users require special privileges, currently only with the registran
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <command>
-    <update>
-      <domain:update
-       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-        <domain:name>eksempel.dk</domain:name>
-        <domain:add>
-          <domain:contact type="tech">mak21</domain:contact>
-        </domain:add>
-      </domain:update>
-    </update>
-    <clTRID>ABC-12345</clTRID>
-  </command>
+	<command>
+		<update>
+			<domain:update
+			 xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+				<domain:name>eksempel.dk</domain:name>
+				<domain:add>
+					<domain:contact type="tech">mak21</domain:contact>
+				</domain:add>
+			</domain:update>
+		</update>
+		<clTRID>ABC-12345</clTRID>
+	</command>
 </epp>
 ```
 
 ![Update domain - Add billing/admin contact][epp-update-domain-add-contact]
 
 ![Update domain - Add billing/admin contact sub-proces][dkh-update-domain-add-contact]
-
-<a id="remove-contact"></a>
 
 <a id="remove-contact"></a>
 #### remove contact
@@ -1617,18 +1464,18 @@ The removal of a existing contact is possible for both billing and admin contact
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <command>
-    <update>
-      <domain:update
-       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-        <domain:name>eksempel.dk</domain:name>
-        <domain:rem>
-          <domain:contact type="tech">sh8013</domain:contact>
-        </domain:rem>
-      </domain:update>
-    </update>
-    <clTRID>ABC-12345</clTRID>
-  </command>
+	<command>
+		<update>
+			<domain:update
+			 xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+				<domain:name>eksempel.dk</domain:name>
+				<domain:rem>
+					<domain:contact type="tech">sh8013</domain:contact>
+				</domain:rem>
+			</domain:update>
+		</update>
+		<clTRID>ABC-12345</clTRID>
+	</command>
 </epp>
 ```
 
@@ -1637,13 +1484,9 @@ The removal of a existing contact is possible for both billing and admin contact
 ![Update domain - Remove billing/admin contact sub-proces][dkh-update-domain-remove-contact]
 
 <a id="check-host"></a>
-
-<a id="check-host"></a>
 ### check host
 
 This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard.
-
-<a id="check-host-request"></a>
 
 <a id="check-host-request"></a>
 #### check host request
@@ -1651,18 +1494,16 @@ This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-  <command>
-    <check>
-      <host:check xmlns:host="urn:ietf:params:xml:ns:host-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:host-1.0 host-1.0.xsd">
-        <host:name>ns1.dk-hostmaster.dk</host:name>
-      </host:check>
-    </check>
-    <clTRID>7ede02eed2113c5fe82b404876f2c35f</clTRID>
-  </command>
+	<command>
+		<check>
+			<host:check xmlns:host="urn:ietf:params:xml:ns:host-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:host-1.0 host-1.0.xsd">
+				<host:name>ns1.dk-hostmaster.dk</host:name>
+			</host:check>
+		</check>
+		<clTRID>7ede02eed2113c5fe82b404876f2c35f</clTRID>
+	</command>
 </epp>
 ```
-
-<a id="check-host-response"></a>
 
 <a id="check-host-response"></a>
 #### check host response
@@ -1670,27 +1511,25 @@ This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-  <response>
-    <result code="1000">
-      <msg>Check result</msg>
-    </result>
-    <resData>
-      <host:chkData xmlns:host="urn:ietf:params:xml:ns:host-1.0">
-        <host:cd>
-          <host:name avail="0">ns1.dk-hostmaster.dk</host:name>
-          <host:reason>In use</host:reason>
-        </host:cd>
-      </host:chkData>
-    </resData>
-    <trID>
-      <clTRID>7ede02eed2113c5fe82b404876f2c35f</clTRID>
-      <svTRID>5FD9F3BE-F6F6-11E3-867F-A6B052036DCB</svTRID>
-    </trID>
-  </response>
+	<response>
+		<result code="1000">
+			<msg>Check result</msg>
+		</result>
+		<resData>
+			<host:chkData xmlns:host="urn:ietf:params:xml:ns:host-1.0">
+				<host:cd>
+					<host:name avail="0">ns1.dk-hostmaster.dk</host:name>
+					<host:reason>In use</host:reason>
+				</host:cd>
+			</host:chkData>
+		</resData>
+		<trID>
+			<clTRID>7ede02eed2113c5fe82b404876f2c35f</clTRID>
+			<svTRID>5FD9F3BE-F6F6-11E3-867F-A6B052036DCB</svTRID>
+		</trID>
+	</response>
 </epp>
 ```
-
-<a id="info-host"></a>
 
 <a id="info-host"></a>
 ### info host
@@ -1700,25 +1539,21 @@ This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command 
 Please note that according to the RFC [section 3.1.2][RFC5732-3.1.2], the `CLID` points to the sponsoring client. DK Hostmaster interprets this as the tehnical contact for the nameserver pointing to the host object in question.
 
 <a id="info-host-request"></a>
-
-<a id="info-host-request"></a>
 #### info host request
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-  <command>
-    <info>
-      <host:info xmlns:host="urn:ietf:params:xml:ns:host-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:host-1.0 host-1.0.xsd">
-        <host:name>ns1.dk-hostmaster.dk</host:name>
-      </host:info>
-    </info>
-    <clTRID>c109ef580c81dfca17b4680ddcde72c9</clTRID>
-  </command>
+	<command>
+		<info>
+			<host:info xmlns:host="urn:ietf:params:xml:ns:host-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:host-1.0 host-1.0.xsd">
+				<host:name>ns1.dk-hostmaster.dk</host:name>
+			</host:info>
+		</info>
+		<clTRID>c109ef580c81dfca17b4680ddcde72c9</clTRID>
+	</command>
 </epp>
 ```
-
-<a id="info-host-response"></a>
 
 <a id="info-host-response"></a>
 #### info host response
@@ -1726,31 +1561,29 @@ Please note that according to the RFC [section 3.1.2][RFC5732-3.1.2], the `CLID`
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-  <response>
-    <result code="1000">
-      <msg>Info result</msg>
-    </result>
-    <resData>
-      <host:infData xmlns:host="urn:ietf:params:xml:ns:host-1.0">
-        <host:name>ns1.dk-hostmaster.dk</host:name>
-        <host:roid>NS1_DK-HOSTMASTER_DK-DK</host:roid>
-        <host:status s="linked" />
-        <host:status s="serverDeleteProhibited" />
-        <host:addr ip=“v4”>4.3.2.1</host:addr>
-        <host:clID>DKHM1-DK</host:clID>
-        <host:crID>n/a</host:crID>
-        <host:crDate>2003-07-07T13:47:47.0Z</host:crDate>
-      </host:infData>
-    </resData>
-    <trID>
-      <clTRID>c109ef580c81dfca17b4680ddcde72c9</clTRID>
-      <svTRID>0C96C812-F6F6-11E3-867F-A6B052036DCB</svTRID>
-    </trID>
-  </response>
+	<response>
+		<result code="1000">
+			<msg>Info result</msg>
+		</result>
+		<resData>
+			<host:infData xmlns:host="urn:ietf:params:xml:ns:host-1.0">
+				<host:name>ns1.dk-hostmaster.dk</host:name>
+				<host:roid>NS1_DK-HOSTMASTER_DK-DK</host:roid>
+				<host:status s="linked" />
+				<host:status s="serverDeleteProhibited" />
+				<host:addr ip=“v4”>4.3.2.1</host:addr>
+				<host:clID>DKHM1-DK</host:clID>
+				<host:crID>n/a</host:crID>
+				<host:crDate>2003-07-07T13:47:47.0Z</host:crDate>
+			</host:infData>
+		</resData>
+		<trID>
+			<clTRID>c109ef580c81dfca17b4680ddcde72c9</clTRID>
+			<svTRID>0C96C812-F6F6-11E3-867F-A6B052036DCB</svTRID>
+		</trID>
+	</response>
 </epp>
 ```
-
-<a id="create-host"></a>
 
 <a id="create-host"></a>
 ### create host
@@ -1784,8 +1617,6 @@ As for update domain `1001` holds higher precendence than `1000`, so if any of t
 ![Diagram of DKH create host][dkh_create_host]
 
 <a id="create-host-request"></a>
-
-<a id="create-host-request"></a>
 #### create host request
 
 Request to create a host object, using both IPv4 and IPv6 adresses and the authenticated user is the registrant of the specified domain name and requested adminstrator of the host object.
@@ -1793,22 +1624,20 @@ Request to create a host object, using both IPv4 and IPv6 adresses and the authe
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <command>
-    <create>
-      <host:create
-       xmlns:host="urn:ietf:params:xml:ns:host-1.0">
-        <host:name>ns1.eksempel.dk</host:name>
-        <host:addr ip="v4">192.0.2.2</host:addr>
-        <host:addr ip="v4">192.0.2.29</host:addr>
-        <host:addr ip="v6">1080:0:0:0:8:800:200417A</host:addr>
-      </host:create>
-    </create>
-    <clTRID>ABC-12345</clTRID>
-  </command>
+	<command>
+		<create>
+			<host:create
+			 xmlns:host="urn:ietf:params:xml:ns:host-1.0">
+				<host:name>ns1.eksempel.dk</host:name>
+				<host:addr ip="v4">192.0.2.2</host:addr>
+				<host:addr ip="v4">192.0.2.29</host:addr>
+				<host:addr ip="v6">1080:0:0:0:8:800:200417A</host:addr>
+			</host:create>
+		</create>
+		<clTRID>ABC-12345</clTRID>
+	</command>
 </epp>
 ```
-
-<a id="create-host-response"></a>
 
 <a id="create-host-response"></a>
 #### create host response
@@ -1818,26 +1647,24 @@ Response to the above request. The reponse indicates a succesful creation, since
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <response>
-    <result code="1000">
-      <msg>Command completed successfully</msg>
-    </result>
-    <resData>
-      <host:creData
-       xmlnhost="urn:ietf:paramxml:nhost-1.0">
-        <host:name>ns1.eksempel.dk</host:name>
-        <host:crDate>1999-04-03T22:00:00.0Z</host:crDate>
-      </host:creData>
-    </resData>
-    <trID>
-      <clTRID>ABC-12345</clTRID>
-      <svTRID>54322-XYZ</svTRID>
-    </trID>
-  </response>
+	<response>
+		<result code="1000">
+			<msg>Command completed successfully</msg>
+		</result>
+		<resData>
+			<host:creData
+			 xmlnhost="urn:ietf:paramxml:nhost-1.0">
+				<host:name>ns1.eksempel.dk</host:name>
+				<host:crDate>1999-04-03T22:00:00.0Z</host:crDate>
+			</host:creData>
+		</resData>
+		<trID>
+			<clTRID>ABC-12345</clTRID>
+			<svTRID>54322-XYZ</svTRID>
+		</trID>
+	</response>
 </epp>
 ```
-
-<a id="create-host-request-with-request-to-new-administrator"></a>
 
 <a id="create-host-request-with-request-to-new-administrator"></a>
 #### create host request with request to new administrator
@@ -1847,25 +1674,23 @@ Request to create a host object, requesting a different adminstrator of the host
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <command>
-    <create>
-      <host:create
-       xmlns:host="urn:ietf:params:xml:ns:host-1.0">
-        <host:name>ns1.eksempel.dk</host:name>
-        <host:addr ip="v4">192.0.2.2</host:addr>
-        <host:addr ip="v4">192.0.2.29</host:addr>
-        <host:addr ip="v6">1080:0:0:0:8:800:200417A</host:addr>
-      </host:create>
-    </create>
-    <extension>
-      <dkhm:requestedNsAdmin xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.0">ADMIN2-DK</dkhm:requestedNsAdmin>
-    </extension>
-    <clTRID>ABC-12345</clTRID>
-  </command>
+	<command>
+		<create>
+			<host:create
+			 xmlns:host="urn:ietf:params:xml:ns:host-1.0">
+				<host:name>ns1.eksempel.dk</host:name>
+				<host:addr ip="v4">192.0.2.2</host:addr>
+				<host:addr ip="v4">192.0.2.29</host:addr>
+				<host:addr ip="v6">1080:0:0:0:8:800:200417A</host:addr>
+			</host:create>
+		</create>
+		<extension>
+			<dkhm:requestedNsAdmin xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.0">ADMIN2-DK</dkhm:requestedNsAdmin>
+		</extension>
+		<clTRID>ABC-12345</clTRID>
+	</command>
 </epp>
 ```
-
-<a id="create-host-response-from-request-to-new-administrator"></a>
 
 <a id="create-host-response-from-request-to-new-administrator"></a>
 #### create host response from request to new administrator
@@ -1875,26 +1700,24 @@ Response to the above request. The response indicates a succesful accept of the 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <response>
-    <result code="1001">
-      <msg>Command completed successfully; action pending</msg>
-    </result>
-    <resData>
-      <host:creData
-       xmlnhost="urn:ietf:params:xml:ns:host-1.0">
-        <host:name>ns1.eksempel.dk</host:name>
-        <host:crDate>1999-04-03T22:00:00.0Z</host:crDate>
-      </host:creData>
-    </resData>
-    <trID>
-      <clTRID>ABC-12345</clTRID>
-      <svTRID>54322-XYZ</svTRID>
-    </trID>
-  </response>
+	<response>
+		<result code="1001">
+			<msg>Command completed successfully; action pending</msg>
+		</result>
+		<resData>
+			<host:creData
+			 xmlnhost="urn:ietf:params:xml:ns:host-1.0">
+				<host:name>ns1.eksempel.dk</host:name>
+				<host:crDate>1999-04-03T22:00:00.0Z</host:crDate>
+			</host:creData>
+		</resData>
+		<trID>
+			<clTRID>ABC-12345</clTRID>
+			<svTRID>54322-XYZ</svTRID>
+		</trID>
+	</response>
 </epp>
 ```
-
-<a id="delayed-create-host-response-from-request-to-new-administrator"></a>
 
 <a id="delayed-create-host-response-from-request-to-new-administrator"></a>
 #### Delayed create host response, from request to new administrator
@@ -1904,36 +1727,34 @@ If the creation of the host has resulting in a delayed operation, pending the de
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <response>
-    <result code="1301">
-      <msg>Command completed successfully; ack to dequeue</msg>
-    </result>
-    <msgQ count="5" id="12345">
-      <qDate>1999-04-04T22:01:00.0Z</qDate>
-      <msg>Pending action completed successfully.</msg>
-    </msgQ>
-    <resData>
-      <host:panData
-       xmlns:host="urn:ietf:params:xml:ns:host-1.0">
-        <host:name paResult="1">ns1.eksempel.dk</host:name>
-        <host:paTRID>
-          <clTRID>ABC-12345</clTRID>
-          <svTRID>54322-XYZ</svTRID>
-        </host:paTRID>
-        <host:paDate>1999-04-04T22:00:00.0Z</host:paDate>
-      </host:panData>
-    </resData>
-    <trID>
-      <clTRID>BCD-23456</clTRID>
-      <svTRID>65432-WXY</svTRID>
-    </trID>
-  </response>
+	<response>
+		<result code="1301">
+			<msg>Command completed successfully; ack to dequeue</msg>
+		</result>
+		<msgQ count="5" id="12345">
+			<qDate>1999-04-04T22:01:00.0Z</qDate>
+			<msg>Pending action completed successfully.</msg>
+		</msgQ>
+		<resData>
+			<host:panData
+			 xmlns:host="urn:ietf:params:xml:ns:host-1.0">
+				<host:name paResult="1">ns1.eksempel.dk</host:name>
+				<host:paTRID>
+					<clTRID>ABC-12345</clTRID>
+					<svTRID>54322-XYZ</svTRID>
+				</host:paTRID>
+				<host:paDate>1999-04-04T22:00:00.0Z</host:paDate>
+			</host:panData>
+		</resData>
+		<trID>
+			<clTRID>BCD-23456</clTRID>
+			<svTRID>65432-WXY</svTRID>
+		</trID>
+	</response>
 </epp>
 ```
 
 Please note the `paResult`, where `1` indicates an accept and `0` would indicate a decline.
-
-<a id="create-host-request-with-request-to-registrant-of-host-domain-name"></a>
 
 <a id="create-host-request-with-request-to-registrant-of-host-domain-name"></a>
 #### create host request, with request to registrant of host domain name
@@ -1943,22 +1764,20 @@ Request to create a host object, where the authenticated use is not the registra
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <command>
-    <create>
-      <host:create
-       xmlns:host="urn:ietf:params:xml:ns:host-1.0">
-        <host:name>ns1.eksempel.dk</host:name>
-        <host:addr ip="v4">192.0.2.2</host:addr>
-        <host:addr ip="v4">192.0.2.29</host:addr>
-        <host:addr ip="v6">1080:0:0:0:8:800:200417A</host:addr>
-      </host:create>
-    </create>
-    <clTRID>ABC-12345</clTRID>
-  </command>
+	<command>
+		<create>
+			<host:create
+			 xmlns:host="urn:ietf:params:xml:ns:host-1.0">
+				<host:name>ns1.eksempel.dk</host:name>
+				<host:addr ip="v4">192.0.2.2</host:addr>
+				<host:addr ip="v4">192.0.2.29</host:addr>
+				<host:addr ip="v6">1080:0:0:0:8:800:200417A</host:addr>
+			</host:create>
+		</create>
+		<clTRID>ABC-12345</clTRID>
+	</command>
 </epp>
 ```
-
-<a id="create-host-response-from-request-to-registrant-of-domain-name"></a>
 
 <a id="create-host-response-from-request-to-registrant-of-domain-name"></a>
 #### create host response, from request to registrant of domain name
@@ -1968,26 +1787,24 @@ Response to the above request. The reponse indicates a succesful accept of the r
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <response>
-    <result code="1001">
-      <msg>Command completed successfully; action pending</msg>
-    </result>
-    <resData>
-      <host:creData
-       xmlnhost="urn:ietf:params:xml:ns:host-1.0">
-        <host:name>ns1.eksempel.dk</host:name>
-        <host:crDate>1999-04-03T22:00:00.0Z</host:crDate>
-      </host:creData>
-    </resData>
-    <trID>
-      <clTRID>ABC-12345</clTRID>
-      <svTRID>54322-XYZ</svTRID>
-    </trID>
-  </response>
+	<response>
+		<result code="1001">
+			<msg>Command completed successfully; action pending</msg>
+		</result>
+		<resData>
+			<host:creData
+			 xmlnhost="urn:ietf:params:xml:ns:host-1.0">
+				<host:name>ns1.eksempel.dk</host:name>
+				<host:crDate>1999-04-03T22:00:00.0Z</host:crDate>
+			</host:creData>
+		</resData>
+		<trID>
+			<clTRID>ABC-12345</clTRID>
+			<svTRID>54322-XYZ</svTRID>
+		</trID>
+	</response>
 </epp>
 ```
-
-<a id="delayed-create-host-response-from-request-to-registrant-of-domain-name"></a>
 
 <a id="delayed-create-host-response-from-request-to-registrant-of-domain-name"></a>
 #### Delayed create host response, from request to registrant of domain name
@@ -1997,36 +1814,34 @@ If the creation of the host has resulting in a delayed operation, pending the de
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <response>
-    <result code="1301">
-      <msg>Command completed successfully; ack to dequeue</msg>
-    </result>
-    <msgQ count="5" id="12345">
-      <qDate>1999-04-04T22:01:00.0Z</qDate>
-      <msg>Pending action completed successfully.</msg>
-    </msgQ>
-    <resData>
-      <host:panData
-       xmlns:host="urn:ietf:params:xml:ns:host-1.0">
-        <host:name paResult="1">ns1.eksempel.dk</host:name>
-        <host:paTRID>
-          <clTRID>ABC-12345</clTRID>
-          <svTRID>54322-XYZ</svTRID>
-        </host:paTRID>
-        <host:paDate>1999-04-04T22:00:00.0Z</host:paDate>
-      </host:panData>
-    </resData>
-    <trID>
-      <clTRID>BCD-23456</clTRID>
-      <svTRID>65432-WXY</svTRID>
-    </trID>
-  </response>
+	<response>
+		<result code="1301">
+			<msg>Command completed successfully; ack to dequeue</msg>
+		</result>
+		<msgQ count="5" id="12345">
+			<qDate>1999-04-04T22:01:00.0Z</qDate>
+			<msg>Pending action completed successfully.</msg>
+		</msgQ>
+		<resData>
+			<host:panData
+			 xmlns:host="urn:ietf:params:xml:ns:host-1.0">
+				<host:name paResult="1">ns1.eksempel.dk</host:name>
+				<host:paTRID>
+					<clTRID>ABC-12345</clTRID>
+					<svTRID>54322-XYZ</svTRID>
+				</host:paTRID>
+				<host:paDate>1999-04-04T22:00:00.0Z</host:paDate>
+			</host:panData>
+		</resData>
+		<trID>
+			<clTRID>BCD-23456</clTRID>
+			<svTRID>65432-WXY</svTRID>
+		</trID>
+	</response>
 </epp>
 ```
 
 Please note the `paResult`, where `1` indicates an accept and `0` would indicate a decline.
-
-<a id="update-host"></a>
 
 <a id="update-host"></a>
 ### update host
@@ -2034,15 +1849,11 @@ Please note the `paResult`, where `1` indicates an accept and `0` would indicate
 This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard, but is extended to service one special usage scenario.
 
 <a id="proces"></a>
-
-<a id="proces"></a>
 #### Proces
 
 This is the overall proces, the proces is divided into sub-processes, please see the processes below for details.
 
 ![Diagram of EPP update host][epp_update_host]
-
-<a id="change-hostname-sub-proces"></a>
 
 <a id="change-hostname-sub-proces"></a>
 #### Change hostname sub-proces
@@ -2054,8 +1865,6 @@ The proces of changing a host name us unsupported by DK Hostmaster and will alwa
 | Return Code  | Description |
 | ------------ | ------------ |
 | 2102 | Change of hostname is not supported |
-
-<a id="add-ip-sub-proces"></a>
 
 <a id="add-ip-sub-proces"></a>
 #### Add IP sub-proces
@@ -2072,8 +1881,6 @@ Addition of IP addressed supports the additional of IPv4 and IPv6 adresses. Thes
 ![Diagram of EPP update host add IP][epp_update_host_add_ip]
 
 <a id="remove-ip-sub-proces"></a>
-
-<a id="remove-ip-sub-proces"></a>
 #### Remove IP sub-proces
 
 Addition of IP addressed supports the additional of IPv4 and IPv6 adresses. These are required as part of our glue record policy. If additional status elements are added to this command it will fail.
@@ -2086,8 +1893,6 @@ Addition of IP addressed supports the additional of IPv4 and IPv6 adresses. Thes
 | 2304 | The number of IP addresses are below the required limit |
 
 ![Diagram of EPP update host remove IP][epp_update_host_remove_ip]
-
-<a id="change-admin-sub-proces"></a>
 
 <a id="change-admin-sub-proces"></a>
 #### Change admin sub-proces
@@ -2120,8 +1925,6 @@ As described in Implementation Limitations, the service does not support setting
 ![Diagram of DKH update host][dkh_update_host]
 
 <a id="update-host-request-with-request-to-new-administrator"></a>
-
-<a id="update-host-request-with-request-to-new-administrator"></a>
 #### update host request with request to new administrator
 
 Request to update a host object, requesting a different adminstrator of the host object, hence requiring offline evaluation.
@@ -2130,21 +1933,19 @@ Request to update a host object, requesting a different adminstrator of the host
 <?xml version="1.0" encoding="UTF-8"?>
 
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <command>
-    <update>
-      <host:update xmlns:host="urn:ietf:params:xml:ns:host-1.0">
-        <host:name>ns1.eksempel.dk</host:name>
-      </host:update>
-    </update>
-    <extension>
-      <dkhm:requestedNsAdmin xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.0">DKHM1-DK</dkhm:requestedNsAdmin>
-    </extension>
-    <clTRID>7a4ac69d335ae661e29fc2c262c5800e</clTRID>
-  </command>
+	<command>
+		<update>
+			<host:update xmlns:host="urn:ietf:params:xml:ns:host-1.0">
+				<host:name>ns1.eksempel.dk</host:name>
+			</host:update>
+		</update>
+		<extension>
+			<dkhm:requestedNsAdmin xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.0">DKHM1-DK</dkhm:requestedNsAdmin>
+		</extension>
+		<clTRID>7a4ac69d335ae661e29fc2c262c5800e</clTRID>
+	</command>
 </epp>
 ```
-
-<a id="update-host-response-with-request-to-new-administrator"></a>
 
 <a id="update-host-response-with-request-to-new-administrator"></a>
 #### update host response with request to new administrator
@@ -2155,19 +1956,17 @@ Response to the above request. The response indicates a succesful accept of the 
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-  <response>
-    <result code="1001">
-      <msg>Command completed successfully; action pending</msg>
-    </result>
-    <trID>
-      <clTRID>6e95dc191e922be727fd5af4c2d20bc5</clTRID>
-      <svTRID>631DABC6-CC49-11E6-A165-4F7D3A107CA1</svTRID>
-    </trID>
-  </response>
+	<response>
+		<result code="1001">
+			<msg>Command completed successfully; action pending</msg>
+		</result>
+		<trID>
+			<clTRID>6e95dc191e922be727fd5af4c2d20bc5</clTRID>
+			<svTRID>631DABC6-CC49-11E6-A165-4F7D3A107CA1</svTRID>
+		</trID>
+	</response>
 </epp>
 ```
-
-<a id="delayed-update-host-response-from-request-to-new-administrator"></a>
 
 <a id="delayed-update-host-response-from-request-to-new-administrator"></a>
 #### Delayed update host response from request to new administrator
@@ -2177,36 +1976,34 @@ If the creation of the host has resulting in a delayed operation, pending the de
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <response>
-    <result code="1301">
-      <msg>Command completed successfully; ack to dequeue</msg>
-    </result>
-    <msgQ count="5" id="12345">
-      <qDate>1999-04-04T22:01:00.0Z</qDate>
-      <msg>Pending action completed successfully.</msg>
-    </msgQ>
-    <resData>
-      <host:panData
-       xmlns:host="urn:ietf:params:xml:ns:host-1.0">
-        <host:name paResult="1">ns1.example.com</host:name>
-        <host:paTRID>
-          <clTRID>ABC-12345</clTRID>
-          <svTRID>54322-XYZ</svTRID>
-        </host:paTRID>
-        <host:paDate>1999-04-04T22:00:00.0Z</host:paDate>
-      </host:panData>
-    </resData>
-    <trID>
-      <clTRID>BCD-23456</clTRID>
-      <svTRID>65432-WXY</svTRID>
-    </trID>
-  </response>
+	<response>
+		<result code="1301">
+			<msg>Command completed successfully; ack to dequeue</msg>
+		</result>
+		<msgQ count="5" id="12345">
+			<qDate>1999-04-04T22:01:00.0Z</qDate>
+			<msg>Pending action completed successfully.</msg>
+		</msgQ>
+		<resData>
+			<host:panData
+			 xmlns:host="urn:ietf:params:xml:ns:host-1.0">
+				<host:name paResult="1">ns1.example.com</host:name>
+				<host:paTRID>
+					<clTRID>ABC-12345</clTRID>
+					<svTRID>54322-XYZ</svTRID>
+				</host:paTRID>
+				<host:paDate>1999-04-04T22:00:00.0Z</host:paDate>
+			</host:panData>
+		</resData>
+		<trID>
+			<clTRID>BCD-23456</clTRID>
+			<svTRID>65432-WXY</svTRID>
+		</trID>
+	</response>
 </epp>
 ```
 
 Please note the `paResult`, where `1` indicates an accept and `0` would indicate a decline.
-
-<a id="delete-host"></a>
 
 <a id="delete-host"></a>
 ### delete host
@@ -2225,8 +2022,6 @@ The deletion of a host object can only be requested by the adminstrator.
 | 2305 | If the specified host object links to domain name objects |
 
 <a id="delete-host-request"></a>
-
-<a id="delete-host-request"></a>
 #### delete host request
 
 Request to delete a host object, the authenticated user is the current administrator of the specified host object.
@@ -2234,19 +2029,17 @@ Request to delete a host object, the authenticated user is the current administr
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <command>
-    <delete>
-      <host:delete
-       xmlns:host="urn:ietf:params:xml:ns:host-1.0">
-        <host:name>ns1.eksempel.dk</host:name>
-      </host:delete>
-    </delete>
-    <clTRID>ABC-12345</clTRID>
-  </command>
+	<command>
+		<delete>
+			<host:delete
+			 xmlns:host="urn:ietf:params:xml:ns:host-1.0">
+				<host:name>ns1.eksempel.dk</host:name>
+			</host:delete>
+		</delete>
+		<clTRID>ABC-12345</clTRID>
+	</command>
 </epp>
 ```
-
-<a id="delete-host-response"></a>
 
 <a id="delete-host-response"></a>
 #### delete host response
@@ -2256,19 +2049,17 @@ Response to the above request. Since the authenticated user is the current admin
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <response>
-    <result code="1000">
-      <msg>Command completed successfully</msg>
-    </result>
-    <trID>
-      <clTRID>ABC-12345</clTRID>
-      <svTRID>54321-XYZ</svTRID>
-    </trID>
-  </response>
+	<response>
+		<result code="1000">
+			<msg>Command completed successfully</msg>
+		</result>
+		<trID>
+			<clTRID>ABC-12345</clTRID>
+			<svTRID>54321-XYZ</svTRID>
+		</trID>
+	</response>
 </epp>
 ```
-
-<a id="create-contact"></a>
 
 <a id="create-contact"></a>
 ### create contact
@@ -2278,10 +2069,10 @@ This part of the EPP protocol is described in [RFC 5733][RFC5733].
 This command has been extended with the following fields:
 
 - `dkhm:usertype`, which has to be one of:
-  - `company` - indicating a company
-  - `public_organization` - indicating a public organisation
-  - `association` - indicating an association
-  - `individual` - indicating an individual
+	- `company`, indicating a company
+	- `public_organization`, indicating a public organisation
+	- `association`, indicating an association
+	- `individual`, indicating an individual
 
 The user type will result in context-specific interpretation of the following fields:
 
@@ -2292,8 +2083,6 @@ The user type will result in context-specific interpretation of the following fi
 The `contact-id` field is auto-generated and assigned by DK Hostmaster. EPP do however open for providing a contact-id in the context of the create contact command, this is not supported by DK Hostmaster at this point.
 
 This field is validated on the server site, it is however recommended to perform a check contact on the requested contact-id prior to the create domain request if a userid is already known from a contact create or previous domain creation.
-
-<a id="forced-and-smart-contact-creation"></a>
 
 <a id="forced-and-smart-contact-creation"></a>
 #### Forced and Smart Contact Creation
@@ -2332,8 +2121,6 @@ The match for the _smart_ creation are applicable for the following data:
 The match has to be exact in order for the command to return an existing user-id / handle.
 
 <a id="address-handling"></a>
-
-<a id="address-handling"></a>
 #### Address Handling
 
 Contact creation under EPP opens for the ability to represent postal information in both local and international representations. Due to the representation in DK Hostmasters system for handling contacts the following rules are applied to postal information.
@@ -2355,21 +2142,21 @@ The handling of name and organisation is also a special case. Where the followin
 
 <table>
 <tr>
-    <th></th><th colspan="2">Name and Organisation Provided</th><th>Only name provided</th>
+		<th></th><th colspan="2">Name and Organisation Provided</th><th>Only name provided</th>
 <tr>
-    <th>User type</th><th>Name (<i>mandatory</i>)</th><th>Organisation (<i>optional</i>)</th><th>Name (<i>mandatory</i>)</th>
+		<th>User type</th><th>Name (<i>mandatory</i>)</th><th>Organisation (<i>optional</i>)</th><th>Name (<i>mandatory</i>)</th>
 </tr>
 <tr>
-    <td>C (Company)</td><td>attention</td><td>name</td><td>name</td>
+		<td>C (Company)</td><td>attention</td><td>name</td><td>name</td>
 </tr>
 <tr>
-    <td>P (Public organisation)</td><td>attention</td><td>name</td><td>name</td>
+		<td>P (Public organisation)</td><td>attention</td><td>name</td><td>name</td>
 </tr>
 <tr>
-    <td>A (Association)</td><td>attention</td><td>name</td><td>name</td>
+		<td>A (Association)</td><td>attention</td><td>name</td><td>name</td>
 </tr>
 <tr>
-    <td>I (Individual)</td><td>name</td><td>-</td><td>name</td>
+		<td>I (Individual)</td><td>name</td><td>-</td><td>name</td>
 </tr>
 </table>
 
@@ -2383,57 +2170,53 @@ Please note:
 - User-creation is silent and the designated user is not notified about the the creation, unless this is a part of the proces of associating the user with other objects
 
 <a id="create-contact-request"></a>
-
-<a id="create-contact-request"></a>
 #### create contact request
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-  <command>
-    <create>
-      <contact:create xmlns:contact="urn:ietf:params:xml:ns:contact-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:contact-1.0 contact-1.0.xsd">
-        <contact:id>auto</contact:id>
-        <contact:postalInfo type="loc">
-          <contact:name>Johnny Login</contact:name>
-          <contact:org>DK Hostmaster A/S</contact:org>
-          <contact:addr>
-            <contact:street>Kalvebod brygge 45, 3. sal</contact:street>
-            <contact:city>København V</contact:city>
-            <contact:pc>1560</contact:pc>
-            <contact:cc>DK</contact:cc>
-          </contact:addr>
-        </contact:postalInfo>
-        <contact:postalInfo type="int">
-          <contact:name>Johnny Login</contact:name>
-          <contact:org>DK Hostmaster A/S</contact:org>
-          <contact:addr>
-            <contact:street>Kalvebod brygge 45, 3.</contact:street>
-            <contact:city>Copenhagen V</contact:city>
-            <contact:pc>1560</contact:pc>
-            <contact:cc>DK</contact:cc>
-          </contact:addr>
-        </contact:postalInfo>
-        <contact:voice>+45.33646060</contact:voice>
-        <contact:fax />
-        <contact:email>info@dk-hostmaster.dk</contact:email>
-        <contact:authInfo>
-          <contact:pw />
-        </contact:authInfo>
-      </contact:create>
-    </create>
-    <extension>
-      <dkhm:userType xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.2">company</dkhm:userType>
-      <dkhm:CVR xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.2">1234567891231</dkhm:CVR>
-    </extension>
-    <clTRID>8cced469f2bfdbb0dcad16b875d87c99</clTRID>
-  </command>
+	<command>
+		<create>
+			<contact:create xmlns:contact="urn:ietf:params:xml:ns:contact-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:contact-1.0 contact-1.0.xsd">
+				<contact:id>auto</contact:id>
+				<contact:postalInfo type="loc">
+					<contact:name>Johnny Login</contact:name>
+					<contact:org>DK Hostmaster A/S</contact:org>
+					<contact:addr>
+						<contact:street>Kalvebod brygge 45, 3. sal</contact:street>
+						<contact:city>København V</contact:city>
+						<contact:pc>1560</contact:pc>
+						<contact:cc>DK</contact:cc>
+					</contact:addr>
+				</contact:postalInfo>
+				<contact:postalInfo type="int">
+					<contact:name>Johnny Login</contact:name>
+					<contact:org>DK Hostmaster A/S</contact:org>
+					<contact:addr>
+						<contact:street>Kalvebod brygge 45, 3.</contact:street>
+						<contact:city>Copenhagen V</contact:city>
+						<contact:pc>1560</contact:pc>
+						<contact:cc>DK</contact:cc>
+					</contact:addr>
+				</contact:postalInfo>
+				<contact:voice>+45.33646060</contact:voice>
+				<contact:fax />
+				<contact:email>info@dk-hostmaster.dk</contact:email>
+				<contact:authInfo>
+					<contact:pw />
+				</contact:authInfo>
+			</contact:create>
+		</create>
+		<extension>
+			<dkhm:userType xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.2">company</dkhm:userType>
+			<dkhm:CVR xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.2">1234567891231</dkhm:CVR>
+		</extension>
+		<clTRID>8cced469f2bfdbb0dcad16b875d87c99</clTRID>
+	</command>
 </epp>
 ```
 
 Do note that the `authInfo` part is ignored, but cannot be omitted.
-
-<a id="create-contact-response"></a>
 
 <a id="create-contact-response"></a>
 #### create contact response
@@ -2441,26 +2224,24 @@ Do note that the `authInfo` part is ignored, but cannot be omitted.
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-  <response>
-    <result code="1000">
-      <msg>Contact created.</msg>
-    </result>
-    <msgQ count="1" id="400">    </msgQ>
-    <resData>
-      <contact:creData xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
-        <contact:id>DHA484-DK</contact:id>
-        <contact:crDate>2015-03-25T17:08:25.0Z</contact:crDate>
-      </contact:creData>
-    </resData>
-    <trID>
-      <clTRID>8cced469f2bfdbb0dcad16b875d87c99</clTRID>
-      <svTRID>8B9461A4-D311-11E4-B79D-DB67C33995C9</svTRID>
-    </trID>
-  </response>
+	<response>
+		<result code="1000">
+			<msg>Contact created.</msg>
+		</result>
+		<msgQ count="1" id="400">    </msgQ>
+		<resData>
+			<contact:creData xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
+				<contact:id>DHA484-DK</contact:id>
+				<contact:crDate>2015-03-25T17:08:25.0Z</contact:crDate>
+			</contact:creData>
+		</resData>
+		<trID>
+			<clTRID>8cced469f2bfdbb0dcad16b875d87c99</clTRID>
+			<svTRID>8B9461A4-D311-11E4-B79D-DB67C33995C9</svTRID>
+		</trID>
+	</response>
 </epp>
 ```
-
-<a id="check-contact"></a>
 
 <a id="check-contact"></a>
 ### check contact
@@ -2468,25 +2249,21 @@ Do note that the `authInfo` part is ignored, but cannot be omitted.
 This part of the EPP protocol is described in [RFC 5733][RFC5733]. This command adheres to the standard.
 
 <a id="check-contact-request"></a>
-
-<a id="check-contact-request"></a>
 #### check contact request
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-  <command>
-    <check>
-      <contact:check xmlns:contact="urn:ietf:params:xml:ns:contact-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:contact-1.0 contact-1.0.xsd">
-        <contact:id>DKHM1-DK</contact:id>
-      </contact:check>
-    </check>
-    <clTRID>d4d94d2e1d6f613cb276865c49c3d0b7</clTRID>
-  </command>
+	<command>
+		<check>
+			<contact:check xmlns:contact="urn:ietf:params:xml:ns:contact-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:contact-1.0 contact-1.0.xsd">
+				<contact:id>DKHM1-DK</contact:id>
+			</contact:check>
+		</check>
+		<clTRID>d4d94d2e1d6f613cb276865c49c3d0b7</clTRID>
+	</command>
 </epp>
 ```
-
-<a id="check-contact-response"></a>
 
 <a id="check-contact-response"></a>
 #### check contact response
@@ -2494,30 +2271,28 @@ This part of the EPP protocol is described in [RFC 5733][RFC5733]. This command 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-  <response>
-    <result code="1000">
-      <msg>Check result</msg>
-    </result>
-    <msgQ count="6" id="884">
-      <msg>Create domain pending for domain2xyz.dk</msg>
-    </msgQ>
-    <resData>
-      <contact:chkData xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
-        <contact:cd>
-          <contact:id avail="0">DKHM1-DK</contact:id>
-          <contact:reason>In use</contact:reason>
-        </contact:cd>
-      </contact:chkData>
-    </resData>
-    <trID>
-      <clTRID>d4d94d2e1d6f613cb276865c49c3d0b7</clTRID>
-      <svTRID>3268EB00-F6F7-11E3-867F-A6B052036DCB</svTRID>
-    </trID>
-  </response>
+	<response>
+		<result code="1000">
+			<msg>Check result</msg>
+		</result>
+		<msgQ count="6" id="884">
+			<msg>Create domain pending for domain2xyz.dk</msg>
+		</msgQ>
+		<resData>
+			<contact:chkData xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
+				<contact:cd>
+					<contact:id avail="0">DKHM1-DK</contact:id>
+					<contact:reason>In use</contact:reason>
+				</contact:cd>
+			</contact:chkData>
+		</resData>
+		<trID>
+			<clTRID>d4d94d2e1d6f613cb276865c49c3d0b7</clTRID>
+			<svTRID>3268EB00-F6F7-11E3-867F-A6B052036DCB</svTRID>
+		</trID>
+	</response>
 </epp>
 ```
-
-<a id="info-contact"></a>
 
 <a id="info-contact"></a>
 ### info contact
@@ -2529,25 +2304,21 @@ See the extension: `dkhm:contact_validated` in the response.
 Please note that the email address (`contact:email`) is masked and the value: `anonymous@dk-hostmaster.dk` is always return for this field.
 
 <a id="info-contact-request"></a>
-
-<a id="info-contact-request"></a>
 #### info contact request
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-  <command>
-    <info>
-      <contact:info xmlns:contact="urn:ietf:params:xml:ns:contact-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:contact-1.0 contact-1.0.xsd">
-        <contact:id>DKHM1-DK</contact:id>
-      </contact:info>
-    </info>
-    <clTRID>3d65841027692e64c24118ac5988e03c</clTRID>
-  </command>
+	<command>
+		<info>
+			<contact:info xmlns:contact="urn:ietf:params:xml:ns:contact-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:contact-1.0 contact-1.0.xsd">
+				<contact:id>DKHM1-DK</contact:id>
+			</contact:info>
+		</info>
+		<clTRID>3d65841027692e64c24118ac5988e03c</clTRID>
+	</command>
 </epp>
 ```
-
-<a id="info-contact-response"></a>
 
 <a id="info-contact-response"></a>
 #### info contact response
@@ -2555,46 +2326,44 @@ Please note that the email address (`contact:email`) is masked and the value: `a
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-  <response>
-    <result code="1000">
-      <msg>Info result</msg>
-    </result>
-    <resData>
-      <contact:infData xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
-        <contact:id>DKHM1-DK</contact:id>
-        <contact:roid>DKHM1-DK</contact:roid>
-        <contact:status s="serverUpdateProhibited"/>
-        <contact:status s="serverTransferProhibited"/>
-        <contact:status s="linked"/>
-        <contact:status s="serverDeleteProhibited"/>
-        <contact:postalInfo type="loc">
-          <contact:name>DK Hostmaster A/S</contact:name>
-          <contact:addr>
-            <contact:street>Kalvebod Brygge 45,3</contact:street>
-            <contact:city>København V</contact:city>
-            <contact:pc>1560</contact:pc>
-            <contact:cc>DK</contact:cc>
-          </contact:addr>
-        </contact:postalInfo>
-        <contact:voice>+45.33646060</contact:voice>
-        <contact:email>anonymous@dk-hostmaster.dk</contact:email>
-        <contact:clID>DKHM1-DK</contact:clID>
-        <contact:crID>n/a</contact:crID>
-        <contact:crDate>2013-01-24T15:40:37.0Z</contact:crDate>
-      </contact:infData>
-    </resData>
-    <extension>
-      <dkhm:contact_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.3">1</dkhm:contact_validated>
-    </extension>
-    <trID>
-      <clTRID>76edfef5b78cdaefe8fb426eb8d74b75</clTRID>
-      <svTRID>C8C5E496-9CC8-11E4-9F91-D0BF2AC2711D</svTRID>
-    </trID>
-  </response>
+	<response>
+		<result code="1000">
+			<msg>Info result</msg>
+		</result>
+		<resData>
+			<contact:infData xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
+				<contact:id>DKHM1-DK</contact:id>
+				<contact:roid>DKHM1-DK</contact:roid>
+				<contact:status s="serverUpdateProhibited"/>
+				<contact:status s="serverTransferProhibited"/>
+				<contact:status s="linked"/>
+				<contact:status s="serverDeleteProhibited"/>
+				<contact:postalInfo type="loc">
+					<contact:name>DK Hostmaster A/S</contact:name>
+					<contact:addr>
+						<contact:street>Kalvebod Brygge 45,3</contact:street>
+						<contact:city>København V</contact:city>
+						<contact:pc>1560</contact:pc>
+						<contact:cc>DK</contact:cc>
+					</contact:addr>
+				</contact:postalInfo>
+				<contact:voice>+45.33646060</contact:voice>
+				<contact:email>anonymous@dk-hostmaster.dk</contact:email>
+				<contact:clID>DKHM1-DK</contact:clID>
+				<contact:crID>n/a</contact:crID>
+				<contact:crDate>2013-01-24T15:40:37.0Z</contact:crDate>
+			</contact:infData>
+		</resData>
+		<extension>
+			<dkhm:contact_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.3">1</dkhm:contact_validated>
+		</extension>
+		<trID>
+			<clTRID>76edfef5b78cdaefe8fb426eb8d74b75</clTRID>
+			<svTRID>C8C5E496-9CC8-11E4-9F91-D0BF2AC2711D</svTRID>
+		</trID>
+	</response>
 </epp>
 ```
-
-<a id="update-contact"></a>
 
 <a id="update-contact"></a>
 ### update contact
@@ -2626,55 +2395,51 @@ Please note:
 - `authInfo` section is ignored is not recommended for transport of end-user passwords
 
 <a id="update-contact-request"></a>
-
-<a id="update-contact-request"></a>
 #### update contact request
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <command>
-    <update>
-      <contact:update
-       xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
-        <contact:id>sh8013</contact:id>
-        <contact:add>
-          <contact:status s="clientDeleteProhibited"/>
-        </contact:add>
-        <contact:chg>
-          <contact:postalInfo type="int">
-            <contact:org/>
-            <contact:addr>
-              <contact:street>124 Example Dr.</contact:street>
-              <contact:street>Suite 200</contact:street>
-              <contact:city>Dulles</contact:city>
-              <contact:sp>VA</contact:sp>
-              <contact:pc>20166-6503</contact:pc>
-              <contact:cc>US</contact:cc>
-            </contact:addr>
-          </contact:postalInfo>
-          <contact:voice>+1.7034444444</contact:voice>
-          <contact:fax/>
-          <contact:authInfo>
-            <contact:pw>2fooBAR</contact:pw>
-          </contact:authInfo>
-          <contact:disclose flag="1">
-            <contact:voice/>
-            <contact:email/>
-          </contact:disclose>
-        </contact:chg>
-      </contact:update>
-    </update>
-    <extension>
-        <dkhm:secondaryEmail xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.5">email@eksempel.dk</dkhm:secondaryEmail>
-        <dkhm:mobilephone xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.5">+1.7034444445</dkhm:mobilephone>
-    </extension>
-    <clTRID>ABC-12345</clTRID>
-  </command>
+	<command>
+		<update>
+			<contact:update
+			 xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
+				<contact:id>sh8013</contact:id>
+				<contact:add>
+					<contact:status s="clientDeleteProhibited"/>
+				</contact:add>
+				<contact:chg>
+					<contact:postalInfo type="int">
+						<contact:org/>
+						<contact:addr>
+							<contact:street>124 Example Dr.</contact:street>
+							<contact:street>Suite 200</contact:street>
+							<contact:city>Dulles</contact:city>
+							<contact:sp>VA</contact:sp>
+							<contact:pc>20166-6503</contact:pc>
+							<contact:cc>US</contact:cc>
+						</contact:addr>
+					</contact:postalInfo>
+					<contact:voice>+1.7034444444</contact:voice>
+					<contact:fax/>
+					<contact:authInfo>
+						<contact:pw>2fooBAR</contact:pw>
+					</contact:authInfo>
+					<contact:disclose flag="1">
+						<contact:voice/>
+						<contact:email/>
+					</contact:disclose>
+				</contact:chg>
+			</contact:update>
+		</update>
+		<extension>
+				<dkhm:secondaryEmail xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.5">email@eksempel.dk</dkhm:secondaryEmail>
+				<dkhm:mobilephone xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.5">+1.7034444445</dkhm:mobilephone>
+		</extension>
+		<clTRID>ABC-12345</clTRID>
+	</command>
 </epp>
 ```
-
-<a id="update-contact-response"></a>
 
 <a id="update-contact-response"></a>
 #### update contact response
@@ -2682,19 +2447,17 @@ Please note:
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <response>
-    <result code="1000">
-      <msg>Command completed successfully</msg>
-    </result>
-    <trID>
-      <clTRID>ABC-12345</clTRID>
-      <svTRID>54321-XYZ</svTRID>
-    </trID>
-  </response>
+	<response>
+		<result code="1000">
+			<msg>Command completed successfully</msg>
+		</result>
+		<trID>
+			<clTRID>ABC-12345</clTRID>
+			<svTRID>54321-XYZ</svTRID>
+		</trID>
+	</response>
 </epp>
 ```
-
-<a id="delete-contact"></a>
 
 <a id="delete-contact"></a>
 ### delete contact
@@ -2711,26 +2474,22 @@ The deletion of contact objects is handled automatically by DK Hostmaster. The f
 The later will only be lifted when the contact object is not linked to any other objects and automatic deletion is scheduled.
 
 <a id="delete-contact-request"></a>
-
-<a id="delete-contact-request"></a>
 #### delete contact request
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <command>
-    <delete>
-      <contact:delete
-       xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
-        <contact:id>sh8013</contact:id>
-      </contact:delete>
-    </delete>
-    <clTRID>ABC-12345</clTRID>
-  </command>
+	<command>
+		<delete>
+			<contact:delete
+			 xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
+				<contact:id>sh8013</contact:id>
+			</contact:delete>
+		</delete>
+		<clTRID>ABC-12345</clTRID>
+	</command>
 </epp>
 ```
-
-<a id="delete-contact-response"></a>
 
 <a id="delete-contact-response"></a>
 #### delete contact response
@@ -2738,19 +2497,17 @@ The later will only be lifted when the contact object is not linked to any other
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <response>
-    <result code="2101">
-      <msg>Unimplemented command</msg>
-    </result>
-    <trID>
-      <clTRID>ABC-12345</clTRID>
-      <svTRID>54321-XYZ</svTRID>
-    </trID>
-  </response>
+	<response>
+		<result code="2101">
+			<msg>Unimplemented command</msg>
+		</result>
+		<trID>
+			<clTRID>ABC-12345</clTRID>
+			<svTRID>54321-XYZ</svTRID>
+		</trID>
+	</response>
 </epp>
 ```
-
-<a id="data-collection-policy"></a>
 
 <a id="data-collection-policy"></a>
 ## Data Collection Policy
@@ -2760,13 +2517,9 @@ This chapter describes the data collection policy announced via the greeting ava
 Please refer to the [greeting response example](#greeting) included in the [Appendices](#Appendices).
 
 <a id="access"></a>
-
-<a id="access"></a>
 ### Access
 
 The EPP service provides access to identified data relating to all available entities (personal and organisational) under the terms and conditions that anonymity will be applied as specified by the entities in question, and in accordance with [General Terms and Conditions][General Terms and Conditions] and legislation.
-
-<a id="purpose-statement"></a>
 
 <a id="purpose-statement"></a>
 ### Purpose Statement
@@ -2776,20 +2529,14 @@ The collected data will be used solely for provisioning and administrative purpo
 Address data and contact information is collected as required by danish legislation.
 
 <a id="recipient-statement"></a>
-
-<a id="recipient-statement"></a>
 ### Recipient Statement
 
 Recipients of data are specified as other and unrelated. As specified in the purpose statement section and under access, identified data is made publicly available, therefore DK Hostmaster will not be able to control how the publicly available information is used.
 
 <a id="retention-statement"></a>
-
-<a id="retention-statement"></a>
 ### Retention Statement
 
 Data will be retained with DK Hostmaster as required by Danish legislation.
-
-<a id="references"></a>
 
 <a id="references"></a>
 ## References
@@ -2812,13 +2559,9 @@ Here is a list of documents and references used in this document
 - [DK Hostmaster: Name Service Specification][dkhm-name-service-specification]
 
 <a id="resources"></a>
-
-<a id="resources"></a>
 ## Resources
 
 A list of resources for DK Hostmaster EPP support is located below.
-
-<a id="xml-schemas"></a>
 
 <a id="xml-schemas"></a>
 ### XML Schemas
@@ -2836,56 +2579,52 @@ This is a list of the schemas currently used in the DKHM EPP Service described i
 The files are all available for [download][XSD files].
 
 <a id="xsd-version-history"></a>
-
-<a id="xsd-version-history"></a>
 #### XSD Version History
 
 - 2.4
-  - EPP Service version 2.3.X
-  - Minor bug fix release as 2.4, since 2.3 had some minor issues
+	- EPP Service version 2.3.X
+	- Minor bug fix release as 2.4, since 2.3 had some minor issues
 
 - 2.3
-  - EPP Service version 2.3.X
-  - Introduction of `dkhm:url` for poll messages in relation to domain creation, where a URL is communicated, which can be presented to the end-user as part of the domain creation process.
+	- EPP Service version 2.3.X
+	- Introduction of `dkhm:url` for poll messages in relation to domain creation, where a URL is communicated, which can be presented to the end-user as part of the domain creation process.
 
 - 2.2
-  - EPP Service version 2.3.X
-  - Introduction of `dkhm:risk_assessment` for poll messages in relation to domain creation, where the risk assessment is communicated as part of the domain creation process.
+	- EPP Service version 2.3.X
+	- Introduction of `dkhm:risk_assessment` for poll messages in relation to domain creation, where the risk assessment is communicated as part of the domain creation process.
 
 - 2.1
-  - **Warning!** This release includes a change to the standard XSD from [RFC:5730](https://tools.ietf.org/html/rfc5730), aligning the values for the password type. It has not been possible to get the patch applied using the XML Schema feature: `redefine` or `overwrite`. When this succeeds this change will have to be rolled-back. The change has been applied so the schema file conforms with the schema file used at DK Hostmaster A/S.
+	- **Warning!** This release includes a change to the standard XSD from [RFC:5730](https://tools.ietf.org/html/rfc5730), aligning the values for the password type. It has not been possible to get the patch applied using the XML Schema feature: `redefine` or `overwrite`. When this succeeds this change will have to be rolled-back. The change has been applied so the schema file conforms with the schema file used at DK Hostmaster A/S.
 
-  - The DKHM Schema file has been updated to revision 2.1, the file does not contain any changes apart from the import, this file was created for a uniform communication in regard to revision numbers etc.
+	- The DKHM Schema file has been updated to revision 2.1, the file does not contain any changes apart from the import, this file was created for a uniform communication in regard to revision numbers etc.
 
 - 2.0
-  - EPP Service version 2.0.X, 2.1.X and 2.2.X
-  - Introduction of `dkhm:requestedNsAdmin` for update host and create host
-  - Introduction of `dkhm:mobilephone` on update contact
-  - Introduction of `dkhm:secondaryEmail` on update contact
+	- EPP Service version 2.0.X, 2.1.X and 2.2.X
+	- Introduction of `dkhm:requestedNsAdmin` for update host and create host
+	- Introduction of `dkhm:mobilephone` on update contact
+	- Introduction of `dkhm:secondaryEmail` on update contact
 
 - 1.4
-  - EPP Service version 1.3.X
-  - Introduction of `dkhm:pnumber` for production unit number information for create contact
+	- EPP Service version 1.3.X
+	- Introduction of `dkhm:pnumber` for production unit number information for create contact
 
 - 1.3
-  - EPP Service version 1.2.X
-  - Introduction of `dkhm:domain_confirmed` for information for create domain
-  - Introduction of `dkhm:contact_validated` for information for info contact
-  - Introduction of `dkhm:registrant_validated` for information for create domain
+	- EPP Service version 1.2.X
+	- Introduction of `dkhm:domain_confirmed` for information for create domain
+	- Introduction of `dkhm:contact_validated` for information for info contact
+	- Introduction of `dkhm:registrant_validated` for information for create domain
 
 - 1.2
-  - EPP Service version 1.1.X
-  - Introduction of `dkhm:orderConfirmation` for create domain and support of [Pre-activation Service](#pre-activation-service)
+	- EPP Service version 1.1.X
+	- Introduction of `dkhm:orderConfirmation` for create domain and support of [Pre-activation Service](#pre-activation-service)
 
 - 1.1
-  - EPP Service version 1.0.9
-  - Introduction of `dkhm:domainAdvisory` for support of blocked status for create domain for blocked domain names
+	- EPP Service version 1.0.9
+	- Introduction of `dkhm:domainAdvisory` for support of blocked status for create domain for blocked domain names
 
 - 1.0
-  - EPP Service version 1.0.0
-  - Released 2014-02-25
-
-<a id="mailing-list"></a>
+	- EPP Service version 1.0.0
+	- Released 2014-02-25
 
 <a id="mailing-list"></a>
 ### Mailing list
@@ -2895,15 +2634,11 @@ DK Hostmaster operates a mailing list for discussion and inquiries  about the DK
 - tech-discuss+subscribe@liste.dk-hostmaster.dk
 
 <a id="issue-reporting"></a>
-
-<a id="issue-reporting"></a>
 ### Issue Reporting
 
 For issue reporting related to this specification, the EPP implementation or test, sandbox or production environments, please contact us.  You are of course welcome to post these to the mailing list mentioned above, otherwise use the address specified below:
 
 - info@dk-hostmaster.dk
-
-<a id="demotest-client"></a>
 
 <a id="demotest-client"></a>
 ### Demo/Test Client
@@ -2915,15 +2650,11 @@ The client is available at:
 - <https://github.com/DK-Hostmaster/epp-demo-client-mojolicious>
 
 <a id="additional-information"></a>
-
-<a id="additional-information"></a>
 ### Additional Information
 
 More information is available at the DK Hostmaster website:
 
 - <https://www.dk-hostmaster.dk/en/epp>
-
-<a id="pre-activation-service"></a>
 
 <a id="pre-activation-service"></a>
 ### Pre-activation Service
@@ -2933,11 +2664,7 @@ More information and documentation on the pre-activation service is available at
 - <https://www.dk-hostmaster.dk/en/pre-act>
 
 <a id="appendices"></a>
-
-<a id="appendices"></a>
 ## Appendices
-
-<a id="greeting"></a>
 
 <a id="greeting"></a>
 ### Greeting
@@ -2948,48 +2675,44 @@ EPP service is running in the environment queried.
 ```XML
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-    <greeting>
-        <svID>DK Hostmaster EPP Service: 2.2.3</svID>
-        <svDate>2016-12-27T15:19:26.0Z</svDate>
-        <svcMenu>
-            <version>1.0</version>
-            <lang>en</lang>
-            <objURI>urn:ietf:params:xml:ns:host-1.0</objURI>
-            <objURI>urn:ietf:params:xml:ns:domain-1.0</objURI>
-            <objURI>urn:ietf:params:xml:ns:contact-1.0</objURI>
-            <svcExtension>
-                <extURI>urn:ietf:params:xml:ns:secDNS-1.1</extURI>
-                <extURI>urn:dkhm:params:xml:ns:dkhm-2.0</extURI>
-            </svcExtension>
-        </svcMenu>
-        <dcp>
-            <access>
-                <personalAndOther/>
-            </access>
-            <statement>
-                <purpose>
-                    <admin/>
-                    <prov/>
-                </purpose>
-                <recipient>
-                    <other/>
-                    <unrelated/>
-                </recipient>
-                <retention>
-                    <legal/>
-                </retention>
-            </statement>
-        </dcp>
-    </greeting>
+		<greeting>
+				<svID>DK Hostmaster EPP Service: 2.2.3</svID>
+				<svDate>2016-12-27T15:19:26.0Z</svDate>
+				<svcMenu>
+						<version>1.0</version>
+						<lang>en</lang>
+						<objURI>urn:ietf:params:xml:ns:host-1.0</objURI>
+						<objURI>urn:ietf:params:xml:ns:domain-1.0</objURI>
+						<objURI>urn:ietf:params:xml:ns:contact-1.0</objURI>
+						<svcExtension>
+								<extURI>urn:ietf:params:xml:ns:secDNS-1.1</extURI>
+								<extURI>urn:dkhm:params:xml:ns:dkhm-2.0</extURI>
+						</svcExtension>
+				</svcMenu>
+				<dcp>
+						<access>
+								<personalAndOther/>
+						</access>
+						<statement>
+								<purpose>
+										<admin/>
+										<prov/>
+								</purpose>
+								<recipient>
+										<other/>
+										<unrelated/>
+								</recipient>
+								<retention>
+										<legal/>
+								</retention>
+						</statement>
+				</dcp>
+		</greeting>
 </epp>
 ```
 
 <a id="status-codes"></a>
-
-<a id="status-codes"></a>
 ### Status Codes
-
-<a id="domain"></a>
 
 <a id="domain"></a>
 #### Domain
@@ -3019,8 +2742,6 @@ EPP service is running in the environment queried.
 | `clientRenewProhibited` | *unsupported* |
 | `clientTransferProhibited` | *unsupported* |
 | `clientUpdateProhibited` | *unsupported* |
-
-<a id="privilege-matrix"></a>
 
 <a id="privilege-matrix"></a>
 ### Privilege Matrix
@@ -3060,8 +2781,6 @@ EPP service is running in the environment queried.
 - \*6 request to registrant
 - \*7 only own profile
 - \*8 can only assign self
-
-<a id="compatibility-matrix"></a>
 
 <a id="compatibility-matrix"></a>
 ### Compatibility Matrix
