@@ -1,7 +1,7 @@
 # DK Hostmaster EPP Service Specification
 
-2018-06-22
-Revision: 2.5
+2018-08-22
+Revision: 2.6
 
 ## Table of Contents
 
@@ -183,6 +183,9 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 <a id="document-history"></a>
 ### Document History
+
+- 2.6 2018-08-22
+    - Added information on status `reserved` for check domain command
 
 - 2.5 2018-06-22
 	- Updated XSD history and information on XSD version 2.4
@@ -1057,7 +1060,13 @@ Please note that the command supports punycode notation for specifying IDN domai
 </epp>
 ```
 
-In general this part of the EPP protocol is described in [RFC 5731][RFC5731] and his command adheres to the standard.
+In general this part of the EPP protocol is described in [RFC 5731][RFC5731] and this command adheres to the standard.
+
+The available values for the `reason` field are:
+
+- "In use" for domain names registered with the DK Hostmaster registry
+- "Enqueued" for domain names awaiting domain name application processing, This can last a few seconds to a few days if the application require accept of terms and conditions from the designated registrant
+- "Offered for position on waiting list", for when the domain name has been offered to a designated registrant from a waiting list position
 
 <a id="info-domain"></a>
 ### info domain
