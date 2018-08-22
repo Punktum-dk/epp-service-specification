@@ -184,6 +184,8 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 <a id="document-history"></a>
 ### Document History
 
+- Added information on silenced out of band communication for change of billing contact for a domain
+
 - 2.5 2018-06-22
 	- Updated XSD history and information on XSD version 2.4
 	- Added information on service and specification versions and retrieving of version information from the service
@@ -1267,6 +1269,8 @@ If the command is parsable, the command is separated into one of more of the fol
 The commands are then executed sequentially (order is dictates the precedence) as a single transaction. If a single sub-command fails, the transaction is rolled-back and the relevant error code is returned (`2XXX`).
 
 The command might be stopped if the sub-commands cannot be executed. For example if one of the sub-commands is a: change registrant, none of the other commands can be executed, since role changes will be implicit.
+
+Do note that the change of billing contact, if inserting a registrar-user, will be _silent_, meaning no e-mails will be sent to the registrant or existing billing contact or other contacts.
 
 When the command succeeds either `1000` or `1001` is returned the latter if one of the operations initiated by the sub-command require additional actions to be taken, `1001` will have precedence over `1000`. If a `1001` is returned the status code `pendingUpdate` might be set if an additional **update domain** command is issued.
 
