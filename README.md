@@ -185,92 +185,92 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 ### Document History
 
 - 2.6 2018-08-22
-    - Added information on status `reserved` for check domain command
+  - Added information on status `reserved` for check domain command
+  - Added information on silenced out of band communication for change of billing contact for a domain
 
 - 2.5 2018-06-22
-	- Updated XSD history and information on XSD version 2.4
-	- Added information on service and specification versions and retrieving of version information from the service
-	- Added examples of poll messages related to domain creation
+  - Updated XSD history and information on XSD version 2.4
+  - Added information on service and specification versions and retrieving of version information from the service
+  - Added examples of poll messages related to domain creation
 
 - 2.4 2018-05-25
-	- Added information on format of Orderconfirmation Token, this is implemented with EPP release 2.3.0 currently only available in sandbox and introduces the new extension: `dkhm:url`
-	- Addition of risk assessment for create domain command poll response. The XSD files revision 2.2 describes the changes to the XSD and supports the new extension: `dkhm:risk_assessment`
+  - Added information on format of Orderconfirmation Token, this is implemented with EPP release 2.3.0 currently only available in sandbox and introduces the new extension: `dkhm:url`
+  - Addition of risk assessment for create domain command poll response. The XSD files revision 2.2 describes the changes to the XSD and supports the new extension: `dkhm:risk_assessment`
 
 - 2.3 2018-05-01  
-	- Updated XSD history
-	- Added diagram for create domain
+  - Updated XSD history
+  - Added diagram for create domain
 
 - 2.2 2017-12-19
-	- Removed information on status blocked, which has been deprecated
+  - Removed information on status blocked, which has been deprecated
 
 - 2.1 2017-06-08
-	- Removed information on waiting list handling, since this is being revisited
+  - Removed information on waiting list handling, since this is being revisited
 
 - 2.0 2016-10-24
-	- Describes EPP service 2.X.X
-	- Added renew domain description
-	- Added update domain description
-	- Added create/update/delete host descriptions
-	- Added update contact description
-	- Added XSD 2.0 description
+  - Describes EPP service 2.X.X
+  - Added renew domain description
+  - Added update domain description
+  - Added create/update/delete host descriptions
+  - Added update contact description
+  - Added XSD 2.0 description
 
 - 1.10 2016-06-08
-	- Added information on IP whitelisting
+  - Added information on IP whitelisting
 
 - 1.9 2016-01-30
 	- Information on new waiting list handling
 	- Information on new DNSSEC key handling
 
 - 1.8 2015-09-03
-	- Minor corrections
-	- More information on extensions for possible registration of the DK Hostmaster extensions with IANA in relation to [RFC:7451][RFC:7451]
-	- Added [RFC:7451][RFC:7451] compliant descriptions in subdirectory: `rfc7451/`
+  - Minor corrections
+  - More information on extensions for possible registration of the DK Hostmaster extensions with IANA in relation to [RFC:7451][RFC:7451]
+  - Added [RFC:7451][RFC:7451] compliant descriptions in subdirectory: `rfc7451/`
 
 - 1.7 2015-05-12
-	- This revision of the specification is describing EPP service release 1.3.X
-	- This release also updates the [XSD][XSD Files] specification to revision 1.4, introducing the extension pnumber for transport of production unit numbers for validation of danish companies as part of the create contact command
+  - This revision of the specification is describing EPP service release 1.3.X
+  - This release also updates the [XSD][XSD Files] specification to revision 1.4, introducing the extension pnumber for transport of production unit numbers for validation of danish companies as part of the create contact command
 
 - 1.6 2015-01-06
-	- This revision of the specification is describing EPP service release 1.2.X
-	- This release also updates the [XSD][XSD Files] specification to revision 1.3
-	- The document has with this revision been ported from a proprietary format to markdown and is being hosted on github for easier maintenance and distribution, this has resultet in a lot of minor corrections and clarifications.
-	- Extended the section about this document, due to the migration to Github, so copyright is now explicitly mentioned
-	- info contact command extended with validation information
-	- create domain command extended with validation information for registrant
-	- create domain command extended with information on confirmation status for domain
+  - This revision of the specification is describing EPP service release 1.2.X
+  - This release also updates the [XSD][XSD Files] specification to revision 1.3
+  - The document has with this revision been ported from a proprietary format to markdown and is being hosted on GitHub for easier maintenance and distribution, this has resultet in a lot of minor corrections and clarifications.
+  - Extended the section about this document, due to the migration to Github, so copyright is now explicitly mentioned
+  - info contact command extended with validation information
+  - create domain command extended with validation information for registrant
+  - create domain command extended with information on confirmation status for domain
 
 - 1.5 2014-06-18
-	- This revision of the specification is describing EPP service release 1.1.X
-	- The test environment is no longer active
-	- Examples updated to latest [XSD][XSD Files] revision (1.2)
-	- Pre-activation token (`orderconfirmationToken`) can be transported via extension for create domain command
-	- Multiple examples of requests and responses added
+  - This revision of the specification is describing EPP service release 1.1.X
+  - The test environment is no longer active
+  - Examples updated to latest [XSD][XSD Files] revision (1.2)
+  - Pre-activation token (`orderconfirmationToken`) can be transported via extension for create domain command
 
 - 1.4 2013-11-19
-	- Corrected links in resources
-	- Empasized the use of the `auto` keyword for contact creation, this has also been listed in the implementation limitations section
-	- Added information on the restrictive use of `clTRID` in new section entitled: Implementation Requirements
+  - Corrected links in resources
+  - Empasized the use of the `auto` keyword for contact creation, this has also been listed in the implementation limitations section
+  - Added information on the restrictive use of `clTRID` in new section entitled: Implementation Requirements
 
 - 1.3 2013-10-29
-	- This revision of the specification is describing EPP service release 1.0.9
-	- Added information on use of `clTRID` in context of create domain command
-	- Added more information on the domain check command, which has been extended with EPP service release 1.0.9.
-	- This release also updates the [XSD][XSD Files] specification to revision 1.1
+  - This revision of the specification is describing EPP service release 1.0.9
+  - Added information on use of `clTRID` in context of create domain command
+  - Added more information on the domain check command, which has been extended with EPP service release 1.0.9.
+  - This release also updates the [XSD][XSD Files] specification to revision 1.1
 
 - 1.2 2013-08-07
-	- This revision of the specification is describing EPP service release 1.0.8
-	- Added note on domain check
+  - This revision of the specification is describing EPP service release 1.0.8
+  - Added note on domain check
 
 - 1.1 2013-05-31
-	- Added paragraph on passwords in section on the login command
-	- Added mention of standard port 700
-	- Corrected some of the XML examples, which had not been updated to reflect the correct use of [XSDs][XSD Files]
-	- Added important note on contact creation
+  - Added paragraph on passwords in section on the login command
+  - Added mention of standard port 700
+  - Corrected some of the XML examples, which had not been updated to reflect the correct use of [XSDs][XSD Files]
+  - Added important note on contact creation
 
 - 1.0 2013-02-25
-	- Initial revision
-	- Describes EPP service 1.X.X
-	- Introduces [XSD][XSD Files] specification revision 1.0
+  - Initial revision
+  - Describes EPP service 1.X.X
+  - Introduces [XSD][XSD Files] specification revision 1.0
 
 <a id="the-dk-registry-in-brief"></a>
 ## The .dk Registry in Brief
@@ -1276,6 +1276,8 @@ If the command is parsable, the command is separated into one of more of the fol
 The commands are then executed sequentially (order is dictates the precedence) as a single transaction. If a single sub-command fails, the transaction is rolled-back and the relevant error code is returned (`2XXX`).
 
 The command might be stopped if the sub-commands cannot be executed. For example if one of the sub-commands is a: change registrant, none of the other commands can be executed, since role changes will be implicit.
+
+Do note that the change of billing contact, if inserting a registrar-user, will be _silent_, meaning no e-mails will be sent to the registrant or existing billing contact or other contacts.
 
 When the command succeeds either `1000` or `1001` is returned the latter if one of the operations initiated by the sub-command require additional actions to be taken, `1001` will have precedence over `1000`. If a `1001` is returned the status code `pendingUpdate` might be set if an additional **update domain** command is issued.
 
