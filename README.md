@@ -185,6 +185,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 ### Document History
 
 - 2.6 2018-08-22
+  - Describes EPP service 2.4.X
   - Added information on status `reserved` for check domain command
   - Added information on silenced out of band communication for change of billing contact for a domain
 
