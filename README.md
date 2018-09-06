@@ -835,13 +835,6 @@ The `token` is handled the following way:
 - if not valid the request with result in an error and the request will be dismissed
 - if valid the request will be accepted and processed
 
-The validation accepts timestamps within the following interval:
-
-- In the past
-- and up to 5 minutes into the future
-
-Do note that the validation of the timestamp is based on the UTC timezone.
-
 The requirement for the registrant to be valid is communicated via the response, using the extension:
 `dkhm:registrant_validated`. Please see the command info contact for more information. The state is communicated in this response in order to provide information on the further flow and process of the create domain request.
 
