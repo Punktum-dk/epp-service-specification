@@ -184,7 +184,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 <a id="document-history"></a>
 ### Document History
 
-- 2.7 2017-09-11
+- 2.7 2018-09-11
   - Minor correction, to the `reason` (status) for domains offered from waiting list, since the `reason` did not comply with the XSD definition. The `reason` is corrected in EPP service version: EPP 2.4.2
 
 - 2.6 2018-08-22
