@@ -1,7 +1,7 @@
 # DK Hostmaster EPP Service Specification
 
-2018-08-22
-Revision: 2.6
+2018-09-11
+Revision: 2.7
 
 ## Table of Contents
 
@@ -184,9 +184,12 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 <a id="document-history"></a>
 ### Document History
 
+- 2.7 2017-09-11
+  - Minor correction, to the `reason` (status) for domains offered from waiting list, since the `reason` did not comply with the XSD definition. The `reason` is corrected in EPP service version: EPP 2.4.2
+
 - 2.6 2018-08-22
   - Describes EPP service 2.4.X
-  - Added information on status `enqueued` for check domain command
+  - Added information on `reason` (status) `enqueued` for check domain command
   - Added information on silenced out of band communication for change of billing contact for a domain
 
 - 2.5 2018-06-22
@@ -1060,7 +1063,7 @@ The available values for the `reason` field are:
 
 - "In use" for domain names registered with the DK Hostmaster registry
 - "Enqueued" for domain names awaiting domain name application processing, This can last a few seconds to a few days if the application require accept of terms and conditions from the designated registrant
-- "Offered for position on waiting list", for when the domain name has been offered to a designated registrant from a waiting list position
+- "Offered for pos. on waiting list", for when the domain name has been offered to a designated registrant from a waiting list position
 
 <a id="info-domain"></a>
 ### info domain
