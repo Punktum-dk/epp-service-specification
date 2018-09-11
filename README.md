@@ -475,7 +475,7 @@ The extension is used for update and create host, where it is possible to reques
 <a id="dkhmurl"></a>
 ### `dkhm:url`
 
-This extension can be used to redirect and end-user to the next step. For now it is used in relation to domain creation, where the user can be directed to the next step if this is handled by DK Hostmaster. More information is available under the create domain command.
+This extension can be used to redirect an end-user to the next step. For now it is used in relation to domain creation, where the user can be directed to the next step if this is handled by DK Hostmaster. More information is available under the create domain command.
 
 <a id="dkhmrisk_assessment"></a>
 ### `dkhm:risk_assessment`
@@ -2802,7 +2802,7 @@ EPP service is running in the environment queried.
 | Create Domain | 1 | Asynchronous, requires orderconfirmation by the registrant. VID product not supported, PO numbers not supported |
 | Info Domain | 1 | Billing contact not disclosed, EPP status codes not supported completely |
 | Update Domain | 2 | Change of nameserver is asynchronous, requires approval by the registrant. Change of registrant is not supported |
-| Renew Domain | 2 | Requires that the requesting user is a registrar and billing contact for the domain. The domain name must nout have any financial outstanding |
+| Renew Domain | 2 | Requires that the requesting user is a registrar and billing contact for the domain. The domain name must not have any financial outstanding |
 | Transfer Domain | N/A | |
 | Delete Domain | N/A | |
 | Check Contact | 1 | |
