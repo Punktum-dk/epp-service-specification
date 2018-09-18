@@ -1,7 +1,7 @@
 # DK Hostmaster EPP Service Specification
 
-2018-09-11
-Revision: 2.7
+2018-09-18
+Revision: 2.8
 
 ## Table of Contents
 
@@ -142,7 +142,6 @@ Revision: 2.7
   - [Issue Reporting](#issue-reporting)
   - [Demo/Test Client](#demotest-client)
   - [Additional Information](#additional-information)
-  - [Pre-activation Service](#pre-activation-service)
 - [Appendices](#appendices)
   - [Greeting](#greeting)
   - [Status Codes](#status-codes)
@@ -184,6 +183,9 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 <a id="document-history"></a>
 ### Document History
 
+- 2.8 2018-09-18
+  - Removed pointers to the decommission pre-activation service and pre-activation service specification
+
 - 2.7 2018-09-11
   - Minor correction, to the `reason` (status) for domains offered from waiting list, since the `reason` did not comply with the XSD definition. The `reason` is corrected in EPP service version: EPP 2.4.2
 
@@ -201,7 +203,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
   - Added information on format of Orderconfirmation Token, this is implemented with EPP release 2.3.0 currently only available in sandbox and introduces the new extension: `dkhm:url`
   - Addition of risk assessment for create domain command poll response. The XSD files revision 2.2 describes the changes to the XSD and supports the new extension: `dkhm:risk_assessment`
 
-- 2.3 2018-05-01  
+- 2.3 2018-05-01
   - Updated XSD history
   - Added diagram for create domain
 
@@ -441,7 +443,7 @@ This is a special field for supporting the business flow where the agreement for
 <a id="dkhmdomain_confirmed"></a>
 ### `dkhm:domain_confirmed`
 
-Domain names registered with DK Hostmaster, has to be confirmed by the registrant, this is can either be done using pre-activation, see the `orderconfirmationToken` above or other systems with DK Hostmaster, the domain confirmation state is available via the create domain command using this extension.
+Domain names registered with DK Hostmaster, has to be confirmed by the registrant, this is can either be done using pre-application agreement to terms, see the `orderconfirmationToken` above or other systems with DK Hostmaster, the domain confirmation state is available via the create domain command using this extension.
 
 See also `orderconfirmationToken`.
 
@@ -2560,7 +2562,6 @@ Here is a list of documents and references used in this document
 - [RFC 5910: Domain Name System (DNS) Security Extensions for the Extensible Provisioning Protocol][RFC5910]
 - [DK Hostmaster: Current domain registration form][Current domain registration form]
 - [DK Hostmaster: Documentation on the current domain registration form][Documentation on the current domain registration form]
-- [DK Hostmaster: Pre-activation Service Specification][Pre-activation Service Specification]
 
 - [ICANN: EPP status codes](https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en/)
 
@@ -2624,7 +2625,7 @@ The files are all available for [download][XSD files].
 
 - 1.2
 	- EPP Service version 1.1.X
-	- Introduction of `dkhm:orderConfirmation` for create domain and support of [Pre-activation Service](#pre-activation-service)
+	- Introduction of `dkhm:orderConfirmation` for create domain and support of   Pre-activation Service
 
 - 1.1
 	- EPP Service version 1.0.9
@@ -2663,13 +2664,6 @@ The client is available at:
 More information is available at the DK Hostmaster website:
 
 - <https://www.dk-hostmaster.dk/en/epp>
-
-<a id="pre-activation-service"></a>
-### Pre-activation Service
-
-More information and documentation on the pre-activation service is available at the DK Hostmaster website:
-
-- <https://www.dk-hostmaster.dk/en/pre-act>
 
 <a id="appendices"></a>
 ## Appendices
@@ -2891,8 +2885,6 @@ EPP service is running in the environment queried.
 [RFC:7451]: https://tools.ietf.org/html/rfc7451
 
 [IANA EPP Extension Repository]: http://www.iana.org/assignments/epp-extensions/epp-extensions.xhtml
-
-[Pre-activation Service Specification]: https://github.com/DK-Hostmaster/preactivation-service-specification
 
 [EAN description]: https://en.wikipedia.org/wiki/International_Article_Number_(EAN)
 
