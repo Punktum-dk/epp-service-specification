@@ -1,7 +1,7 @@
 # DK Hostmaster EPP Service Specification
 
-2018-09-18
-Revision: 2.8
+2018-10-03
+Revision: 2.9
 
 ## Table of Contents
 
@@ -183,6 +183,9 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 <a id="document-history"></a>
 ### Document History
 
+- 2.9 2018-10-03
+  - Added diagram for contact creation revision 1.0, please see the [create contact](#create-contact) command section
+
 - 2.8 2018-09-18
   - Removed pointers to the decommissioned pre-activation service and pre-activation service specification
 
@@ -235,7 +238,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 - 1.7 2015-05-12
   - This revision of the specification is describing EPP service release 1.3.X
-  - This release also updates the [XSD][XSD Files] specification to revision 1.4, introducing the extension pnumber for transport of production unit numbers for validation of danish companies as part of the create contact command
+  - This release also updates the [XSD][XSD Files] specification to revision 1.4, introducing the extension pnumber for transport of production unit numbers for validation of danish companies as part of the [create contact](#create-contact) command
 
 - 1.6 2015-01-06
   - This revision of the specification is describing EPP service release 1.2.X
@@ -406,24 +409,24 @@ Here follows a listed, the extensions are described separately and in detail bel
 <a id="dkhmusertype"></a>
 ### `dkhm:userType`
 
-The `userType` extension is used to categorize a contact type, since the requirements for data differs between the different usertypes, we need to be able to differenciate between: company, individual, public organisation and association. More information is available under the create contact command.
+The `userType` extension is used to categorize a contact type, since the requirements for data differs between the different usertypes, we need to be able to differenciate between: company, individual, public organisation and association. More information is available under the [create contact](#create-contact) command.
 
 Related extensions are `dkhm:EAN`, `dkhm:CVR` and `dkhm:pnumber`.
 
 <a id="dkhmean"></a>
 ### `dkhm:EAN`
 
-The EAN extension, holds the EAN number associated with public organisations in Denmark. The field is mandatory for this type of contact objects and is required for electronic invoicing, more information is available under the create contact command.
+The EAN extension, holds the EAN number associated with public organisations in Denmark. The field is mandatory for this type of contact objects and is required for electronic invoicing, more information is available under the [create contact](#create-contact) command.
 
 <a id="dkhmcvr"></a>
 ### `dkhm:CVR`
 
-The CVR extension is for holding VAT registration numbers. The number is used for validation and VAT accounting. More information is available under the create contact command.
+The CVR extension is for holding VAT registration numbers. The number is used for validation and VAT accounting. More information is available under the [create contact](#create-contact) command.
 
 <a id="dkhmpnumber"></a>
 ### `dkhm:pnumber`
 
-The pnumber extension is for holding production-unit numbers, used for validation for danish companies, with more physical addressed related to one VAT number. More information is available under the create contact command.
+The pnumber extension is for holding production-unit numbers, used for validation for danish companies, with more physical addressed related to one VAT number. More information is available under the [create contact](#create-contact) command.
 
 <a id="dkhmtrackingno"></a>
 ### `dkhm:trackingNo`
@@ -2130,6 +2133,8 @@ The match for the _smart_ creation are applicable for the following data:
 
 The match has to be exact in order for the command to return an existing user-id / handle.
 
+![Diagram for contact creation][epp-create-contact]
+
 <a id="address-handling"></a>
 #### Address Handling
 
@@ -2615,7 +2620,7 @@ The files are all available for [download][XSD files].
 
 - 1.4
 	- EPP Service version 1.3.X
-	- Introduction of `dkhm:pnumber` for production unit number information for create contact
+	- Introduction of `dkhm:pnumber` for production unit number information for [create contact](#create-contact) command section
 
 - 1.3
 	- EPP Service version 1.2.X
@@ -2764,7 +2769,7 @@ EPP service is running in the environment queried.
 | delete domain | | | :white_check_mark: \*6 | | |
 | info domain | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | check domain | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| create contact | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| [create contact](#create-contact) | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | update contact | | :white_check_mark: \*7 | | | :white_check_mark: \*7 |
 | delete contact | | | | | |
 | info contact | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
@@ -2800,7 +2805,7 @@ EPP service is running in the environment queried.
 | Transfer Domain | N/A | |
 | Delete Domain | N/A | |
 | Check Contact | 1 | |
-| Create Contact | 1 | Supplied handle/user-id is not supported |
+| [Create Contact](#create-contact) | 1 | Supplied handle/user-id is not supported |
 | Info Contact | 1 | |
 | Update Contact | 2 | Updating email is asynchronous, but is regarded as non-atomic due to the email validation proces |
 | Transfer Contact | N/A | |
@@ -2865,6 +2870,8 @@ EPP service is running in the environment queried.
 [epp-update-domain-change-registrant]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_domain_change_registrant_v1.2.png
 
 [epp_create_domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_create_domain_v1.0.png
+
+[epp_create_contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_create_contact_v1.0.png
 
 [XSD files]: https://github.com/DK-Hostmaster/epp-xsd-files
 
