@@ -2133,7 +2133,7 @@ The match for the _smart_ creation are applicable for the following data:
 
 The match has to be exact in order for the command to return an existing user-id / handle.
 
-![Diagram for contact creation][epp-create-contact]
+![Diagram for contact creation][epp_create_contact]
 
 <a id="address-handling"></a>
 #### Address Handling
