@@ -1,7 +1,7 @@
 # DK Hostmaster EPP Service Specification
 
-2018-10-03
-Revision: 2.9
+2018-10-08
+Revision: 2.10
 
 ## Table of Contents
 
@@ -182,6 +182,9 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 <a id="document-history"></a>
 ### Document History
+
+- 2.10 2018-10-08
+  - Added more information on [create host](#create-host) command and the use of extension versus authentication for specification of nameserver administrator.
 
 - 2.9 2018-10-03
   - Added diagram for contact creation revision 1.0, please see the [create contact](#create-contact) command section
@@ -475,7 +478,7 @@ Contact objects can have a secondary email address in addition to `email`. The e
 <a id="dkhmrequestednsadmin"></a>
 ### `dkhm:requestedNsAdmin`
 
-The extension is used for update and create host, where it is possible to request another nameserver administrator than the authenticated user. The extension was introduced in the DK Hostmaster XSD file set 1.5.
+The extension is used for update and [create host](#create-host), where it is possible to request another nameserver administrator than the authenticated user. The extension was introduced in the DK Hostmaster XSD file set 1.5.
 
 <a id="dkhmurl"></a>
 ### `dkhm:url`
@@ -1603,7 +1606,9 @@ Please note that according to the RFC [section 3.1.2][RFC5732-3.1.2], the `CLID`
 
 This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard. The command can be extended to specify another nameserver administrator than the authenticated user.
 
-Please note that IP addresses are required for domain names ending in '.dk', please refer to the [glue record policy](https://github.com/DK-Hostmaster/dkhm-name-service-specification#glue-records).
+:point_right: Please note that IP addresses are required for domain names ending in '.dk', please refer to the [glue record policy](https://github.com/DK-Hostmaster/dkhm-name-service-specification#glue-records).
+
+:warning: By default the authenticated user is attempted used as designated nameserver administrator, It is however not possible to assign a registrar account as nameserver administrator, so a regular WHOIS handle pointing to a contact object has to be specified using the extension `dkhm:requestedNsAdmin`, alternatively you can authenticate using a WHOIS handle and the use of the extension can be avoided.
 
 ![Diagram of EPP create host][epp_create_host]
 
