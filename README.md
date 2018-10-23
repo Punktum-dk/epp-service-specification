@@ -1,7 +1,7 @@
 # DK Hostmaster EPP Service Specification
 
-2018-10-08
-Revision: 2.10
+2018-10-23
+Revision: 2.11
 
 ## Table of Contents
 
@@ -182,6 +182,9 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 <a id="document-history"></a>
 ### Document History
+
+- 2.11 2018-10-23
+  - Added more information on the rules and errors codes related to [renew domain](#renew-domain)
 
 - 2.10 2018-10-08
   - Added more information on [create host](#create-host) command and the use of extension versus authentication for specification of nameserver administrator.
@@ -1181,7 +1184,8 @@ This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command 
 | 2201 | If the authenticated user does not hold the privilege to renew the specified domain object. This privilege is given to the billing contact for the domain name (see also the [login command](#login)) |
 | 2306 | If the specified expiry date is not valid. The provided expiration date has to be equal to the current expiration date or we return `2306` |
 | 2306 | If the calculated expiry date is not allowed. The new expiration date has to be lower than the current expiration date + 5 years. The maximum period to which the expiration date can be extended is 5 years and 3 months. The current expiration date is available via the [info domain](#info-domain) command as `domain:exDate` |
-| 2105 | If the domain object is not eligible for renewal. The domain name has to be in the state ‘Active’. This will also be reflected in status value `serverRenewProhibited`. See also [ICANN description](https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en/#serverRenewProhibited) of status |
+| 2105 | If the domain object is not eligible for renewal. The domain name has to be in the state ‘Active’ and the expiration date has to be a at least month into the future from the current date
+. This will also be reflected in status value `serverRenewProhibited`. See also [ICANN description](https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en/#serverRenewProhibited) of status |
 | 2400 | In case of an exception |
 | 1000 | If the renew domain command is successful |
 
