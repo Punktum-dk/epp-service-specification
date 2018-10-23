@@ -60,13 +60,13 @@ Revision: 2.11
     - [poll req response](#poll-req-response)
     - [poll ack request](#poll-ack-request)
     - [poll ack response](#poll-ack-response)
-    - [poll ack response for non-existant message \(or previously acknowledged message\)](#poll-ack-response-for-non-existant-message-or-previously-acknowledged-message)
+    - [poll ack response for non-existent message \(or previously acknowledged message\)](#poll-ack-response-for-non-existent-message-or-previously-acknowledged-message)
   - [create domain](#create-domain)
     - [create domain request](#create-domain-request)
     - [create domain response](#create-domain-response)
     - [Poll and Messages](#poll-and-messages)
-      - [create domain poll message for succesful creation](#create-domain-poll-message-for-succesful-creation)
-      - [create domain poll message for unsuccesful creation, existing domain](#create-domain-poll-message-for-unsuccesful-creation-existing-domain)
+      - [create domain poll message for successful creation](#create-domain-poll-message-for-successful-creation)
+      - [create domain poll message for unsuccessful creation, existing domain](#create-domain-poll-message-for-unsuccessful-creation-existing-domain)
     - [Role Mapping](#role-mapping)
   - [check domain](#check-domain)
     - [check domain request](#check-domain-request)
@@ -81,8 +81,8 @@ Revision: 2.11
     - [update domain request](#update-domain-request)
     - [update domain response](#update-domain-response)
     - [change registrant](#change-registrant)
-    - [add nameserver](#add-nameserver)
-    - [remove nameserver](#remove-nameserver)
+    - [add name server](#add-name-server)
+    - [remove name server](#remove-name-server)
     - [add contact](#add-contact)
     - [remove contact](#remove-contact)
   - [check host](#check-host)
@@ -173,7 +173,7 @@ Any future extensions and possible additions and changes to the implementation a
 
 This document is owned and maintained by DK Hostmaster A/S and must not be distributed without this information.
 
-All examples provided in the document are fabricated or changed from real data to demonstrate commands etc. any resemblence to actual data are coincidental.
+All examples provided in the document are fabricated or changed from real data to demonstrate commands etc. any resemblance to actual data are coincidental.
 
 <a id="license"></a>
 ### License
@@ -187,7 +187,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
   - Added more information on the rules and errors codes related to [renew domain](#renew-domain)
 
 - 2.10 2018-10-08
-  - Added more information on [create host](#create-host) command and the use of extension versus authentication for specification of nameserver administrator.
+  - Added more information on [create host](#create-host) command and the use of extension versus authentication for specification of name server administrator.
 
 - 2.9 2018-10-03
   - Added diagram for contact creation revision 1.0, please see the [create contact](#create-contact) command section
@@ -209,7 +209,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
   - Added examples of poll messages related to domain creation
 
 - 2.4 2018-05-25
-  - Added information on format of Orderconfirmation Token, this is implemented with EPP release 2.3.0 currently only available in sandbox and introduces the new extension: `dkhm:url`
+  - Added information on format of orderconfirmation Token, this is implemented with EPP release 2.3.0 currently only available in sandbox and introduces the new extension: `dkhm:url`
   - Addition of risk assessment for create domain command poll response. The XSD files revision 2.2 describes the changes to the XSD and supports the new extension: `dkhm:risk_assessment`
 
 - 2.3 2018-05-01
@@ -249,7 +249,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 - 1.6 2015-01-06
   - This revision of the specification is describing EPP service release 1.2.X
   - This release also updates the [XSD][XSD Files] specification to revision 1.3
-  - The document has with this revision been ported from a proprietary format to markdown and is being hosted on GitHub for easier maintenance and distribution, this has resultet in a lot of minor corrections and clarifications.
+  - The document has with this revision been ported from a proprietary format to markdown and is being hosted on GitHub for easier maintenance and distribution, this has resulted in a lot of minor corrections and clarifications.
   - Extended the section about this document, due to the migration to Github, so copyright is now explicitly mentioned
   - info contact command extended with validation information
   - create domain command extended with validation information for registrant
@@ -263,7 +263,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 - 1.4 2013-11-19
   - Corrected links in resources
-  - Empasized the use of the `auto` keyword for contact creation, this has also been listed in the implementation limitations section
+  - Emphasized the use of the `auto` keyword for contact creation, this has also been listed in the implementation limitations section
   - Added information on the restrictive use of `clTRID` in new section entitled: Implementation Requirements
 
 - 1.3 2013-10-29
@@ -318,7 +318,7 @@ The service is implemented under the following principles:
 
 1 Adhere to the standard to the extent possible or use non-intrusive extensions to support the requirements or finally use mandatory extensions to adhere to service requirements
 1 Use _in-band_ communication, meaning requests made via  EPP will be responded to via EPP unless the end-user have specified differently
-1 Use standard error code to the extent possible, communicating state more clearly and unambigiously
+1 Use standard error code to the extent possible, communicating state more clearly and unambiguously
 
 <a id="ssltls-support"></a>
 ### SSL/TLS Support
@@ -362,9 +362,9 @@ DK Hostmaster offers the following environments:
 
 - The Change Password operation will only change the password on the sandbox environment
 - The sandbox environment is available at: epp-sandbox.dk-hostmaster.dk port 700
-- This environment is available to both registrars and nameserver administrators
+- This environment is available to both registrars and name server administrators
 
-Please note that when you first start to use the EPP sandbox environment, the access credentials are matching your production credentials. If these do not work as expected (e.g. error `2200`). please contact: tech@dk-hostmaster.dk to get the credentials synhcronized.
+Please note that when you first start to use the EPP sandbox environment, the access credentials are matching your production credentials. If these do not work as expected (e.g. error `2200`). please contact: tech@dk-hostmaster.dk to get the credentials synchronized.
 
 <a id="implementation-requirements"></a>
 ## Implementation Requirements
@@ -415,7 +415,7 @@ Here follows a listed, the extensions are described separately and in detail bel
 <a id="dkhmusertype"></a>
 ### `dkhm:userType`
 
-The `userType` extension is used to categorize a contact type, since the requirements for data differs between the different usertypes, we need to be able to differenciate between: company, individual, public organisation and association. More information is available under the [create contact](#create-contact) command.
+The `userType` extension is used to categorize a contact type, since the requirements for data differs between the different usertypes, we need to be able to differentiate between: company, individual, public organisation and association. More information is available under the [create contact](#create-contact) command.
 
 Related extensions are `dkhm:EAN`, `dkhm:CVR` and `dkhm:pnumber`.
 
@@ -481,7 +481,7 @@ Contact objects can have a secondary email address in addition to `email`. The e
 <a id="dkhmrequestednsadmin"></a>
 ### `dkhm:requestedNsAdmin`
 
-The extension is used for update and [create host](#create-host), where it is possible to request another nameserver administrator than the authenticated user. The extension was introduced in the DK Hostmaster XSD file set 1.5.
+The extension is used for update and [create host](#create-host), where it is possible to request another name server administrator than the authenticated user. The extension was introduced in the DK Hostmaster XSD file set 1.5.
 
 <a id="dkhmurl"></a>
 ### `dkhm:url`
@@ -531,7 +531,7 @@ In general the service is not localized and all EPP related errors and messages 
 
 The service does not support the following features of the EPP protocol:
 
-- Authorization, meaning the use of `authInfo` for commands extended the authorization for the command in question. Generel authorization based on the client authentication works as described in [RFC5730].
+- Authorization, meaning the use of `authInfo` for commands extended the authorization for the command in question. General authorization based on the client authentication works as described in [RFC5730].
 - Transport of `authInfo`, the section is ignored is not recommended for transport of end-user passwords
 
 Comparing the EPP implementation to the existing channel for domain registration using the form via SMTP, the following fields are not supported.
@@ -605,7 +605,7 @@ This part of the EPP protocol is described in [RFC 5730][RFC5730]. This command 
 
 The login uses the general AAA functionality in DK Hostmaster. This mean that in addition to the validation of username and password specified as part of the login request, an attempt is made to authorise the authenticated user for access to the actual EPP service and subsequent operations.
 
-Authorisation is currently only available to specified user roles, therefore the username provided must point to an entity with the role of registrar or nameserver administrator with the DK Hostmaster registry. See also Available Environments above.
+Authorisation is currently only available to specified user roles, therefore the username provided must point to an entity with the role of registrar or name server administrator with the DK Hostmaster registry. See also Available Environments above.
 
 DK Hostmaster supports the change of passwords via EPP. Please refer to the chapter Available Environments for any special circumstances.
 
@@ -791,8 +791,8 @@ For clarification `2303` is returned in case a provided message-id (`msgID`) poi
 </epp>
 ```
 
-<a id="poll-ack-response-for-non-existant-message-or-previously-acknowledged-message"></a>
-#### poll ack response for non-existant message (or previously acknowledged message)
+<a id="poll-ack-response-for-non-existent-message-or-previously-acknowledged-message"></a>
+#### poll ack response for non-existent message (or previously acknowledged message)
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -831,7 +831,7 @@ The extension in response will provide a unique tracking number, which can be us
 
 So the customised response for a domain creation request looks as below.
 
-The create domain command has been extended with a field (`orderconfirmationToken`) making it possible to assign a token indicating that the registrant has agreed to the terms and coniditions for DK Hostmaster with the registrar.
+The create domain command has been extended with a field (`orderconfirmationToken`) making it possible to assign a token indicating that the registrant has agreed to the terms and conditions for DK Hostmaster with the registrar.
 
 ```XML
 <dkhm:orderconfirmationToken xmlns:dkhm=“urn:dkhm:params:xml:ns:dkhm-2.1”>
@@ -856,13 +856,13 @@ An additional URL is specified in the response via the extension `dkhm:url`, thi
 
 1. End-user has not agreed to the terms and conditions
 2. End-user has agreed to the terms and conditions, but ID-control is required
-3. End-user has agreed to the terms and conditions and ID-control has been completed - no further actions are necessary, self-service access is avaiable and active
+3. End-user has agreed to the terms and conditions and ID-control has been completed - no further actions are necessary, self-service access is available and active
 
 As part of the process the final response to a create domain is communicated via the message queue. In this response the DK Hostmaster A/S risk assessment is included, it can hold one of the following values:
 
-- `RED` - the registrant is requested to pass successful ID-control before the domain name application can be fullfilled and the registrant is requested to activate the domain name
+- `RED` - the registrant is requested to pass successful ID-control before the domain name application can be fulfilled and the registrant is requested to activate the domain name
 - `YELLOW` - the registrant is requested to pass successful ID-control in parallel the registrant is requested to activate the domain name, which will then be made available in the zone
-- `BLUE` - the registrant is requested to pass successful ID-control before the domain name application can be fullfilled and the registrant can be requested to activate the domain name
+- `BLUE` - the registrant is requested to pass successful ID-control before the domain name application can be fulfilled and the registrant can be requested to activate the domain name
 - `GREEN` - the registrant is requested to activate the domain name, which will then be made available in the zone
 - `N/A` - the risk assessment could not be performed, the registrant is requested to activate the domain name. ID-control will be requested subsequently
 
@@ -939,13 +939,13 @@ The default value for domain value, if not specified, is one year.
 <a id="poll-and-messages"></a>
 #### Poll and Messages
 
-As described above the creation of domain names is not synchronous, after the successfull creation of a domain
+As described above the creation of domain names is not synchronous, after the  creation of a domain
 request, resulting in a pending state, will have to be probed using the poll command.
 
 The outcome can be one of two, please see the examples below:
 
-<a id="create-domain-poll-message-for-succesful-creation"></a>
-##### create domain poll message for succesful creation
+<a id="create-domain-poll-message-for-successful-creation"></a>
+##### create domain poll message for successful creation
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -975,8 +975,8 @@ The outcome can be one of two, please see the examples below:
 </epp>
 ```
 
-<a id="create-domain-poll-message-for-unsuccesful-creation-existing-domain"></a>
-##### create domain poll message for unsuccesful creation, existing domain
+<a id="create-domain-poll-message-for-unsuccessful-creation-existing-domain"></a>
+##### create domain poll message for unsuccessful creation, existing domain
 
 ```xml
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
@@ -1249,8 +1249,8 @@ This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command 
 This command covers a lot of functionality, it can complete operations such as:
 
 - change registrant for domain
-- add nameserver to domain
-- remove nameserver from domain
+- add name server to domain
+- remove name server from domain
 - add admin contact
 - remove admin contact
 - add billing contact
@@ -1275,10 +1275,10 @@ If the request is not parsable the service responds with a `2005`.
 If the command is parsable, the command is separated into one of more of the following sub-commands (by order of precedence):
 
 1. change registrant
-1. remove nameserver
+1. remove name server
 1. remove admin contact
 1. remove billing contact
-1. add nameserver
+1. add name server
 1. add admin contact
 1. add billing contact
 
@@ -1298,16 +1298,16 @@ When the command succeeds either `1000` or `1001` is returned the latter if one 
 | 2102 | Change of status for host object is not supported |
 | 2201 | If the authenticated user does not hold the privilege to update the specified domain object |
 | 2303 | If the specified domain name does not exist |
-| 2303 | If the specified host name does not exist, for when adding a new nameserver |
-| 2303 | If the specified host name does not exist, for when removing a nameserver |
+| 2303 | If the specified host name does not exist, for when adding a new name server |
+| 2303 | If the specified host name does not exist, for when removing a name server |
 | 2303 | If the specified userid  does not exist, for when adding a new billing contact |
-| 2304 | If the specified host name does not link with the specified domain name, for when removing a nameserver |
+| 2304 | If the specified host name does not link with the specified domain name, for when removing a name server |
 | 2307 | Unimplemented object service, the service does not support change of registrant on a domain |
 | 2308 | The number of name servers are below the required limit |
 
 Please see the below sections for details on the different sub-commands.
 
-The command might be blocked and the status code: `serverUpdateProhibited` is returned indicating that an update is not possible. The status code `clientUpdateProhibited` will be returned if the issued update request cannot be fullfilled due to a domain lock with the registry. See also [ICANN description](https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en/) of status codes.
+The command might be blocked and the status code: `serverUpdateProhibited` is returned indicating that an update is not possible. The status code `clientUpdateProhibited` will be returned if the issued update request cannot be fulfilled due to a domain lock with the registry. See also [ICANN description](https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en/) of status codes.
 
 <a id="update-domain-request"></a>
 #### update domain request
@@ -1364,10 +1364,10 @@ The change of registrant is a *special* operation, it results in all privileges 
 | ------------ | ------------ |
 | 2307 | Unimplemented object service, the service does not support change of registrant on a domain |
 
-<a id="add-nameserver"></a>
-#### add nameserver
+<a id="add-name-server"></a>
+#### add name server
 
-The addition of a new nameserver to a domain name or a re-delegation requires that the new nameserver must offer resolution for the domain name in question.
+The addition of a new name server to a domain name or a re-delegation requires that the new name server must offer resolution for the domain name in question.
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1389,7 +1389,7 @@ The addition of a new nameserver to a domain name or a re-delegation requires th
 </epp>
 ```
 
-![Update domain - Add nameserver][epp-update-domain-add-ns]
+![Update domain - Add name server][epp-update-domain-add-ns]
 
 | Return Code  | Description |
 | ------------ | ------------ |
@@ -1397,14 +1397,14 @@ The addition of a new nameserver to a domain name or a re-delegation requires th
 | 2005 | Syntax of the command is not correct |
 | 2201 | If the authenticated user does not hold the privilege to update the specified domain object |
 | 2303 | If the specified domain name does not exist |
-| 2303 | If the specified host name does not exist, for when adding a new nameserver |
+| 2303 | If the specified host name does not exist, for when adding a new name server |
 
-<a id="remove-nameserver"></a>
-#### remove nameserver
+<a id="remove-name-server"></a>
+#### remove name server
 
-The removal of a existing nameserver from a domain name requires that at least two other name servers are offering resolution for the domain in question, else the command will fail.
+The removal of a existing name server from a domain name requires that at least two other name servers are offering resolution for the domain in question, else the command will fail.
 
-Since the update domain command can contain several sub-commands, this could be accompanied by an *add nameserver* (see above), so the policy requirement is met and resolution is kept.
+Since the update domain command can contain several sub-commands, this could be accompanied by an *add name server* (see above), so the policy requirement is met and resolution is kept.
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1427,7 +1427,7 @@ Since the update domain command can contain several sub-commands, this could be 
 </epp>
 ```
 
-![Update domain - Remove nameserver][epp-update-domain-remove-ns]
+![Update domain - Remove name server][epp-update-domain-remove-ns]
 
 | Return Code  | Description |
 | ------------ | ------------ |
@@ -1435,8 +1435,8 @@ Since the update domain command can contain several sub-commands, this could be 
 | 2005 | Syntax of the command is not correct |
 | 2201 | If the authenticated user does not hold the privilege to update the specified domain object |
 | 2303 | If the specified domain name does not exist |
-| 2303 | If the specified host name does not exist, for when removing a nameserver |
-| 2304 | If the specified host name does not link with the specified domain name, for when removing a nameserver |
+| 2303 | If the specified host name does not exist, for when removing a name server |
+| 2304 | If the specified host name does not link with the specified domain name, for when removing a name server |
 | 2308 | The number of name servers are below the required limit |
 
 <a id="add-contact"></a>
@@ -1448,7 +1448,7 @@ The addition of a new contact has to adhere to some policies.
 2. If the authenticated user is a registrar only billing can be added
 3. The new contact is requested to accept the role, so the operation is asynchronous
 
-Additing new users require special privileges, currently only with the registrant, apart from the policy listed above.
+Adding new users require special privileges, currently only with the registrant, apart from the policy listed above.
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1556,7 +1556,7 @@ This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command 
 
 This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard.
 
-Please note that according to the RFC [section 3.1.2][RFC5732-3.1.2], the `CLID` points to the sponsoring client. DK Hostmaster interprets this as the tehnical contact for the nameserver pointing to the host object in question.
+Please note that according to the RFC [section 3.1.2][RFC5732-3.1.2], the `CLID` points to the sponsoring client. DK Hostmaster interprets this as the technical contact for the name server pointing to the host object in question.
 
 <a id="info-host-request"></a>
 #### info host request
@@ -1608,18 +1608,18 @@ Please note that according to the RFC [section 3.1.2][RFC5732-3.1.2], the `CLID`
 <a id="create-host"></a>
 ### create host
 
-This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard. The command can be extended to specify another nameserver administrator than the authenticated user.
+This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard. The command can be extended to specify another name server administrator than the authenticated user.
 
 :point_right: Please note that IP addresses are required for domain names ending in '.dk', please refer to the [glue record policy](https://github.com/DK-Hostmaster/dkhm-name-service-specification#glue-records).
 
-:warning: By default the authenticated user is attempted used as designated nameserver administrator, It is however not possible to assign a registrar account as nameserver administrator, so a regular WHOIS handle pointing to a contact object has to be specified using the extension `dkhm:requestedNsAdmin`, alternatively you can authenticate using a WHOIS handle and the use of the extension can be avoided.
+:warning: By default the authenticated user is attempted used as designated name server administrator, It is however not possible to assign a registrar account as name server administrator, so a regular WHOIS handle pointing to a contact object has to be specified using the extension `dkhm:requestedNsAdmin`, alternatively you can authenticate using a WHOIS handle and the use of the extension can be avoided.
 
 ![Diagram of EPP create host][epp_create_host]
 
 The command can be used in two scenarios:
 
-1. The command is used as described in the RFC and the authenticated user is appointed as administrator for the nameserver created
-2. The command is extended with a contact object pointing to an existing user, which is requested to take the role as nameserver administrator for the host object requested created
+1. The command is used as described in the RFC and the authenticated user is appointed as administrator for the name server created
+2. The command is extended with a contact object pointing to an existing user, which is requested to take the role as name server administrator for the host object requested created
 
 | Return Code  | Description |
 | ------------ | ------------ |
@@ -1632,16 +1632,16 @@ The command can be used in two scenarios:
 | 2302 | If the specified host object already exist |
 | 2303 | If the contact-id pointed to in `dkhm:requestedNsAdmin` points to a non-existing contact object |
 | 2303 | If the domain name for the host is not registered |
-| 2306 | If the specified nameserver administrator is a registrar account |
+| 2306 | If the specified name server administrator is a registrar account |
 
-As for update domain `1001` holds higher precendence than `1000`, so if any of the sub-commands require additional review and are _pending_, the return code will be `1001`.
+As for update domain `1001` holds higher precedence than `1000`, so if any of the sub-commands require additional review and are _pending_, the return code will be `1001`.
 
 ![Diagram of DKH create host][dkh_create_host]
 
 <a id="create-host-request"></a>
 #### create host request
 
-Request to create a host object, using both IPv4 and IPv6 adresses and the authenticated user is the registrant of the specified domain name and requested adminstrator of the host object.
+Request to create a host object, using both IPv4 and IPv6 addresses and the authenticated user is the registrant of the specified domain name and requested administrator of the host object.
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1664,7 +1664,7 @@ Request to create a host object, using both IPv4 and IPv6 adresses and the authe
 <a id="create-host-response"></a>
 #### create host response
 
-Response to the above request. The reponse indicates a succesful creation, since the operation could be completed successfully without requiring offline evaluation.
+Response to the above request. The response indicates a successful creation, since the operation could be completed successfully without requiring offline evaluation.
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1691,7 +1691,7 @@ Response to the above request. The reponse indicates a succesful creation, since
 <a id="create-host-request-with-request-to-new-administrator"></a>
 #### create host request with request to new administrator
 
-Request to create a host object, requesting a different adminstrator of the host object, hence requiring offline evaluation.
+Request to create a host object, requesting a different administrator of the host object, hence requiring offline evaluation.
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1744,7 +1744,7 @@ Response to the above request. The response indicates a succesful accept of the 
 <a id="delayed-create-host-response-from-request-to-new-administrator"></a>
 #### Delayed create host response, from request to new administrator
 
-If the creation of the host has resulting in a delayed operation, pending the designated nameserver administrator, the below example shows what a poll message for the final state of the operation would look like.
+If the creation of the host has resulting in a delayed operation, pending the designated name server administrator, the below example shows what a poll message for the final state of the operation would look like.
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1804,7 +1804,7 @@ Request to create a host object, where the authenticated use is not the registra
 <a id="create-host-response-from-request-to-registrant-of-domain-name"></a>
 #### create host response, from request to registrant of domain name
 
-Response to the above request. The reponse indicates a succesful accept of the requiest, but requires offline evaluation by the registrant of the specified domain namem, so the response indicates that the operation is pending.
+Response to the above request. The response indicates a successful accept of the request, but requires offline evaluation by the registrant of the specified domain namem, so the response indicates that the operation is pending.
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1831,7 +1831,7 @@ Response to the above request. The reponse indicates a succesful accept of the r
 <a id="delayed-create-host-response-from-request-to-registrant-of-domain-name"></a>
 #### Delayed create host response, from request to registrant of domain name
 
-If the creation of the host has resulting in a delayed operation, pending the designated nameserver administrator, the below example shows what a poll message for the final state of the operation would look like.
+If the creation of the host has resulting in a delayed operation, pending the designated name server administrator, the below example shows what a poll message for the final state of the operation would look like.
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1891,7 +1891,7 @@ The process of changing a host name us unsupported by DK Hostmaster and will alw
 <a id="add-ip-sub-process"></a>
 #### Add IP sub-process
 
-Addition of IP addressed supports the additional of IPv4 and IPv6 adresses. These are required as part of our glue record policy. If additional status elements are added to this command it will fail.
+Addition of IP addressed supports the additional of IPv4 and IPv6 addresses. These are required as part of our glue record policy. If additional status elements are added to this command it will fail.
 
 | Return Code  | Description |
 | ------------ | ------------ |
@@ -1905,7 +1905,7 @@ Addition of IP addressed supports the additional of IPv4 and IPv6 adresses. Thes
 <a id="remove-ip-sub-process"></a>
 #### Remove IP sub-process
 
-Addition of IP addressed supports the additional of IPv4 and IPv6 adresses. These are required as part of our glue record policy. If additional status elements are added to this command it will fail.
+Addition of IP addressed supports the additional of IPv4 and IPv6 addresses. These are required as part of our glue record policy. If additional status elements are added to this command it will fail.
 
 | Return Code  | Description |
 | ------------ | ------------ |
@@ -1923,10 +1923,10 @@ Addition of IP addressed supports the additional of IPv4 and IPv6 adresses. Thes
 
 The command can be used in two scenarios:
 
-1. The command is used as described in the RFC and IP adresses can be administered
-2. The command is extended with a contact object pointing to an existing user, which is requested to takeover the role as nameserver administrator for the host object requested updated
+1. The command is used as described in the RFC and IP addresses can be administered
+2. The command is extended with a contact object pointing to an existing user, which is requested to takeover the role as name server administrator for the host object requested updated
 
-The update of a host object can only be requested by the adminstrator of the given host.
+The update of a host object can only be requested by the administrator of the given host.
 
 | Return Code  | Description |
 | ------------ | ------------ |
@@ -1940,7 +1940,7 @@ The update of a host object can only be requested by the adminstrator of the giv
 | 2303 | If the contact-id pointed to in `dkhm:requestedNsAdmin` points to a non-existing contact object |
 | 2304 | The number of IP addresses are below the required limit |
 
-As for update host `1001` holds higher precendence than `1000`, so if any of the sub-commands require additional review and are _pending_, the return code will be `1001`.
+As for update host `1001` holds higher precedence than `1000`, so if any of the sub-commands require additional review and are _pending_, the return code will be `1001`.
 
 As described in Implementation Limitations, the service does not support setting of status via update host.
 
@@ -1949,7 +1949,7 @@ As described in Implementation Limitations, the service does not support setting
 <a id="update-host-request-with-request-to-new-administrator"></a>
 #### update host request with request to new administrator
 
-Request to update a host object, requesting a different adminstrator of the host object, hence requiring offline evaluation.
+Request to update a host object, requesting a different administrator of the host object, hence requiring offline evaluation.
 
 ```XML
 <?xml version="1.0" encoding="UTF-8"?>
@@ -1972,7 +1972,7 @@ Request to update a host object, requesting a different adminstrator of the host
 <a id="update-host-response-with-request-to-new-administrator"></a>
 #### update host response with request to new administrator
 
-Response to the above request. The response indicates a succesful accept of the requiest, but requires offline evaluation by the designated administrator of the host object, so the response indicates that the operation is pending.
+Response to the above request. The response indicates a successful accept of the request, but requires offline evaluation by the designated administrator of the host object, so the response indicates that the operation is pending.
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1993,7 +1993,7 @@ Response to the above request. The response indicates a succesful accept of the 
 <a id="delayed-update-host-response-from-request-to-new-administrator"></a>
 #### Delayed update host response from request to new administrator
 
-If the creation of the host has resulting in a delayed operation, pending the designated nameserver administrator, the below example shows what a poll message for the final state of the operation looks like.
+If the creation of the host has resulting in a delayed operation, pending the designated name server administrator, the below example shows what a poll message for the final state of the operation looks like.
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -2751,7 +2751,7 @@ EPP service is running in the environment queried.
 | `serverHold` | a given domain is not active, it can hold a number of different states rendering it not-active |
 | `serverRenewProhibited` | indicates whether the billing contact can renew the domain |
 | `serverTransferProhibited` | *unsupported* |
-| `serverUpdateProhibited` | indicates whether the registrant for a given domain can have ownership transferred, can appoint new proxy/admin contact, can appoint new billing contact, change nameservers and can associate DS Records |
+| `serverUpdateProhibited` | indicates whether the registrant for a given domain can have ownership transferred, can appoint new proxy/admin contact, can appoint new billing contact, change name servers and can associate DS Records |
 | `transferPeriod` | *unsupported* |
 | `clientDeleteProhibited` | *unsupported* |
 | `clientHold` | *unsupported* |
@@ -2762,7 +2762,7 @@ EPP service is running in the environment queried.
 <a id="privilege-matrix"></a>
 ### Privilege Matrix
 
-| Command | Sub-command | Registrar | Domain admin | Domain billing | Nameserver admin |
+| Command | Sub-command | Registrar | Domain admin | Domain billing | name server admin |
 | --- | --- |:---:|:---:|:---:|:---:|
 | login | | :white_check_mark: | :white_check_mark: \*1 | :white_check_mark: \*1 | :white_check_mark: |
 | create domain | | :white_check_mark: | | | |
@@ -2772,8 +2772,8 @@ EPP service is running in the environment queried.
 | | add admin | | :white_check_mark: \*5 | | |
 | | remove admin | | :white_check_mark: \*4 | | |
 | | change registrant | | :white_check_mark: \*6 | | |
-| | add nameserver | | :white_check_mark: \*6 | | :white_check_mark: \*6 |
-| | remove nameserver | | :white_check_mark: \*6 | | :white_check_mark: \*6 |
+| | add name server | | :white_check_mark: \*6 | | :white_check_mark: \*6 |
+| | remove name server | | :white_check_mark: \*6 | | :white_check_mark: \*6 |
 | renew domain | | | | :white_check_mark: | |
 | delete domain | | | :white_check_mark: \*6 | | |
 | info domain | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
@@ -2809,7 +2809,7 @@ EPP service is running in the environment queried.
 | Check Domain | 1 | |
 | Create Domain | 1 | Asynchronous, requires orderconfirmation by the registrant. VID product not supported, PO numbers not supported |
 | Info Domain | 1 | Billing contact not disclosed, EPP status codes not supported completely |
-| Update Domain | 2 | Change of nameserver is asynchronous, requires approval by the registrant. Change of registrant is not supported |
+| Update Domain | 2 | Change of name server is asynchronous, requires approval by the registrant. Change of registrant is not supported |
 | Renew Domain | 2 | Requires that the requesting user is a registrar and billing contact for the domain. The domain name must not have any financial outstanding |
 | Transfer Domain | N/A | |
 | Delete Domain | N/A | |
@@ -2820,9 +2820,9 @@ EPP service is running in the environment queried.
 | Transfer Contact | N/A | |
 | Delete Contact | N/A | |
 | Check Host | 1 | |
-| Create Host | 2 | Asynchronous, requires accept of the registrant of the domain name if the domain is under the .dk TLD and requires that the requesting user accepts the responsibility as nameserver administrator |
+| Create Host | 2 | Asynchronous, requires accept of the registrant of the domain name if the domain is under the .dk TLD and requires that the requesting user accepts the responsibility as name server administrator |
 | Info Host | 1 | |
-| Update Host | 2 |  Asynchronous, requires that the requested administrator accepts the responsibility as nameserver administrator |
+| Update Host | 2 |  Asynchronous, requires that the requested administrator accepts the responsibility as name server administrator |
 | Delete Host | 2 | |
 | Poll | 1 | |
 
