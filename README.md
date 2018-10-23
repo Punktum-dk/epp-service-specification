@@ -101,11 +101,11 @@ Revision: 2.11
     - [create host response, from request to registrant of domain name](#create-host-response-from-request-to-registrant-of-domain-name)
     - [Delayed create host response, from request to registrant of domain name](#delayed-create-host-response-from-request-to-registrant-of-domain-name)
   - [update host](#update-host)
-    - [Proces](#proces)
-    - [Change hostname sub-proces](#change-hostname-sub-proces)
-    - [Add IP sub-proces](#add-ip-sub-proces)
-    - [Remove IP sub-proces](#remove-ip-sub-proces)
-    - [Change admin sub-proces](#change-admin-sub-proces)
+    - [process](#process)
+    - [Change hostname sub-process](#change-hostname-sub-process)
+    - [Add IP sub-process](#add-ip-sub-process)
+    - [Remove IP sub-process](#remove-ip-sub-process)
+    - [Change admin sub-process](#change-admin-sub-process)
     - [update host request with request to new administrator](#update-host-request-with-request-to-new-administrator)
     - [update host response with request to new administrator](#update-host-response-with-request-to-new-administrator)
     - [Delayed update host response from request to new administrator](#delayed-update-host-response-from-request-to-new-administrator)
@@ -381,7 +381,7 @@ The `clTRID` is recommended to be unique for all transactions and is required to
 <a id="ip-whitelisting"></a>
 ### IP Whitelisting
 
-Since 2016-02-29 DK Hostmaster has enforced IP whitelisting of IPs for access to the EPP service. Additions and removals of IP addresses is currently a manual proces handled by DK Hostmaster.
+Since 2016-02-29 DK Hostmaster has enforced IP whitelisting of IPs for access to the EPP service. Additions and removals of IP addresses is currently a manual process handled by DK Hostmaster.
 
 Please submit change requests including registrar handle information to:
 
@@ -1175,7 +1175,7 @@ The example is obsolete and will be replaced with post implementation of the dom
 
 This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command adheres to the standard.
 
-![Diagram of EPP proces for EPP renew domain][epp-renew-domain]
+![Diagram of EPP process for EPP renew domain][epp-renew-domain]
 
 | Return Code  | Description |
 | ------------ | ------------ |
@@ -1189,13 +1189,13 @@ This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command 
 | 2400 | In case of an exception |
 | 1000 | If the renew domain command is successful |
 
-This complete proces is atomic and might throw an unrecoverable exception: `2400` either due to unforeseen circumstances or a change in the state of the domain name.
+This complete process is atomic and might throw an unrecoverable exception: `2400` either due to unforeseen circumstances or a change in the state of the domain name.
 
-On success we emit the return code `1000`. No further communication is made via the EPP service. An invoice is generated and is distributed out of band for EPP as shown in the sub-proces and an additional *message* is sent out of band for EPP to the billing contact and the registrant
+On success we emit the return code `1000`. No further communication is made via the EPP service. An invoice is generated and is distributed out of band for EPP as shown in the sub-process and an additional *message* is sent out of band for EPP to the billing contact and the registrant
 
-The sub-proces called, can be depicted as follows:
+The sub-process called, can be depicted as follows:
 
-![Diagram of DKH sub-proces for EPP renew domain][dkh-renew-domain]
+![Diagram of DKH sub-process for EPP renew domain][dkh-renew-domain]
 
 <a id="renew-domain-request"></a>
 #### renew domain request
@@ -1260,7 +1260,7 @@ In addition it supports DNSSEC management capabilities as specified in [RFC 5910
 
 The command will be evaluated as an atomic command, even though it is dispatched to several sub-commands.
 
-![Diagram of EPP proces for EPP update domain][epp-update-domain]
+![Diagram of EPP process for EPP update domain][epp-update-domain]
 
 The requirements for the command to commence with processing it that the following data are available:
 
@@ -1470,7 +1470,7 @@ Additing new users require special privileges, currently only with the registran
 
 ![Update domain - Add billing/admin contact][epp-update-domain-add-contact]
 
-![Update domain - Add billing/admin contact sub-proces][dkh-update-domain-add-contact]
+![Update domain - Add billing/admin contact sub-process][dkh-update-domain-add-contact]
 
 <a id="remove-contact"></a>
 #### remove contact
@@ -1501,7 +1501,7 @@ The removal of a existing contact is possible for both billing and admin contact
 
 ![Update domain - Remove billing/admin contact][epp-update-domain-remove-contact]
 
-![Update domain - Remove billing/admin contact sub-proces][dkh-update-domain-remove-contact]
+![Update domain - Remove billing/admin contact sub-process][dkh-update-domain-remove-contact]
 
 <a id="check-host"></a>
 ### check host
@@ -1870,17 +1870,17 @@ Please note the `paResult`, where `1` indicates an accept and `0` would indicate
 
 This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard, but is extended to service one special usage scenario.
 
-<a id="proces"></a>
-#### Proces
+<a id="process"></a>
+#### process
 
-This is the overall proces, the proces is divided into sub-processes, please see the processes below for details.
+This is the overall process, the process is divided into sub-processes, please see the processes below for details.
 
 ![Diagram of EPP update host][epp_update_host]
 
-<a id="change-hostname-sub-proces"></a>
-#### Change hostname sub-proces
+<a id="change-hostname-sub-process"></a>
+#### Change hostname sub-process
 
-The proces of changing a host name us unsupported by DK Hostmaster and will always result in an error code: `2102`.
+The process of changing a host name us unsupported by DK Hostmaster and will always result in an error code: `2102`.
 
 ![Diagram of EPP update host change hostname][epp_update_host_change_hostname]
 
@@ -1888,8 +1888,8 @@ The proces of changing a host name us unsupported by DK Hostmaster and will alwa
 | ------------ | ------------ |
 | 2102 | Change of hostname is not supported |
 
-<a id="add-ip-sub-proces"></a>
-#### Add IP sub-proces
+<a id="add-ip-sub-process"></a>
+#### Add IP sub-process
 
 Addition of IP addressed supports the additional of IPv4 and IPv6 adresses. These are required as part of our glue record policy. If additional status elements are added to this command it will fail.
 
@@ -1902,8 +1902,8 @@ Addition of IP addressed supports the additional of IPv4 and IPv6 adresses. Thes
 
 ![Diagram of EPP update host add IP][epp_update_host_add_ip]
 
-<a id="remove-ip-sub-proces"></a>
-#### Remove IP sub-proces
+<a id="remove-ip-sub-process"></a>
+#### Remove IP sub-process
 
 Addition of IP addressed supports the additional of IPv4 and IPv6 adresses. These are required as part of our glue record policy. If additional status elements are added to this command it will fail.
 
@@ -1916,8 +1916,8 @@ Addition of IP addressed supports the additional of IPv4 and IPv6 adresses. Thes
 
 ![Diagram of EPP update host remove IP][epp_update_host_remove_ip]
 
-<a id="change-admin-sub-proces"></a>
-#### Change admin sub-proces
+<a id="change-admin-sub-process"></a>
+#### Change admin sub-process
 
 ![Diagram of EPP update host change admin][epp_update_host_change_admin]
 
@@ -2191,7 +2191,7 @@ The data is collected as required by danish legislation. See also the data colle
 Please note:
 
 - `authInfo` section is ignored is not recommended for transport of end-user passwords
-- User-creation is silent and the designated user is not notified about the the creation, unless this is a part of the proces of associating the user with other objects
+- User-creation is silent and the designated user is not notified about the the creation, unless this is a part of the process of associating the user with other objects
 
 <a id="create-contact-request"></a>
 #### create contact request
@@ -2816,7 +2816,7 @@ EPP service is running in the environment queried.
 | Check Contact | 1 | |
 | [Create Contact](#create-contact) | 1 | Supplied handle/user-id is not supported |
 | Info Contact | 1 | |
-| Update Contact | 2 | Updating email is asynchronous, but is regarded as non-atomic due to the email validation proces |
+| Update Contact | 2 | Updating email is asynchronous, but is regarded as non-atomic due to the email validation process |
 | Transfer Contact | N/A | |
 | Delete Contact | N/A | |
 | Check Host | 1 | |
