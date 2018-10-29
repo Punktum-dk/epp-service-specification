@@ -1,7 +1,7 @@
 # DK Hostmaster EPP Service Specification
 
-2018-10-23
-Revision: 2.11
+2018-10-29
+Revision: 2.12
 
 ## Table of Contents
 
@@ -182,6 +182,10 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 <a id="document-history"></a>
 ### Document History
+
+- 2.12 2018-10-29
+  - Updated process diagram for [update domain](#update-domain)
+  - Added missing process diagram for command evaluation for [update domain](#update-domain)
 
 - 2.11 2018-10-23
   - Added more information on the rules and errors codes related to [renew domain](#renew-domain)
@@ -1289,6 +1293,8 @@ The command might be stopped if the sub-commands cannot be executed. For example
 Do note that the change of billing contact, if inserting a registrar-user, will be _silent_, meaning no e-mails will be sent to the registrant or existing billing contact or other contacts.
 
 When the command succeeds either `1000` or `1001` is returned the latter if one of the operations initiated by the sub-command require additional actions to be taken, `1001` will have precedence over `1000`. If a `1001` is returned the status code `pendingUpdate` might be set if an additional **update domain** command is issued.
+
+![Diagram of EPP process for EPP update domain command evaluation][epp-update-domain-evaluate]
 
 | Return Code  | Description |
 | ------------ | ------------ |
@@ -2860,7 +2866,7 @@ EPP service is running in the environment queried.
 
 [dkh-renew-domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/dkh_renew_domain_v1.1.png
 
-[epp-update-domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_domain_v1.1.png
+[epp-update-domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_domain_v1.2.png
 
 [epp-update-domain-evaluate]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_domain_evaluate_command_v1.0.png
 
