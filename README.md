@@ -1,7 +1,7 @@
 # DK Hostmaster EPP Service Specification
 
-2018-10-29
-Revision: 2.12
+2018-11-08
+Revision: 2.13
 
 ## Table of Contents
 
@@ -183,6 +183,9 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 <a id="document-history"></a>
 ### Document History
 
+- 2.13 2018-11-08
+  - Updated description of risk assessment under [create domain](#create-domain)
+
 - 2.12 2018-10-29
   - Updated process diagram for [update domain](#update-domain)
   - Added missing process diagram for command evaluation for [update domain](#update-domain)
@@ -214,11 +217,11 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 - 2.4 2018-05-25
   - Added information on format of orderconfirmation Token, this is implemented with EPP release 2.3.0 currently only available in sandbox and introduces the new extension: `dkhm:url`
-  - Addition of risk assessment for create domain command poll response. The XSD files revision 2.2 describes the changes to the XSD and supports the new extension: `dkhm:risk_assessment`
+  - Addition of risk assessment for [create domain](#create-domain) command poll response. The XSD files revision 2.2 describes the changes to the XSD and supports the new extension: `dkhm:risk_assessment`
 
 - 2.3 2018-05-01
   - Updated XSD history
-  - Added diagram for create domain
+  - Added diagram for [create domain](#create-domain)
 
 - 2.2 2017-12-19
   - Removed information on status blocked, which has been deprecated
@@ -256,14 +259,14 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
   - The document has with this revision been ported from a proprietary format to markdown and is being hosted on GitHub for easier maintenance and distribution, this has resulted in a lot of minor corrections and clarifications.
   - Extended the section about this document, due to the migration to Github, so copyright is now explicitly mentioned
   - info contact command extended with validation information
-  - create domain command extended with validation information for registrant
-  - create domain command extended with information on confirmation status for domain
+  - [create domain](#create-domain) command extended with validation information for registrant
+  - [create domain](#create-domain) command extended with information on confirmation status for domain
 
 - 1.5 2014-06-18
   - This revision of the specification is describing EPP service release 1.1.X
   - The test environment is no longer active
   - Examples updated to latest [XSD][XSD Files] revision (1.2)
-  - Pre-activation token (`orderconfirmationToken`) can be transported via extension for create domain command
+  - Pre-activation token (`orderconfirmationToken`) can be transported via extension for [create domain](#create-domain) command
 
 - 1.4 2013-11-19
   - Corrected links in resources
@@ -272,7 +275,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 - 1.3 2013-10-29
   - This revision of the specification is describing EPP service release 1.0.9
-  - Added information on use of `clTRID` in context of create domain command
+  - Added information on use of `clTRID` in context of [create domain](#create-domain) command
   - Added more information on the domain check command, which has been extended with EPP service release 1.0.9.
   - This release also updates the [XSD][XSD Files] specification to revision 1.1
 
@@ -380,7 +383,7 @@ This section outlines the overall requirements in regard to implementing an EPP 
 
 In order to ensure transactional integrity and due to the asynchronous nature of some of the EPP commands, we rely on the client transaction id to be unique. This is unique as per client id. The assists in ensuring that a delayed response can be easily identified by simple means.
 
-The `clTRID` is recommended to be unique for all transactions and is required to be unique for the create domain command. This might change in the future.
+The `clTRID` is recommended to be unique for all transactions and is required to be unique for the [create domain](#create-domain) command. This might change in the future.
 
 <a id="ip-whitelisting"></a>
 ### IP Whitelisting
@@ -441,7 +444,7 @@ The pnumber extension is for holding production-unit numbers, used for validatio
 <a id="dkhmtrackingno"></a>
 ### `dkhm:trackingNo`
 
-A unique tracking number for a domain registration for uniformity with the mail form. EPP it not the only channel of domain registration and in order to handle registrations via multiple channel, a unique tracking-id is assigned to every request. More information is available under the create domain command.
+A unique tracking number for a domain registration for uniformity with the mail form. EPP it not the only channel of domain registration and in order to handle registrations via multiple channel, a unique tracking-id is assigned to every request. More information is available under the [create domain](#create-domain) command.
 
 <a id="dkhmdomainadvisory"></a>
 ### `dkhm:domainAdvisory`
@@ -451,12 +454,12 @@ Any special circumstances in relation to a domain name, can be communicated usin
 <a id="dkhmorderconfirmationtoken"></a>
 ### `dkhm:orderconfirmationToken`
 
-This is a special field for supporting the business flow where the agreement for a domain name is accepted by the registrant with the registrar. More information is available under the create domain command.
+This is a special field for supporting the business flow where the agreement for a domain name is accepted by the registrant with the registrar. More information is available under the [create domain](#create-domain) command.
 
 <a id="dkhmdomain_confirmed"></a>
 ### `dkhm:domain_confirmed`
 
-Domain names registered with DK Hostmaster, has to be confirmed by the registrant, this is can either be done using pre-application agreement to terms, see the `orderconfirmationToken` above or other systems with DK Hostmaster, the domain confirmation state is available via the create domain command using this extension.
+Domain names registered with DK Hostmaster, has to be confirmed by the registrant, this is can either be done using pre-application agreement to terms, see the `orderconfirmationToken` above or other systems with DK Hostmaster, the domain confirmation state is available via the [create domain](#create-domain) command using this extension.
 
 See also `orderconfirmationToken`.
 
@@ -468,7 +471,7 @@ Contact objects related to the role of registrant has to be validated, this fiel
 <a id="dkhmregistrant_validated"></a>
 ### `dkhm:registrant_validated`
 
-As described above, contact objects related to the role of registrant has to be validated, this field is used to indicate the status of a validation object via the create domain command.
+As described above, contact objects related to the role of registrant has to be validated, this field is used to indicate the status of a validation object via the [create domain](#create-domain) command.
 
 See also `contact_validated`.
 
@@ -495,7 +498,7 @@ This extension can be used to redirect an end-user to the next step. For now it 
 <a id="dkhmrisk_assessment"></a>
 ### `dkhm:risk_assessment`
 
-This extension is used in the poll response in relation to domain creation. The extension provides information on the risk assessment made by DK Hostmaster A/S. Please see the create domain command.
+This extension is used in the poll response in relation to domain creation. The extension provides information on the risk assessment made by DK Hostmaster A/S. Please see the [create domain](#create-domain) command.
 
 <a id="implementation-limitations"></a>
 ## Implementation Limitations
@@ -548,7 +551,7 @@ Comparing the EPP implementation to the existing channel for domain registration
 
 I accordance with [RFC 5910][RFC5910]. We support DS only and not DNSKEY. In addition the maximum signature lifetime (`secDNS:maxSigLife`) is disregarded. See [section 3.3](http://tools.ietf.org/html/rfc5910#section-3.3) in the referenced RFC.
 
-DK Hostmaster specifies rules ownership of DNSSEC keys. If you provide DNSSEC keys a part of registration, the keys are associated with the registrant as owner. If you want to specify another owner, please specify the `tech` or `keyholder` role (see: Role Mapping under: create domain command).
+DK Hostmaster specifies rules ownership of DNSSEC keys. If you provide DNSSEC keys a part of registration, the keys are associated with the registrant as owner. If you want to specify another owner, please specify the `tech` or `keyholder` role (see: Role Mapping under: [create domain](#create-domain) command).
 
 Not all algorithms are supported, please refer to the [DK Hostmaster Name Service specification][dkhm-name-service-specification] for a complete list of supported algorithms.
 
@@ -835,7 +838,7 @@ The extension in response will provide a unique tracking number, which can be us
 
 So the customised response for a domain creation request looks as below.
 
-The create domain command has been extended with a field (`orderconfirmationToken`) making it possible to assign a token indicating that the registrant has agreed to the terms and conditions for DK Hostmaster with the registrar.
+The [create domain](#create-domain) command has been extended with a field (`orderconfirmationToken`) making it possible to assign a token indicating that the registrant has agreed to the terms and conditions for DK Hostmaster with the registrar.
 
 ```XML
 <dkhm:orderconfirmationToken xmlns:dkhm=“urn:dkhm:params:xml:ns:dkhm-2.1”>
@@ -854,7 +857,7 @@ The `token` is handled the following way:
 - if valid the request will be accepted and processed
 
 The requirement for the registrant to be valid is communicated via the response, using the extension:
-`dkhm:registrant_validated`. Please see the command info contact for more information. The state is communicated in this response in order to provide information on the further flow and process of the create domain request.
+`dkhm:registrant_validated`. Please see the command info contact for more information. The state is communicated in this response in order to provide information on the further flow and process of the [create domain](#create-domain) request.
 
 An additional URL is specified in the response via the extension `dkhm:url`, this URL can be presented to the end-user for further processing and for the following scenarios in particular:
 
@@ -862,13 +865,13 @@ An additional URL is specified in the response via the extension `dkhm:url`, thi
 2. End-user has agreed to the terms and conditions, but ID-control is required
 3. End-user has agreed to the terms and conditions and ID-control has been completed - no further actions are necessary, self-service access is available and active
 
-As part of the process the final response to a create domain is communicated via the message queue. In this response the DK Hostmaster A/S risk assessment is included, it can hold one of the following values:
+As part of the process the final response to a [create domain](#create-domain) is communicated via the message queue. In this response the DK Hostmaster A/S risk assessment is included, it can hold one of the following values:
 
-- `RED` - the registrant is requested to pass successful ID-control before the domain name application can be fulfilled and the registrant is requested to activate the domain name
-- `YELLOW` - the registrant is requested to pass successful ID-control in parallel the registrant is requested to activate the domain name, which will then be made available in the zone
-- `BLUE` - the registrant is requested to pass successful ID-control before the domain name application can be fulfilled and the registrant can be requested to activate the domain name
-- `GREEN` - the registrant is requested to activate the domain name, which will then be made available in the zone
-- `N/A` - the risk assessment could not be performed, the registrant is requested to activate the domain name. ID-control will be requested subsequently
+- `RED` - the registrant is requested to complete successful ID-control before the domain name can become active
+- `YELLOW` - the registrant is requested to complete successful ID-control, the domain name becomes active immediately. If ID-control is not completed within the communicated timeframe the domain is made inactive
+- `BLUE` - the registrant is requested to complete successful ID-control before the domain name can become active
+- `GREEN` - the domain name becomes active immediately
+- `N/A` - the risk assessment could not be performed, the registrant is requested to complete successful ID-control before the domain name can become active
 
 The procedures for ID-control are [described on the DK Hostmaster DK website](https://www.dk-hostmaster.dk/en/identification).
 
@@ -2110,7 +2113,7 @@ The user type will result in context-specific interpretation of the following fi
 
 The `contact-id` field is auto-generated and assigned by DK Hostmaster. EPP do however open for providing a contact-id in the context of the create contact command, this is not supported by DK Hostmaster at this point.
 
-This field is validated on the server site, it is however recommended to perform a check contact on the requested contact-id prior to the create domain request if a userid is already known from a contact create or previous domain creation.
+This field is validated on the server site, it is however recommended to perform a check contact on the requested contact-id prior to the [create domain](#create-domain) request if a userid is already known from a contact create or previous domain creation.
 
 <a id="forced-and-smart-contact-creation"></a>
 #### Forced and Smart Contact Creation
@@ -2639,17 +2642,17 @@ The files are all available for [download][XSD files].
 
 - 1.3
 	- EPP Service version 1.2.X
-	- Introduction of `dkhm:domain_confirmed` for information for create domain
+	- Introduction of `dkhm:domain_confirmed` for information for [create domain](#create-domain)
 	- Introduction of `dkhm:contact_validated` for information for info contact
-	- Introduction of `dkhm:registrant_validated` for information for create domain
+	- Introduction of `dkhm:registrant_validated` for information for [create domain](#create-domain)
 
 - 1.2
 	- EPP Service version 1.1.X
-	- Introduction of `dkhm:orderConfirmation` for create domain and support of   Pre-activation Service
+	- Introduction of `dkhm:orderConfirmation` for [create domain](#create-domain) and support of Pre-activation Service
 
 - 1.1
 	- EPP Service version 1.0.9
-	- Introduction of `dkhm:domainAdvisory` for support of blocked status for create domain for blocked domain names
+	- Introduction of `dkhm:domainAdvisory` for support of blocked status for [create domain](#create-domain) for blocked domain names
 
 - 1.0
 	- EPP Service version 1.0.0
@@ -2771,7 +2774,7 @@ EPP service is running in the environment queried.
 | Command | Sub-command | Registrar | Domain admin | Domain billing | name server admin |
 | --- | --- |:---:|:---:|:---:|:---:|
 | login | | :white_check_mark: | :white_check_mark: \*1 | :white_check_mark: \*1 | :white_check_mark: |
-| create domain | | :white_check_mark: | | | |
+| [create domain](#create-domain) | | :white_check_mark: | | | |
 | update domain | | | :white_check_mark: \*2 | | :white_check_mark: \*2 |
 | | add billing | :white_check_mark: \*8 | :white_check_mark: \*3 | | |
 | | remove billing | :white_check_mark: \*4 | :white_check_mark: \*4 | :white_check_mark: \*4 | |
@@ -2813,7 +2816,7 @@ EPP service is running in the environment queried.
 | Change password | 1 | |
 | Log out | 1 | |
 | Check Domain | 1 | |
-| Create Domain | 1 | Asynchronous, requires orderconfirmation by the registrant. VID product not supported, PO numbers not supported |
+| [Create domain](#create-domain) | 1 | Asynchronous, requires orderconfirmation by the registrant. VID product not supported, PO numbers not supported |
 | Info Domain | 1 | Billing contact not disclosed, EPP status codes not supported completely |
 | Update Domain | 2 | Change of name server is asynchronous, requires approval by the registrant. Change of registrant is not supported |
 | Renew Domain | 2 | Requires that the requesting user is a registrar and billing contact for the domain. The domain name must not have any financial outstanding |
