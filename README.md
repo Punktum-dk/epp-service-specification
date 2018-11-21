@@ -1,7 +1,7 @@
 # DK Hostmaster EPP Service Specification
 
-2018-11-08
-Revision: 2.13
+2018-11-21
+Revision: 2.14
 
 ## Table of Contents
 
@@ -182,6 +182,9 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 <a id="document-history"></a>
 ### Document History
+
+- 2.14 2018-11-21
+  - Updated information on sandbox environment, lastest changes to domain creation emulation had not been added
 
 - 2.13 2018-11-08
   - Updated description of risk assessment under [create domain](#create-domain)
@@ -364,7 +367,7 @@ DK Hostmaster offers the following environments:
 - This environment is intended for client development towards the DK Hostmaster EPP service
 - info and check requests made to this environment will reflect sandbox data. For host objects, some static content synched in by DK Hostmaster, in addition to sandbox data
 - create requests made to this environment will be serialised in the sandbox environment, provided that syntax and data are valid
-- Domains will be enqueued, but will not be processed further nor be available for activation and propagation into the zone
+- Domains will be enqueued and are processed for possible activation, responses are reflected in pollable messages, propagation into a zone file is not supported
 - Contacts (users) can be created, but will not be available in other systems like the self-service system etc.
 
 - The Change Password operation will only change the password on the sandbox environment
