@@ -1,7 +1,7 @@
 # DK Hostmaster EPP Service Specification
 
-2018-11-21
-Revision: 2.14
+2018-12-03
+Revision: 2.15
 
 ## Table of Contents
 
@@ -183,8 +183,12 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 <a id="document-history"></a>
 ### Document History
 
+- 2.15 2018-12-03
+  - Added information on the new consolidated sandbox environment
+  - Corrected some spelling and grammatical errors
+
 - 2.14 2018-11-21
-  - Updated information on sandbox environment, lastest changes to domain creation emulation had not been added
+  - Updated information on sandbox environment, latest changes to domain creation emulation had not been added
 
 - 2.13 2018-11-08
   - Updated description of risk assessment under [create domain](#create-domain)
@@ -219,7 +223,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
   - Added examples of poll messages related to domain creation
 
 - 2.4 2018-05-25
-  - Added information on format of orderconfirmation Token, this is implemented with EPP release 2.3.0 currently only available in sandbox and introduces the new extension: `dkhm:url`
+  - Added information on format of the `orderconfirmation` Token, this is implemented with EPP release 2.3.0 currently only available in sandbox and introduces the new extension: `dkhm:url`
   - Addition of risk assessment for [create domain](#create-domain) command poll response. The XSD files revision 2.2 describes the changes to the XSD and supports the new extension: `dkhm:risk_assessment`
 
 - 2.3 2018-05-01
@@ -254,7 +258,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 - 1.7 2015-05-12
   - This revision of the specification is describing EPP service release 1.3.X
-  - This release also updates the [XSD][XSD Files] specification to revision 1.4, introducing the extension pnumber for transport of production unit numbers for validation of danish companies as part of the [create contact](#create-contact) command
+  - This release also updates the [XSD][XSD Files] specification to revision 1.4, introducing the extension `pnumber` for transport of production unit numbers for validation of danish companies as part of the [create contact](#create-contact) command
 
 - 1.6 2015-01-06
   - This revision of the specification is describing EPP service release 1.2.X
@@ -302,7 +306,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 DK Hostmaster is the registry for the ccTLD for Denmark (dk). The current model used in Denmark is based on a sole registry, with DK Hostmaster maintaining the central DNS registry.
 
-The legislation and registry model utilised in Denmark imposes some limitations compared to the EPP protocol in general, since the primary intent of the EPP protocol is focused on a model based on shared-registry rather than a sole-registry model like the one used in Denmark.
+The legislation and registry model utilized in Denmark imposes some limitations compared to the EPP protocol in general, since the primary intent of the EPP protocol is focused on a model based on shared-registry rather than a sole-registry model like the one used in Denmark.
 
 These limitations are described in detail below in the chapter entitled Implementation Limitations, and these are explained further in the command descriptions where the single commands deviate from the EPP standard specification. In addition to limitations and deviations found in the above, a few others have been implemented to support DNS registration under Danish legislation, these are described in detail under the individual commands, where relevant.
 
@@ -366,15 +370,17 @@ DK Hostmaster offers the following environments:
 
 - This environment is intended for client development towards the DK Hostmaster EPP service
 - info and check requests made to this environment will reflect sandbox data. For host objects, some static content synched in by DK Hostmaster, in addition to sandbox data
-- create requests made to this environment will be serialised in the sandbox environment, provided that syntax and data are valid
+- create requests made to this environment will be serialized in the sandbox environment, provided that syntax and data are valid
 - Domains will be enqueued and are processed for possible activation, responses are reflected in pollable messages, propagation into a zone file is not supported
-- Contacts (users) can be created, but will not be available in other systems like the self-service system etc.
+- Contacts (users) can be created and will be available in the sandbox system
 
 - The Change Password operation will only change the password on the sandbox environment
 - The sandbox environment is available at: epp-sandbox.dk-hostmaster.dk port 700
 - This environment is available to both registrars and name server administrators
 
 Please note that when you first start to use the EPP sandbox environment, the access credentials are matching your production credentials. If these do not work as expected (e.g. error `2200`). please contact: tech@dk-hostmaster.dk to get the credentials synchronized.
+
+For more information on the consolidated sandbox environment please see [the specification](https://github.com/DK-Hostmaster/sandbox-environment-specification).
 
 <a id="implementation-requirements"></a>
 ## Implementation Requirements
@@ -425,14 +431,14 @@ Here follows a listed, the extensions are described separately and in detail bel
 <a id="dkhmusertype"></a>
 ### `dkhm:userType`
 
-The `userType` extension is used to categorize a contact type, since the requirements for data differs between the different usertypes, we need to be able to differentiate between: company, individual, public organisation and association. More information is available under the [create contact](#create-contact) command.
+The `userType` extension is used to categorize a contact type, since the requirements for data differs between the different user types, we need to be able to differentiate between: company, individual, public organization and association. More information is available under the [create contact](#create-contact) command.
 
 Related extensions are `dkhm:EAN`, `dkhm:CVR` and `dkhm:pnumber`.
 
 <a id="dkhmean"></a>
 ### `dkhm:EAN`
 
-The EAN extension, holds the EAN number associated with public organisations in Denmark. The field is mandatory for this type of contact objects and is required for electronic invoicing, more information is available under the [create contact](#create-contact) command.
+The EAN extension, holds the EAN number associated with public organizations in Denmark. The field is mandatory for this type of contact objects and is required for electronic invoicing, more information is available under the [create contact](#create-contact) command.
 
 <a id="dkhmcvr"></a>
 ### `dkhm:CVR`
@@ -481,7 +487,7 @@ See also `contact_validated`.
 <a id="dkhmmobilephone"></a>
 ### `dkhm:mobilephone`
 
-Contact objects can have a mobilephone number in addition to `voice` and `fax`. The extension was introduced in the DK Hostmaster XSD file set 1.6.
+Contact objects can have a mobile phone number in addition to `voice` and `fax`. The extension was introduced in the DK Hostmaster XSD file set 1.6.
 
 <a id="dkhmsecondaryemail"></a>
 ### `dkhm:secondaryEmail`
@@ -613,9 +619,9 @@ Please see the greeting response included in the [appendices](greeting) for illu
 
 This part of the EPP protocol is described in [RFC 5730][RFC5730]. This command adheres to the standard.
 
-The login uses the general AAA functionality in DK Hostmaster. This mean that in addition to the validation of username and password specified as part of the login request, an attempt is made to authorise the authenticated user for access to the actual EPP service and subsequent operations.
+The login uses the general AAA functionality in DK Hostmaster. This mean that in addition to the validation of username and password specified as part of the login request, an attempt is made to authorize the authenticated user for access to the actual EPP service and subsequent operations.
 
-Authorisation is currently only available to specified user roles, therefore the username provided must point to an entity with the role of registrar or name server administrator with the DK Hostmaster registry. See also Available Environments above.
+Authorization is currently only available to specified user roles, therefore the username provided must point to an entity with the role of registrar or name server administrator with the DK Hostmaster registry. See also Available Environments above.
 
 DK Hostmaster supports the change of passwords via EPP. Please refer to the chapter Available Environments for any special circumstances.
 
@@ -839,7 +845,7 @@ A well-formed request for domain creation will then always result in:
 
 The extension in response will provide a unique tracking number, which can be used to identify the creation request across provisioning channels offered by DK Hostmaster. The result of the further processing will be relayed back via EPP, see Poll and Messages below.
 
-So the customised response for a domain creation request looks as below.
+So the customized response for a domain creation request looks as below.
 
 The [create domain](#create-domain) command has been extended with a field (`orderconfirmationToken`) making it possible to assign a token indicating that the registrant has agreed to the terms and conditions for DK Hostmaster with the registrar.
 
@@ -1729,7 +1735,7 @@ Request to create a host object, requesting a different administrator of the hos
 <a id="create-host-response-from-request-to-new-administrator"></a>
 #### create host response from request to new administrator
 
-Response to the above request. The response indicates a succesful accept of the requiest, but requires offline evaluation by the designated administrator of the host object, so the response indicates that the operation is pending.
+Response to the above request. The response indicates a successful accept of the request, but requires offline evaluation by the designated administrator of the host object, so the response indicates that the operation is pending.
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1816,7 +1822,7 @@ Request to create a host object, where the authenticated use is not the registra
 <a id="create-host-response-from-request-to-registrant-of-domain-name"></a>
 #### create host response, from request to registrant of domain name
 
-Response to the above request. The response indicates a successful accept of the request, but requires offline evaluation by the registrant of the specified domain namem, so the response indicates that the operation is pending.
+Response to the above request. The response indicates a successful accept of the request, but requires offline evaluation by the registrant of the specified domain name, so the response indicates that the operation is pending.
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -2104,13 +2110,13 @@ This command has been extended with the following fields:
 
 - `dkhm:usertype`, which has to be one of:
 	- `company`, indicating a company
-	- `public_organization`, indicating a public organisation
+	- `public_organization`, indicating a public organization
 	- `association`, indicating an association
 	- `individual`, indicating an individual
 
 The user type will result in context-specific interpretation of the following fields:
 
-- EAN - this number is only supported for user types: `company`, `public_organization` and `association`. It is only mandatory for `public_organization` and optional for `company` and `association`. [EAN][EAN description] is used by the public sector in Denmark for electronic invoicing, private companies can also be assigned EAN, but this it not so widespread at this time. EAN is required by law for public sector organisations, so this field has to be completed and it has to validate for this type.
+- EAN - this number is only supported for user types: `company`, `public_organization` and `association`. It is only mandatory for `public_organization` and optional for `company` and `association`. [EAN][EAN description] is used by the public sector in Denmark for electronic invoicing, private companies can also be assigned EAN, but this it not so widespread at this time. EAN is required by law for public sector organizations, so this field has to be completed and it has to validate for this type.
 - CVR - (VAT number) this is only supported for user types: `company`, `public_organization` and `association`. The number is required for handling VAT correctly, mandatory for user types `company` and `public_organization` and optional for the user type `association`.
 - pnumber - (production unit number) this is only supported for user types: `company`, `public_organization` and `association`. The number is used for handling validation correctly and the field is optional.
 
@@ -2159,7 +2165,7 @@ The match has to be exact in order for the command to return an existing user-id
 <a id="address-handling"></a>
 #### Address Handling
 
-Contact creation under EPP opens for the ability to represent postal information in both local and international representations. Due to the representation in DK Hostmasters system for handling contacts the following rules are applied to postal information.
+Contact creation under EPP opens for the ability to represent postal information in both local and international representations. Due to the representation in DK Hostmaster's system for handling contacts the following rules are applied to postal information.
 
 For Denmark the local representation is chosen and the international representation is discarded. For other countries the international representation is chosen and the local representation is discarded. Please see the table below.
 
@@ -2174,19 +2180,19 @@ This is a diagram depicting the general algorithm used for resolving the address
 
 It is important to note that if the international representation is specified, but data are provided in local representation or only local representation is provided for an international address, communication to the specified address might prove unreliable.
 
-The handling of name and organisation is also a special case. Where the following mapping is made based on the user type.
+The handling of name and organization is also a special case. Where the following mapping is made based on the user type.
 
 <table>
 <tr>
-		<th></th><th colspan="2">Name and Organisation Provided</th><th>Only name provided</th>
+		<th></th><th colspan="2">Name and Organization Provided</th><th>Only name provided</th>
 <tr>
-		<th>User type</th><th>Name (<i>mandatory</i>)</th><th>Organisation (<i>optional</i>)</th><th>Name (<i>mandatory</i>)</th>
+		<th>User type</th><th>Name (<i>mandatory</i>)</th><th>organization (<i>optional</i>)</th><th>Name (<i>mandatory</i>)</th>
 </tr>
 <tr>
 		<td>C (Company)</td><td>attention</td><td>name</td><td>name</td>
 </tr>
 <tr>
-		<td>P (Public organisation)</td><td>attention</td><td>name</td><td>name</td>
+		<td>P (Public organization)</td><td>attention</td><td>name</td><td>name</td>
 </tr>
 <tr>
 		<td>A (Association)</td><td>attention</td><td>name</td><td>name</td>
@@ -2196,7 +2202,7 @@ The handling of name and organisation is also a special case. Where the followin
 </tr>
 </table>
 
-Please note that a registrant cannot have a attention field specified, so you should use name solely for creation of contacts intended to be used as registrants for the types: company, public organisation and association
+Please note that a registrant cannot have a attention field specified, so you should use name solely for creation of contacts intended to be used as registrants for the types: company, public organization and association
 
 The data is collected as required by danish legislation. See also the data collection policy section below.
 
@@ -2415,14 +2421,14 @@ This part of the EPP protocol is described in [RFC 5733][RFC5733]. This command 
 
 These of course all controlled by relevant privileges.
 
-- Name / Organisation
+- Name / organization
 - Address
 - Country
 - Phone (voice)
 - Fax
 - Email
 - Secondary email
-- Mobilephone
+- Mobile phone
 
 ![Diagram of EPP update contact][epp-update-contact]
 
@@ -2555,7 +2561,7 @@ Please refer to the [greeting response example](#greeting) included in the [Appe
 <a id="access"></a>
 ### Access
 
-The EPP service provides access to identified data relating to all available entities (personal and organisational) under the terms and conditions that anonymity will be applied as specified by the entities in question, and in accordance with [General Terms and Conditions][General Terms and Conditions] and legislation.
+The EPP service provides access to identified data relating to all available entities (personal and organizational) under the terms and conditions that anonymity will be applied as specified by the entities in question, and in accordance with [General Terms and Conditions][General Terms and Conditions] and legislation.
 
 <a id="purpose-statement"></a>
 ### Purpose Statement
@@ -2697,7 +2703,7 @@ More information is available at the DK Hostmaster website:
 <a id="greeting"></a>
 ### Greeting
 
-Do note the service version is available in the svID tag, meaning you can see what given version of the
+Do note the service version is available in the `svID` tag, meaning you can see what given version of the
 EPP service is running in the environment queried.
 
 ```XML
@@ -2748,8 +2754,8 @@ EPP service is running in the environment queried.
 | Status Code | Description  |
 | ------------ | ------------ |
 | `addPeriod` | *unsupported* |
-| `autoRenewPeriod` | *unspported* |
-| `inactive` | *unspported at this time* |
+| `autoRenewPeriod` | *unsupported* |
+| `inactive` | *unsupported at this time* |
 | `ok` | exclusive for all other status codes |
 | `pendingCreate` | indication that a the given domain is enqueue for possible creation |
 | `pendingDelete` | deletion is pending, an advisory date is applicable |
