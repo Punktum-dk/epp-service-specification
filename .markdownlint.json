@@ -6,5 +6,6 @@
     "fenced-code-language": false,
     "no-hard-tabs": false,
     "blanks-around-headings": false,
-    "ul-indent": false
+    "ul-indent": false,
+    "first-line-h1": false
 }
