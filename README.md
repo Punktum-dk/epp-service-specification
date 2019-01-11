@@ -2,8 +2,8 @@
 
 # DK Hostmaster EPP Service Specification
 
-2018-12-03
-Revision: 2.15
+2019-01-11
+Revision: 2.16
 
 ## Table of Contents
 
@@ -184,6 +184,9 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 <a id="document-history"></a>
 ### Document History
+
+- 2.16 2019-01-11
+  - Updated [info domain](#info-domain) to capability to provide information on the billing contact, when applicable
 
 - 2.15 2018-12-03
   - Added information on the new consolidated sandbox environment
@@ -1187,6 +1190,14 @@ Please see the addendum on domain status codes.
 ```
 
 The example is obsolete and will be replaced with post implementation of the domain renew command (see below).
+
+Do note that the billing contact, is displayed if the authenticated user has privilege to see this user. For now this is for the billing-contact, admin/proxy or registrant roles on the domain.
+
+Example:
+
+```xml
+<domain:contact type="billing">DKHM-DK</domain:contact>
+```
 
 <a id="renew-domain"></a>
 ### renew domain
