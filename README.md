@@ -379,7 +379,7 @@ DK Hostmaster offers the following environments:
 - Domains will be enqueued and are processed for possible activation, responses are reflected in pollable messages, propagation into a zone file is not supported
 - Contacts (users) can be created and will be available in the sandbox system
 
-- The Change Password operation will only change the password on the sandbox environment
+- The Change Password operation will only change the password in the sandbox environment
 - The sandbox environment is available at: epp-sandbox.dk-hostmaster.dk port 700
 - This environment is available to both registrars and name server administrators
 
