@@ -2,7 +2,7 @@
 
 # DK Hostmaster EPP Service Specification
 
-2019-04-22
+2019-04-30
 Revision: 3.0
 
 ## Table of Contents
@@ -184,7 +184,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 ### Document History
 
-- 3.0 2019-04-22
+- 3.0 2019-04-30
   - Major update based on the changes with major release 3.X.X of the EPP service
     - Documenting removal of public access to information on non-registrant users for contact objects (users)
     - Documenting removal of public access to information on name server contacts for host objects (name servers)
