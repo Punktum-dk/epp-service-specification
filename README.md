@@ -90,6 +90,8 @@ Revision: 3.1
     - [remove name server](#remove-name-server)
     - [add contact](#add-contact)
     - [remove contact](#remove-contact)
+    - [Remove DSRECORDS](#remove-dsrecords)
+    - [Add DSRECORDS](#add-dsrecords)
   - [check host](#check-host)
     - [check host request](#check-host-request)
     - [check host response](#check-host-response)
