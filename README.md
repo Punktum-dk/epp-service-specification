@@ -2552,6 +2552,14 @@ The files are all available for [download][XSD files].
 
 #### XSD Version History
 
+- 2.6
+	- EPP Service version 2.3.X
+	- Rolled back changes introduced in 2.5
+
+- 2.5
+	- EPP Service version 2.3.X
+	- Attempt to remove backwards compatibility
+
 - 2.4
 	- EPP Service version 2.3.X
 	- Minor bug fix release as 2.4, since 2.3 had some minor issues
