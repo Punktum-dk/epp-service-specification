@@ -2579,9 +2579,9 @@ The files are all available for [download][XSD files].
 
 - 2.0
 	- EPP Service version 2.0.X, 2.1.X and 2.2.X
-	- Introduction of `dkhm:requestedNsAdmin` for update host and create host
-	- Introduction of `dkhm:mobilephone` on update contact
-	- Introduction of `dkhm:secondaryEmail` on update contact
+	- Introduction of `dkhm:requestedNsAdmin` for [update host](#update-host) and [create host](#create-host)
+	- Introduction of `dkhm:mobilephone` on [update contact](#update-contact)
+	- Introduction of `dkhm:secondaryEmail` on [update contact](#update-contact)
 
 - 1.4
 	- EPP Service version 1.3.X
