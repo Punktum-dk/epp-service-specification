@@ -118,6 +118,7 @@ Revision: 3.1
     - [delete host request](#delete-host-request)
     - [delete host response](#delete-host-response)
   - [create contact](#create-contact)
+    - [CVR / Vat Number Indication](#cvr--vat-number-indication)
     - [Forced and Smart Contact Creation](#forced-and-smart-contact-creation)
     - [Address Handling](#address-handling)
     - [create contact request](#create-contact-request)
