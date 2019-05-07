@@ -191,6 +191,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
   - Update to [info contact](#info-contact) extended with e-mail address for the contact object, where applicable
   - Update to [info domain](#info-domain) extended with DNSSEC information
   - Update to [create contact](#create-contact) more strict handling of VAT numbers, see table specifying the use of the field in: [CVR / Vat Number Indication](#cvr--vat-number-indication)
+  - Update to [update domain](#update-domain) documentation on deletion and addition of DNSSEC records
 
 - 3.0 2019-04-30
   - Major update based on the changes with major release 3.X.X of the EPP service
@@ -256,7 +257,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 - 2.0 2016-10-24
   - Describes EPP service 2.X.X
   - Added renew domain description
-  - Added update domain description
+  - Added [update domain](#update-domain) description
   - Added create/update/delete host descriptions
   - Added update contact description
   - Added XSD 2.0 description
@@ -560,7 +561,7 @@ This command does not support the setting and removal of status using the XML el
 
 ### Domain Update
 
-This command does not support the change of the registrant and the setting and removal of status using the XML element: `domain:status`. The status is assigned by DK Hostmaster. See also information on the update domain command.
+This command does not support the change of the registrant and the setting and removal of status using the XML element: `domain:status`. The status is assigned by DK Hostmaster. See also information on the [update domain](#update-domain) command.
 
 ### Host Info
 
@@ -1249,6 +1250,8 @@ This command covers a lot of functionality, it can complete operations such as:
 - remove admin contact
 - add billing contact
 - remove billing contact
+- remove DSRECORDS
+- add DSRECORDS
 
 In addition it supports DNSSEC management capabilities as specified in [RFC 5910][RFC5910]
 
@@ -1275,6 +1278,9 @@ If the command is parsable, the command is separated into one of more of the fol
 1. add name server
 1. add admin contact
 1. add billing contact
+
+1. remove DSRECORDS
+1. add DSRECORDS
 
 The commands are then executed sequentially (order is dictates the precedence) as a single transaction. If a single sub-command fails, the transaction is rolled-back and the relevant error code is returned (`2XXX`).
 
@@ -1491,6 +1497,86 @@ The removal of a existing contact is possible for both billing and admin contact
 ![Update domain - Remove billing/admin contact][epp-update-domain-remove-contact]
 
 ![Update domain - Remove billing/admin contact sub-process][dkh-update-domain-remove-contact]
+
+#### Remove DSRECORDS
+
+Example with removal of existing DSRECORDS and adding a new DSRECORD.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+    <command>
+        <update>
+            <domain:update xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+                <domain:name>eksempel.dk</domain:name>
+                <domain:add/>
+                <domain:rem/>
+                <domain:chg/>
+            </domain:update>
+        </update>
+        <extension>
+            <secDNS:update xmlns:secDNS="urn:ietf:params:xml:ns:secDNS-1.1">
+                <secDNS:rem>
+                    <secDNS:all>true</secDNS:all>
+                </secDNS:rem>
+                <secDNS:add>
+                    <secDNS:dsData>
+                        <secDNS:keyTag>52378</secDNS:keyTag>
+                        <secDNS:alg>13</secDNS:alg>
+                        <secDNS:digestType>4</secDNS:digestType>
+                        <secDNS:digest>ed3ef3e1787f797a538abf130fd90d7499713976f7da7c05e51826554560fd42bba5e66dbd2f573a75d77eb0b05124c4</secDNS:digest>
+                    </secDNS:dsData>
+                </secDNS:add>
+            </secDNS:update>
+        </extension>
+        <clTRID>a84e346d7b5b1242f8e0d28fa8fde565</clTRID>
+    </command>
+</epp>
+```
+
+| Return Code  | Description |
+| ------------ | ------------ |
+| 1000 | If the update domain command is successful |
+| 2005 | Syntax of the command is not correct |
+| 2201 | If the authenticated user does not hold the privilege to update the specified domain object |
+| 2303 | If the specified domain name does not exist |
+| 2303 | If DSRECORDS do not exist, when removing DSRECORDS |
+
+#### Add DSRECORDS
+
+Example with removal of existing DSRECORDS and adding a new DSRECORD.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+    <command>
+        <update>
+            <domain:update xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+                <domain:name>eksempel.dk</domain:name>
+                <domain:add/>
+                <domain:rem/>
+                <domain:chg/>
+            </domain:update>
+        </update>
+        <extension>
+            <secDNS:update xmlns:secDNS="urn:ietf:params:xml:ns:secDNS-1.1">
+                <secDNS:rem>
+                    <secDNS:all>true</secDNS:all>
+                </secDNS:rem>
+                <secDNS:add>
+                    <secDNS:dsData>
+                        <secDNS:keyTag>52378</secDNS:keyTag>
+                        <secDNS:alg>13</secDNS:alg>
+                        <secDNS:digestType>4</secDNS:digestType>
+                        <secDNS:digest>ed3ef3e1787f797a538abf130fd90d7499713976f7da7c05e51826554560fd42bba5e66dbd2f573a75d77eb0b05124c4</secDNS:digest>
+                    </secDNS:dsData>
+                </secDNS:add>
+            </secDNS:update>
+        </extension>
+        <clTRID>a84e346d7b5b1242f8e0d28fa8fde565</clTRID>
+    </command>
+</epp>
+```
 
 ### check host
 
