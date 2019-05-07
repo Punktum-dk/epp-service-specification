@@ -2705,7 +2705,7 @@ EPP service is running in the environment queried.
 | --- | --- |:---:|:---:|:---:|:---:|
 | login | | :white_check_mark: | :white_check_mark: \*1 | :white_check_mark: \*1 | :white_check_mark: |
 | [create domain](#create-domain) | | :white_check_mark: | | | |
-| update domain | | | :white_check_mark: \*2 | | :white_check_mark: \*2 |
+| [update domain](#update-domain) | | | :white_check_mark: \*2 | | :white_check_mark: \*2 |
 | | add billing | :white_check_mark: \*8 | :white_check_mark: \*3 | | |
 | | remove billing | :white_check_mark: \*4 | :white_check_mark: \*4 | :white_check_mark: \*4 | |
 | | add admin | | :white_check_mark: \*5 | | |
@@ -2713,20 +2713,20 @@ EPP service is running in the environment queried.
 | | change registrant | | :white_check_mark: \*6 | | |
 | | add name server | | :white_check_mark: \*6 | | :white_check_mark: \*6 |
 | | remove name server | | :white_check_mark: \*6 | | :white_check_mark: \*6 |
-| renew domain | | | | :white_check_mark: | |
-| delete domain | | | :white_check_mark: \*6 | | |
-| info domain | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| check domain | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| [renew domain](#renew-domain) | | | | :white_check_mark: | |
+| [delete domain](#delete-domain) | | | :white_check_mark: \*6 | | |
+| [info domain](#info-domain) | | :white_check_mark: \*9 | :white_check_mark:  \*9 | :white_check_mark:  \*9 | :white_check_mark: \*9 |
+| [check domain](#check-domain) | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | [create contact](#create-contact) | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| update contact | | :white_check_mark: \*7 | | | :white_check_mark: \*7 |
-| delete contact | | | | | |
-| info contact | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| check contact | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| create host | | :white_check_mark: | | | :white_check_mark: |
-| update host | | | | | :white_check_mark: |
-| delete host | | | | | :white_check_mark: |
-| info host | | :white_check_mark: | | | :white_check_mark: |
-| check host | | :white_check_mark: | | | :white_check_mark: |
+| [update contact](#update-contact) | | :white_check_mark: \*7 | | | :white_check_mark: \*7 |
+| [delete contact](#delete-contact) | | | | | |
+| [info contact](#info-contact) | | :white_check_mark: \*9 | :white_check_mark: \*9 | :white_check_mark: \*9 | :white_check_mark: \*9 |
+| [check contact](#check-contact) | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| [create host](#create-host) | | :white_check_mark: | | | :white_check_mark: |
+| [update host](#update-host) | | | | | :white_check_mark: |
+| [delete host](#delete-host) | | | | | :white_check_mark: |
+| [info host](#info-host) | | :white_check_mark: | | | :white_check_mark: |
+| [check host](#check-host) | | :white_check_mark: | | | :white_check_mark: |
 
 - \*1 as registrar
 - \*2 see sub-commands
@@ -2736,6 +2736,7 @@ EPP service is running in the environment queried.
 - \*6 request to registrant
 - \*7 only own profile
 - \*8 can only assign self
+- \*9 can only see contact information for authorized objects, access to registrant is authorized as public other roles require authorization via relation
 
 ### Compatibility Matrix
 
