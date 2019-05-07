@@ -282,7 +282,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
   - This release also updates the [XSD][XSD Files] specification to revision 1.3
   - The document has with this revision been ported from a proprietary format to markdown and is being hosted on GitHub for easier maintenance and distribution, this has resulted in a lot of minor corrections and clarifications.
   - Extended the section about this document, due to the migration to Github, so copyright is now explicitly mentioned
-  - info contact command extended with validation information
+  - [info contact](#info-contact) command extended with validation information
   - [create domain](#create-domain) command extended with validation information for registrant
   - [create domain](#create-domain) command extended with information on confirmation status for domain
 
@@ -470,7 +470,7 @@ See also `orderconfirmationToken`.
 
 ### `dkhm:contact_validated`
 
-Contact objects related to the role of registrant has to be validated, this field is used to indicate the status of a validation object via the info contact command.
+Contact objects related to the role of registrant has to be validated, this field is used to indicate the status of a validation object via the [info contact](#info-contact) command.
 
 ### `dkhm:registrant_validated`
 
@@ -552,7 +552,7 @@ Not all algorithms are supported, please refer to the [DK Hostmaster Name Servic
 
 This command does not support the feature of providing a predefined userid. The userid has to be specified as `auto` and the userid is assigned by DK Hostmaster. See also information on the [create contact](#create-contact) command.
 
-Due to a limitation in the AAA system implemented by DK Hostmaster, it is currently not possible to see contact objects using info contact, if these are not registrants. This is regarded as a temporarily limitation, which will be fixed at some point in the future. The recommendation is to use check contact for now.
+Due to a limitation in the AAA system implemented by DK Hostmaster, it is currently not possible to see contact objects using [info contact](#info-contact), if these are not registrants. This is regarded as a temporarily limitation, which will be fixed at some point in the future. The recommendation is to use check contact for now.
 
 ### Host Update
 
@@ -844,7 +844,7 @@ The `token` is handled the following way:
 - if valid the request will be accepted and processed
 
 The requirement for the registrant to be valid is communicated via the response, using the extension:
-`dkhm:registrant_validated`. Please see the command info contact for more information. The state is communicated in this response in order to provide information on the further flow and process of the [create domain](#create-domain) request.
+`dkhm:registrant_validated`. Please see the command [info contact](#info-contact) for more information. The state is communicated in this response in order to provide information on the further flow and process of the [create domain](#create-domain) request.
 
 An additional URL is specified in the response via the extension `dkhm:url`, this URL can be presented to the end-user for further processing and for the following scenarios in particular:
 
@@ -2288,9 +2288,9 @@ This part of the EPP protocol is described in [RFC 5733][RFC5733]. This command 
 
 See the extension: `dkhm:contact_validated` in the response.
 
-Please note that the email address (`contact:email`) is masked and the value: `anonymous@dk-hostmaster.dk` is always returned for this field.
+Please note that the email address (`contact:email`) is masked and the value: `anonymous@dk-hostmaster.dk` is always returned for this field, unless the authenticated user has a relationship via the domain name or a registrar group association, which provides access to more information.
 
-The response is only available for the registrant contact object, unless the authenticated user has a relationship via the domain name or a registrar group association, which provides access to more information or additional contact objects.
+The info contact command response is only available for the registrant contact object, unless the authenticated user has a relationship via the domain name or a registrar group association, which provides access to more information or additional contact objects as
 
 #### info contact request
 
