@@ -7,152 +7,152 @@ Revision: 3.0
 
 ## Table of Contents
 
-<!-- MarkdownTOC bracket=round levels="1,2,3,4,5" indent="  " -->
+<!-- MarkdownTOC bracket=round levels="1,2,3,4,5" indent="  " autolink="true" -->
 
-- Introduction
-  - About this Document
-  - License
-  - Document History
-- The .dk Registry in Brief
-- EPP in Brief
-- EPP Service
-  - SSL/TLS Support
-  - Available Environments
-    - production
-    - sandbox
-- Implementation Requirements
-  - Client Transaction ID \(`clTRID`\)
-  - IP Whitelisting
-- Implementation Extensions
-  - `dkhm:userType`
-  - `dkhm:EAN`
-  - `dkhm:CVR`
-  - `dkhm:pnumber`
-  - `dkhm:trackingNo`
-  - `dkhm:domainAdvisory`
-  - `dkhm:orderconfirmationToken`
-  - `dkhm:domain_confirmed`
-  - `dkhm:contact_validated`
-  - `dkhm:registrant_validated`
-  - `dkhm:mobilephone`
-  - `dkhm:secondaryEmail`
-  - `dkhm:requestedNsAdmin`
-  - `dkhm:url`
-  - `dkhm:risk_assessment`
-- Implementation Limitations
-  - Commands
-  - Unimplemented commands
-  - Additional limitations
-  - DNSSEC
-  - Contact Creation
-  - Host Update
-  - Domain Update
-  - Host Info
-  - Contact Info
-  - Domain Info
-  - Information Disclosure
-  - Encoding and IDN domains
-- Supported Object Transform and Query Commands
-  - hello and greeting
-  - login
-    - login request
-    - login response
-  - logout
-    - logout request
-    - logout response
-  - poll and message queue
-    - poll req request
-    - poll req response
-    - poll ack request
-    - poll ack response
-    - poll ack response for non-existent message \(or previously acknowledged message\)
-  - create domain
-    - create domain request
-    - create domain response
-    - Poll and Messages
-      - create domain poll message for successful creation
-      - create domain poll message for unsuccessful creation, existing domain
-    - Role Mapping
-  - check domain
-    - check domain request
-    - check domain response
-  - info domain
-    - info domain request
-    - info domain response
-  - renew domain
-    - renew domain request
-    - renew domain response
-  - update domain
-    - update domain request
-    - update domain response
-    - change registrant
-    - add name server
-    - remove name server
-    - add contact
-    - remove contact
-  - check host
-    - check host request
-    - check host response
-  - info host
-    - info host request
-    - info host response
-  - create host
-    - create host request
-    - create host response
-    - create host request with request to new administrator
-    - create host response from request to new administrator
-    - Delayed create host response, from request to new administrator
-    - create host request, with request to registrant of host domain name
-    - create host response, from request to registrant of domain name
-    - Delayed create host response, from request to registrant of domain name
-  - update host
-    - process
-    - Change hostname sub-process
-    - Add IP sub-process
-    - Remove IP sub-process
-    - Change admin sub-process
-    - update host request with request to new administrator
-    - update host response with request to new administrator
-    - Delayed update host response from request to new administrator
-  - delete host
-    - delete host request
-    - delete host response
-  - create contact
-    - Forced and Smart Contact Creation
-    - Address Handling
-    - create contact request
-    - create contact response
-  - check contact
-    - check contact request
-    - check contact response
-  - info contact
-    - info contact request
-    - info contact response
-  - update contact
-    - update contact request
-    - update contact response
-  - delete contact
-    - delete contact request
-    - delete contact response
-- Data Collection Policy
-  - Access
-  - Purpose Statement
-  - Recipient Statement
-  - Retention Statement
-- References
-- Resources
-  - XML Schemas
-    - XSD Version History
-  - Mailing list
-  - Issue Reporting
-  - Demo/Test Client
-  - Additional Information
-- Appendices
-  - Greeting
-  - Status Codes
-    - Domain
-  - Privilege Matrix
-  - Compatibility Matrix
+- [Introduction](#introduction)
+  - [About this Document](#about-this-document)
+  - [License](#license)
+  - [Document History](#document-history)
+- [The .dk Registry in Brief](#the-dk-registry-in-brief)
+- [EPP in Brief](#epp-in-brief)
+- [EPP Service](#epp-service)
+  - [SSL/TLS Support](#ssltls-support)
+  - [Available Environments](#available-environments)
+    - [production](#production)
+    - [sandbox](#sandbox)
+- [Implementation Requirements](#implementation-requirements)
+  - [Client Transaction ID \(`clTRID`\)](#client-transaction-id-cltrid)
+  - [IP Whitelisting](#ip-whitelisting)
+- [Implementation Extensions](#implementation-extensions)
+  - [`dkhm:userType`](#dkhmusertype)
+  - [`dkhm:EAN`](#dkhmean)
+  - [`dkhm:CVR`](#dkhmcvr)
+  - [`dkhm:pnumber`](#dkhmpnumber)
+  - [`dkhm:trackingNo`](#dkhmtrackingno)
+  - [`dkhm:domainAdvisory`](#dkhmdomainadvisory)
+  - [`dkhm:orderconfirmationToken`](#dkhmorderconfirmationtoken)
+  - [`dkhm:domain_confirmed`](#dkhmdomain_confirmed)
+  - [`dkhm:contact_validated`](#dkhmcontact_validated)
+  - [`dkhm:registrant_validated`](#dkhmregistrant_validated)
+  - [`dkhm:mobilephone`](#dkhmmobilephone)
+  - [`dkhm:secondaryEmail`](#dkhmsecondaryemail)
+  - [`dkhm:requestedNsAdmin`](#dkhmrequestednsadmin)
+  - [`dkhm:url`](#dkhmurl)
+  - [`dkhm:risk_assessment`](#dkhmrisk_assessment)
+- [Implementation Limitations](#implementation-limitations)
+  - [Commands](#commands)
+  - [Unimplemented commands](#unimplemented-commands)
+  - [Additional limitations](#additional-limitations)
+  - [DNSSEC](#dnssec)
+  - [Contact Creation](#contact-creation)
+  - [Host Update](#host-update)
+  - [Domain Update](#domain-update)
+  - [Host Info](#host-info)
+  - [Contact Info](#contact-info)
+  - [Domain Info](#domain-info)
+  - [Information Disclosure](#information-disclosure)
+  - [Encoding and IDN domains](#encoding-and-idn-domains)
+- [Supported Object Transform and Query Commands](#supported-object-transform-and-query-commands)
+  - [hello and greeting](#hello-and-greeting)
+  - [login](#login)
+    - [login request](#login-request)
+    - [login response](#login-response)
+  - [logout](#logout)
+    - [logout request](#logout-request)
+    - [logout response](#logout-response)
+  - [poll and message queue](#poll-and-message-queue)
+    - [poll req request](#poll-req-request)
+    - [poll req response](#poll-req-response)
+    - [poll ack request](#poll-ack-request)
+    - [poll ack response](#poll-ack-response)
+    - [poll ack response for non-existent message \(or previously acknowledged message\)](#poll-ack-response-for-non-existent-message-or-previously-acknowledged-message)
+  - [create domain](#create-domain)
+    - [create domain request](#create-domain-request)
+    - [create domain response](#create-domain-response)
+    - [Poll and Messages](#poll-and-messages)
+      - [create domain poll message for successful creation](#create-domain-poll-message-for-successful-creation)
+      - [create domain poll message for unsuccessful creation, existing domain](#create-domain-poll-message-for-unsuccessful-creation-existing-domain)
+    - [Role Mapping](#role-mapping)
+  - [check domain](#check-domain)
+    - [check domain request](#check-domain-request)
+    - [check domain response](#check-domain-response)
+  - [info domain](#info-domain)
+    - [info domain request](#info-domain-request)
+    - [info domain response](#info-domain-response)
+  - [renew domain](#renew-domain)
+    - [renew domain request](#renew-domain-request)
+    - [renew domain response](#renew-domain-response)
+  - [update domain](#update-domain)
+    - [update domain request](#update-domain-request)
+    - [update domain response](#update-domain-response)
+    - [change registrant](#change-registrant)
+    - [add name server](#add-name-server)
+    - [remove name server](#remove-name-server)
+    - [add contact](#add-contact)
+    - [remove contact](#remove-contact)
+  - [check host](#check-host)
+    - [check host request](#check-host-request)
+    - [check host response](#check-host-response)
+  - [info host](#info-host)
+    - [info host request](#info-host-request)
+    - [info host response](#info-host-response)
+  - [create host](#create-host)
+    - [create host request](#create-host-request)
+    - [create host response](#create-host-response)
+    - [create host request with request to new administrator](#create-host-request-with-request-to-new-administrator)
+    - [create host response from request to new administrator](#create-host-response-from-request-to-new-administrator)
+    - [Delayed create host response, from request to new administrator](#delayed-create-host-response-from-request-to-new-administrator)
+    - [create host request, with request to registrant of host domain name](#create-host-request-with-request-to-registrant-of-host-domain-name)
+    - [create host response, from request to registrant of domain name](#create-host-response-from-request-to-registrant-of-domain-name)
+    - [Delayed create host response, from request to registrant of domain name](#delayed-create-host-response-from-request-to-registrant-of-domain-name)
+  - [update host](#update-host)
+    - [process](#process)
+    - [Change hostname sub-process](#change-hostname-sub-process)
+    - [Add IP sub-process](#add-ip-sub-process)
+    - [Remove IP sub-process](#remove-ip-sub-process)
+    - [Change admin sub-process](#change-admin-sub-process)
+    - [update host request with request to new administrator](#update-host-request-with-request-to-new-administrator)
+    - [update host response with request to new administrator](#update-host-response-with-request-to-new-administrator)
+    - [Delayed update host response from request to new administrator](#delayed-update-host-response-from-request-to-new-administrator)
+  - [delete host](#delete-host)
+    - [delete host request](#delete-host-request)
+    - [delete host response](#delete-host-response)
+  - [create contact](#create-contact)
+    - [Forced and Smart Contact Creation](#forced-and-smart-contact-creation)
+    - [Address Handling](#address-handling)
+    - [create contact request](#create-contact-request)
+    - [create contact response](#create-contact-response)
+  - [check contact](#check-contact)
+    - [check contact request](#check-contact-request)
+    - [check contact response](#check-contact-response)
+  - [info contact](#info-contact)
+    - [info contact request](#info-contact-request)
+    - [info contact response](#info-contact-response)
+  - [update contact](#update-contact)
+    - [update contact request](#update-contact-request)
+    - [update contact response](#update-contact-response)
+  - [delete contact](#delete-contact)
+    - [delete contact request](#delete-contact-request)
+    - [delete contact response](#delete-contact-response)
+- [Data Collection Policy](#data-collection-policy)
+  - [Access](#access)
+  - [Purpose Statement](#purpose-statement)
+  - [Recipient Statement](#recipient-statement)
+  - [Retention Statement](#retention-statement)
+- [References](#references)
+- [Resources](#resources)
+  - [XML Schemas](#xml-schemas)
+    - [XSD Version History](#xsd-version-history)
+  - [Mailing list](#mailing-list)
+  - [Issue Reporting](#issue-reporting)
+  - [Demo/Test Client](#demotest-client)
+  - [Additional Information](#additional-information)
+- [Appendices](#appendices)
+  - [Greeting](#greeting)
+  - [Status Codes](#status-codes)
+    - [Domain](#domain)
+  - [Privilege Matrix](#privilege-matrix)
+  - [Compatibility Matrix](#compatibility-matrix)
 
 <!-- /MarkdownTOC -->
 
