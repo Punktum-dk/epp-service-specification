@@ -549,7 +549,7 @@ Not all algorithms are supported, please refer to the [DK Hostmaster Name Servic
 
 ### Contact Creation
 
-This command does not support the feature of providing a predefined userid. The userid has to be specified as `auto` and the userid is assigned by DK Hostmaster. See also information on the create contact command.
+This command does not support the feature of providing a predefined userid. The userid has to be specified as `auto` and the userid is assigned by DK Hostmaster. See also information on the [create contact](#create-contact) command.
 
 Due to a limitation in the AAA system implemented by DK Hostmaster, it is currently not possible to see contact objects using info contact, if these are not registrants. This is regarded as a temporarily limitation, which will be fixed at some point in the future. The recommendation is to use check contact for now.
 
@@ -2060,12 +2060,22 @@ This command has been extended with the following fields:
 The user type will result in context-specific interpretation of the following fields:
 
 - EAN - this number is only supported for user types: `company`, `public_organization` and `association`. It is only mandatory for `public_organization` and optional for `company` and `association`. [EAN][EAN description] is used by the public sector in Denmark for electronic invoicing, private companies can also be assigned EAN, but this it not so widespread at this time. EAN is required by law for public sector organizations, so this field has to be completed and it has to validate for this type.
-- CVR - (VAT number) this is only supported for user types: `company`, `public_organization` and `association`. The number is required for handling VAT correctly, mandatory for user types `company` and `public_organization` and optional for the user type `association`.
-- pnumber - (production unit number) this is only supported for user types: `company`, `public_organization` and `association`. The number is used for handling validation correctly and the field is optional.
+- CVR - (VAT number) this is only supported for user types: `company`, `public_organization` and `association`. The number is **required** for handling VAT correctly, The rules for indication of the field is specified in the table below.
+- pnumber - (production unit number) this is only supported for user types: `company`, `public_organization` and `association`. The number is used for handling validation correctly and it relates to the CVR (Vat number field) the field is optional.
+
+This field is validated on the server side, it is however recommended to perform a check contact on the requested contact-id prior to the [create domain](#create-domain) request if a userid is already known from a contact create or previous domain creation.
 
 The `contact-id` field is auto-generated and assigned by DK Hostmaster. EPP do however open for providing a contact-id in the context of the create contact command, this is not supported by DK Hostmaster at this point.
 
-This field is validated on the server site, it is however recommended to perform a check contact on the requested contact-id prior to the [create domain](#create-domain) request if a userid is already known from a contact create or previous domain creation.
+#### CVR / Vat Number Indication
+
+|   | Mandatory | Note |
+|---|---|---|
+| `company`/`public_organization`/`association` with address in Denmark and EU/EØS | Yes | Has to be specified |
+| `company`/`public_organization`/`association` with address EU/EØS | No | Can be specified if VAT handling is required |
+| `company`/`public_organization`/`association` with address outside Denmark and EU/EØS | No | Can be specified |
+| `individual` with address in Denmark and EU/EØS | No | Not supported |
+| `individual` with address outside Denmark and EU/EØS | No | Not supported |
 
 #### Forced and Smart Contact Creation
 
