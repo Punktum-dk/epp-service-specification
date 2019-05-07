@@ -190,7 +190,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
   - Update to [info domain](#info-domain) extended with registrant validation status
   - Update to [info contact](#info-contact) extended with e-mail address for the contact object, where applicable
   - Update to [info domain](#info-domain) extended with DNSSEC information
-  - Update to [create contact](#create-contact) more strict handling of VAT numbers, se table specifying the use of the field in: [CVR / Vat Number Indication](#cvr--vat-number-indication)
+  - Update to [create contact](#create-contact) more strict handling of VAT numbers, see table specifying the use of the field in: [CVR / Vat Number Indication](#cvr--vat-number-indication)
 
 - 3.0 2019-04-30
   - Major update based on the changes with major release 3.X.X of the EPP service
