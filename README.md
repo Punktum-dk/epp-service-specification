@@ -2,8 +2,8 @@
 
 # DK Hostmaster EPP Service Specification
 
-2019-04-30
-Revision: 3.0
+2019-05-07
+Revision: 3.1
 
 ## Table of Contents
 
@@ -118,6 +118,7 @@ Revision: 3.0
     - [delete host request](#delete-host-request)
     - [delete host response](#delete-host-response)
   - [create contact](#create-contact)
+    - [CVR / Vat Number Indication](#cvr--vat-number-indication)
     - [Forced and Smart Contact Creation](#forced-and-smart-contact-creation)
     - [Address Handling](#address-handling)
     - [create contact request](#create-contact-request)
@@ -184,6 +185,14 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 ### Document History
 
+- 3.1 2019-05-07
+  - Minor update documenting changes introduced in release 3.2.X of the EPP service
+  - Update to [info domain](#info-domain) extended with registrant validation status
+  - Update to [info contact](#info-contact) extended with e-mail address for the contact object, where applicable
+  - Update to [info domain](#info-domain) extended with DNSSEC information
+  - Update to [create contact](#create-contact) more strict handling of VAT numbers, see table specifying the use of the field in: [CVR / Vat Number Indication](#cvr--vat-number-indication)
+  - Update to [update domain](#update-domain) documentation on deletion and addition of DNSSEC records
+
 - 3.0 2019-04-30
   - Major update based on the changes with major release 3.X.X of the EPP service
     - Documenting removal of public access to information on non-registrant users for contact objects (users)
@@ -248,7 +257,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 - 2.0 2016-10-24
   - Describes EPP service 2.X.X
   - Added renew domain description
-  - Added update domain description
+  - Added [update domain](#update-domain) description
   - Added create/update/delete host descriptions
   - Added update contact description
   - Added XSD 2.0 description
@@ -274,7 +283,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
   - This release also updates the [XSD][XSD Files] specification to revision 1.3
   - The document has with this revision been ported from a proprietary format to markdown and is being hosted on GitHub for easier maintenance and distribution, this has resulted in a lot of minor corrections and clarifications.
   - Extended the section about this document, due to the migration to Github, so copyright is now explicitly mentioned
-  - info contact command extended with validation information
+  - [info contact](#info-contact) command extended with validation information
   - [create domain](#create-domain) command extended with validation information for registrant
   - [create domain](#create-domain) command extended with information on confirmation status for domain
 
@@ -367,7 +376,7 @@ DK Hostmaster offers the following environments:
 
 #### sandbox
 
-- Please see [EPP service specification Wiki](https://github.com/DK-Hostmaster/epp-service-specification/wiki) for up to date information forthe production environment accessible at : `epp-sandbox.dk-hostmaster.dk` on port: `700`
+- Please see [EPP service specification Wiki](https://github.com/DK-Hostmaster/epp-service-specification/wiki) for up to date information for the production environment accessible at : `epp-sandbox.dk-hostmaster.dk` on port: `700`
 
 - This environment is intended for client development towards the DK Hostmaster EPP service
 - info and check requests made to this environment will reflect sandbox data. For host objects, some static content synched in by DK Hostmaster, in addition to sandbox data
@@ -462,7 +471,7 @@ See also `orderconfirmationToken`.
 
 ### `dkhm:contact_validated`
 
-Contact objects related to the role of registrant has to be validated, this field is used to indicate the status of a validation object via the info contact command.
+Contact objects related to the role of registrant has to be validated, this field is used to indicate the status of a validation object via the [info contact](#info-contact) command.
 
 ### `dkhm:registrant_validated`
 
@@ -542,9 +551,9 @@ Not all algorithms are supported, please refer to the [DK Hostmaster Name Servic
 
 ### Contact Creation
 
-This command does not support the feature of providing a predefined userid. The userid has to be specified as `auto` and the userid is assigned by DK Hostmaster. See also information on the create contact command.
+This command does not support the feature of providing a predefined userid. The userid has to be specified as `auto` and the userid is assigned by DK Hostmaster. See also information on the [create contact](#create-contact) command.
 
-Due to a limitation in the AAA system implemented by DK Hostmaster, it is currently not possible to see contact objects using info contact, if these are not registrants. This is regarded as a temporarily limitation, which will be fixed at some point in the future. The recommendation is to use check contact for now.
+Due to a limitation in the AAA system implemented by DK Hostmaster, it is currently not possible to see contact objects using [info contact](#info-contact), if these are not registrants. This is regarded as a temporarily limitation, which will be fixed at some point in the future. The recommendation is to use check contact for now.
 
 ### Host Update
 
@@ -552,7 +561,7 @@ This command does not support the setting and removal of status using the XML el
 
 ### Domain Update
 
-This command does not support the change of the registrant and the setting and removal of status using the XML element: `domain:status`. The status is assigned by DK Hostmaster. See also information on the update domain command.
+This command does not support the change of the registrant and the setting and removal of status using the XML element: `domain:status`. The status is assigned by DK Hostmaster. See also information on the [update domain](#update-domain) command.
 
 ### Host Info
 
@@ -836,7 +845,7 @@ The `token` is handled the following way:
 - if valid the request will be accepted and processed
 
 The requirement for the registrant to be valid is communicated via the response, using the extension:
-`dkhm:registrant_validated`. Please see the command info contact for more information. The state is communicated in this response in order to provide information on the further flow and process of the [create domain](#create-domain) request.
+`dkhm:registrant_validated`. Please see the command [info contact](#info-contact) for more information. The state is communicated in this response in order to provide information on the further flow and process of the [create domain](#create-domain) request.
 
 An additional URL is specified in the response via the extension `dkhm:url`, this URL can be presented to the end-user for further processing and for the following scenarios in particular:
 
@@ -1153,7 +1162,7 @@ Please see the addendum on domain status codes.
 
 The example is obsolete and will be replaced with post implementation of the domain renew command (see below).
 
-Do note that the billing contact, is displayed if the authenticated user has privilege to see this user. For now this is for the billing-contact, admin/proxy or registrant roles on the domain.
+Do note that the billing contact and admin/proxy is displayed if the authenticated user has privilege to see this user. The registrant role information for the domain is public available.
 
 Example:
 
@@ -1174,8 +1183,7 @@ This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command 
 | 2201 | If the authenticated user does not hold the privilege to renew the specified domain object. This privilege is given to the billing contact for the domain name (see also the [login command](#login)) |
 | 2306 | If the specified expiry date is not valid. The provided expiration date has to be equal to the current expiration date or we return `2306` |
 | 2306 | If the calculated expiry date is not allowed. The new expiration date has to be lower than the current expiration date + 5 years. The maximum period to which the expiration date can be extended is 5 years and 3 months. The current expiration date is available via the [info domain](#info-domain) command as `domain:exDate` |
-| 2105 | If the domain object is not eligible for renewal. The domain name has to be in the state ‘Active’ and the expiration date has to be a at least month into the future from the current date
-. This will also be reflected in status value `serverRenewProhibited`. See also [ICANN description](https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en/#serverRenewProhibited) of status |
+| 2105 | If the domain object is not eligible for renewal. The domain name has to be in the state ‘Active’ and the expiration date has to be a at least month into the future from the current date. This will also be reflected in status value `serverRenewProhibited`. See also [ICANN description](https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en/#serverRenewProhibited) of status |
 | 2400 | In case of an exception |
 | 1000 | If the renew domain command is successful |
 
@@ -1242,6 +1250,8 @@ This command covers a lot of functionality, it can complete operations such as:
 - remove admin contact
 - add billing contact
 - remove billing contact
+- remove DSRECORDS
+- add DSRECORDS
 
 In addition it supports DNSSEC management capabilities as specified in [RFC 5910][RFC5910]
 
@@ -1268,6 +1278,9 @@ If the command is parsable, the command is separated into one of more of the fol
 1. add name server
 1. add admin contact
 1. add billing contact
+
+1. remove DSRECORDS
+1. add DSRECORDS
 
 The commands are then executed sequentially (order is dictates the precedence) as a single transaction. If a single sub-command fails, the transaction is rolled-back and the relevant error code is returned (`2XXX`).
 
@@ -1484,6 +1497,86 @@ The removal of a existing contact is possible for both billing and admin contact
 ![Update domain - Remove billing/admin contact][epp-update-domain-remove-contact]
 
 ![Update domain - Remove billing/admin contact sub-process][dkh-update-domain-remove-contact]
+
+#### Remove DSRECORDS
+
+Example with removal of existing DSRECORDS and adding a new DSRECORD.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+    <command>
+        <update>
+            <domain:update xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+                <domain:name>eksempel.dk</domain:name>
+                <domain:add/>
+                <domain:rem/>
+                <domain:chg/>
+            </domain:update>
+        </update>
+        <extension>
+            <secDNS:update xmlns:secDNS="urn:ietf:params:xml:ns:secDNS-1.1">
+                <secDNS:rem>
+                    <secDNS:all>true</secDNS:all>
+                </secDNS:rem>
+                <secDNS:add>
+                    <secDNS:dsData>
+                        <secDNS:keyTag>52378</secDNS:keyTag>
+                        <secDNS:alg>13</secDNS:alg>
+                        <secDNS:digestType>4</secDNS:digestType>
+                        <secDNS:digest>ed3ef3e1787f797a538abf130fd90d7499713976f7da7c05e51826554560fd42bba5e66dbd2f573a75d77eb0b05124c4</secDNS:digest>
+                    </secDNS:dsData>
+                </secDNS:add>
+            </secDNS:update>
+        </extension>
+        <clTRID>a84e346d7b5b1242f8e0d28fa8fde565</clTRID>
+    </command>
+</epp>
+```
+
+| Return Code  | Description |
+| ------------ | ------------ |
+| 1000 | If the update domain command is successful |
+| 2005 | Syntax of the command is not correct |
+| 2201 | If the authenticated user does not hold the privilege to update the specified domain object |
+| 2303 | If the specified domain name does not exist |
+| 2303 | If DSRECORDS do not exist, when removing DSRECORDS |
+
+#### Add DSRECORDS
+
+Example with removal of existing DSRECORDS and adding a new DSRECORD.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+    <command>
+        <update>
+            <domain:update xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+                <domain:name>eksempel.dk</domain:name>
+                <domain:add/>
+                <domain:rem/>
+                <domain:chg/>
+            </domain:update>
+        </update>
+        <extension>
+            <secDNS:update xmlns:secDNS="urn:ietf:params:xml:ns:secDNS-1.1">
+                <secDNS:rem>
+                    <secDNS:all>true</secDNS:all>
+                </secDNS:rem>
+                <secDNS:add>
+                    <secDNS:dsData>
+                        <secDNS:keyTag>52378</secDNS:keyTag>
+                        <secDNS:alg>13</secDNS:alg>
+                        <secDNS:digestType>4</secDNS:digestType>
+                        <secDNS:digest>ed3ef3e1787f797a538abf130fd90d7499713976f7da7c05e51826554560fd42bba5e66dbd2f573a75d77eb0b05124c4</secDNS:digest>
+                    </secDNS:dsData>
+                </secDNS:add>
+            </secDNS:update>
+        </extension>
+        <clTRID>a84e346d7b5b1242f8e0d28fa8fde565</clTRID>
+    </command>
+</epp>
+```
 
 ### check host
 
@@ -2053,12 +2146,22 @@ This command has been extended with the following fields:
 The user type will result in context-specific interpretation of the following fields:
 
 - EAN - this number is only supported for user types: `company`, `public_organization` and `association`. It is only mandatory for `public_organization` and optional for `company` and `association`. [EAN][EAN description] is used by the public sector in Denmark for electronic invoicing, private companies can also be assigned EAN, but this it not so widespread at this time. EAN is required by law for public sector organizations, so this field has to be completed and it has to validate for this type.
-- CVR - (VAT number) this is only supported for user types: `company`, `public_organization` and `association`. The number is required for handling VAT correctly, mandatory for user types `company` and `public_organization` and optional for the user type `association`.
-- pnumber - (production unit number) this is only supported for user types: `company`, `public_organization` and `association`. The number is used for handling validation correctly and the field is optional.
+- CVR - (VAT number) this is only supported for user types: `company`, `public_organization` and `association`. The number is **required** for handling VAT correctly, The rules for indication of the field is specified in the table below.
+- pnumber - (production unit number) this is only supported for user types: `company`, `public_organization` and `association`. The number is used for handling validation correctly and it relates to the CVR (Vat number field) the field is optional.
+
+This field is validated on the server side, it is however recommended to perform a check contact on the requested contact-id prior to the [create domain](#create-domain) request if a userid is already known from a contact create or previous domain creation.
 
 The `contact-id` field is auto-generated and assigned by DK Hostmaster. EPP do however open for providing a contact-id in the context of the create contact command, this is not supported by DK Hostmaster at this point.
 
-This field is validated on the server site, it is however recommended to perform a check contact on the requested contact-id prior to the [create domain](#create-domain) request if a userid is already known from a contact create or previous domain creation.
+#### CVR / Vat Number Indication
+
+|   | Mandatory | Note |
+|---|---|---|
+| `company`/`public_organization`/`association` with address in Denmark and EU/EØS | Yes | Has to be specified |
+| `company`/`public_organization`/`association` with address EU/EØS | No | Can be specified if VAT handling is required |
+| `company`/`public_organization`/`association` with address outside Denmark and EU/EØS | No | Can be specified |
+| `individual` with address in Denmark and EU/EØS | No | Not supported |
+| `individual` with address outside Denmark and EU/EØS | No | Not supported |
 
 #### Forced and Smart Contact Creation
 
@@ -2271,9 +2374,9 @@ This part of the EPP protocol is described in [RFC 5733][RFC5733]. This command 
 
 See the extension: `dkhm:contact_validated` in the response.
 
-Please note that the email address (`contact:email`) is masked and the value: `anonymous@dk-hostmaster.dk` is always returned for this field.
+Please note that the email address (`contact:email`) is masked and the value: `anonymous@dk-hostmaster.dk` is always returned for this field, unless the authenticated user has a relationship via the domain name or a registrar group association, which provides access to more information.
 
-The response is only available for the registrant contact object, unless the authenticated user has a relationship via the domain name or a registrar group association, which provides access to more information or additional contact objects.
+The info contact command response is only available for the registrant contact object, unless the authenticated user has a relationship via the domain name or a registrar group association, which provides access to more information or additional contact objects as
 
 #### info contact request
 
@@ -2535,6 +2638,14 @@ The files are all available for [download][XSD files].
 
 #### XSD Version History
 
+- 2.6
+	- EPP Service version 2.3.X
+	- Rolled back changes introduced in 2.5
+
+- 2.5
+	- EPP Service version 2.3.X
+	- Attempt to remove backwards compatibility
+
 - 2.4
 	- EPP Service version 2.3.X
 	- Minor bug fix release as 2.4, since 2.3 had some minor issues
@@ -2554,9 +2665,9 @@ The files are all available for [download][XSD files].
 
 - 2.0
 	- EPP Service version 2.0.X, 2.1.X and 2.2.X
-	- Introduction of `dkhm:requestedNsAdmin` for update host and create host
-	- Introduction of `dkhm:mobilephone` on update contact
-	- Introduction of `dkhm:secondaryEmail` on update contact
+	- Introduction of `dkhm:requestedNsAdmin` for [update host](#update-host) and [create host](#create-host)
+	- Introduction of `dkhm:mobilephone` on [update contact](#update-contact)
+	- Introduction of `dkhm:secondaryEmail` on [update contact](#update-contact)
 
 - 1.4
 	- EPP Service version 1.3.X
@@ -2688,7 +2799,7 @@ EPP service is running in the environment queried.
 | --- | --- |:---:|:---:|:---:|:---:|
 | login | | :white_check_mark: | :white_check_mark: \*1 | :white_check_mark: \*1 | :white_check_mark: |
 | [create domain](#create-domain) | | :white_check_mark: | | | |
-| update domain | | | :white_check_mark: \*2 | | :white_check_mark: \*2 |
+| [update domain](#update-domain) | | | :white_check_mark: \*2 | | :white_check_mark: \*2 |
 | | add billing | :white_check_mark: \*8 | :white_check_mark: \*3 | | |
 | | remove billing | :white_check_mark: \*4 | :white_check_mark: \*4 | :white_check_mark: \*4 | |
 | | add admin | | :white_check_mark: \*5 | | |
@@ -2696,20 +2807,20 @@ EPP service is running in the environment queried.
 | | change registrant | | :white_check_mark: \*6 | | |
 | | add name server | | :white_check_mark: \*6 | | :white_check_mark: \*6 |
 | | remove name server | | :white_check_mark: \*6 | | :white_check_mark: \*6 |
-| renew domain | | | | :white_check_mark: | |
-| delete domain | | | :white_check_mark: \*6 | | |
-| info domain | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| check domain | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| [renew domain](#renew-domain) | | | | :white_check_mark: | |
+| [delete domain](#delete-domain) | | | :white_check_mark: \*6 | | |
+| [info domain](#info-domain) | | :white_check_mark: \*9 | :white_check_mark:  \*9 | :white_check_mark:  \*9 | :white_check_mark: \*9 |
+| [check domain](#check-domain) | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | [create contact](#create-contact) | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| update contact | | :white_check_mark: \*7 | | | :white_check_mark: \*7 |
-| delete contact | | | | | |
-| info contact | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| check contact | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| create host | | :white_check_mark: | | | :white_check_mark: |
-| update host | | | | | :white_check_mark: |
-| delete host | | | | | :white_check_mark: |
-| info host | | :white_check_mark: | | | :white_check_mark: |
-| check host | | :white_check_mark: | | | :white_check_mark: |
+| [update contact](#update-contact) | | :white_check_mark: \*7 | | | :white_check_mark: \*7 |
+| [delete contact](#delete-contact) | | | | | |
+| [info contact](#info-contact) | | :white_check_mark: \*9 | :white_check_mark: \*9 | :white_check_mark: \*9 | :white_check_mark: \*9 |
+| [check contact](#check-contact) | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| [create host](#create-host) | | :white_check_mark: | | | :white_check_mark: |
+| [update host](#update-host) | | | | | :white_check_mark: |
+| [delete host](#delete-host) | | | | | :white_check_mark: |
+| [info host](#info-host) | | :white_check_mark: | | | :white_check_mark: |
+| [check host](#check-host) | | :white_check_mark: | | | :white_check_mark: |
 
 - \*1 as registrar
 - \*2 see sub-commands
@@ -2719,6 +2830,7 @@ EPP service is running in the environment queried.
 - \*6 request to registrant
 - \*7 only own profile
 - \*8 can only assign self
+- \*9 can only see contact information for authorized objects, access to registrant is authorized as public other roles require authorization via relation
 
 ### Compatibility Matrix
 
@@ -2728,7 +2840,7 @@ EPP service is running in the environment queried.
 | Change password | 1 | |
 | Log out | 1 | |
 | Check Domain | 1 | |
-| [Create domain](#create-domain) | 1 | Asynchronous, requires orderconfirmation by the registrant. VID product not supported, PO numbers not supported |
+| [Create domain](#create-domain) | 1 | Asynchronous, requires order confirmation by the registrant. VID product not supported, PO numbers not supported |
 | Info Domain | 1 | Billing contact not disclosed, EPP status codes not supported completely |
 | Update Domain | 2 | Change of name server is asynchronous, requires approval by the registrant. Change of registrant is not supported |
 | Renew Domain | 2 | Requires that the requesting user is a registrar and billing contact for the domain. The domain name must not have any financial outstanding |
