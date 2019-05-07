@@ -2,8 +2,8 @@
 
 # DK Hostmaster EPP Service Specification
 
-2019-04-30
-Revision: 3.0
+2019-05-07
+Revision: 3.1
 
 ## Table of Contents
 
@@ -183,6 +183,13 @@ All examples provided in the document are fabricated or changed from real data t
 This document is copyright by DK Hostmaster A/S and is licensed under the MIT License, please see the separate LICENSE file for details.
 
 ### Document History
+
+- 3.1 2019-05-07
+  - Minor update documenting changes introduced in release 3.2.0 of the EPP service
+  - Update to [info domain](#info-domain) extended with validation status
+  - Update to [info contact](#info-contact) extended with e-mail address for the contact object, where applicable
+  - Update to [info domain](#info-domain) extended with DNSSEC information
+  - Update to [create contact](#create-contact) more strict handling of VAT numbers
 
 - 3.0 2019-04-30
   - Major update based on the changes with major release 3.X.X of the EPP service
@@ -367,7 +374,7 @@ DK Hostmaster offers the following environments:
 
 #### sandbox
 
-- Please see [EPP service specification Wiki](https://github.com/DK-Hostmaster/epp-service-specification/wiki) for up to date information forthe production environment accessible at : `epp-sandbox.dk-hostmaster.dk` on port: `700`
+- Please see [EPP service specification Wiki](https://github.com/DK-Hostmaster/epp-service-specification/wiki) for up to date information for the production environment accessible at : `epp-sandbox.dk-hostmaster.dk` on port: `700`
 
 - This environment is intended for client development towards the DK Hostmaster EPP service
 - info and check requests made to this environment will reflect sandbox data. For host objects, some static content synched in by DK Hostmaster, in addition to sandbox data
@@ -2728,7 +2735,7 @@ EPP service is running in the environment queried.
 | Change password | 1 | |
 | Log out | 1 | |
 | Check Domain | 1 | |
-| [Create domain](#create-domain) | 1 | Asynchronous, requires orderconfirmation by the registrant. VID product not supported, PO numbers not supported |
+| [Create domain](#create-domain) | 1 | Asynchronous, requires order confirmation by the registrant. VID product not supported, PO numbers not supported |
 | Info Domain | 1 | Billing contact not disclosed, EPP status codes not supported completely |
 | Update Domain | 2 | Change of name server is asynchronous, requires approval by the registrant. Change of registrant is not supported |
 | Renew Domain | 2 | Requires that the requesting user is a registrar and billing contact for the domain. The domain name must not have any financial outstanding |
