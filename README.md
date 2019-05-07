@@ -190,7 +190,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
   - Update to [info domain](#info-domain) extended with validation status
   - Update to [info contact](#info-contact) extended with e-mail address for the contact object, where applicable
   - Update to [info domain](#info-domain) extended with DNSSEC information
-  - Update to [create contact](#create-contact) more strict handling of VAT numbers
+  - Update to [create contact](#create-contact) more strict handling of VAT numbers, se table specifying the use of the field in: [CVR / Vat Number Indication](#cvr--vat-number-indication)
 
 - 3.0 2019-04-30
   - Major update based on the changes with major release 3.X.X of the EPP service
@@ -1182,8 +1182,7 @@ This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command 
 | 2201 | If the authenticated user does not hold the privilege to renew the specified domain object. This privilege is given to the billing contact for the domain name (see also the [login command](#login)) |
 | 2306 | If the specified expiry date is not valid. The provided expiration date has to be equal to the current expiration date or we return `2306` |
 | 2306 | If the calculated expiry date is not allowed. The new expiration date has to be lower than the current expiration date + 5 years. The maximum period to which the expiration date can be extended is 5 years and 3 months. The current expiration date is available via the [info domain](#info-domain) command as `domain:exDate` |
-| 2105 | If the domain object is not eligible for renewal. The domain name has to be in the state ‘Active’ and the expiration date has to be a at least month into the future from the current date
-. This will also be reflected in status value `serverRenewProhibited`. See also [ICANN description](https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en/#serverRenewProhibited) of status |
+| 2105 | If the domain object is not eligible for renewal. The domain name has to be in the state ‘Active’ and the expiration date has to be a at least month into the future from the current date. This will also be reflected in status value `serverRenewProhibited`. See also [ICANN description](https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en/#serverRenewProhibited) of status |
 | 2400 | In case of an exception |
 | 1000 | If the renew domain command is successful |
 
