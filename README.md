@@ -1161,7 +1161,7 @@ Please see the addendum on domain status codes.
 
 The example is obsolete and will be replaced with post implementation of the domain renew command (see below).
 
-Do note that the billing contact, is displayed if the authenticated user has privilege to see this user. For now this is for the billing-contact, admin/proxy or registrant roles on the domain.
+Do note that the billing contact and admin/proxy is displayed if the authenticated user has privilege to see this user. The registrant role information for the domain is public available.
 
 Example:
 
