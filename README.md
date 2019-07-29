@@ -2,8 +2,8 @@
 
 # DK Hostmaster EPP Service Specification
 
-2019-05-07
-Revision: 3.1
+2019-07-29
+Revision: 3.2
 
 ## Table of Contents
 
@@ -186,6 +186,9 @@ All examples provided in the document are fabricated or changed from real data t
 This document is copyright by DK Hostmaster A/S and is licensed under the MIT License, please see the separate LICENSE file for details.
 
 ### Document History
+
+- 3.2 2019-07-29
+  - Clarification to [create contact](#create-contact), removed obsolete description of attention field rule for registrants
 
 - 3.1 2019-05-07
   - Minor update documenting changes introduced in release 3.2.X of the EPP service
@@ -2240,8 +2243,6 @@ The handling of name and organization is also a special case. Where the followin
 		<td>I (Individual)</td><td>name</td><td>-</td><td>name</td>
 </tr>
 </table>
-
-Please note that a registrant cannot have a attention field specified, so you should use name solely for creation of contacts intended to be used as registrants for the types: company, public organization and association
 
 The data is collected as required by danish legislation. See also the data collection policy section below.
 
