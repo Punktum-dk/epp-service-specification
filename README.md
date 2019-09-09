@@ -2853,7 +2853,7 @@ EPP service is running in the environment queried.
 - \*7 only own profile
 - \*8 can only assign self
 - \*9 can only see contact information for authorized objects, access to registrant is authorized as public other roles require authorization via relation
-- \*10 changes status of existing DSRECORDS 
+- \*10 changes status of existing DSRECORDS
 
 ### Compatibility Matrix
 
