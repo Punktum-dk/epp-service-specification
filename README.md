@@ -1354,6 +1354,7 @@ The command might be blocked and the status code: `serverUpdateProhibited` is re
 ```
 
 TODO: The above example is error prone, it will be replaced with a correct example.
+REF: [issue #9](https://github.com/DK-Hostmaster/epp-service-specification/issues/9)
 
 #### update domain response
 
