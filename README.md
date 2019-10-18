@@ -2,8 +2,8 @@
 
 # DK Hostmaster EPP Service Specification
 
-2019-09-09
-Revision: 3.3
+2019-10-18
+Revision: 3.4
 
 ## Table of Contents
 
@@ -192,6 +192,9 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 <a id="document-history"></a>
 ### Document History
+
+- 3.4 2019-10-18
+  - Clarified [renew domain](#renew-domain)
 
 - 3.3 2019-09-09
   - Update to [info domain](#info-domain), example response updated, it now contains DNSSEC data
@@ -1266,6 +1269,19 @@ Please see the addendum on domain status codes.
 ### renew domain
 
 This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command adheres to the standard.
+
+Do note that for period specification, only the unit `y` for year is accepted.
+
+The following values for the period specification are accepted:
+
+- `1`
+- `2`
+- `3`
+- `5`
+
+Not specifying acceptable parameters will result in error code `2005` with a message indicating the error.
+
+Not specifying the period parameters will result in the unit: `y` and the value: `1`.
 
 ![Diagram of EPP process for EPP renew domain][epp-renew-domain]
 
