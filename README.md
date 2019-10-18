@@ -217,8 +217,8 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 - 3.0 2019-04-30
   - Major update based on the changes with major release 3.X.X of the EPP service
-    - Documenting removal of public access to information on non-registrant users for contact objects (users)
-    - Documenting removal of public access to information on name server contacts for host objects (name servers)
+  - Documenting removal of public access to information on non-registrant users for contact objects (users)
+  - Documenting removal of public access to information on name server contacts for host objects (name servers)
 
 - 2.16 2019-01-11
   - Updated [info domain](#info-domain) to capability to provide information on the billing contact, when applicable
@@ -288,8 +288,8 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
   - Added information on IP whitelisting
 
 - 1.9 2016-01-30
-	- Information on new waiting list handling
-	- Information on new DNSSEC key handling
+  - Information on new waiting list handling
+  - Information on new DNSSEC key handling
 
 - 1.8 2015-09-03
   - Minor corrections
