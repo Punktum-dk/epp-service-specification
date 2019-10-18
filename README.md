@@ -195,6 +195,8 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 - 3.4 2019-10-18
   - Clarified [renew domain](#renew-domain)
+  - Correction/clarification on ownership of DSRECORDS for [create domain](#create-domain) and [update domain](#update-domain), in the general section on [DNSSEC](#dnssec)
+  - Clarification on status of DNSSEC for [create domain](#create-domain) and [update domain](#update-domain), in the general section on [DNSSEC](#dnssec)
 
 - 3.3 2019-09-09
   - Update to [info domain](#info-domain), example response updated, it now contains DNSSEC data
@@ -596,9 +598,11 @@ Comparing the EPP implementation to the existing channel for domain registration
 
 I accordance with [RFC 5910][RFC5910]. We support DS only and not DNSKEY. In addition the maximum signature lifetime (`secDNS:maxSigLife`) is disregarded. See [section 3.3](http://tools.ietf.org/html/rfc5910#section-3.3) in the referenced RFC.
 
-DK Hostmaster specifies rules ownership of DNSSEC keys. If you provide DNSSEC keys a part of registration, the keys are associated with the registrant as owner. If you want to specify another owner, please specify the `tech` or `keyholder` role (see: Role Mapping under: [create domain](#create-domain) command).
+DK Hostmaster specifies rules ownership of DNSSEC keys. If you provide DNSSEC keys a part of registration ([create domain](#create-domain)) or using [update domain](#update-domain), the keys are associated with the NSA as owner.
 
 Not all algorithms are supported, please refer to the [DK Hostmaster Name Service specification][dkhm-name-service-specification] for a complete list of supported algorithms.
+
+When adding DSRECORDS for a domain name using [create domain](#create-domain) or [update domain](#update-domain), the status is by default active and the DSRECORDS will be published. The DNSSEC status feature for the domain name can prohibit the publication, this feature is available only to the registrant for the specific domain and act as a kill switch for use by the registrant in case of issues with DNSSEC.
 
 Availability of DNSSEC information and status is currently limited to public available data.
 
