@@ -2081,7 +2081,7 @@ This is the overall process, the process is divided into sub-processes, please s
 <a id="change-hostname-sub-process"></a>
 #### Change hostname sub-process
 
-The process of changing a host name us unsupported by DK Hostmaster and will always result in an error code: `2102`.
+The process of changing a host name is unsupported by DK Hostmaster and will always result in an error code: `2102`.
 
 ![Diagram of EPP update host change hostname][epp_update_host_change_hostname]
 
