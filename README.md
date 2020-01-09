@@ -4,8 +4,8 @@
 
 ![GitHub Workflow build status badge markdownlint](https://github.com/DK-Hostmaster/epp-service-specification/workflows/Markdownlint%20Workflow/badge.svg)
 
-2019-10-18
-Revision: 3.4
+2020-01-09
+Revision: 3.5
 
 ## Table of Contents
 
@@ -194,6 +194,9 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 <a id="document-history"></a>
 ### Document History
+
+- 3.5 2020-01-09
+  - Updated with information on XSD version 3.0
 
 - 3.4 2019-10-18
   - Clarified [renew domain](#renew-domain)
@@ -2810,13 +2813,18 @@ This is a list of the schemas currently used in the DKHM EPP Service described i
 - contact-1.0.xsd
 - domain-1.0.xsd
 - host-1.0.xsd
-- dkhm-2.4.xsd
+- dkhm-3.0.xsd
 - secDNS-1.1.xsd
 
 The files are all available for [download][XSD files].
 
 <a id="xsd-version-history"></a>
 #### XSD Version History
+
+- 3.0
+	- EPP Service version 3.4.0
+	- The XSD does not contain changes as such, but removes excessive import statements where one should suffice
+	- This revision of the schema file, eliminates support for older schema versions
 
 - 2.6
 	- EPP Service version 2.3.X
