@@ -197,6 +197,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 - 3.5 2020-01-09
   - Updated with information on XSD version 3.0
+  - Introduced in release 3.4.0 of the EPP service
 
 - 3.4 2019-10-18
   - Clarified [renew domain](#renew-domain)
