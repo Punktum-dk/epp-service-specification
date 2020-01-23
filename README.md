@@ -916,10 +916,12 @@ So the customized response for a domain creation request looks as below.
 
 The [create domain](#create-domain) command has been extended with a field (`orderconfirmationToken`) making it possible to assign a token indicating that the registrant has agreed to the terms and conditions for DK Hostmaster with the registrar.
 
-```XML
-<dkhm:orderconfirmationToken xmlns:dkhm=“urn:dkhm:params:xml:ns:dkhm-2.1”>
+```xml
+<extension>
+	<dkhm:orderconfirmationToken xmlns:dkhm=“urn:dkhm:params:xml:ns:dkhm-2.6”>
 		1522744544
-</dkhm:orderconfirmationToken>
+	</dkhm:orderconfirmationToken>
+</extension>
 ```
 
 The token is a timestamp in [EPOCH] format, indicating when the agreement was accepted.
@@ -977,7 +979,7 @@ The status codes applying to domain are described in the addendum: Status Codes:
 			</domain:create>
 		</create>
 		<extension>
-			<dkhm:orderconfirmationToken xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.2">testtoken</dkhm:orderconfirmationToken>
+			<dkhm:orderconfirmationToken xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.6">testtoken</dkhm:orderconfirmationToken>
 		</extension>
 		<clTRID>92724843f12a3e958588679551aa988d</clTRID>
 	</command>
@@ -996,10 +998,10 @@ The status codes applying to domain are described in the addendum: Status Codes:
 		</result>
 		<msgQ count="1" id="1"/>
 		<extension>
-			<dkhm:trackingNo xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.3">2013010100030</dkhm:trackingNo>
-			<dkhm:domain_confirmed xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.3">1</dkhm:domain_confirmed>
-			<dkhm:registrant_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.3">1</dkhm:registrant_validated>
-			<dkhm:url xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.2">https://selfservice-dk-hostmaster.dk/6102505a2e8d0cfbe8c3c99ea49977f36e2d4ee3</dkhm:url>
+			<dkhm:trackingNo xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.6">2013010100030</dkhm:trackingNo>
+			<dkhm:domain_confirmed xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.6">1</dkhm:domain_confirmed>
+			<dkhm:registrant_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.6">1</dkhm:registrant_validated>
+			<dkhm:url xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.6">https://selfservice-dk-hostmaster.dk/6102505a2e8d0cfbe8c3c99ea49977f36e2d4ee3</dkhm:url>
 		</extension>
 		<trID>
 			<clTRID>47a4178679f26909ebcfcfd8572f315c</clTRID>
@@ -1051,7 +1053,7 @@ The outcome can be one of two, please see the examples below:
 				<domain:paDate>2018-06-22T15:07:00.0Z</domain:paDate></domain:panData>
 		</resData>
 		<extension>
-			<dkhm:risk_assessment xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.2">N/A</dkhm:risk_assessment>    </extension>
+			<dkhm:risk_assessment xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.6">N/A</dkhm:risk_assessment>    </extension>
 		<trID>
 			<clTRID>4fc3af83a40f85dd01bf5110727ee943</clTRID>
 			<svTRID>7F3D4CD8-761D-11E8-8775-F5EABB5937F7</svTRID>    </trID></response>
@@ -1078,7 +1080,7 @@ The outcome can be one of two, please see the examples below:
 			</domain:creData>
 		</resData>
 		<extension>
-			<dkhm:risk_assessment xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.2">N/A</dkhm:risk_assessment>
+			<dkhm:risk_assessment xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.6">N/A</dkhm:risk_assessment>
 		</extension>
 		<trID>
 			<clTRID>71a61d8181fce08fc1c087f409a6168b</clTRID>
@@ -1239,7 +1241,7 @@ Please see the addendum on domain status codes.
       </domain:infData>
     </resData>
     <extension>
-      <dkhm:registrant_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.4">1</dkhm:registrant_validated>
+      <dkhm:registrant_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.6">1</dkhm:registrant_validated>
       <secDNS:infData xmlns:secDNS="urn:ietf:params:xml:ns:secDNS-1.1">
         <secDNS:dsData>
           <secDNS:keyTag>25591</secDNS:keyTag>
@@ -1914,7 +1916,7 @@ Request to create a host object, requesting a different administrator of the hos
 			</host:create>
 		</create>
 		<extension>
-			<dkhm:requestedNsAdmin xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.0">ADMIN2-DK</dkhm:requestedNsAdmin>
+			<dkhm:requestedNsAdmin xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.6">ADMIN2-DK</dkhm:requestedNsAdmin>
 		</extension>
 		<clTRID>ABC-12345</clTRID>
 	</command>
@@ -2169,7 +2171,7 @@ Request to update a host object, requesting a different administrator of the hos
 			</host:update>
 		</update>
 		<extension>
-			<dkhm:requestedNsAdmin xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.0">DKHM1-DK</dkhm:requestedNsAdmin>
+			<dkhm:requestedNsAdmin xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.6">DKHM1-DK</dkhm:requestedNsAdmin>
 		</extension>
 		<clTRID>7a4ac69d335ae661e29fc2c262c5800e</clTRID>
 	</command>
@@ -2448,8 +2450,8 @@ Please note:
 			</contact:create>
 		</create>
 		<extension>
-			<dkhm:userType xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.2">company</dkhm:userType>
-			<dkhm:CVR xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.2">1234567891231</dkhm:CVR>
+			<dkhm:userType xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.6">company</dkhm:userType>
+			<dkhm:CVR xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.6">1234567891231</dkhm:CVR>
 		</extension>
 		<clTRID>8cced469f2bfdbb0dcad16b875d87c99</clTRID>
 	</command>
@@ -2597,7 +2599,7 @@ The info contact command response is only available for the registrant contact o
 			</contact:infData>
 		</resData>
 		<extension>
-			<dkhm:contact_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.3">1</dkhm:contact_validated>
+			<dkhm:contact_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.6">1</dkhm:contact_validated>
 		</extension>
 		<trID>
 			<clTRID>76edfef5b78cdaefe8fb426eb8d74b75</clTRID>
@@ -2675,8 +2677,8 @@ Please note:
 			</contact:update>
 		</update>
 		<extension>
-				<dkhm:secondaryEmail xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.5">email@eksempel.dk</dkhm:secondaryEmail>
-				<dkhm:mobilephone xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-1.5">+1.7034444445</dkhm:mobilephone>
+				<dkhm:secondaryEmail xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.6">email@eksempel.dk</dkhm:secondaryEmail>
+				<dkhm:mobilephone xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.6">+1.7034444445</dkhm:mobilephone>
 		</extension>
 		<clTRID>ABC-12345</clTRID>
 	</command>
@@ -2933,7 +2935,7 @@ EPP service is running in the environment queried.
 						<objURI>urn:ietf:params:xml:ns:contact-1.0</objURI>
 						<svcExtension>
 								<extURI>urn:ietf:params:xml:ns:secDNS-1.1</extURI>
-								<extURI>urn:dkhm:params:xml:ns:dkhm-2.0</extURI>
+								<extURI>urn:dkhm:params:xml:ns:dkhm-2.6</extURI>
 						</svcExtension>
 				</svcMenu>
 				<dcp>
