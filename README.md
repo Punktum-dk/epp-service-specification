@@ -502,7 +502,12 @@ A unique tracking number for a domain registration for uniformity with the mail 
 <a id="dkhmdomainadvisory"></a>
 ### `dkhm:domainAdvisory`
 
-Any special circumstances in relation to a domain name, can be communicated using this special field. Please see the specific commands for examples.
+Any special circumstances in relation to a domain name, can be communicated using this special field. Please see [info domain](#info-domain).
+
+Currently two advisories are communicated:
+
+- `pendingDeletionDate`, indicating that a given domain name is scheduled for deletion
+- `offeredOnWaitingList`, indicating that a given domain name has been offered to a designated registrant
 
 <a id="dkhmorderconfirmationtoken"></a>
 ### `dkhm:orderconfirmationToken`
@@ -1157,14 +1162,17 @@ In general this part of the EPP protocol is described in [RFC 5731][RFC5731] and
 
 The available values for the `reason` field are:
 
-- "In use" for domain names registered with the DK Hostmaster registry
-- "Enqueued" for domain names awaiting domain name application processing, This can last a few seconds to a few days if the application require accept of terms and conditions from the designated registrant
-- "Offered for pos. on waiting list", for when the domain name has been offered to a designated registrant from a waiting list position
+- `In use` for domain names registered with the DK Hostmaster registry
+- `Enqueued` for domain names awaiting domain name application processing, This can last a few seconds to a few days if the application require accept of terms and conditions from the designated registrant
+- `Offered for pos. on waiting list`, for when the domain name has been offered to a designated registrant from a waiting list position
 
 <a id="info-domain"></a>
 ### info domain
 
-This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command adheres to the standard.
+This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command adheres to the standard. In addition the command has been extended with two of the DK Hostmaster extensions:
+
+- `dkhm:domainAdvisory`
+- `dkhm:registrant_validated`
 
 Do note that the response only contains the registrant contact object, unless the authenticated user has a relationship via the domain name, which provides access to more information.
 
@@ -1276,6 +1284,37 @@ Please see the addendum on domain status codes.
   </response>
 </epp>
 ```
+
+#### info domain response with domain advisory
+
+A info domain response can be annotated with information using the extension  `dkhm:domainAdvisory`.
+
+The advisory can currently communicate two advisories:
+
+- `pendingDeletionDate`, indicating that a given domain name is scheduled for deletion
+- `offeredOnWaitingList`, indicating that a given domain name has been offered to a designated registrant
+
+If a domain name is marked for pending deletion, this special status is communicated via the `dkhm:domainAdvisory` extension.
+
+```xml
+<extension>
+    <dkhm:domainAdvisory advisory="pendingDeletionDate" date="2020-10-14T00:00:00.0Z" domain="eksempel.dk" xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.6"/>
+</extension>
+```
+
+The field `advisory` indicates a pending delete date with the string: `pendingDeletionDate` followed by a field containing the actual date.
+
+Do note the date is only guiding, since the actual operation of deletion is handled by an external process and operational circumstances might vary and are executed under the discretion of the registry.
+
+If a domain name is offered to a position on a waiting list, the advisory `offeredOnWaitingList` is used.
+
+```xml
+<extension>
+    <dkhm:domainAdvisory advisory="offeredOnWaitingList" domain="eksempel.dk" xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.6"/>
+</extension>
+```
+
+Do note that the waiting list status is also used in the [check domain](#check-domain) command, using the `reason` field.
 
 <a id="renew-domain"></a>
 ### renew domain
