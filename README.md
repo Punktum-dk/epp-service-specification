@@ -4,8 +4,8 @@
 
 ![GitHub Workflow build status badge markdownlint](https://github.com/DK-Hostmaster/epp-service-specification/workflows/Markdownlint%20Workflow/badge.svg)
 
-2020-01-09
-Revision: 3.5
+2020-01-23
+Revision: 3.6
 
 ## Table of Contents
 
@@ -194,6 +194,11 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 <a id="document-history"></a>
 ### Document History
+
+- 3.6 2020-01-23
+
+  - Cleaned and aligned XSD versions in all examples, currently using version 2.6
+  - Added clarifications and examples on advisories extension, used in [info domain](#info-domain)
 
 - 3.5 2020-01-09
   - Updated with information on XSD version 3.0
