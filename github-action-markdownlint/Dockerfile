@@ -1,4 +1,4 @@
-FROM node:10.16.0-alpine
+FROM 10.18.1-jessie-slim
 
 LABEL "com.github.actions.name"="Markdownlint"
 LABEL "com.github.actions.description"="Tests all Markdownfiles"
