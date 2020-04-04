@@ -4,8 +4,8 @@
 
 ![GitHub Workflow build status badge markdownlint](https://github.com/DK-Hostmaster/epp-service-specification/workflows/Markdownlint%20Workflow/badge.svg)
 
-2020-01-23
-Revision: 3.6
+2020-04-04
+Revision: 3.7
 
 ## Table of Contents
 
@@ -194,6 +194,9 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 <a id="document-history"></a>
 ### Document History
+
+- 3.7 2020-04-04
+  - Revised information on IP whitelisting
 
 - 3.6 2020-01-23
 
@@ -446,11 +449,9 @@ The `clTRID` is recommended to be unique for all transactions and is required to
 <a id="ip-whitelisting"></a>
 ### IP Whitelisting
 
-Since 2016-02-29 DK Hostmaster has enforced IP whitelisting of IPs for access to the EPP service. Additions and removals of IP addresses is currently a manual process handled by DK Hostmaster.
+Access to the EPP service requires IP whitelisting of IPs.
 
-Please submit change requests including registrar handle information to:
-
-- tech@dk-hostmaster.dk
+Maintenance of IP addresses is done in the registrar portal and requires an active registrar account for access.
 
 <a id="implementation-extensions"></a>
 ## Implementation Extensions
