@@ -4,8 +4,8 @@
 
 ![GitHub Workflow build status badge markdownlint](https://github.com/DK-Hostmaster/epp-service-specification/workflows/Markdownlint%20Workflow/badge.svg)
 
-2020-01-23
-Revision: 3.6
+2020-04-21
+Revision: 3.8
 
 ## Table of Contents
 
@@ -195,8 +195,13 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 <a id="document-history"></a>
 ### Document History
 
-- 3.6 2020-01-23
+- 3.8 2020-04-21
+  - Aligned XSD versions in all examples to version 3.0
 
+- 3.7 2020-04-04
+  - Revised information on IP whitelisting
+
+- 3.6 2020-01-23
   - Cleaned and aligned XSD versions in all examples, currently using version 2.6
   - Added clarifications and examples on advisories extension, used in [info domain](#info-domain)
 
@@ -446,11 +451,9 @@ The `clTRID` is recommended to be unique for all transactions and is required to
 <a id="ip-whitelisting"></a>
 ### IP Whitelisting
 
-Since 2016-02-29 DK Hostmaster has enforced IP whitelisting of IPs for access to the EPP service. Additions and removals of IP addresses is currently a manual process handled by DK Hostmaster.
+Access to the EPP service requires IP whitelisting of IPs.
 
-Please submit change requests including registrar handle information to:
-
-- tech@dk-hostmaster.dk
+Maintenance of IP addresses is done in the registrar portal and requires an active registrar account for access.
 
 <a id="implementation-extensions"></a>
 ## Implementation Extensions
@@ -687,7 +690,7 @@ As announced in the greeting, the following objects are available:
 With regard to extensions, the following are available:
 
 - [secDNS-1.1][XSD Files]
-- [dkhm-2.6][XSD Files]
+- [dkhm-3.0][XSD Files]
 
 Please see the greeting response included in the [appendices](greeting) for illustration of the actual announcement.
 
@@ -928,7 +931,7 @@ The [create domain](#create-domain) command has been extended with a field (`ord
 
 ```xml
 <extension>
-	<dkhm:orderconfirmationToken xmlns:dkhm=“urn:dkhm:params:xml:ns:dkhm-2.6”>
+	<dkhm:orderconfirmationToken xmlns:dkhm=“urn:dkhm:params:xml:ns:dkhm-3.0”>
 		1522744544
 	</dkhm:orderconfirmationToken>
 </extension>
@@ -989,7 +992,7 @@ The status codes applying to domain are described in the addendum: Status Codes:
 			</domain:create>
 		</create>
 		<extension>
-			<dkhm:orderconfirmationToken xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.6">testtoken</dkhm:orderconfirmationToken>
+			<dkhm:orderconfirmationToken xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">testtoken</dkhm:orderconfirmationToken>
 		</extension>
 		<clTRID>92724843f12a3e958588679551aa988d</clTRID>
 	</command>
@@ -1008,10 +1011,10 @@ The status codes applying to domain are described in the addendum: Status Codes:
 		</result>
 		<msgQ count="1" id="1"/>
 		<extension>
-			<dkhm:trackingNo xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.6">2013010100030</dkhm:trackingNo>
-			<dkhm:domain_confirmed xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.6">1</dkhm:domain_confirmed>
-			<dkhm:registrant_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.6">1</dkhm:registrant_validated>
-			<dkhm:url xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.6">https://selfservice-dk-hostmaster.dk/6102505a2e8d0cfbe8c3c99ea49977f36e2d4ee3</dkhm:url>
+			<dkhm:trackingNo xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">2013010100030</dkhm:trackingNo>
+			<dkhm:domain_confirmed xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">1</dkhm:domain_confirmed>
+			<dkhm:registrant_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">1</dkhm:registrant_validated>
+			<dkhm:url xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">https://selfservice-dk-hostmaster.dk/6102505a2e8d0cfbe8c3c99ea49977f36e2d4ee3</dkhm:url>
 		</extension>
 		<trID>
 			<clTRID>47a4178679f26909ebcfcfd8572f315c</clTRID>
@@ -1063,7 +1066,7 @@ The outcome can be one of two, please see the examples below:
 				<domain:paDate>2018-06-22T15:07:00.0Z</domain:paDate></domain:panData>
 		</resData>
 		<extension>
-			<dkhm:risk_assessment xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.6">N/A</dkhm:risk_assessment>    </extension>
+			<dkhm:risk_assessment xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">N/A</dkhm:risk_assessment>    </extension>
 		<trID>
 			<clTRID>4fc3af83a40f85dd01bf5110727ee943</clTRID>
 			<svTRID>7F3D4CD8-761D-11E8-8775-F5EABB5937F7</svTRID>    </trID></response>
@@ -1090,7 +1093,7 @@ The outcome can be one of two, please see the examples below:
 			</domain:creData>
 		</resData>
 		<extension>
-			<dkhm:risk_assessment xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.6">N/A</dkhm:risk_assessment>
+			<dkhm:risk_assessment xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">N/A</dkhm:risk_assessment>
 		</extension>
 		<trID>
 			<clTRID>71a61d8181fce08fc1c087f409a6168b</clTRID>
@@ -1254,7 +1257,7 @@ Please see the addendum on domain status codes.
       </domain:infData>
     </resData>
     <extension>
-      <dkhm:registrant_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.6">1</dkhm:registrant_validated>
+      <dkhm:registrant_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">1</dkhm:registrant_validated>
       <secDNS:infData xmlns:secDNS="urn:ietf:params:xml:ns:secDNS-1.1">
         <secDNS:dsData>
           <secDNS:keyTag>25591</secDNS:keyTag>
@@ -1303,7 +1306,7 @@ If a domain name is marked for pending deletion, this special status is communic
 
 ```xml
 <extension>
-    <dkhm:domainAdvisory advisory="pendingDeletionDate" date="2020-10-14T00:00:00.0Z" domain="eksempel.dk" xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.6"/>
+    <dkhm:domainAdvisory advisory="pendingDeletionDate" date="2020-10-14T00:00:00.0Z" domain="eksempel.dk" xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0"/>
 </extension>
 ```
 
@@ -1315,7 +1318,7 @@ If a domain name is offered to a position on a waiting list, the advisory `offer
 
 ```xml
 <extension>
-    <dkhm:domainAdvisory advisory="offeredOnWaitingList" domain="eksempel.dk" xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.6"/>
+    <dkhm:domainAdvisory advisory="offeredOnWaitingList" domain="eksempel.dk" xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0"/>
 </extension>
 ```
 
@@ -1960,7 +1963,7 @@ Request to create a host object, requesting a different administrator of the hos
 			</host:create>
 		</create>
 		<extension>
-			<dkhm:requestedNsAdmin xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.6">ADMIN2-DK</dkhm:requestedNsAdmin>
+			<dkhm:requestedNsAdmin xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">ADMIN2-DK</dkhm:requestedNsAdmin>
 		</extension>
 		<clTRID>ABC-12345</clTRID>
 	</command>
@@ -2215,7 +2218,7 @@ Request to update a host object, requesting a different administrator of the hos
 			</host:update>
 		</update>
 		<extension>
-			<dkhm:requestedNsAdmin xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.6">DKHM1-DK</dkhm:requestedNsAdmin>
+			<dkhm:requestedNsAdmin xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">DKHM1-DK</dkhm:requestedNsAdmin>
 		</extension>
 		<clTRID>7a4ac69d335ae661e29fc2c262c5800e</clTRID>
 	</command>
@@ -2494,8 +2497,8 @@ Please note:
 			</contact:create>
 		</create>
 		<extension>
-			<dkhm:userType xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.6">company</dkhm:userType>
-			<dkhm:CVR xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.6">1234567891231</dkhm:CVR>
+			<dkhm:userType xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">company</dkhm:userType>
+			<dkhm:CVR xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">1234567891231</dkhm:CVR>
 		</extension>
 		<clTRID>8cced469f2bfdbb0dcad16b875d87c99</clTRID>
 	</command>
@@ -2643,7 +2646,7 @@ The info contact command response is only available for the registrant contact o
 			</contact:infData>
 		</resData>
 		<extension>
-			<dkhm:contact_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.6">1</dkhm:contact_validated>
+			<dkhm:contact_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">1</dkhm:contact_validated>
 		</extension>
 		<trID>
 			<clTRID>76edfef5b78cdaefe8fb426eb8d74b75</clTRID>
@@ -2721,8 +2724,8 @@ Please note:
 			</contact:update>
 		</update>
 		<extension>
-				<dkhm:secondaryEmail xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.6">email@eksempel.dk</dkhm:secondaryEmail>
-				<dkhm:mobilephone xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-2.6">+1.7034444445</dkhm:mobilephone>
+				<dkhm:secondaryEmail xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">email@eksempel.dk</dkhm:secondaryEmail>
+				<dkhm:mobilephone xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">+1.7034444445</dkhm:mobilephone>
 		</extension>
 		<clTRID>ABC-12345</clTRID>
 	</command>
@@ -2979,7 +2982,7 @@ EPP service is running in the environment queried.
 						<objURI>urn:ietf:params:xml:ns:contact-1.0</objURI>
 						<svcExtension>
 								<extURI>urn:ietf:params:xml:ns:secDNS-1.1</extURI>
-								<extURI>urn:dkhm:params:xml:ns:dkhm-2.6</extURI>
+								<extURI>urn:dkhm:params:xml:ns:dkhm-3.0</extURI>
 						</svcExtension>
 				</svcMenu>
 				<dcp>
