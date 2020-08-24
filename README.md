@@ -1928,7 +1928,7 @@ Response to the above request. The response indicates a successful creation, sin
 		</result>
 		<resData>
 			<host:creData
-			 xmlnhost="urn:ietf:paramxml:nhost-1.0">
+			 xmlnhost="urn:ietf:params:xml:ns:host-1.0">
 				<host:name>ns1.eksempel.dk</host:name>
 				<host:crDate>1999-04-03T22:00:00.0Z</host:crDate>
 			</host:creData>
