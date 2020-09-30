@@ -1182,7 +1182,7 @@ This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command 
 - `dkhm:domainAdvisory`
 - `dkhm:registrant_validated`
 
-Do note that the response only contains the registrant contact object, unless the authenticated user has a relationship via the domain name, which provides access to more information.
+Do note that the response only contains the registrant contact object, if the authenticated user has a relationship via the domain name, which provides access to more information.
 
 The below example could shows the public available information. It could be extended with the following data:
 
@@ -2590,7 +2590,7 @@ This part of the EPP protocol is described in [RFC 5733][RFC5733]. This command 
 
 See the extension: `dkhm:contact_validated` in the response.
 
-Please note that the email address (`contact:email`) is masked and the value: `anonymous@dk-hostmaster.dk` is always returned for this field, unless the authenticated user has a relationship via the domain name or a registrar group association, which provides access to more information.
+Please note that the email address (`contact:email`) is masked and the value: `anonymous@dk-hostmaster.dk` is always returned for this field, Unless the authenticated user has a relationship via the domain name or a registrar group association, which provides access to more information.
 
 The info contact command response is only available for the registrant contact object, unless the authenticated user has a relationship via the domain name or a registrar group association, which provides access to more information or additional contact objects as
 
