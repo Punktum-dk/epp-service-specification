@@ -643,6 +643,8 @@ When adding DSRECORDS for a domain name using [create domain](#create-domain) or
 
 Availability of DNSSEC information and status is currently limited to public available data.
 
+In addition with the improvements to the process for change of nameservers using [update domain](#update-domain), all current DSRECORDS are deleted as part of this operation.
+
 <a id="contact-creation"></a>
 ### Contact Creation
 
@@ -1581,6 +1583,8 @@ The addition of a new name server to a domain name or a re-delegation requires t
 
 Note as of version of 4.X.X the commands to change name servers (addition and removal) require AuthInfo token. The AuthInfo token is either provided out of band or can be obtained using the `info domain` command. It can also be generated using the `update domain` command, please see the section on setting AuthInfo.
 
+With this process change, the change of nameservers operation using [update domain](#update-domain), also delete all DSRECORDS.
+
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -1619,6 +1623,8 @@ The removal of a existing name server from a domain name requires that at least 
 Since the update domain command can contain several sub-commands, this could be accompanied by an *add name server* (see above), so the policy requirement is met and resolution is kept.
 
 As noted under "add name server", since version of 4.X.X the commands to change name servers (addition) require AuthInfo token. The AuthInfo token is either provided out of band or can be obtained using the `info domain` command. It can also be generated using the `update domain` command, please see the section on setting AuthInfo.
+
+With this process change, the change of nameservers operation using [update domain](#update-domain), also delete all DSRECORDS.
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
