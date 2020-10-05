@@ -118,6 +118,7 @@ df
 dfca
 digestType
 dk
+dkhm
 domainAdvisory
 domainurn
 dsData
