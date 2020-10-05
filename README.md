@@ -2,7 +2,8 @@
 
 # DK Hostmaster EPP Service Specification
 
-![GitHub Workflow build status badge markdownlint](https://github.com/DK-Hostmaster/epp-service-specification/workflows/Markdownlint%20Workflow/badge.svg)
+![Markdownlint Action](https://github.com/DK-Hostmaster/epp-service-specification/workflows/Markdownlint%20Action/badge.svg)
+![Spellcheck Action](https://github.com/DK-Hostmaster/epp-service-specification/workflows/Spellcheck%20Action/badge.svg)
 
 2020-04-21
 Revision: 3.8
