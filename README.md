@@ -745,9 +745,9 @@ Currently, the only language supported is English. So the language parameter is 
 				<lang>en</lang>
 			</options>
 			<svcs>
-				<objURI>domainurn:ietf:params:xml:ns:domain-1.0urn:ietf:params:xml:ns:domain-1.0 domain-1.0.xsd</objURI>
-				<objURI>hosturn:ietf:params:xml:ns:host-1.0urn:ietf:params:xml:ns:host-1.0 host-1.0.xsd</objURI>
-				<objURI>contacturn:ietf:params:xml:ns:contact-1.0urn:ietf:params:xml:ns:contact-1.0 contact-1.0.xsd</objURI>
+                <objURI>urn:ietf:params:xml:ns:domain-1.0</objURI>
+                <objURI>urn:ietf:params:xml:ns:host-1.0</objURI>
+                <objURI>urn:ietf:params:xml:ns:contact-1.0</objURI>
 			</svcs>
 		</login>
 		<clTRID>d52eaf8995d2b679fe9dc53ee5bc3ad9</clTRID>
