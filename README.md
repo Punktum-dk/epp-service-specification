@@ -5,8 +5,8 @@
 ![Markdownlint Action](https://github.com/DK-Hostmaster/epp-service-specification/workflows/Markdownlint%20Action/badge.svg)
 ![Spellcheck Action](https://github.com/DK-Hostmaster/epp-service-specification/workflows/Spellcheck%20Action/badge.svg)
 
-2020-04-21
-Revision: 3.8
+2020-10-19
+Revision: 3.9
 
 ## Table of Contents
 
@@ -195,6 +195,9 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 <a id="document-history"></a>
 ### Document History
+
+- 3.9 2020-10-19
+  - Added some details on sessions in the section on [login](#login)
 
 - 3.8 2020-04-21
   - Aligned XSD versions in all examples to version 3.0
