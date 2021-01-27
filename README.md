@@ -177,7 +177,9 @@ Do note that the specification describes the latest released service. Service ve
 so given changes implemented in the service are reflected in the specification. Do note that a service might be released to the sandbox environment
 prior to being released to production after a grace period.
 
-The current actively used XSD file is indicated in the EPP service specification, the [XSD file repository][XSD files] might contain changes not actively used by the service. Please see the [EPP Service Specification Wiki][wiki] for exact details.
+This document is not the authoritative source for business and policy rules and possible discrepancies between this an any authoritative sources are regarded as errors in this document. This document is aimed at the technical specification and possible implementation and is an interpretation of authoritative sources and can therefor be erroneous.
+
+The actively used XSD file is indicated in the [EPP service specification][wiki], the [XSD file repository][XSD files] might contain changes not actively used by the service.
 
 The current service version can be obtained from the [Greeting](#greeting) message, from the service.
 
@@ -198,6 +200,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 - 4.0 2021-01-27
   - Introduction of support for registrar/registrant administration
   - Removed XSD Version History, referencing original source in [EPP XSD repository][XSD files]
+  - Addition of disclaimer
 
 - 3.9 2020-10-19
   - Added some details on sessions in the section on [login](#login)
