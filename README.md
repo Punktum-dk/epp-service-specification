@@ -2922,39 +2922,39 @@ EPP service is running in the environment queried.
 ```XML
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-		<greeting>
-				<svID>DK Hostmaster EPP Service: 2.2.3</svID>
-				<svDate>2016-12-27T15:19:26.0Z</svDate>
-				<svcMenu>
-						<version>1.0</version>
-						<lang>en</lang>
-						<objURI>urn:ietf:params:xml:ns:host-1.0</objURI>
-						<objURI>urn:ietf:params:xml:ns:domain-1.0</objURI>
-						<objURI>urn:ietf:params:xml:ns:contact-1.0</objURI>
-						<svcExtension>
-								<extURI>urn:ietf:params:xml:ns:secDNS-1.1</extURI>
-								<extURI>urn:dkhm:params:xml:ns:dkhm-3.0</extURI>
-						</svcExtension>
-				</svcMenu>
-				<dcp>
-						<access>
-								<personalAndOther/>
-						</access>
-						<statement>
-								<purpose>
-										<admin/>
-										<prov/>
-								</purpose>
-								<recipient>
-										<other/>
-										<unrelated/>
-								</recipient>
-								<retention>
-										<legal/>
-								</retention>
-						</statement>
-				</dcp>
-		</greeting>
+    <greeting>
+        <svID>DK Hostmaster EPP Service: 2.2.3</svID>
+        <svDate>2016-12-27T15:19:26.0Z</svDate>
+        <svcMenu>
+            <version>1.0</version>
+            <lang>en</lang>
+            <objURI>urn:ietf:params:xml:ns:host-1.0</objURI>
+            <objURI>urn:ietf:params:xml:ns:domain-1.0</objURI>
+            <objURI>urn:ietf:params:xml:ns:contact-1.0</objURI>
+            <svcExtension>
+                <extURI>urn:ietf:params:xml:ns:secDNS-1.1</extURI>
+                <extURI>urn:dkhm:params:xml:ns:dkhm-3.0</extURI>
+            </svcExtension>
+        </svcMenu>
+        <dcp>
+            <access>
+                <personalAndOther/>
+            </access>
+            <statement>
+                <purpose>
+                    <admin/>
+                    <prov/>
+                </purpose>
+                <recipient>
+                    <other/>
+                    <unrelated/>
+                </recipient>
+                <retention>
+                    <legal/>
+                </retention>
+            </statement>
+        </dcp>
+    </greeting>
 </epp>
 ```
 
