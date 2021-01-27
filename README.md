@@ -148,7 +148,6 @@ Revision: 4.0
 - [References](#references)
 - [Resources](#resources)
   - [XML Schemas](#xml-schemas)
-    - [XSD Version History](#xsd-version-history)
   - [Mailing list](#mailing-list)
   - [Issue Reporting](#issue-reporting)
   - [Demo/Test Client](#demotest-client)
