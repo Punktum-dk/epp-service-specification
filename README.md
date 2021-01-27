@@ -584,28 +584,28 @@ As mentioned previously the EPP service comes with some limitations. Please see 
 <a id="commands"></a>
 ### Commands
 
-The current implementation implements the following list of commands:
+The current implementation offers support for the following list of commands:
 
-- hello
-- login, including change password
-- logout
-- poll, including acknowledgement of messages
-- info (contact/domain/host)
-- check (contact/domain/host)
-- create (contact/domain/host)
-- renew (domain)
-- update (contact/domain/host)
-- delete (host)
+- `hello`
+- `login`, including change password
+- `logout`
+- `poll`, including acknowledgement of messages
+- `info` (contact/domain/host)
+- `check` (contact/domain/host)
+- `create` (contact/domain/host)
+- `renew` (domain)
+- `update` (contact/domain/host)
+- `delete` (host)
 
-All commands are described in detail below.
+All commands are described in detail in this document. Unimplemented commands are listed in the section below.
 
 <a id="unimplemented-commands"></a>
 ### Unimplemented commands
 
 The following commands have not been implemented in the service described in this specification:
 
-- delete (contact/domain)
-- transfer (contact/domain)
+- `delete` (contact/domain)
+- `transfer` (contact/domain)
 
 In general the service is not localized and all EPP related errors and messages are provided in English.
 
@@ -672,7 +672,9 @@ Please note that some information is not disclosed when using Object Query Comma
 <a id="encoding-and-idn-domains"></a>
 ### Encoding and IDN domains
 
-The Danish registry supports IDN domain names and the EPP commands support Punycode notation for this in requests. We do however not support Punycode notation in responses at this time.
+The Danish registry supports IDN domain names and the EPP commands support Punycode notation for this in requests. DK Hostmaster does not support Punycode notation in responses at this time.
+
+For details on supported characters, please see: [the DK Hostmaster Name Service specification][dkhm-name-service-specification].
 
 <a id="supported-object-transform-and-query-commands"></a>
 ## Supported Object Transform and Query Commands
