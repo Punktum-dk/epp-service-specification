@@ -383,7 +383,7 @@ In brief the two models are:
 
 The EPP service is the same, but the capabilities and business roles vary depending on choice of administrative model. This is described in detail under the different commands and outlined in the [Privilege Matrix](#privilege-matrix).
 
-Our EPP extensions are registered with the [IANA EPP Extension Repository].
+Our EPP extensions are registered with the [IANA EPP Extension Repository][IANA].
 
 <a id="epp-in-brief"></a>
 ## EPP in Brief
@@ -507,7 +507,7 @@ Related extensions are `dkhm:EAN`, `dkhm:CVR` and `dkhm:pnumber`.
 <a id="dkhmean"></a>
 ### `dkhm:EAN`
 
-The EAN extension, holds the EAN number associated with public organizations in Denmark. The field is mandatory for this type of contact objects and is required for electronic invoicing, more information is available under the [create contact](#create-contact) command.
+The EAN extension, holds the [EAN number][EAN] associated with public organizations in Denmark. The field is mandatory for this type of contact objects and is required for electronic invoicing, more information is available under the [create contact](#create-contact) command.
 
 <a id="dkhmcvr"></a>
 ### `dkhm:CVR`
@@ -2372,7 +2372,7 @@ This command has been extended with the following fields:
 
 The user type will result in context-specific interpretation of the following fields:
 
-- EAN - this number is only supported for user types: `company`, `public_organization` and `association`. It is only mandatory for `public_organization` and optional for `company` and `association`. [EAN][EAN description] is used by the public sector in Denmark for electronic invoicing, private companies can also be assigned EAN, but this it not so widespread at this time. EAN is required by law for public sector organizations, so this field has to be completed and it has to validate for this type.
+- EAN - this number is only supported for user types: `company`, `public_organization` and `association`. It is only mandatory for `public_organization` and optional for `company` and `association`. [EAN][EAN description] is used by the public sector in Denmark for electronic invoicing, private companies can also be assigned [EAN], but this it not so widespread at this time. EAN is required by law for public sector organizations, so this field has to be completed and it has to validate for this type.
 - CVR - (VAT number) this is only supported for user types: `company`, `public_organization` and `association`. The number is **required** for handling VAT correctly, The rules for indication of the field is specified in the table below.
 - p-number - (production unit number) this is only supported for user types: `company`, `public_organization` and `association`. The number is used for handling validation correctly and it relates to the CVR (Vat number field) the field is optional.
 
@@ -2859,8 +2859,6 @@ Here is a list of documents and references used in this document
 - [RFC:5732: EPP Host Mapping][RFC:5732]
 - [RFC:5733: EPP Contact Mapping][RFC:5733]
 - [RFC:5910: Domain Name System (DNS) Security Extensions for the Extensible Provisioning Protocol][RFC:5910]
-- [DK Hostmaster: Current domain registration form][Current domain registration form]
-- [DK Hostmaster: Documentation on the current domain registration form][Documentation on the current domain registration form]
 
 - [ICANN: EPP status codes](https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en/)
 
@@ -3103,10 +3101,8 @@ EPP service is running in the environment queried.
 [RFC:5733]: http://tools.ietf.org/html/rfc5733
 [RFC:5910]: http://tools.ietf.org/html/rfc5910
 [RFC:7451]: https://tools.ietf.org/html/rfc7451
-[IANA EPP Extension Repository]: http://www.iana.org/assignments/epp-extensions/epp-extensions.xhtml
-[EAN description]: https://en.wikipedia.org/wiki/International_Article_Number_(EAN)
-[Current domain registration form]: https://raw.githubusercontent.com/DK-Hostmaster/mailform-service-specification/master/5.00/5.00en.txt
-[Documentation on the current domain registration form]: https://www.dk-hostmaster.dk/en/mailform-registration
+[IANA]: http://www.iana.org/assignments/epp-extensions/epp-extensions.xhtml
+[EAN]: https://en.wikipedia.org/wiki/International_Article_Number_(EAN)
 [dkhm-name-service-specification]: https://github.com/DK-Hostmaster/dkhm-name-service-specification
 [EPOCH]: https://en.wikipedia.org/wiki/Unix_time
 [CONCEPT]: https://www.dk-hostmaster.dk/en/new-basis-collaboration-between-registrars-and-dk-hostmaster
