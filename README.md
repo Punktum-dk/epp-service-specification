@@ -69,77 +69,80 @@ Revision: 4.0
     - [poll ack request](#poll-ack-request)
     - [poll ack response](#poll-ack-response)
     - [poll ack response for non-existent message \(or previously acknowledged message\)](#poll-ack-response-for-non-existent-message-or-previously-acknowledged-message)
-  - [create domain](#create-domain)
-    - [create domain request](#create-domain-request)
-    - [create domain response](#create-domain-response)
-    - [Poll and Messages](#poll-and-messages)
-      - [create domain poll message for successful creation](#create-domain-poll-message-for-successful-creation)
-      - [create domain poll message for unsuccessful creation, existing domain](#create-domain-poll-message-for-unsuccessful-creation-existing-domain)
-    - [Role Mapping](#role-mapping)
-  - [check domain](#check-domain)
-    - [check domain request](#check-domain-request)
-    - [check domain response](#check-domain-response)
-  - [info domain](#info-domain)
-    - [info domain request](#info-domain-request)
-    - [info domain response](#info-domain-response)
-  - [renew domain](#renew-domain)
-    - [renew domain request](#renew-domain-request)
-    - [renew domain response](#renew-domain-response)
-  - [update domain](#update-domain)
-    - [update domain request](#update-domain-request)
-    - [update domain response](#update-domain-response)
-    - [change registrant](#change-registrant)
-    - [add name server](#add-name-server)
-    - [remove name server](#remove-name-server)
-    - [add contact](#add-contact)
-    - [remove contact](#remove-contact)
-    - [Remove DSRECORDS](#remove-dsrecords)
-    - [Add DSRECORDS](#add-dsrecords)
-  - [check host](#check-host)
-    - [check host request](#check-host-request)
-    - [check host response](#check-host-response)
-  - [info host](#info-host)
-    - [info host request](#info-host-request)
-    - [info host response](#info-host-response)
-  - [create host](#create-host)
-    - [create host request](#create-host-request)
-    - [create host response](#create-host-response)
-    - [create host request with request to new administrator](#create-host-request-with-request-to-new-administrator)
-    - [create host response from request to new administrator](#create-host-response-from-request-to-new-administrator)
-    - [Delayed create host response, from request to new administrator](#delayed-create-host-response-from-request-to-new-administrator)
-    - [create host request, with request to registrant of host domain name](#create-host-request-with-request-to-registrant-of-host-domain-name)
-    - [create host response, from request to registrant of domain name](#create-host-response-from-request-to-registrant-of-domain-name)
-    - [Delayed create host response, from request to registrant of domain name](#delayed-create-host-response-from-request-to-registrant-of-domain-name)
-  - [update host](#update-host)
-    - [process](#process)
-    - [Change hostname sub-process](#change-hostname-sub-process)
-    - [Add IP sub-process](#add-ip-sub-process)
-    - [Remove IP sub-process](#remove-ip-sub-process)
-    - [Change admin sub-process](#change-admin-sub-process)
-    - [update host request with request to new administrator](#update-host-request-with-request-to-new-administrator)
-    - [update host response with request to new administrator](#update-host-response-with-request-to-new-administrator)
-    - [Delayed update host response from request to new administrator](#delayed-update-host-response-from-request-to-new-administrator)
-  - [delete host](#delete-host)
-    - [delete host request](#delete-host-request)
-    - [delete host response](#delete-host-response)
-  - [create contact](#create-contact)
-    - [CVR / Vat Number Indication](#cvr--vat-number-indication)
-    - [Forced and Smart Contact Creation](#forced-and-smart-contact-creation)
-    - [Address Handling](#address-handling)
-    - [create contact request](#create-contact-request)
-    - [create contact response](#create-contact-response)
-  - [check contact](#check-contact)
-    - [check contact request](#check-contact-request)
-    - [check contact response](#check-contact-response)
-  - [info contact](#info-contact)
-    - [info contact request](#info-contact-request)
-    - [info contact response](#info-contact-response)
-  - [update contact](#update-contact)
-    - [update contact request](#update-contact-request)
-    - [update contact response](#update-contact-response)
-  - [delete contact](#delete-contact)
-    - [delete contact request](#delete-contact-request)
-    - [delete contact response](#delete-contact-response)
+  - [Domain](#domain)
+    - [create domain](#create-domain)
+      - [create domain request](#create-domain-request)
+      - [create domain response](#create-domain-response)
+      - [Poll and Messages](#poll-and-messages)
+        - [create domain poll message for successful creation](#create-domain-poll-message-for-successful-creation)
+        - [create domain poll message for unsuccessful creation, existing domain](#create-domain-poll-message-for-unsuccessful-creation-existing-domain)
+      - [Role Mapping](#role-mapping)
+    - [check domain](#check-domain)
+      - [check domain request](#check-domain-request)
+      - [check domain response](#check-domain-response)
+    - [info domain](#info-domain)
+      - [info domain request](#info-domain-request)
+      - [info domain response](#info-domain-response)
+    - [renew domain](#renew-domain)
+      - [renew domain request](#renew-domain-request)
+      - [renew domain response](#renew-domain-response)
+    - [update domain](#update-domain)
+      - [update domain request](#update-domain-request)
+      - [update domain response](#update-domain-response)
+      - [change registrant](#change-registrant)
+      - [add name server](#add-name-server)
+      - [remove name server](#remove-name-server)
+      - [add contact](#add-contact)
+      - [remove contact](#remove-contact)
+      - [Remove DSRECORDS](#remove-dsrecords)
+      - [Add DSRECORDS](#add-dsrecords)
+  - [Host](#host)
+    - [check host](#check-host)
+      - [check host request](#check-host-request)
+      - [check host response](#check-host-response)
+    - [info host](#info-host)
+      - [info host request](#info-host-request)
+      - [info host response](#info-host-response)
+    - [create host](#create-host)
+      - [create host request](#create-host-request)
+      - [create host response](#create-host-response)
+      - [create host request with request to new administrator](#create-host-request-with-request-to-new-administrator)
+      - [create host response from request to new administrator](#create-host-response-from-request-to-new-administrator)
+      - [Delayed create host response, from request to new administrator](#delayed-create-host-response-from-request-to-new-administrator)
+      - [create host request, with request to registrant of host domain name](#create-host-request-with-request-to-registrant-of-host-domain-name)
+      - [create host response, from request to registrant of domain name](#create-host-response-from-request-to-registrant-of-domain-name)
+      - [Delayed create host response, from request to registrant of domain name](#delayed-create-host-response-from-request-to-registrant-of-domain-name)
+    - [update host](#update-host)
+      - [process](#process)
+      - [Change hostname sub-process](#change-hostname-sub-process)
+      - [Add IP sub-process](#add-ip-sub-process)
+      - [Remove IP sub-process](#remove-ip-sub-process)
+      - [Change admin sub-process](#change-admin-sub-process)
+      - [update host request with request to new administrator](#update-host-request-with-request-to-new-administrator)
+      - [update host response with request to new administrator](#update-host-response-with-request-to-new-administrator)
+      - [Delayed update host response from request to new administrator](#delayed-update-host-response-from-request-to-new-administrator)
+    - [delete host](#delete-host)
+      - [delete host request](#delete-host-request)
+      - [delete host response](#delete-host-response)
+  - [Contact](#contact)
+    - [create contact](#create-contact)
+      - [CVR / Vat Number Indication](#cvr--vat-number-indication)
+      - [Forced and Smart Contact Creation](#forced-and-smart-contact-creation)
+      - [Address Handling](#address-handling)
+      - [create contact request](#create-contact-request)
+      - [create contact response](#create-contact-response)
+    - [check contact](#check-contact)
+      - [check contact request](#check-contact-request)
+      - [check contact response](#check-contact-response)
+    - [info contact](#info-contact)
+      - [info contact request](#info-contact-request)
+      - [info contact response](#info-contact-response)
+    - [update contact](#update-contact)
+      - [update contact request](#update-contact-request)
+      - [update contact response](#update-contact-response)
+    - [delete contact](#delete-contact)
+      - [delete contact request](#delete-contact-request)
+      - [delete contact response](#delete-contact-response)
 - [Data Collection Policy](#data-collection-policy)
   - [Access](#access)
   - [Purpose Statement](#purpose-statement)
@@ -155,7 +158,7 @@ Revision: 4.0
 - [Appendices](#appendices)
   - [Greeting](#greeting)
   - [Status Codes](#status-codes)
-    - [Domain](#domain)
+    - [Domain Status Codes](#domain-status-codes)
   - [Privilege Matrix](#privilege-matrix)
   - [Compatibility Matrix](#compatibility-matrix)
 
@@ -926,8 +929,11 @@ For clarification `2303` is returned in case a provided message-id (`msgID`) poi
 </epp>
 ```
 
+<a id="domain"></a>
+### Domain
+
 <a id="create-domain"></a>
-### create domain
+#### create domain
 
 This part of the EPP protocol is described in [RFC:5730]. This command adheres to the standard. DK Hostmaster, however, is based on an asynchronous domain creation workflow. All domain requests are enqueued for further processing and their creation will be in a state of pending.
 
@@ -989,7 +995,7 @@ The status codes applying to domain are described in the addendum: Status Codes:
 ![Create domain][epp_create_domain]
 
 <a id="create-domain-request"></a>
-#### create domain request
+##### create domain request
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
@@ -1018,7 +1024,7 @@ The status codes applying to domain are described in the addendum: Status Codes:
 ```
 
 <a id="create-domain-response"></a>
-#### create domain response
+##### create domain response
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1053,7 +1059,7 @@ An important note is that the `clTRID` is mandatory for this command. Since we u
 The default value for domain value, if not specified, is one year.
 
 <a id="poll-and-messages"></a>
-#### Poll and Messages
+##### Poll and Messages
 
 As described above the creation of domain names is not synchronous, after the  creation of a domain
 request, resulting in a pending state, will have to be probed using the poll command.
@@ -1061,7 +1067,7 @@ request, resulting in a pending state, will have to be probed using the poll com
 The outcome can be one of two, please see the examples below:
 
 <a id="create-domain-poll-message-for-successful-creation"></a>
-##### create domain poll message for successful creation
+###### create domain poll message for successful creation
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1092,7 +1098,7 @@ The outcome can be one of two, please see the examples below:
 ```
 
 <a id="create-domain-poll-message-for-unsuccessful-creation-existing-domain"></a>
-##### create domain poll message for unsuccessful creation, existing domain
+###### create domain poll message for unsuccessful creation, existing domain
 
 ```xml
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
@@ -1122,7 +1128,7 @@ The outcome can be one of two, please see the examples below:
 ```
 
 <a id="role-mapping"></a>
-#### Role Mapping
+##### Role Mapping
 
 As for the user entities some mappings are made so all relevant roles are specified.
 
@@ -1139,10 +1145,10 @@ Please note that the command supports Punycode notation for specifying IDN domai
 ![Diagram of role resolution for EPP create domain][epp-role-resolution]
 
 <a id="check-domain"></a>
-### check domain
+#### check domain
 
 <a id="check-domain-request"></a>
-#### check domain request
+##### check domain request
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
@@ -1159,7 +1165,7 @@ Please note that the command supports Punycode notation for specifying IDN domai
 ```
 
 <a id="check-domain-response"></a>
-#### check domain response
+##### check domain response
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
@@ -1193,7 +1199,7 @@ The available values for the `reason` field are:
 - `Offered for pos. on waiting list`, for when the domain name has been offered to a designated registrant from a waiting list position
 
 <a id="info-domain"></a>
-### info domain
+#### info domain
 
 This part of the EPP protocol is described in [RFC:5731]. This command adheres to the standard. In addition the command has been extended with two of the DK Hostmaster extensions:
 
@@ -1221,7 +1227,7 @@ For DNSSEC data the availability is limited to only displaying if the informatio
 Please see the addendum on domain status codes.
 
 <a id="info-domain-request"></a>
-#### info domain request
+##### info domain request
 
 ```XML
 <?xml version="1.0" encoding="UTF-8"?>
@@ -1239,7 +1245,7 @@ Please see the addendum on domain status codes.
 ```
 
 <a id="info-domain-response"></a>
-#### info domain response
+##### info domain response
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1311,7 +1317,7 @@ Please see the addendum on domain status codes.
 </epp>
 ```
 
-#### info domain response with domain advisory
+##### info domain response with domain advisory
 
 A info domain response can be annotated with information using the extension  `dkhm:domainAdvisory`.
 
@@ -1343,7 +1349,7 @@ If a domain name is offered to a position on a waiting list, the advisory `offer
 Do note that the waiting list status is also used in the [check domain](#check-domain) command, using the `reason` field.
 
 <a id="renew-domain"></a>
-### renew domain
+#### renew domain
 
 This part of the EPP protocol is described in [RFC:5731]. This command adheres to the standard.
 
@@ -1382,7 +1388,7 @@ The sub-process called, can be depicted as follows:
 ![Diagram of DKH sub-process for EPP renew domain][dkh-renew-domain]
 
 <a id="renew-domain-request"></a>
-#### renew domain request
+##### renew domain request
 
 ```XML
 <?xml version="1.0" encoding="UTF-8"?>
@@ -1402,7 +1408,7 @@ The sub-process called, can be depicted as follows:
 ```
 
 <a id="renew-domain-response"></a>
-#### renew domain response
+##### renew domain response
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1423,7 +1429,7 @@ The sub-process called, can be depicted as follows:
 ```
 
 <a id="update-domain"></a>
-### update domain
+#### update domain
 
 This part of the EPP protocol is described in [RFC:5731]. This command does not adhere to the standard
 
@@ -1501,7 +1507,7 @@ Please see the below sections for details on the different sub-commands.
 The command might be blocked and the status code: `serverUpdateProhibited` is returned indicating that an update is not possible. The status code `clientUpdateProhibited` will be returned if the issued update request cannot be fulfilled due to a domain lock with the registry. See also [ICANN description](https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en/) of status codes.
 
 <a id="update-domain-request"></a>
-#### update domain request
+##### update domain request
 
 ```XML
 <?xml version="1.0" encoding="UTF-8"?>
@@ -1525,7 +1531,7 @@ TODO: The above example is error prone, it will be replaced with a correct examp
 REF: [issue #9](https://github.com/DK-Hostmaster/epp-service-specification/issues/9)
 
 <a id="update-domain-response"></a>
-#### update domain response
+##### update domain response
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1546,7 +1552,7 @@ REF: [issue #9](https://github.com/DK-Hostmaster/epp-service-specification/issue
 ```
 
 <a id="change-registrant"></a>
-#### change registrant
+##### change registrant
 
 The change of registrant is a *special* operation, it results in all privileges and rights being transferred to another entity. A registrar does not hold the privileges to complete such a request, so the object service is unimplemented at this time.
 
@@ -1557,7 +1563,7 @@ The change of registrant is a *special* operation, it results in all privileges 
 | 2307 | Unimplemented object service, the service does not support change of registrant on a domain |
 
 <a id="add-name-server"></a>
-#### add name server
+##### add name server
 
 The addition of a new name server to a domain name or a re-delegation requires that the new name server must offer resolution for the domain name in question.
 
@@ -1592,7 +1598,7 @@ The addition of a new name server to a domain name or a re-delegation requires t
 | 2303 | If the specified host name does not exist, for when adding a new name server |
 
 <a id="remove-name-server"></a>
-#### remove name server
+##### remove name server
 
 The removal of a existing name server from a domain name requires that at least two other name servers are offering resolution for the domain in question, else the command will fail.
 
@@ -1632,7 +1638,7 @@ Since the update domain command can contain several sub-commands, this could be 
 | 2308 | The number of name servers are below the required limit |
 
 <a id="add-contact"></a>
-#### add contact
+##### add contact
 
 The addition of a new contact has to adhere to some policies.
 
@@ -1665,7 +1671,7 @@ Adding new users require special privileges, currently only with the registrant,
 ![Update domain - Add billing/admin contact sub-process][dkh-update-domain-add-contact]
 
 <a id="remove-contact"></a>
-#### remove contact
+##### remove contact
 
 The removal of a existing contact is possible for both billing and admin contacts.
 
@@ -1696,7 +1702,7 @@ The removal of a existing contact is possible for both billing and admin contact
 ![Update domain - Remove billing/admin contact sub-process][dkh-update-domain-remove-contact]
 
 <a id="remove-dsrecords"></a>
-#### Remove DSRECORDS
+##### Remove DSRECORDS
 
 Example with removal of existing DSRECORDS and adding a new DSRECORD.
 
@@ -1741,7 +1747,7 @@ Example with removal of existing DSRECORDS and adding a new DSRECORD.
 | 2303 | If DSRECORDS do not exist, when removing DSRECORDS |
 
 <a id="add-dsrecords"></a>
-#### Add DSRECORDS
+##### Add DSRECORDS
 
 Example with removal of existing DSRECORDS and adding a new DSRECORD.
 
@@ -1879,8 +1885,11 @@ Please note that according to the RFC [section 3.1.2][RFC:5732-3.1.2], the `CLID
 </epp>
 ```
 
+<a id="host"></a>
+### Host
+
 <a id="create-host"></a>
-### create host
+#### create host
 
 This part of the EPP protocol is described in [RFC:5732]. This command adheres to the standard. The command can be extended to specify another name server administrator than the authenticated user.
 
@@ -1913,7 +1922,7 @@ As for update domain `1001` holds higher precedence than `1000`, so if any of th
 ![Diagram of DKH create host][dkh_create_host]
 
 <a id="create-host-request"></a>
-#### create host request
+##### create host request
 
 Request to create a host object, using both IPv4 and IPv6 addresses and the authenticated user is the registrant of the specified domain name and requested administrator of the host object.
 
@@ -1936,7 +1945,7 @@ Request to create a host object, using both IPv4 and IPv6 addresses and the auth
 ```
 
 <a id="create-host-response"></a>
-#### create host response
+##### create host response
 
 Response to the above request. The response indicates a successful creation, since the operation could be completed successfully without requiring offline evaluation.
 
@@ -1963,7 +1972,7 @@ Response to the above request. The response indicates a successful creation, sin
 ```
 
 <a id="create-host-request-with-request-to-new-administrator"></a>
-#### create host request with request to new administrator
+##### create host request with request to new administrator
 
 Request to create a host object, requesting a different administrator of the host object, hence requiring offline evaluation.
 
@@ -1989,7 +1998,7 @@ Request to create a host object, requesting a different administrator of the hos
 ```
 
 <a id="create-host-response-from-request-to-new-administrator"></a>
-#### create host response from request to new administrator
+##### create host response from request to new administrator
 
 Response to the above request. The response indicates a successful accept of the request, but requires offline evaluation by the designated administrator of the host object, so the response indicates that the operation is pending.
 
@@ -2016,7 +2025,7 @@ Response to the above request. The response indicates a successful accept of the
 ```
 
 <a id="delayed-create-host-response-from-request-to-new-administrator"></a>
-#### Delayed create host response, from request to new administrator
+##### Delayed create host response, from request to new administrator
 
 If the creation of the host has resulting in a delayed operation, pending the designated name server administrator, the below example shows what a poll message for the final state of the operation would look like.
 
@@ -2053,7 +2062,7 @@ If the creation of the host has resulting in a delayed operation, pending the de
 Please note the `paResult`, where `1` indicates an accept and `0` would indicate a decline.
 
 <a id="create-host-request-with-request-to-registrant-of-host-domain-name"></a>
-#### create host request, with request to registrant of host domain name
+##### create host request, with request to registrant of host domain name
 
 Request to create a host object, where the authenticated use is not the registrant of the domain name naming the host object, hence requiring offline evaluation.
 
@@ -2076,7 +2085,7 @@ Request to create a host object, where the authenticated use is not the registra
 ```
 
 <a id="create-host-response-from-request-to-registrant-of-domain-name"></a>
-#### create host response, from request to registrant of domain name
+##### create host response, from request to registrant of domain name
 
 Response to the above request. The response indicates a successful accept of the request, but requires offline evaluation by the registrant of the specified domain name, so the response indicates that the operation is pending.
 
@@ -2103,7 +2112,7 @@ Response to the above request. The response indicates a successful accept of the
 ```
 
 <a id="delayed-create-host-response-from-request-to-registrant-of-domain-name"></a>
-#### Delayed create host response, from request to registrant of domain name
+##### Delayed create host response, from request to registrant of domain name
 
 If the creation of the host has resulting in a delayed operation, pending the designated name server administrator, the below example shows what a poll message for the final state of the operation would look like.
 
@@ -2140,19 +2149,19 @@ If the creation of the host has resulting in a delayed operation, pending the de
 Please note the `paResult`, where `1` indicates an accept and `0` would indicate a decline.
 
 <a id="update-host"></a>
-### update host
+#### update host
 
 This part of the EPP protocol is described in [RFC:5732]. This command adheres to the standard, but is extended to service one special usage scenario.
 
 <a id="process"></a>
-#### process
+##### process
 
 This is the overall process, the process is divided into sub-processes, please see the processes below for details.
 
 ![Diagram of EPP update host][epp_update_host]
 
 <a id="change-hostname-sub-process"></a>
-#### Change hostname sub-process
+##### Change hostname sub-process
 
 The process of changing a host name is unsupported by DK Hostmaster and will always result in an error code: `2102`.
 
@@ -2163,7 +2172,7 @@ The process of changing a host name is unsupported by DK Hostmaster and will alw
 | 2102 | Change of hostname is not supported |
 
 <a id="add-ip-sub-process"></a>
-#### Add IP sub-process
+##### Add IP sub-process
 
 Addition of IP addressed supports the additional of IPv4 and IPv6 addresses. These are required as part of our glue record policy. If additional status elements are added to this command it will fail.
 
@@ -2177,7 +2186,7 @@ Addition of IP addressed supports the additional of IPv4 and IPv6 addresses. The
 ![Diagram of EPP update host add IP][epp_update_host_add_ip]
 
 <a id="remove-ip-sub-process"></a>
-#### Remove IP sub-process
+##### Remove IP sub-process
 
 Addition of IP addressed supports the additional of IPv4 and IPv6 addresses. These are required as part of our glue record policy. If additional status elements are added to this command it will fail.
 
@@ -2191,7 +2200,7 @@ Addition of IP addressed supports the additional of IPv4 and IPv6 addresses. The
 ![Diagram of EPP update host remove IP][epp_update_host_remove_ip]
 
 <a id="change-admin-sub-process"></a>
-#### Change admin sub-process
+##### Change admin sub-process
 
 ![Diagram of EPP update host change admin][epp_update_host_change_admin]
 
@@ -2221,7 +2230,7 @@ As described in Implementation Limitations, the service does not support setting
 ![Diagram of DKH update host][dkh_update_host]
 
 <a id="update-host-request-with-request-to-new-administrator"></a>
-#### update host request with request to new administrator
+##### update host request with request to new administrator
 
 Request to update a host object, requesting a different administrator of the host object, hence requiring offline evaluation.
 
@@ -2244,7 +2253,7 @@ Request to update a host object, requesting a different administrator of the hos
 ```
 
 <a id="update-host-response-with-request-to-new-administrator"></a>
-#### update host response with request to new administrator
+##### update host response with request to new administrator
 
 Response to the above request. The response indicates a successful accept of the request, but requires offline evaluation by the designated administrator of the host object, so the response indicates that the operation is pending.
 
@@ -2265,7 +2274,7 @@ Response to the above request. The response indicates a successful accept of the
 ```
 
 <a id="delayed-update-host-response-from-request-to-new-administrator"></a>
-#### Delayed update host response from request to new administrator
+##### Delayed update host response from request to new administrator
 
 If the creation of the host has resulting in a delayed operation, pending the designated name server administrator, the below example shows what a poll message for the final state of the operation looks like.
 
@@ -2302,7 +2311,7 @@ If the creation of the host has resulting in a delayed operation, pending the de
 Please note the `paResult`, where `1` indicates an accept and `0` would indicate a decline.
 
 <a id="delete-host"></a>
-### delete host
+#### delete host
 
 This part of the EPP protocol is described in [RFC:5732]. This command adheres to the standard.
 
@@ -2318,7 +2327,7 @@ The deletion of a host object can only be requested by the administrator.
 | 2305 | If the specified host object links to domain name objects |
 
 <a id="delete-host-request"></a>
-#### delete host request
+##### delete host request
 
 Request to delete a host object, the authenticated user is the current administrator of the specified host object.
 
@@ -2338,7 +2347,7 @@ Request to delete a host object, the authenticated user is the current administr
 ```
 
 <a id="delete-host-response"></a>
-#### delete host response
+##### delete host response
 
 Response to the above request. Since the authenticated user is the current administrator and all requirements are met the command completes successfully.
 
@@ -2357,8 +2366,11 @@ Response to the above request. Since the authenticated user is the current admin
 </epp>
 ```
 
+<a id="contact"></a>
+### Contact
+
 <a id="create-contact"></a>
-### create contact
+#### create contact
 
 This part of the EPP protocol is described in [RFC:5733].
 
@@ -2381,7 +2393,7 @@ This field is validated on the server side, it is however recommended to perform
 The `contact-id` field is auto-generated and assigned by DK Hostmaster. EPP do however open for providing a contact-id in the context of the create contact command, this is not supported by DK Hostmaster at this point.
 
 <a id="cvr--vat-number-indication"></a>
-#### CVR / Vat Number Indication
+##### CVR / Vat Number Indication
 
 |   | Mandatory | Note |
 |---|---|---|
@@ -2392,7 +2404,7 @@ The `contact-id` field is auto-generated and assigned by DK Hostmaster. EPP do h
 | `individual` with address outside Denmark and EU/EØS | No | Not supported |
 
 <a id="forced-and-smart-contact-creation"></a>
-#### Forced and Smart Contact Creation
+##### Forced and Smart Contact Creation
 
 For contact creation DK Hostmaster supports two ways:
 
@@ -2430,7 +2442,7 @@ The match has to be exact in order for the command to return an existing user-id
 ![Diagram for contact creation][epp_create_contact]
 
 <a id="address-handling"></a>
-#### Address Handling
+##### Address Handling
 
 Contact creation under EPP opens for the ability to represent postal information in both local and international representations. Due to the representation in DK Hostmaster's system for handling contacts the following rules are applied to postal information.
 
@@ -2477,7 +2489,7 @@ Please note:
 - User-creation is silent and the designated user is not notified about the the creation, unless this is a part of the process of associating the user with other objects
 
 <a id="create-contact-request"></a>
-#### create contact request
+##### create contact request
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
@@ -2526,7 +2538,7 @@ Please note:
 Do note that the `authInfo` part is ignored, but cannot be omitted.
 
 <a id="create-contact-response"></a>
-#### create contact response
+##### create contact response
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
@@ -2551,12 +2563,12 @@ Do note that the `authInfo` part is ignored, but cannot be omitted.
 ```
 
 <a id="check-contact"></a>
-### check contact
+#### check contact
 
 This part of the EPP protocol is described in [RFC:5733]. This command adheres to the standard.
 
 <a id="check-contact-request"></a>
-#### check contact request
+##### check contact request
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
@@ -2573,7 +2585,7 @@ This part of the EPP protocol is described in [RFC:5733]. This command adheres t
 ```
 
 <a id="check-contact-response"></a>
-#### check contact response
+##### check contact response
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
@@ -2602,7 +2614,7 @@ This part of the EPP protocol is described in [RFC:5733]. This command adheres t
 ```
 
 <a id="info-contact"></a>
-### info contact
+#### info contact
 
 This part of the EPP protocol is described in [RFC:5733]. This command has been extended with information on whether the contact in queried has been validated according to requirements and policies with DK Hostmaster.
 
@@ -2613,7 +2625,7 @@ Please note that the email address (`contact:email`) is masked and the value: `a
 The info contact command response is only available for the registrant contact object, unless the authenticated user has a relationship via the domain name or a registrar group association, which provides access to more information or additional contact objects as
 
 <a id="info-contact-request"></a>
-#### info contact request
+##### info contact request
 
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
@@ -2630,7 +2642,7 @@ The info contact command response is only available for the registrant contact o
 ```
 
 <a id="info-contact-response"></a>
-#### info contact response
+##### info contact response
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -2675,7 +2687,7 @@ The info contact command response is only available for the registrant contact o
 ```
 
 <a id="update-contact"></a>
-### update contact
+#### update contact
 
 This part of the EPP protocol is described in [RFC:5733]. This command adheres to the standard. In addition to the standard the command allows for manipulation of the extensions associated with contact objects, meaning that it is possible to update the following fields:
 
@@ -2704,7 +2716,7 @@ Please note:
 - `authInfo` section is ignored is not recommended for transport of end-user passwords
 
 <a id="update-contact-request"></a>
-#### update contact request
+##### update contact request
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -2751,7 +2763,7 @@ Please note:
 ```
 
 <a id="update-contact-response"></a>
-#### update contact response
+##### update contact response
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -2769,7 +2781,7 @@ Please note:
 ```
 
 <a id="delete-contact"></a>
-### delete contact
+#### delete contact
 
 **This command is not supported.**
 
@@ -2783,7 +2795,7 @@ The deletion of contact objects is handled automatically by DK Hostmaster. The f
 The later will only be lifted when the contact object is not linked to any other objects and automatic deletion is scheduled.
 
 <a id="delete-contact-request"></a>
-#### delete contact request
+##### delete contact request
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -2801,7 +2813,7 @@ The later will only be lifted when the contact object is not linked to any other
 ```
 
 <a id="delete-contact-response"></a>
-#### delete contact response
+##### delete contact response
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -2862,7 +2874,10 @@ Here is a list of documents and references used in this document
 
 - [ICANN: EPP status codes](https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en/)
 
+- ["New basis for collaboration between registrars and DK Hostmaster"][CONCEPT]
 - [DK Hostmaster: Name Service Specification][dkhm-name-service-specification]
+- [DK Hostmaster WHOIS Service Specification][DKHMWHOISSPEC]
+- [DK Hostmaster RESTful WHOIS Service Specification][DKHMWHOISRESTSPEC]
 
 <a id="resources"></a>
 ## Resources
@@ -2965,8 +2980,8 @@ EPP service is running in the environment queried.
 <a id="status-codes"></a>
 ### Status Codes
 
-<a id="domain"></a>
-#### Domain
+<a id="domain-status-codes"></a>
+#### Domain Status Codes
 
 | Status Code | Description  |
 | ------------ | ------------ |
@@ -3106,3 +3121,5 @@ EPP service is running in the environment queried.
 [dkhm-name-service-specification]: https://github.com/DK-Hostmaster/dkhm-name-service-specification
 [EPOCH]: https://en.wikipedia.org/wiki/Unix_time
 [CONCEPT]: https://www.dk-hostmaster.dk/en/new-basis-collaboration-between-registrars-and-dk-hostmaster
+[DKHMWHOISSPEC]: https://github.com/DK-Hostmaster/whois-service-specification
+[DKHMWHOISRESTSPEC]: https://github.com/DK-Hostmaster/whois-rest-service-specification
