@@ -617,11 +617,6 @@ The service does not support the following features of the EPP protocol:
 - Authorization, meaning the use of `authInfo` for commands extended the authorization for the command in question. General authorization based on the client authentication works as described in [RFC:5730].
 - Transport of `authInfo`, the section is ignored is not recommended for transport of end-user passwords
 
-Comparing the EPP implementation to the existing channel for domain registration using the form via SMTP, the following fields are not supported.
-
-- VID (VIP domain name)
-- Billing contact's purchase order (PO) number
-
 <a id="dnssec"></a>
 ### DNSSEC
 
