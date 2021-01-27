@@ -383,7 +383,7 @@ In brief the two models are:
 
 The EPP service is the same, but the capabilities and business roles vary depending on choice of administrative model. This is described in detail under the different commands and outlined in the [Privilege Matrix](#privilege-matrix).
 
-Our EPP extensions are registered with the [IANA EPP Extension Repository][IANA EPP Extension Repository].
+Our EPP extensions are registered with the [IANA EPP Extension Repository].
 
 <a id="epp-in-brief"></a>
 ## EPP in Brief
