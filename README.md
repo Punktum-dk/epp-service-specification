@@ -370,11 +370,18 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 <a id="the-dk-registry-in-brief"></a>
 ## The .dk Registry in Brief
 
-DK Hostmaster is the registry for the ccTLD for Denmark (dk). The current model used in Denmark is based on a sole registry, with DK Hostmaster maintaining the central DNS registry.
+DK Hostmaster is the registry for the ccTLD for Denmark (dk), with DK Hostmaster maintaining the central DNS registry.
 
-The legislation and registry model utilized in Denmark imposes some limitations compared to the EPP protocol in general, since the primary intent of the EPP protocol is focused on a model based on shared-registry rather than a sole-registry model like the one used in Denmark.
+The legislation and registry model utilized in Denmark imposes some limitations compared to the general scope of the EPP protocol. These limitations are described in detail below in the chapter entitled Implementation Limitations, and these are explained further in the command descriptions where the single commands deviate from the EPP standard specification. In addition to limitations and deviations found in the above, a few others have been implemented to support DNS registration under Danish legislation, these are described in detail under the individual commands, where relevant.
 
-These limitations are described in detail below in the chapter entitled Implementation Limitations, and these are explained further in the command descriptions where the single commands deviate from the EPP standard specification. In addition to limitations and deviations found in the above, a few others have been implemented to support DNS registration under Danish legislation, these are described in detail under the individual commands, where relevant.
+DK Hostmaster offers two adminstration models, please see [the complete description of the concept][CONCEPT] of the administration models offered by DK Hostmaster A/S for details.
+
+In brief the two models are:
+
+- Registrar managed, where the registrar takes the administrative role of the domain name and administers the assets with DK Hostmaster "registrar management"
+- Registrant managed, where the registrant administers the assets directly with DK Hostmaster, also referred to as: "registrar management"
+
+The EPP service is the same, but the capabilities and business roles vary depending on choice of administrative model. This is described in detail under the different commands and outlined in the [Privilege Matrix](#privilege-matrix).
 
 Our EPP extensions are registered with the [IANA EPP Extension Repository][IANA EPP Extension Repository].
 
@@ -610,7 +617,7 @@ The following commands have not been implemented in the service described in thi
 In general the service is not localized and all EPP related errors and messages are provided in English.
 
 <a id="additional-limitations"></a>
-### Additional limitations
+### Additional Limitations
 
 The service does not support the following features of the EPP protocol:
 
@@ -3102,3 +3109,4 @@ EPP service is running in the environment queried.
 [Documentation on the current domain registration form]: https://www.dk-hostmaster.dk/en/mailform-registration
 [dkhm-name-service-specification]: https://github.com/DK-Hostmaster/dkhm-name-service-specification
 [EPOCH]: https://en.wikipedia.org/wiki/Unix_time
+[CONCEPT]: https://www.dk-hostmaster.dk/en/new-basis-collaboration-between-registrars-and-dk-hostmaster
