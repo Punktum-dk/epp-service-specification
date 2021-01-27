@@ -5,8 +5,8 @@
 ![Markdownlint Action](https://github.com/DK-Hostmaster/epp-service-specification/workflows/Markdownlint%20Action/badge.svg)
 ![Spellcheck Action](https://github.com/DK-Hostmaster/epp-service-specification/workflows/Spellcheck%20Action/badge.svg)
 
-2020-10-19
-Revision: 3.9
+2021-01-27
+Revision: 4.0
 
 ## Table of Contents
 
@@ -170,7 +170,7 @@ This document describes and specifies the implementation offered by DK Hostmaste
 <a id="about-this-document"></a>
 ### About this Document
 
-This specification describes version 3.X.X of the DK Hostmaster EPP Implementation. Future releases will be reflected in updates to this specification, please see the document history section below.
+This specification describes version 4.X.X of the DK Hostmaster EPP Implementation. Future releases will be reflected in updates to this specification, please see the document history section below.
 
 The document describes the current DK Hostmaster EPP implementation, for more general documentation on the EPP protocol, EPP client development or configuration, please refer to the RFCs and additional resources in the [References](#references) and [Resources](#resources) chapters below.
 
@@ -178,7 +178,7 @@ Do note that the specification describes the latest released service. Service ve
 so given changes implemented in the service are reflected in the specification. Do note that a service might be released to the sandbox environment
 prior to being released to production after a grace period.
 
-The current actively used XSD file is indicated in the EPP service specification, the [XSD file repository](https://github.com/DK-Hostmaster/epp-xsd-files) might contain changes not actively used by the service. Please see the [EPP Service Specification Wiki](https://github.com/DK-Hostmaster/epp-service-specification/wiki) for exact details.
+The current actively used XSD file is indicated in the EPP service specification, the [XSD file repository][XSD files] might contain changes not actively used by the service. Please see the [EPP Service Specification Wiki][wiki] for exact details.
 
 The current service version can be obtained from the [Greeting](#greeting) message, from the service.
 
@@ -195,6 +195,10 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 <a id="document-history"></a>
 ### Document History
+
+- 4.0 2021-01-27
+  - Introduction of support for registrar/registrant administration
+  - Removed XSD Version History, referencing original source in [EPP XSD repository][XSD files]
 
 - 3.9 2020-10-19
   - Added some details on sessions in the section on [login](#login)
@@ -313,8 +317,8 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 - 1.8 2015-09-03
   - Minor corrections
-  - More information on extensions for possible registration of the DK Hostmaster extensions with IANA in relation to [RFC:7451][RFC:7451]
-  - Added [RFC:7451][RFC:7451] compliant descriptions in subdirectory: `rfc7451/`
+  - More information on extensions for possible registration of the DK Hostmaster extensions with IANA in relation to [RFC:7451]
+  - Added [RFC:7451] compliant descriptions in subdirectory: `rfc7451/`
 
 - 1.7 2015-05-12
   - This revision of the specification is describing EPP service release 1.3.X
@@ -608,7 +612,7 @@ In general the service is not localized and all EPP related errors and messages 
 
 The service does not support the following features of the EPP protocol:
 
-- Authorization, meaning the use of `authInfo` for commands extended the authorization for the command in question. General authorization based on the client authentication works as described in [RFC5730].
+- Authorization, meaning the use of `authInfo` for commands extended the authorization for the command in question. General authorization based on the client authentication works as described in [RFC:5730].
 - Transport of `authInfo`, the section is ignored is not recommended for transport of end-user passwords
 
 Comparing the EPP implementation to the existing channel for domain registration using the form via SMTP, the following fields are not supported.
@@ -619,7 +623,7 @@ Comparing the EPP implementation to the existing channel for domain registration
 <a id="dnssec"></a>
 ### DNSSEC
 
-I accordance with [RFC 5910][RFC5910]. We support DS only and not DNSKEY. In addition the maximum signature lifetime (`secDNS:maxSigLife`) is disregarded. See [section 3.3](http://tools.ietf.org/html/rfc5910#section-3.3) in the referenced RFC.
+I accordance with [RFC:5910]. We support DS only and not DNSKEY. In addition the maximum signature lifetime (`secDNS:maxSigLife`) is disregarded. See [section 3.3](http://tools.ietf.org/html/rfc5910#section-3.3) in the referenced RFC.
 
 DK Hostmaster specifies rules ownership of DNSSEC keys. If you provide DNSSEC keys a part of registration ([create domain](#create-domain)) or using [update domain](#update-domain), the keys are associated with the NSA as owner.
 
@@ -683,7 +687,7 @@ Commands that have not been extended are not described in much detail, please re
 <a id="hello-and-greeting"></a>
 ### hello and greeting
 
-This part of the EPP protocol is described in [RFC 5730][RFC5730]. This command adheres to the standard. For a more detailed explanation of the data collection policy announced via the greeting, please see the Data Collection Policy chapter.
+This part of the EPP protocol is described in [RFC:5730]. This command adheres to the standard. For a more detailed explanation of the data collection policy announced via the greeting, please see the Data Collection Policy chapter.
 
 As announced in the greeting, the following objects are available:
 
@@ -701,7 +705,7 @@ Please see the greeting response included in the [appendices](greeting) for illu
 <a id="login"></a>
 ### login
 
-This part of the EPP protocol is described in [RFC 5730][RFC5730]. This command adheres to the standard.
+This part of the EPP protocol is described in [RFC:5730]. This command adheres to the standard.
 
 The login uses the general Authentication Authorization and Access (AAA) framework in DK Hostmaster. This mean that in addition to the validation of username and password specified as part of the login request, an attempt is made to authorize the authenticated user for access to the actual EPP service and subsequent operations.
 
@@ -776,7 +780,7 @@ The overall life span is 28800 seconds (8 hours) after this the session is termi
 <a id="logout"></a>
 ### logout
 
-This part of the EPP protocol is described in [RFC 5730][RFC5730]. This command adheres to the standard.
+This part of the EPP protocol is described in [RFC:5730]. This command adheres to the standard.
 
 There are no special additions or alterations to the specification or use of this command.
 
@@ -814,7 +818,7 @@ There are no special additions or alterations to the specification or use of thi
 <a id="poll-and-message-queue"></a>
 ### poll and message queue
 
-This part of the EPP protocol is described in [RFC 5730][RFC5730]. This command adheres to the standard.
+This part of the EPP protocol is described in [RFC:5730]. This command adheres to the standard.
 
 There are no special additions or alterations to the specification or use of this command.
 
@@ -919,7 +923,7 @@ For clarification `2303` is returned in case a provided message-id (`msgID`) poi
 <a id="create-domain"></a>
 ### create domain
 
-This part of the EPP protocol is described in [RFC 5730][RFC5730]. This command adheres to the standard. DK Hostmaster, however, is based on an asynchronous domain creation workflow. All domain requests are enqueued for further processing and their creation will be in a state of pending.
+This part of the EPP protocol is described in [RFC:5730]. This command adheres to the standard. DK Hostmaster, however, is based on an asynchronous domain creation workflow. All domain requests are enqueued for further processing and their creation will be in a state of pending.
 
 Please note:
 
@@ -1174,7 +1178,7 @@ Please note that the command supports Punycode notation for specifying IDN domai
 </epp>
 ```
 
-In general this part of the EPP protocol is described in [RFC 5731][RFC5731] and this command adheres to the standard.
+In general this part of the EPP protocol is described in [RFC:5731] and this command adheres to the standard.
 
 The available values for the `reason` field are:
 
@@ -1185,7 +1189,7 @@ The available values for the `reason` field are:
 <a id="info-domain"></a>
 ### info domain
 
-This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command adheres to the standard. In addition the command has been extended with two of the DK Hostmaster extensions:
+This part of the EPP protocol is described in [RFC:5731]. This command adheres to the standard. In addition the command has been extended with two of the DK Hostmaster extensions:
 
 - `dkhm:domainAdvisory`
 - `dkhm:registrant_validated`
@@ -1335,7 +1339,7 @@ Do note that the waiting list status is also used in the [check domain](#check-d
 <a id="renew-domain"></a>
 ### renew domain
 
-This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command adheres to the standard.
+This part of the EPP protocol is described in [RFC:5731]. This command adheres to the standard.
 
 Do note that for period specification, only the unit `y` for year is accepted.
 
@@ -1415,7 +1419,7 @@ The sub-process called, can be depicted as follows:
 <a id="update-domain"></a>
 ### update domain
 
-This part of the EPP protocol is described in [RFC 5731][RFC5731]. This command does not adhere to the standard
+This part of the EPP protocol is described in [RFC:5731]. This command does not adhere to the standard
 
 - `authInfo` section is ignored is not recommended for transport of end-user passwords
 - `contact` object in the  `ns` section is ignored
@@ -1432,7 +1436,7 @@ This command covers a lot of functionality, it can complete operations such as:
 - remove DSRECORDS
 - add DSRECORDS
 
-In addition it supports DNSSEC management capabilities as specified in [RFC 5910][RFC5910]
+In addition it supports DNSSEC management capabilities as specified in [RFC:5910].
 
 The command will be evaluated as an atomic command, even though it is dispatched to several sub-commands.
 
@@ -1770,7 +1774,7 @@ Example with removal of existing DSRECORDS and adding a new DSRECORD.
 <a id="check-host"></a>
 ### check host
 
-This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard.
+This part of the EPP protocol is described in [RFC:5732]. This command adheres to the standard.
 
 <a id="check-host-request"></a>
 #### check host request
@@ -1818,9 +1822,9 @@ This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command 
 <a id="info-host"></a>
 ### info host
 
-This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard.
+This part of the EPP protocol is described in [RFC:5732]. This command adheres to the standard.
 
-Please note that according to the RFC [section 3.1.2][RFC5732-3.1.2], the `CLID` points to the sponsoring client. DK Hostmaster interprets this as the technical contact for the name server pointing to the host object in question.
+Please note that according to the RFC [section 3.1.2][RFC:5732-3.1.2], the `CLID` points to the sponsoring client. DK Hostmaster interprets this as the technical contact for the name server pointing to the host object in question.
 
 <a id="info-host-request"></a>
 #### info host request
@@ -1872,7 +1876,7 @@ Please note that according to the RFC [section 3.1.2][RFC5732-3.1.2], the `CLID`
 <a id="create-host"></a>
 ### create host
 
-This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard. The command can be extended to specify another name server administrator than the authenticated user.
+This part of the EPP protocol is described in [RFC:5732]. This command adheres to the standard. The command can be extended to specify another name server administrator than the authenticated user.
 
 :point_right: Please note that IP addresses are required for domain names ending in '.dk', please refer to the [glue record policy](https://github.com/DK-Hostmaster/dkhm-name-service-specification#glue-records).
 
@@ -2132,7 +2136,7 @@ Please note the `paResult`, where `1` indicates an accept and `0` would indicate
 <a id="update-host"></a>
 ### update host
 
-This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard, but is extended to service one special usage scenario.
+This part of the EPP protocol is described in [RFC:5732]. This command adheres to the standard, but is extended to service one special usage scenario.
 
 <a id="process"></a>
 #### process
@@ -2294,7 +2298,7 @@ Please note the `paResult`, where `1` indicates an accept and `0` would indicate
 <a id="delete-host"></a>
 ### delete host
 
-This part of the EPP protocol is described in [RFC 5732][RFC5732]. This command adheres to the standard.
+This part of the EPP protocol is described in [RFC:5732]. This command adheres to the standard.
 
 ![Diagram of EPP delete host][epp_delete_host]
 
@@ -2350,7 +2354,7 @@ Response to the above request. Since the authenticated user is the current admin
 <a id="create-contact"></a>
 ### create contact
 
-This part of the EPP protocol is described in [RFC 5733][RFC5733].
+This part of the EPP protocol is described in [RFC:5733].
 
 This command has been extended with the following fields:
 
@@ -2543,7 +2547,7 @@ Do note that the `authInfo` part is ignored, but cannot be omitted.
 <a id="check-contact"></a>
 ### check contact
 
-This part of the EPP protocol is described in [RFC 5733][RFC5733]. This command adheres to the standard.
+This part of the EPP protocol is described in [RFC:5733]. This command adheres to the standard.
 
 <a id="check-contact-request"></a>
 #### check contact request
@@ -2594,7 +2598,7 @@ This part of the EPP protocol is described in [RFC 5733][RFC5733]. This command 
 <a id="info-contact"></a>
 ### info contact
 
-This part of the EPP protocol is described in [RFC 5733][RFC5733]. This command has been extended with information on whether the contact in queried has been validated according to requirements and policies with DK Hostmaster.
+This part of the EPP protocol is described in [RFC:5733]. This command has been extended with information on whether the contact in queried has been validated according to requirements and policies with DK Hostmaster.
 
 See the extension: `dkhm:contact_validated` in the response.
 
@@ -2667,7 +2671,7 @@ The info contact command response is only available for the registrant contact o
 <a id="update-contact"></a>
 ### update contact
 
-This part of the EPP protocol is described in [RFC 5733][RFC5733]. This command adheres to the standard. In addition to the standard the command allows for manipulation of the extensions associated with contact objects, meaning that it is possible to update the following fields:
+This part of the EPP protocol is described in [RFC:5733]. This command adheres to the standard. In addition to the standard the command allows for manipulation of the extensions associated with contact objects, meaning that it is possible to update the following fields:
 
 - [`dkhm:userType`](#dkhmusertype)
 - [`dkhm:EAN`](#dkhmean)
@@ -2843,12 +2847,12 @@ Data will be retained with DK Hostmaster as required by Danish legislation.
 Here is a list of documents and references used in this document
 
 - [Terms and conditions for the right of use to a .dk domain name][General Terms and Conditions]
-- [RFC 3735: Guidelines for Extending Extensible Provisioning Protocol][RFC3735]
-- [RFC 5730: EPP Basic Protocol][RFC5730]
-- [RFC 5731: EPP Domain Name Mapping][RFC5731]
-- [RFC 5732: EPP Host Mapping][RFC5732]
-- [RFC 5733: EPP Contact Mapping][RFC5733]
-- [RFC 5910: Domain Name System (DNS) Security Extensions for the Extensible Provisioning Protocol][RFC5910]
+- [RFC:3735: Guidelines for Extending Extensible Provisioning Protocol][RFC:3735]
+- [RFC:5730: EPP Basic Protocol][RFC:5730]
+- [RFC:5731: EPP Domain Name Mapping][RFC:5731]
+- [RFC:5732: EPP Host Mapping][RFC:5732]
+- [RFC:5733: EPP Contact Mapping][RFC:5733]
+- [RFC:5910: Domain Name System (DNS) Security Extensions for the Extensible Provisioning Protocol][RFC:5910]
 - [DK Hostmaster: Current domain registration form][Current domain registration form]
 - [DK Hostmaster: Documentation on the current domain registration form][Documentation on the current domain registration form]
 
@@ -2866,76 +2870,15 @@ A list of resources for DK Hostmaster EPP support is located below.
 
 This is a list of the schemas currently used in the DKHM EPP Service described in this document. Please note that the XSD implementation preserves the original namespace and does not make alterations to this apart from adding the already described XML elements.
 
-- epp-1.0.xsd
-- eppcom-1.0.xsd
-- contact-1.0.xsd
-- domain-1.0.xsd
-- host-1.0.xsd
-- dkhm-3.0.xsd
-- secDNS-1.1.xsd
+- `epp-1.0.xsd`
+- `eppcom-1.0.xsd`
+- `contact-1.0.xsd`
+- `domain-1.0.xsd`
+- `host-1.0.xsd`
+- `dkhm-3.0.xsd`
+- `secDNS-1.1.xsd`
 
-The files are all available for [download][XSD files].
-
-<a id="xsd-version-history"></a>
-#### XSD Version History
-
-- 3.0
-	- EPP Service version 3.4.0
-	- The XSD does not contain changes as such, but removes excessive import statements where one should suffice
-	- This revision of the schema file, eliminates support for older schema versions
-
-- 2.6
-	- EPP Service version 2.3.X
-	- Rolled back changes introduced in 2.5
-
-- 2.5
-	- EPP Service version 2.3.X
-	- Attempt to remove backwards compatibility
-
-- 2.4
-	- EPP Service version 2.3.X
-	- Minor bug fix release as 2.4, since 2.3 had some minor issues
-
-- 2.3
-	- EPP Service version 2.3.X
-	- Introduction of `dkhm:url` for poll messages in relation to domain creation, where a URL is communicated, which can be presented to the end-user as part of the domain creation process.
-
-- 2.2
-	- EPP Service version 2.3.X
-	- Introduction of `dkhm:risk_assessment` for poll messages in relation to domain creation, where the risk assessment is communicated as part of the domain creation process.
-
-- 2.1
-	- **Warning!** This release includes a change to the standard XSD from [RFC:5730](https://tools.ietf.org/html/rfc5730), aligning the values for the password type. It has not been possible to get the patch applied using the XML Schema feature: `redefine` or `overwrite`. When this succeeds this change will have to be rolled-back. The change has been applied so the schema file conforms with the schema file used at DK Hostmaster A/S.
-
-	- The DKHM Schema file has been updated to revision 2.1, the file does not contain any changes apart from the import, this file was created for a uniform communication in regard to revision numbers etc.
-
-- 2.0
-	- EPP Service version 2.0.X, 2.1.X and 2.2.X
-	- Introduction of `dkhm:requestedNsAdmin` for [update host](#update-host) and [create host](#create-host)
-	- Introduction of `dkhm:mobilephone` on [update contact](#update-contact)
-	- Introduction of `dkhm:secondaryEmail` on [update contact](#update-contact)
-
-- 1.4
-	- EPP Service version 1.3.X
-	- Introduction of `dkhm:pnumber` for production unit number information for [create contact](#create-contact) command section
-
-- 1.3
-	- EPP Service version 1.2.X
-	- Introduction of `dkhm:domain_confirmed` for information for [create domain](#create-domain)
-	- Introduction of `dkhm:contact_validated` for information for info contact
-	- Introduction of `dkhm:registrant_validated` for information for [create domain](#create-domain)
-
-- 1.2
-	- EPP Service version 1.1.X
-	- Introduction of `dkhm:orderConfirmation` for [create domain](#create-domain) and support of Pre-activation Service
-
-- 1.1
-	- EPP Service version 1.0.9
-	- Introduction of `dkhm:domainAdvisory` for support of blocked status for [create domain](#create-domain) for blocked domain names
-
-- 1.0
-	- EPP Service version 1.0.0
-	- Released 2014-02-25
+The files are all available for [download][XSD files]. Details on version history is available in the [EPP XSD Repository][XSD files]
 
 <a id="mailing-list"></a>
 ### Mailing list
@@ -3095,111 +3038,68 @@ EPP service is running in the environment queried.
 
 | EPP Command  | Available since version | Exceptions and notes |
 | ------------ | ------------ | ------------ |
-| Log in | 1 | |
-| Change password | 1 | |
-| Log out | 1 | |
-| Check Domain | 1 | |
+| [Log in](#login) | 1 | |
+| [Log out](#logout) | 1 | |
+| [Check Domain](#check-domain) | 1 | |
 | [Create domain](#create-domain) | 1 | Asynchronous, requires order confirmation by the registrant. VID product not supported, PO numbers not supported |
-| Info Domain | 1 / 3 | Billing contact not disclosed, Admin contact not disclosed since version 3. EPP status codes not supported completely |
-| Update Domain | 2 | Change of name server is asynchronous, requires approval by the registrant. Change of registrant is not supported |
-| Renew Domain | 2 | Requires that the requesting user is a registrar and billing contact for the domain. The domain name must not have any financial outstanding |
+| [Info Domain](#info-domain) | 1 / 3 | Billing contact not disclosed, Admin contact not disclosed since version 3. EPP status codes not supported completely |
+| [Update Domain](#update-domain) | 2 | Change of name server is asynchronous, requires approval by the registrant. Change of registrant is not supported |
+| [Renew Domain](#renew-domain) | 2 | Requires that the requesting user is a registrar and billing contact for the domain. The domain name must not have any financial outstanding |
 | Transfer Domain | N/A | |
 | Delete Domain | N/A | |
-| Check Contact | 1 / 3 | Only registrants disclosed or contacts with relation to authenticated user |
+| [Check Contact](#check-contact) | 1 / 3 | Only registrants disclosed or contacts with relation to authenticated user |
 | [Create Contact](#create-contact) | 1 | Supplied handle/user-id is not supported |
-| Info Contact | 1 / 3 | Only registrants disclosed or contacts with relation to authenticated user |
-| Update Contact | 2 | Updating email is asynchronous, but is regarded as non-atomic due to the email validation process |
+| [Info Contact](#info-contact) | 1 / 3 | Only registrants disclosed or contacts with relation to authenticated user |
+| [Update Contact](#update-contact) | 2 | Updating email is asynchronous, but is regarded as non-atomic due to the email validation process |
 | Transfer Contact | N/A | |
-| Delete Contact | N/A | |
-| Check Host | 1 | |
-| Create Host | 2 | Asynchronous, requires accept of the registrant of the domain name if the domain is under the .dk TLD and requires that the requesting user accepts the responsibility as name server administrator |
-| Info Host | 1 | |
-| Update Host | 2 |  Asynchronous, requires that the requested administrator accepts the responsibility as name server administrator |
-| Delete Host | 2 | |
-| Poll | 1 | |
+| [Delete Contact](#delete-contact) | N/A | |
+| [Check Host](#check-host) | 1 | |
+| [Create Host](#create-host) | 2 | Asynchronous, requires accept of the registrant of the domain name if the domain is under the .dk TLD and requires that the requesting user accepts the responsibility as name server administrator |
+| [Info Host](#info-host) | 1 | |
+| [Update Host](#update-host) | 2 |  Asynchronous, requires that the requested administrator accepts the responsibility as name server administrator |
+| [Delete Host](#delete-host) | 2 | |
+| [Poll](#poll-and-message-queue) | 1 | |
 
 [General Terms and Conditions]: https://www.dk-hostmaster.dk/en/general-conditions
-
 [General Terms and Conditions 3_3]: https://www.dk-hostmaster.dk/en/general-conditions#3.3
-
 [epp-update-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_contact_v1.0.png
-
 [epp-role-resolution]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp-role-resolution_v1.0.png
-
 [epp-address-resolution]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp-address-resolution_v1.0.png
-
 [epp_create_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_create_host_v1.2.png
-
 [dkh_create_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/dkh_create_host_v1.0.png
-
 [epp_update_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_host_v1.2.png
-
 [epp_update_host_add_ip]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_host_add_ip_v1.0.png
-
 [epp_update_host_change_admin]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_host_change_admin_v1.0.png
-
 [epp_update_host_change_hostname]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_host_change_hostname_v1.0.png
-
 [epp_update_host_remove_ip]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_host_remove_ip_v1.0.png
-
 [dkh_update_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/dkh_update_host_v1.0.png
-
 [epp_delete_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_delete_host_v1.1.png
-
 [dkh_delete_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/dkh_delete_host_v1.0.png
-
 [epp-renew-domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_renew_domain_v1.1.png
-
 [dkh-renew-domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/dkh_renew_domain_v1.1.png
-
 [epp-update-domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_domain_v1.2.png
-
 [epp-update-domain-evaluate]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_domain_evaluate_command_v1.0.png
-
 [epp-update-domain-add-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_domain_add_contact_v1.0.png
-
 [dkh-update-domain-add-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/dkh_update_domain_add_contact_v1.0.png
-
 [epp-update-domain-remove-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_domain_remove_contact_v1.1.png
-
 [dkh-update-domain-remove-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/dkh_update_domain_remove_contact_v1.0.png
-
 [epp-update-domain-add-ns]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_domain_add_ns_v1.0.png
-
 [epp-update-domain-remove-ns]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_domain_remove_ns_v1.1.png
-
 [epp-update-domain-change-registrant]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_domain_change_registrant_v1.2.png
-
 [epp_create_domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_create_domain_v1.0.png
-
 [epp_create_contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_create_contact_v1.0.png
-
 [XSD files]: https://github.com/DK-Hostmaster/epp-xsd-files
-
-[RFC3735]: http://tools.ietf.org/html/rfc3735
-
-[RFC5730]: http://tools.ietf.org/html/rfc5730
-
-[RFC5731]: http://tools.ietf.org/html/rfc5731
-
-[RFC5732]: http://tools.ietf.org/html/rfc5732
-
-[RFC5732-3.1.2]: http://tools.ietf.org/html/rfc5732#section-3.1.2
-
-[RFC5733]: http://tools.ietf.org/html/rfc5733
-
-[RFC5910]: http://tools.ietf.org/html/rfc5910
-
+[RFC:3735]: http://tools.ietf.org/html/rfc3735
+[RFC:5730]: http://tools.ietf.org/html/rfc5730
+[RFC:5731]: http://tools.ietf.org/html/rfc5731
+[RFC:5732]: http://tools.ietf.org/html/rfc5732
+[RFC:5732-3.1.2]: http://tools.ietf.org/html/rfc5732#section-3.1.2
+[RFC:5733]: http://tools.ietf.org/html/rfc5733
+[RFC:5910]: http://tools.ietf.org/html/rfc5910
 [RFC:7451]: https://tools.ietf.org/html/rfc7451
-
 [IANA EPP Extension Repository]: http://www.iana.org/assignments/epp-extensions/epp-extensions.xhtml
-
 [EAN description]: https://en.wikipedia.org/wiki/International_Article_Number_(EAN)
-
 [Current domain registration form]: https://raw.githubusercontent.com/DK-Hostmaster/mailform-service-specification/master/5.00/5.00en.txt
-
 [Documentation on the current domain registration form]: https://www.dk-hostmaster.dk/en/mailform-registration
-
 [dkhm-name-service-specification]: https://github.com/DK-Hostmaster/dkhm-name-service-specification
-
 [EPOCH]: https://en.wikipedia.org/wiki/Unix_time
