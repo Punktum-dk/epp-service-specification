@@ -96,6 +96,25 @@ Revision: 4.0
       - [remove contact](#remove-contact)
       - [Remove DSRECORDS](#remove-dsrecords)
       - [Add DSRECORDS](#add-dsrecords)
+  - [Contact](#contact)
+    - [create contact](#create-contact)
+      - [CVR / Vat Number Indication](#cvr--vat-number-indication)
+      - [Forced and Smart Contact Creation](#forced-and-smart-contact-creation)
+      - [Address Handling](#address-handling)
+      - [create contact request](#create-contact-request)
+      - [create contact response](#create-contact-response)
+    - [check contact](#check-contact)
+      - [check contact request](#check-contact-request)
+      - [check contact response](#check-contact-response)
+    - [info contact](#info-contact)
+      - [info contact request](#info-contact-request)
+      - [info contact response](#info-contact-response)
+    - [update contact](#update-contact)
+      - [update contact request](#update-contact-request)
+      - [update contact response](#update-contact-response)
+    - [delete contact](#delete-contact)
+      - [delete contact request](#delete-contact-request)
+      - [delete contact response](#delete-contact-response)
   - [Host](#host)
     - [create host](#create-host)
       - [create host request](#create-host-request)
@@ -124,25 +143,6 @@ Revision: 4.0
     - [delete host](#delete-host)
       - [delete host request](#delete-host-request)
       - [delete host response](#delete-host-response)
-  - [Contact](#contact)
-    - [create contact](#create-contact)
-      - [CVR / Vat Number Indication](#cvr--vat-number-indication)
-      - [Forced and Smart Contact Creation](#forced-and-smart-contact-creation)
-      - [Address Handling](#address-handling)
-      - [create contact request](#create-contact-request)
-      - [create contact response](#create-contact-response)
-    - [check contact](#check-contact)
-      - [check contact request](#check-contact-request)
-      - [check contact response](#check-contact-response)
-    - [info contact](#info-contact)
-      - [info contact request](#info-contact-request)
-      - [info contact response](#info-contact-response)
-    - [update contact](#update-contact)
-      - [update contact request](#update-contact-request)
-      - [update contact response](#update-contact-response)
-    - [delete contact](#delete-contact)
-      - [delete contact request](#delete-contact-request)
-      - [delete contact response](#delete-contact-response)
 - [Data Collection Policy](#data-collection-policy)
   - [Access](#access)
   - [Purpose Statement](#purpose-statement)
@@ -180,13 +180,15 @@ Do note that the specification describes the latest released service. Service ve
 so given changes implemented in the service are reflected in the specification. Do note that a service might be released to the sandbox environment
 prior to being released to production after a grace period.
 
-This document is not the authoritative source for business and policy rules and possible discrepancies between this an any authoritative sources are regarded as errors in this document. This document is aimed at the technical specification and possible implementation and is an interpretation of authoritative sources and can therefor be erroneous.
+This document is not the authoritative source for business and policy rules and possible discrepancies between this an any authoritative sources are regarded as errors in this document. This document is aimed at the technical specification and is an interpretation of authoritative sources and can therefor be erroneous.
 
 The actively used XSD file is indicated in the [EPP service specification][wiki], the [XSD file repository][XSD files] might contain changes not actively used by the service.
 
 The current service version can be obtained from the [Greeting](#greeting) message, from the service.
 
 Any future extensions and possible additions and changes to the implementation are not within the scope of this document and will not be discussed or mentioned throughout this document.
+
+The specification mentions the registrar portal service (RP), which complements the EPP service for consistency between services.
 
 This document is owned and maintained by DK Hostmaster A/S and must not be distributed without this information.
 
@@ -1783,8 +1785,484 @@ Example with removal of existing DSRECORDS and adding a new DSRECORD.
 </epp>
 ```
 
+<a id="contact"></a>
+### Contact
+
+<a id="create-contact"></a>
+#### create contact
+
+This part of the EPP protocol is described in [RFC:5733].
+
+This command has been extended with the following fields:
+
+- `dkhm:usertype`, which has to be one of:
+	- `company`, indicating a company
+	- `public_organization`, indicating a public organization
+	- `association`, indicating an association
+	- `individual`, indicating an individual
+
+The user type will result in context-specific interpretation of the following fields:
+
+- EAN - this number is only supported for user types: `company`, `public_organization` and `association`. It is only mandatory for `public_organization` and optional for `company` and `association`. [EAN][EAN description] is used by the public sector in Denmark for electronic invoicing, private companies can also be assigned [EAN], but this it not so widespread at this time. EAN is required by law for public sector organizations, so this field has to be completed and it has to validate for this type.
+- CVR - (VAT number) this is only supported for user types: `company`, `public_organization` and `association`. The number is **required** for handling VAT correctly, The rules for indication of the field is specified in the table below.
+- p-number - (production unit number) this is only supported for user types: `company`, `public_organization` and `association`. The number is used for handling validation correctly and it relates to the CVR (Vat number field) the field is optional.
+
+This field is validated on the server side, it is however recommended to perform a check contact on the requested contact-id prior to the [create domain](#create-domain) request if a contact-id is already known from a contact create or previous domain creation.
+
+The `contact-id` field is auto-generated and assigned by DK Hostmaster. EPP do however open for providing a contact-id in the context of the create contact command, this is not supported by DK Hostmaster at this point.
+
+<a id="cvr--vat-number-indication"></a>
+##### CVR / Vat Number Indication
+
+|   | Mandatory | Note |
+|---|---|---|
+| `company`/`public_organization`/`association` with address in Denmark and EU/EØS | Yes | Has to be specified |
+| `company`/`public_organization`/`association` with address EU/EØS | No | Can be specified if VAT handling is required |
+| `company`/`public_organization`/`association` with address outside Denmark and EU/EØS | No | Can be specified |
+| `individual` with address in Denmark and EU/EØS | No | Not supported |
+| `individual` with address outside Denmark and EU/EØS | No | Not supported |
+
+<a id="forced-and-smart-contact-creation"></a>
+##### Forced and Smart Contact Creation
+
+For contact creation DK Hostmaster supports two ways:
+
+1. Smart creation, where the data provided is used to inquire if an existing user with the same data is present. If no user is found a new contact is created. This is accomplished using the keyword: `auto`
+2. Forced creation, where a new contact is created. This is accomplished using the keyword: `force`
+
+Specification of a user-id / handle for the contact creation is not supported. The user-id / handle is auto-generated and assigned by DK Hostmaster.
+
+For _smart_ creation:
+
+```XML
+<contact:id>auto</contact:id>
+```
+
+For _forced_ creation:
+
+```XML
+<contact:id>force</contact:id>
+```
+
+Please note that the `auto` and `force` keywords are in lower-case.
+
+The match for the _smart_ creation are applicable for the following data:
+
+- `<dkhm:userType>`
+- `<dkhm:CVR>`
+- `<contact:name>`
+- `<contact:street>`
+- `<contact:email>`
+- `<contact:pc>`
+- `<contact:cc>`
+
+The match has to be exact in order for the command to return an existing user-id / handle.
+
+![Diagram for contact creation][epp_create_contact]
+
+<a id="address-handling"></a>
+##### Address Handling
+
+Contact creation under EPP opens for the ability to represent postal information in both local and international representations. Due to the representation in DK Hostmaster's system for handling contacts the following rules are applied to postal information.
+
+For Denmark the local representation is chosen and the international representation is discarded. For other countries the international representation is chosen and the local representation is discarded. Please see the table below.
+
+| Denmark | Other country |
+| ----------- | ----------- |
+| **Local representation** | Local representation |
+| International representation | **International representation** |
+
+This is a diagram depicting the general algorithm used for resolving the address data. The algorithm presupposes that at least one address is present.
+
+![Diagram of address resolution for contact creation][epp-address-resolution]
+
+It is important to note that if the international representation is specified, but data are provided in local representation or only local representation is provided for an international address, communication to the specified address might prove unreliable.
+
+The handling of name and organization is also a special case. Where the following mapping is made based on the user type.
+
+<table>
+<tr>
+		<th></th><th colspan="2">Name and Organization Provided</th><th>Only name provided</th>
+<tr>
+		<th>User type</th><th>Name (<i>mandatory</i>)</th><th>organization (<i>optional</i>)</th><th>Name (<i>mandatory</i>)</th>
+</tr>
+<tr>
+		<td>C (Company)</td><td>attention</td><td>name</td><td>name</td>
+</tr>
+<tr>
+		<td>P (Public organization)</td><td>attention</td><td>name</td><td>name</td>
+</tr>
+<tr>
+		<td>A (Association)</td><td>attention</td><td>name</td><td>name</td>
+</tr>
+<tr>
+		<td>I (Individual)</td><td>name</td><td>-</td><td>name</td>
+</tr>
+</table>
+
+The data is collected as required by Danish legislation. See also the data collection policy section below.
+
+Please note:
+
+- `authInfo` section is ignored is not recommended for transport of end-user passwords
+- User-creation is silent and the designated user is not notified about the the creation, unless this is a part of the process of associating the user with other objects
+
+<a id="create-contact-request"></a>
+##### create contact request
+
+```XML
+<?xml version="1.0" encoding="utf-8"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+	<command>
+		<create>
+			<contact:create xmlns:contact="urn:ietf:params:xml:ns:contact-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:contact-1.0 contact-1.0.xsd">
+				<contact:id>auto</contact:id>
+				<contact:postalInfo type="loc">
+					<contact:name>Johnny Login</contact:name>
+					<contact:org>DK Hostmaster A/S</contact:org>
+					<contact:addr>
+						<contact:street>Kalvebod brygge 45, 3. sal</contact:street>
+						<contact:city>København V</contact:city>
+						<contact:pc>1560</contact:pc>
+						<contact:cc>DK</contact:cc>
+					</contact:addr>
+				</contact:postalInfo>
+				<contact:postalInfo type="int">
+					<contact:name>Johnny Login</contact:name>
+					<contact:org>DK Hostmaster A/S</contact:org>
+					<contact:addr>
+						<contact:street>Kalvebod brygge 45, 3.</contact:street>
+						<contact:city>Copenhagen V</contact:city>
+						<contact:pc>1560</contact:pc>
+						<contact:cc>DK</contact:cc>
+					</contact:addr>
+				</contact:postalInfo>
+				<contact:voice>+45.33646060</contact:voice>
+				<contact:fax />
+				<contact:email>info@dk-hostmaster.dk</contact:email>
+				<contact:authInfo>
+					<contact:pw />
+				</contact:authInfo>
+			</contact:create>
+		</create>
+		<extension>
+			<dkhm:userType xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">company</dkhm:userType>
+			<dkhm:CVR xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">1234567891231</dkhm:CVR>
+		</extension>
+		<clTRID>8cced469f2bfdbb0dcad16b875d87c99</clTRID>
+	</command>
+</epp>
+```
+
+Do note that the `authInfo` part is ignored, but cannot be omitted.
+
+<a id="create-contact-response"></a>
+##### create contact response
+
+```XML
+<?xml version="1.0" encoding="utf-8"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+	<response>
+		<result code="1000">
+			<msg>Contact created.</msg>
+		</result>
+		<msgQ count="1" id="400">    </msgQ>
+		<resData>
+			<contact:creData xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
+				<contact:id>DHA484-DK</contact:id>
+				<contact:crDate>2015-03-25T17:08:25.0Z</contact:crDate>
+			</contact:creData>
+		</resData>
+		<trID>
+			<clTRID>8cced469f2bfdbb0dcad16b875d87c99</clTRID>
+			<svTRID>8B9461A4-D311-11E4-B79D-DB67C33995C9</svTRID>
+		</trID>
+	</response>
+</epp>
+```
+
+<a id="check-contact"></a>
+#### check contact
+
+This part of the EPP protocol is described in [RFC:5733]. This command adheres to the standard.
+
+<a id="check-contact-request"></a>
+##### check contact request
+
+```XML
+<?xml version="1.0" encoding="utf-8"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+	<command>
+		<check>
+			<contact:check xmlns:contact="urn:ietf:params:xml:ns:contact-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:contact-1.0 contact-1.0.xsd">
+				<contact:id>DKHM1-DK</contact:id>
+			</contact:check>
+		</check>
+		<clTRID>d4d94d2e1d6f613cb276865c49c3d0b7</clTRID>
+	</command>
+</epp>
+```
+
+<a id="check-contact-response"></a>
+##### check contact response
+
+```XML
+<?xml version="1.0" encoding="utf-8"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+	<response>
+		<result code="1000">
+			<msg>Check result</msg>
+		</result>
+		<msgQ count="6" id="884">
+			<msg>Create domain pending for domain2xyz.dk</msg>
+		</msgQ>
+		<resData>
+			<contact:chkData xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
+				<contact:cd>
+					<contact:id avail="0">DKHM1-DK</contact:id>
+					<contact:reason>In use</contact:reason>
+				</contact:cd>
+			</contact:chkData>
+		</resData>
+		<trID>
+			<clTRID>d4d94d2e1d6f613cb276865c49c3d0b7</clTRID>
+			<svTRID>3268EB00-F6F7-11E3-867F-A6B052036DCB</svTRID>
+		</trID>
+	</response>
+</epp>
+```
+
+<a id="info-contact"></a>
+#### info contact
+
+This part of the EPP protocol is described in [RFC:5733]. This command has been extended with information on whether the contact in queried has been validated according to requirements and policies with DK Hostmaster.
+
+See the extension: `dkhm:contact_validated` in the response.
+
+Please note that the email address (`contact:email`) is masked and the value: `anonymous@dk-hostmaster.dk` is always returned for this field, Unless the authenticated user has a relationship via the domain name or a registrar group association, which provides access to more information.
+
+The info contact command response is only available for the registrant contact object, unless the authenticated user has a relationship via the domain name or a registrar group association, which provides access to more information or additional contact objects as
+
+<a id="info-contact-request"></a>
+##### info contact request
+
+```XML
+<?xml version="1.0" encoding="utf-8"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+	<command>
+		<info>
+			<contact:info xmlns:contact="urn:ietf:params:xml:ns:contact-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:contact-1.0 contact-1.0.xsd">
+				<contact:id>DKHM1-DK</contact:id>
+			</contact:info>
+		</info>
+		<clTRID>3d65841027692e64c24118ac5988e03c</clTRID>
+	</command>
+</epp>
+```
+
+<a id="info-contact-response"></a>
+##### info contact response
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+	<response>
+		<result code="1000">
+			<msg>Info result</msg>
+		</result>
+		<resData>
+			<contact:infData xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
+				<contact:id>DKHM1-DK</contact:id>
+				<contact:roid>DKHM1-DK</contact:roid>
+				<contact:status s="serverUpdateProhibited"/>
+				<contact:status s="serverTransferProhibited"/>
+				<contact:status s="linked"/>
+				<contact:status s="serverDeleteProhibited"/>
+				<contact:postalInfo type="loc">
+					<contact:name>DK Hostmaster A/S</contact:name>
+					<contact:addr>
+						<contact:street>Kalvebod Brygge 45,3</contact:street>
+						<contact:city>København V</contact:city>
+						<contact:pc>1560</contact:pc>
+						<contact:cc>DK</contact:cc>
+					</contact:addr>
+				</contact:postalInfo>
+				<contact:voice>+45.33646060</contact:voice>
+				<contact:email>anonymous@dk-hostmaster.dk</contact:email>
+				<contact:clID>DKHM1-DK</contact:clID>
+				<contact:crID>n/a</contact:crID>
+				<contact:crDate>2013-01-24T15:40:37.0Z</contact:crDate>
+			</contact:infData>
+		</resData>
+		<extension>
+			<dkhm:contact_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">1</dkhm:contact_validated>
+		</extension>
+		<trID>
+			<clTRID>76edfef5b78cdaefe8fb426eb8d74b75</clTRID>
+			<svTRID>C8C5E496-9CC8-11E4-9F91-D0BF2AC2711D</svTRID>
+		</trID>
+	</response>
+</epp>
+```
+
+<a id="update-contact"></a>
+#### update contact
+
+This part of the EPP protocol is described in [RFC:5733]. This command adheres to the standard. In addition to the standard the command allows for manipulation of the extensions associated with contact objects, meaning that it is possible to update the following fields:
+
+- [`dkhm:userType`](#dkhmusertype)
+- [`dkhm:EAN`](#dkhmean)
+- [`dkhm:CVR`](#dkhmcvr)
+- [`dkhm:pnumber`](#dkhmpnumber)
+- [`dkhm:mobilephone`](#dkhmmobilephone)
+- [`dkhm:secondaryEmail`](#dkhmsecondaryEmail)
+
+These of course all controlled by relevant privileges.
+
+- Name / organization
+- Address
+- Country
+- Phone (voice)
+- Fax
+- Email
+- Secondary email
+- Mobile phone
+
+![Diagram of EPP update contact][epp-update-contact]
+
+Please note:
+
+- `authInfo` section is ignored is not recommended for transport of end-user passwords
+
+<a id="update-contact-request"></a>
+##### update contact request
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+	<command>
+		<update>
+			<contact:update
+			 xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
+				<contact:id>sh8013</contact:id>
+				<contact:add>
+					<contact:status s="clientDeleteProhibited"/>
+				</contact:add>
+				<contact:chg>
+					<contact:postalInfo type="int">
+						<contact:org/>
+						<contact:addr>
+							<contact:street>124 Example Dr.</contact:street>
+							<contact:street>Suite 200</contact:street>
+							<contact:city>Dulles</contact:city>
+							<contact:sp>VA</contact:sp>
+							<contact:pc>20166-6503</contact:pc>
+							<contact:cc>US</contact:cc>
+						</contact:addr>
+					</contact:postalInfo>
+					<contact:voice>+1.7034444444</contact:voice>
+					<contact:fax/>
+					<contact:authInfo>
+						<contact:pw>2fooBAR</contact:pw>
+					</contact:authInfo>
+					<contact:disclose flag="1">
+						<contact:voice/>
+						<contact:email/>
+					</contact:disclose>
+				</contact:chg>
+			</contact:update>
+		</update>
+		<extension>
+				<dkhm:secondaryEmail xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">email@eksempel.dk</dkhm:secondaryEmail>
+				<dkhm:mobilephone xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">+1.7034444445</dkhm:mobilephone>
+		</extension>
+		<clTRID>ABC-12345</clTRID>
+	</command>
+</epp>
+```
+
+<a id="update-contact-response"></a>
+##### update contact response
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+	<response>
+		<result code="1000">
+			<msg>Command completed successfully</msg>
+		</result>
+		<trID>
+			<clTRID>ABC-12345</clTRID>
+			<svTRID>54321-XYZ</svTRID>
+		</trID>
+	</response>
+</epp>
+```
+
+<a id="delete-contact"></a>
+#### delete contact
+
+**This command is not supported.**
+
+This command will always return: `2101`, indicating unimplemented command.
+
+The deletion of contact objects is handled automatically by DK Hostmaster. The following status flags will be set:
+
+- clientDeleteProhibited
+- serverDeleteProhibited
+
+The later will only be lifted when the contact object is not linked to any other objects and automatic deletion is scheduled.
+
+<a id="delete-contact-request"></a>
+##### delete contact request
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+	<command>
+		<delete>
+			<contact:delete
+			 xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
+				<contact:id>sh8013</contact:id>
+			</contact:delete>
+		</delete>
+		<clTRID>ABC-12345</clTRID>
+	</command>
+</epp>
+```
+
+<a id="delete-contact-response"></a>
+##### delete contact response
+
+```XML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+	<response>
+		<result code="2101">
+			<msg>Unimplemented command</msg>
+		</result>
+		<trID>
+			<clTRID>ABC-12345</clTRID>
+			<svTRID>54321-XYZ</svTRID>
+		</trID>
+	</response>
+</epp>
+```
+
 <a id="host"></a>
 ### Host
+
+The default behavior of the EPP `create host` command as described in [RFC:5732], will attach the client-ID (`CLID`) of the authenticated party to the created host object.
+
+The `create host` command will be limited in that sense that it will not be possible to create a host object, which is subordinate to a domain name (superordinate), which is sponsored by another registrar. This limitation will only be enforced for domain names under the `.dk` TLD. Domain names under other TLDs will not be subject to this limitation.
+
+As for the `create domain` and `create contact` commands (above) the default behaviour can be defined in RP. Where the option "registrant management", will create host objects sponsored by DK Hostmaster instead of the registrar.
+
+Responsibility and privileges for maintenance (`update host`) of the host object is assigned to the name server administrator as described in the [create hostsection](#create-host) section.
+
+If the name server responsible is allocated to the registrar account (group), this can be handled via RP and EPP.
+
+The deletion of host objects are under a similar regime, as specified in [delete host](#delete-host) section.
 
 <a id="create-host"></a>
 #### create host
@@ -2357,470 +2835,6 @@ Response to the above request. Since the authenticated user is the current admin
 	<response>
 		<result code="1000">
 			<msg>Command completed successfully</msg>
-		</result>
-		<trID>
-			<clTRID>ABC-12345</clTRID>
-			<svTRID>54321-XYZ</svTRID>
-		</trID>
-	</response>
-</epp>
-```
-
-<a id="contact"></a>
-### Contact
-
-<a id="create-contact"></a>
-#### create contact
-
-This part of the EPP protocol is described in [RFC:5733].
-
-This command has been extended with the following fields:
-
-- `dkhm:usertype`, which has to be one of:
-	- `company`, indicating a company
-	- `public_organization`, indicating a public organization
-	- `association`, indicating an association
-	- `individual`, indicating an individual
-
-The user type will result in context-specific interpretation of the following fields:
-
-- EAN - this number is only supported for user types: `company`, `public_organization` and `association`. It is only mandatory for `public_organization` and optional for `company` and `association`. [EAN][EAN description] is used by the public sector in Denmark for electronic invoicing, private companies can also be assigned [EAN], but this it not so widespread at this time. EAN is required by law for public sector organizations, so this field has to be completed and it has to validate for this type.
-- CVR - (VAT number) this is only supported for user types: `company`, `public_organization` and `association`. The number is **required** for handling VAT correctly, The rules for indication of the field is specified in the table below.
-- p-number - (production unit number) this is only supported for user types: `company`, `public_organization` and `association`. The number is used for handling validation correctly and it relates to the CVR (Vat number field) the field is optional.
-
-This field is validated on the server side, it is however recommended to perform a check contact on the requested contact-id prior to the [create domain](#create-domain) request if a contact-id is already known from a contact create or previous domain creation.
-
-The `contact-id` field is auto-generated and assigned by DK Hostmaster. EPP do however open for providing a contact-id in the context of the create contact command, this is not supported by DK Hostmaster at this point.
-
-<a id="cvr--vat-number-indication"></a>
-##### CVR / Vat Number Indication
-
-|   | Mandatory | Note |
-|---|---|---|
-| `company`/`public_organization`/`association` with address in Denmark and EU/EØS | Yes | Has to be specified |
-| `company`/`public_organization`/`association` with address EU/EØS | No | Can be specified if VAT handling is required |
-| `company`/`public_organization`/`association` with address outside Denmark and EU/EØS | No | Can be specified |
-| `individual` with address in Denmark and EU/EØS | No | Not supported |
-| `individual` with address outside Denmark and EU/EØS | No | Not supported |
-
-<a id="forced-and-smart-contact-creation"></a>
-##### Forced and Smart Contact Creation
-
-For contact creation DK Hostmaster supports two ways:
-
-1. Smart creation, where the data provided is used to inquire if an existing user with the same data is present. If no user is found a new contact is created. This is accomplished using the keyword: `auto`
-2. Forced creation, where a new contact is created. This is accomplished using the keyword: `force`
-
-Specification of a user-id / handle for the contact creation is not supported. The user-id / handle is auto-generated and assigned by DK Hostmaster.
-
-For _smart_ creation:
-
-```XML
-<contact:id>auto</contact:id>
-```
-
-For _forced_ creation:
-
-```XML
-<contact:id>force</contact:id>
-```
-
-Please note that the `auto` and `force` keywords are in lower-case.
-
-The match for the _smart_ creation are applicable for the following data:
-
-- `<dkhm:userType>`
-- `<dkhm:CVR>`
-- `<contact:name>`
-- `<contact:street>`
-- `<contact:email>`
-- `<contact:pc>`
-- `<contact:cc>`
-
-The match has to be exact in order for the command to return an existing user-id / handle.
-
-![Diagram for contact creation][epp_create_contact]
-
-<a id="address-handling"></a>
-##### Address Handling
-
-Contact creation under EPP opens for the ability to represent postal information in both local and international representations. Due to the representation in DK Hostmaster's system for handling contacts the following rules are applied to postal information.
-
-For Denmark the local representation is chosen and the international representation is discarded. For other countries the international representation is chosen and the local representation is discarded. Please see the table below.
-
-| Denmark | Other country |
-| ----------- | ----------- |
-| **Local representation** | Local representation |
-| International representation | **International representation** |
-
-This is a diagram depicting the general algorithm used for resolving the address data. The algorithm presupposes that at least one address is present.
-
-![Diagram of address resolution for contact creation][epp-address-resolution]
-
-It is important to note that if the international representation is specified, but data are provided in local representation or only local representation is provided for an international address, communication to the specified address might prove unreliable.
-
-The handling of name and organization is also a special case. Where the following mapping is made based on the user type.
-
-<table>
-<tr>
-		<th></th><th colspan="2">Name and Organization Provided</th><th>Only name provided</th>
-<tr>
-		<th>User type</th><th>Name (<i>mandatory</i>)</th><th>organization (<i>optional</i>)</th><th>Name (<i>mandatory</i>)</th>
-</tr>
-<tr>
-		<td>C (Company)</td><td>attention</td><td>name</td><td>name</td>
-</tr>
-<tr>
-		<td>P (Public organization)</td><td>attention</td><td>name</td><td>name</td>
-</tr>
-<tr>
-		<td>A (Association)</td><td>attention</td><td>name</td><td>name</td>
-</tr>
-<tr>
-		<td>I (Individual)</td><td>name</td><td>-</td><td>name</td>
-</tr>
-</table>
-
-The data is collected as required by Danish legislation. See also the data collection policy section below.
-
-Please note:
-
-- `authInfo` section is ignored is not recommended for transport of end-user passwords
-- User-creation is silent and the designated user is not notified about the the creation, unless this is a part of the process of associating the user with other objects
-
-<a id="create-contact-request"></a>
-##### create contact request
-
-```XML
-<?xml version="1.0" encoding="utf-8"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-	<command>
-		<create>
-			<contact:create xmlns:contact="urn:ietf:params:xml:ns:contact-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:contact-1.0 contact-1.0.xsd">
-				<contact:id>auto</contact:id>
-				<contact:postalInfo type="loc">
-					<contact:name>Johnny Login</contact:name>
-					<contact:org>DK Hostmaster A/S</contact:org>
-					<contact:addr>
-						<contact:street>Kalvebod brygge 45, 3. sal</contact:street>
-						<contact:city>København V</contact:city>
-						<contact:pc>1560</contact:pc>
-						<contact:cc>DK</contact:cc>
-					</contact:addr>
-				</contact:postalInfo>
-				<contact:postalInfo type="int">
-					<contact:name>Johnny Login</contact:name>
-					<contact:org>DK Hostmaster A/S</contact:org>
-					<contact:addr>
-						<contact:street>Kalvebod brygge 45, 3.</contact:street>
-						<contact:city>Copenhagen V</contact:city>
-						<contact:pc>1560</contact:pc>
-						<contact:cc>DK</contact:cc>
-					</contact:addr>
-				</contact:postalInfo>
-				<contact:voice>+45.33646060</contact:voice>
-				<contact:fax />
-				<contact:email>info@dk-hostmaster.dk</contact:email>
-				<contact:authInfo>
-					<contact:pw />
-				</contact:authInfo>
-			</contact:create>
-		</create>
-		<extension>
-			<dkhm:userType xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">company</dkhm:userType>
-			<dkhm:CVR xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">1234567891231</dkhm:CVR>
-		</extension>
-		<clTRID>8cced469f2bfdbb0dcad16b875d87c99</clTRID>
-	</command>
-</epp>
-```
-
-Do note that the `authInfo` part is ignored, but cannot be omitted.
-
-<a id="create-contact-response"></a>
-##### create contact response
-
-```XML
-<?xml version="1.0" encoding="utf-8"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-	<response>
-		<result code="1000">
-			<msg>Contact created.</msg>
-		</result>
-		<msgQ count="1" id="400">    </msgQ>
-		<resData>
-			<contact:creData xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
-				<contact:id>DHA484-DK</contact:id>
-				<contact:crDate>2015-03-25T17:08:25.0Z</contact:crDate>
-			</contact:creData>
-		</resData>
-		<trID>
-			<clTRID>8cced469f2bfdbb0dcad16b875d87c99</clTRID>
-			<svTRID>8B9461A4-D311-11E4-B79D-DB67C33995C9</svTRID>
-		</trID>
-	</response>
-</epp>
-```
-
-<a id="check-contact"></a>
-#### check contact
-
-This part of the EPP protocol is described in [RFC:5733]. This command adheres to the standard.
-
-<a id="check-contact-request"></a>
-##### check contact request
-
-```XML
-<?xml version="1.0" encoding="utf-8"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-	<command>
-		<check>
-			<contact:check xmlns:contact="urn:ietf:params:xml:ns:contact-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:contact-1.0 contact-1.0.xsd">
-				<contact:id>DKHM1-DK</contact:id>
-			</contact:check>
-		</check>
-		<clTRID>d4d94d2e1d6f613cb276865c49c3d0b7</clTRID>
-	</command>
-</epp>
-```
-
-<a id="check-contact-response"></a>
-##### check contact response
-
-```XML
-<?xml version="1.0" encoding="utf-8"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-	<response>
-		<result code="1000">
-			<msg>Check result</msg>
-		</result>
-		<msgQ count="6" id="884">
-			<msg>Create domain pending for domain2xyz.dk</msg>
-		</msgQ>
-		<resData>
-			<contact:chkData xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
-				<contact:cd>
-					<contact:id avail="0">DKHM1-DK</contact:id>
-					<contact:reason>In use</contact:reason>
-				</contact:cd>
-			</contact:chkData>
-		</resData>
-		<trID>
-			<clTRID>d4d94d2e1d6f613cb276865c49c3d0b7</clTRID>
-			<svTRID>3268EB00-F6F7-11E3-867F-A6B052036DCB</svTRID>
-		</trID>
-	</response>
-</epp>
-```
-
-<a id="info-contact"></a>
-#### info contact
-
-This part of the EPP protocol is described in [RFC:5733]. This command has been extended with information on whether the contact in queried has been validated according to requirements and policies with DK Hostmaster.
-
-See the extension: `dkhm:contact_validated` in the response.
-
-Please note that the email address (`contact:email`) is masked and the value: `anonymous@dk-hostmaster.dk` is always returned for this field, Unless the authenticated user has a relationship via the domain name or a registrar group association, which provides access to more information.
-
-The info contact command response is only available for the registrant contact object, unless the authenticated user has a relationship via the domain name or a registrar group association, which provides access to more information or additional contact objects as
-
-<a id="info-contact-request"></a>
-##### info contact request
-
-```XML
-<?xml version="1.0" encoding="utf-8"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-	<command>
-		<info>
-			<contact:info xmlns:contact="urn:ietf:params:xml:ns:contact-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:contact-1.0 contact-1.0.xsd">
-				<contact:id>DKHM1-DK</contact:id>
-			</contact:info>
-		</info>
-		<clTRID>3d65841027692e64c24118ac5988e03c</clTRID>
-	</command>
-</epp>
-```
-
-<a id="info-contact-response"></a>
-##### info contact response
-
-```XML
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-	<response>
-		<result code="1000">
-			<msg>Info result</msg>
-		</result>
-		<resData>
-			<contact:infData xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
-				<contact:id>DKHM1-DK</contact:id>
-				<contact:roid>DKHM1-DK</contact:roid>
-				<contact:status s="serverUpdateProhibited"/>
-				<contact:status s="serverTransferProhibited"/>
-				<contact:status s="linked"/>
-				<contact:status s="serverDeleteProhibited"/>
-				<contact:postalInfo type="loc">
-					<contact:name>DK Hostmaster A/S</contact:name>
-					<contact:addr>
-						<contact:street>Kalvebod Brygge 45,3</contact:street>
-						<contact:city>København V</contact:city>
-						<contact:pc>1560</contact:pc>
-						<contact:cc>DK</contact:cc>
-					</contact:addr>
-				</contact:postalInfo>
-				<contact:voice>+45.33646060</contact:voice>
-				<contact:email>anonymous@dk-hostmaster.dk</contact:email>
-				<contact:clID>DKHM1-DK</contact:clID>
-				<contact:crID>n/a</contact:crID>
-				<contact:crDate>2013-01-24T15:40:37.0Z</contact:crDate>
-			</contact:infData>
-		</resData>
-		<extension>
-			<dkhm:contact_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">1</dkhm:contact_validated>
-		</extension>
-		<trID>
-			<clTRID>76edfef5b78cdaefe8fb426eb8d74b75</clTRID>
-			<svTRID>C8C5E496-9CC8-11E4-9F91-D0BF2AC2711D</svTRID>
-		</trID>
-	</response>
-</epp>
-```
-
-<a id="update-contact"></a>
-#### update contact
-
-This part of the EPP protocol is described in [RFC:5733]. This command adheres to the standard. In addition to the standard the command allows for manipulation of the extensions associated with contact objects, meaning that it is possible to update the following fields:
-
-- [`dkhm:userType`](#dkhmusertype)
-- [`dkhm:EAN`](#dkhmean)
-- [`dkhm:CVR`](#dkhmcvr)
-- [`dkhm:pnumber`](#dkhmpnumber)
-- [`dkhm:mobilephone`](#dkhmmobilephone)
-- [`dkhm:secondaryEmail`](#dkhmsecondaryEmail)
-
-These of course all controlled by relevant privileges.
-
-- Name / organization
-- Address
-- Country
-- Phone (voice)
-- Fax
-- Email
-- Secondary email
-- Mobile phone
-
-![Diagram of EPP update contact][epp-update-contact]
-
-Please note:
-
-- `authInfo` section is ignored is not recommended for transport of end-user passwords
-
-<a id="update-contact-request"></a>
-##### update contact request
-
-```XML
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-	<command>
-		<update>
-			<contact:update
-			 xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
-				<contact:id>sh8013</contact:id>
-				<contact:add>
-					<contact:status s="clientDeleteProhibited"/>
-				</contact:add>
-				<contact:chg>
-					<contact:postalInfo type="int">
-						<contact:org/>
-						<contact:addr>
-							<contact:street>124 Example Dr.</contact:street>
-							<contact:street>Suite 200</contact:street>
-							<contact:city>Dulles</contact:city>
-							<contact:sp>VA</contact:sp>
-							<contact:pc>20166-6503</contact:pc>
-							<contact:cc>US</contact:cc>
-						</contact:addr>
-					</contact:postalInfo>
-					<contact:voice>+1.7034444444</contact:voice>
-					<contact:fax/>
-					<contact:authInfo>
-						<contact:pw>2fooBAR</contact:pw>
-					</contact:authInfo>
-					<contact:disclose flag="1">
-						<contact:voice/>
-						<contact:email/>
-					</contact:disclose>
-				</contact:chg>
-			</contact:update>
-		</update>
-		<extension>
-				<dkhm:secondaryEmail xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">email@eksempel.dk</dkhm:secondaryEmail>
-				<dkhm:mobilephone xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">+1.7034444445</dkhm:mobilephone>
-		</extension>
-		<clTRID>ABC-12345</clTRID>
-	</command>
-</epp>
-```
-
-<a id="update-contact-response"></a>
-##### update contact response
-
-```XML
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-	<response>
-		<result code="1000">
-			<msg>Command completed successfully</msg>
-		</result>
-		<trID>
-			<clTRID>ABC-12345</clTRID>
-			<svTRID>54321-XYZ</svTRID>
-		</trID>
-	</response>
-</epp>
-```
-
-<a id="delete-contact"></a>
-#### delete contact
-
-**This command is not supported.**
-
-This command will always return: `2101`, indicating unimplemented command.
-
-The deletion of contact objects is handled automatically by DK Hostmaster. The following status flags will be set:
-
-- clientDeleteProhibited
-- serverDeleteProhibited
-
-The later will only be lifted when the contact object is not linked to any other objects and automatic deletion is scheduled.
-
-<a id="delete-contact-request"></a>
-##### delete contact request
-
-```XML
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-	<command>
-		<delete>
-			<contact:delete
-			 xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
-				<contact:id>sh8013</contact:id>
-			</contact:delete>
-		</delete>
-		<clTRID>ABC-12345</clTRID>
-	</command>
-</epp>
-```
-
-<a id="delete-contact-response"></a>
-##### delete contact response
-
-```XML
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-	<response>
-		<result code="2101">
-			<msg>Unimplemented command</msg>
 		</result>
 		<trID>
 			<clTRID>ABC-12345</clTRID>
