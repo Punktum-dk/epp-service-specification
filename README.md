@@ -64,12 +64,15 @@ Revision: 4.0
   - [logout](#logout)
     - [logout request](#logout-request)
     - [logout response](#logout-response)
-  - [poll and message queue](#poll-and-message-queue)
+  - [poll and Message Queue](#poll-and-message-queue)
     - [poll req request](#poll-req-request)
     - [poll req response](#poll-req-response)
     - [poll ack request](#poll-ack-request)
     - [poll ack response](#poll-ack-response)
     - [poll ack response for non-existent message \(or previously acknowledged message\)](#poll-ack-response-for-non-existent-message-or-previously-acknowledged-message)
+  - [balance and Prepaid Account](#balance-and-prepaid-account)
+    - [balance request](#balance-request)
+    - [balance response](#balance-response)
   - [Domain](#domain)
     - [create domain](#create-domain)
       - [create domain request](#create-domain-request)
@@ -98,6 +101,7 @@ Revision: 4.0
       - [Remove DSRECORDS](#remove-dsrecords)
       - [Add DSRECORDS](#add-dsrecords)
     - [delete domain](#delete-domain)
+    - [restore domain](#restore-domain)
   - [Contact](#contact)
     - [create contact](#create-contact)
       - [CVR / Vat Number Indication](#cvr--vat-number-indication)
@@ -174,7 +178,7 @@ This document describes and specifies the implementation offered by DK Hostmaste
 <a id="about-this-document"></a>
 ### About this Document
 
-This specification describes version 4.X.X of the DK Hostmaster EPP Implementation. Future releases will be reflected in updates to this specification, please see the document history section below.
+This specification describes version 4.X.X of the DK Hostmaster EPP Implementation. Future releases will be reflected in updates to this specification, please see the   [Document History](#document-history) section below.
 
 The document describes the current DK Hostmaster EPP implementation, for more general documentation on the EPP protocol, EPP client development or configuration, please refer to the RFCs and additional resources in the [References](#references) and [Resources](#resources) chapters below.
 
@@ -194,7 +198,7 @@ The specification mentions the registrar portal service (RP), which complements 
 
 This document is owned and maintained by DK Hostmaster A/S and must not be distributed without this information.
 
-All examples provided in the document are fabricated or changed from real data to demonstrate commands etc. any resemblance to actual data are coincidental.
+All examples provided in the document are fabricated/modified from real data to demonstrate commands etc. any resemblance to actual data are coincidental.
 
 <a id="license"></a>
 ### License
@@ -206,7 +210,9 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 - 4.0 2021-01-27
   - Introduction of support for registrar/registrant administration
-  - Introduction of support for delete domain command
+  - Introduction of support for [delete domain command](#delete-domain)
+  - Introduction of support for [restore domain command](#restore-domain)
+  - Introduction of support for [balance command](#balance-and-prepaid-account)
   - Removed XSD Version History, referencing original source in [EPP XSD repository][XSD files]
   - Addition of disclaimer
 
@@ -639,7 +645,7 @@ I accordance with [RFC:5910]. We support DS only and not DNSKEY. In addition the
 
 DK Hostmaster specifies rules ownership of DNSSEC keys. If you provide DNSSEC keys a part of registration ([create domain](#create-domain)) or using [update domain](#update-domain), the keys are associated with the NSA as owner.
 
-Not all algorithms are supported, please refer to the [DK Hostmaster Name Service specification][dkhm-name-service-specification] for a complete list of supported algorithms.
+Not all algorithms are supported, please refer to the [DK Hostmaster Name Service specification][DKHMDNSSPEC] for a complete list of supported algorithms.
 
 When adding DSRECORDS for a domain name using [create domain](#create-domain) or [update domain](#update-domain), the status is by default active and the DSRECORDS will be published. The DNSSEC status feature for the domain name can prohibit the publication, this feature is available only to the registrant for the specific domain and act as a kill switch for use by the registrant in case of issues with DNSSEC.
 
@@ -689,7 +695,7 @@ Please note that some information is not disclosed when using Object Query Comma
 
 The Danish registry supports IDN domain names and the EPP commands support Punycode notation for this in requests. DK Hostmaster does not support Punycode notation in responses at this time.
 
-For details on supported characters, please see: [the DK Hostmaster Name Service specification][dkhm-name-service-specification].
+For details on supported characters, please see: [the DK Hostmaster Name Service specification][DKHMDNSSPEC].
 
 <a id="visibility-of-client-id"></a>
 ### Visibility of Client ID
@@ -842,7 +848,7 @@ There are no special additions or alterations to the specification or use of thi
 ```
 
 <a id="poll-and-message-queue"></a>
-### poll and message queue
+### poll and Message Queue
 
 This part of the EPP protocol is described in [RFC:5730]. This command adheres to the standard.
 
@@ -946,6 +952,69 @@ For clarification `2303` is returned in case a provided message-id (`msgID`) poi
 </epp>
 ```
 
+<a id="balance-and-prepaid-account"></a>
+### balance and Prepaid Account
+
+The operations currently classified as billable are:
+
+- Domain name application/creation, this is described in detail in the [create domain](#create-domain) section
+- Domain name renewal. this is described in detail in the [renew domain](#renew-domain) section
+- Restoration from deletion, this is described in detail in the [restore domain](#restore-domain) section
+- Restoration from suspension, also described in detail in the [restore domain](#restore-domain) section
+
+The procedures for renewal and application/creation are not being changed, in regard to use and protocol. The business policies in relation to these operations, do however change, since the billing operation changes.
+
+This mean that a new error scenario is introduced for creation/application, where an application/create request will be declined, in case of insufficient funds. The renewal operation is not subjected to this policy, please refer to the registrar contract for specific details as this is a technical document and not the authoritative source for business and policy rules.
+
+All prices and amounts relating to currencies are provided in DKK, converted to the EPP currency type, using decimal point (`.`) and not decimal comma (`,`), which is the definition for the Danish locale.
+
+<a id="balance-request"></a>
+#### balance request
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+    <command>
+        <info>
+            <balance:info xmlns:balance="http://www.verisign.com/epp/balance-1.0"/>
+        </info>
+        <clTRID>ABC-12345</clTRID>
+    </command>
+</epp>
+```
+
+Example lifted from "[Balance Mapping for the Extensible Provisioning Protocol (EPP)][BALANCE]" (see References).
+
+<a id="balance-response"></a>
+#### balance response
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+    <response>
+        <result code="1000">
+            <msg>Command completed successfully</msg>
+        </result>
+        <resData>
+            <balance:infData xmlns:balance="http://www.verisign.com/epp/balance-1.0">
+                <balance:creditLimit>1000.00</balance:creditLimit>
+                <balance:balance>200.00</balance:balance>
+                <balance:availableCredit>800.00</balance:availableCredit>
+                <balance:creditThreshold>
+                    <balance:fixed>500.00</balance:fixed>
+                </balance:creditThreshold>
+            </balance:infData>
+        </resData>
+        <trID>
+            <clTRID>ABC-12345</clTRID>
+            <svTRID>54322-XYZ</svTRID>
+        </trID>
+    </response>
+</epp>
+```
+
+Example lifted from "[Balance Mapping for the Extensible Provisioning Protocol (EPP)][BALANCE]" (see References).
+
 <a id="domain"></a>
 ### Domain
 
@@ -1030,6 +1099,21 @@ As part of the process the final response to a [create domain](#create-domain) i
 The procedures for ID-control are [described on the DK Hostmaster DK website](https://www.dk-hostmaster.dk/en/identification).
 
 The status codes applying to domain are described in the addendum: Status Codes: Domain.
+
+<a id="domain_application_failure"></a>
+### Domain name Application/Creation Failure
+
+As described in the introduction, the existing commands, which are categorized as billable are not changed. Due to the change to the billing procedure however, the application/create operation is extended with a error scenario, for when the prepaid account does not have sufficient funds.
+
+The proposed error message is the following.
+
+> 2104    "Billing failure"
+>
+> his response code MUST be returned when a server attempts
+> to execute a billable operation and the command cannot be
+> completed due to a client-billing failure.
+
+Quoted from [RFC:5730].
 
 ![Create domain][epp_create_domain]
 
@@ -1928,12 +2012,140 @@ In the RFC outlining automatic renewal "[DKHM RFC for handling of Automatic Rene
 
 Do note that if subordinates exist these will block for a delete and the request will result in an error: `2305`.
 
+<a id="restore-domain"></a>
+#### restore domain
+
+As described in [RFC:3915][RFC3915], with a support for grace periods, it is possible to restore a domain name scheduled for deletion, (in the state `pendingDelete`).
+
+DK Hostmaster will support the ability to restore for two use-cases:
+
+1. Get a domain name back to the state active from a pending deletion specified by an explicit deletion request (delete command) or a automatic expiration
+1. Get a domain name back to state active from a pending deletion, caused by missing financial settlement
+
+Domain names might be suspended for other reasons, these will no be recoverable using the described restore facility, this will be indicated using the `serverUpdateProhibited` status.
+
+Restoration has to take place during the redemption period and will not be possible after the grace period has expired.
+
+The restoration is requested using the update domain command.
+
+Based on feedback from our users, we have decided to not implement the `request` operation part of the restoration process, so you have to skip directly to the `report` part of the process.
+
+This mean we will not support the state of  `pendingRestore` for the restore process.
+
+The step to actually complete the restoration is the `report` operation, which look as follows:
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0
+     epp-1.0.xsd">
+    <command>
+        <update>
+            <domain:update xmlns:domain="urn:ietf:params:xml:ns:domain-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:domain-1.0 domain-1.0.xsd">
+                <domain:name>example.com</domain:name>
+                <domain:chg/>
+            </domain:update>
+        </update>
+        <extension>
+            <rgp:update xmlns:rgp="urn:ietf:params:xml:ns:rgp-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:rgp-1.0 rgp-1.0.xsd">
+                <rgp:restore op="report">
+                    <rgp:report>
+                        <rgp:preData></rgp:preData>
+                        <rgp:postData></rgp:postData>
+                        <rgp:delTime>2003-07-10T22:00:00.0Z</rgp:delTime>
+                        <rgp:resTime>2003-07-20T22:00:00.0Z</rgp:resTime>
+                        <rgp:resReason></rgp:resReason>
+                        <rgp:statement></rgp:statement>
+                    </rgp:report>
+                </rgp:restore>
+            </rgp:update>
+        </extension>
+        <clTRID>ABC-12345</clTRID>
+    </command>
+</epp>
+```
+
+Example is lifted from [RFC:3915].
+
+The proposal is to the the report part act as an acknowledgement. The domain name is restored _as-is_ if possible, so the mandatory fields:
+
+- `rgp:preData`
+- `rgp:postData`
+- `rgp:resReason`
+- `rgp:statement`
+
+Have to be specified, but values are ignored. As are the optional field, which however is optional and does not have to be specified:
+
+- `rgp:other`
+
+The mandatory fields:
+
+- `rgp:delTime`
+- `rgp:resTime`
+
+Have to be specified and will be evaluated according to [RFC:3915][RFC3915].
+
+- The `rgp:delTime` value has to match the deletion date and time.
+- The `rgp:resTime` value will be ignored since, we do not handle the `request` operation.
+
+As described in [RFC:3915], multiple report requests can be submitted, until success and within the allowed timeframe of possible restoration.
+
+A response indicating unsuccessful restoration attempt will look as follows:
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+    <response>
+        <result code="2004">
+            <msg>Delete date is incorrect</msg>
+        </result>
+        <trID>
+            <clTRID>ABC-12345</clTRID>
+            <svTRID>54321-XYZ</svTRID>
+        </trID>
+    </response>
+</epp>
+```
+
+Example lifted from [RFC:5730] and modified.
+
+A response indicating successful restoration attempt will look as follows:
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0
+     epp-1.0.xsd">
+    <response>
+        <result code="1000">
+            <msg lang="en">Command completed successfully</msg>
+        </result>
+        <extension>
+            <rgp:upData xmlns:rgp="urn:ietf:params:xml:ns:rgp-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:rgp-1.0 rgp-1.0.xsd">
+                <rgp:rgpStatus s="pendingRestore"/>
+            </rgp:upData>
+        </extension>
+        <trID>
+            <clTRID>ABC-12345</clTRID>
+            <svTRID>54321-XYZ</svTRID>
+        </trID>
+    </response>
+</epp>
+```
+
+Example is lifted from [RFC:3915].
+
+<a id="xsd-definition"></a>
+##### XSD Definition
+
+The `restore` command is an extension to `update domain`. All is described in [RFC:3915]. The XSD has been included in our EPP XSD repository as `rgs-1.0.xsd` all lifted from [RFC:3915], please see [the repository][DKHMXSD4.1] for details.
+
 <a id="contact"></a>
 ### Contact
 
 The default behavior of the EPP `create contact` command as described in [RFC:5733], will attach the client-ID (`CLID`) of the authenticated party to the object created, just as for the domain creation described above.
 
-The contact object will be under the sponsoring party throughout it's _life-cycle_ and transfer of contact objects will not be explicitly supported. See our proposal for transfer support described in our RFC: "[DKHM RFC for Transfer Domain EPP Command][DKHMRFCTRANSFER]".
+The contact object will be under the sponsoring party throughout it's _life-cycle_ and transfer of contact objects will not be explicitly supported.
 
 As for the `create domain` command (above) the default behaviour can be defined in RP. Where the option "registrant management", will create contact objects sponsored by DK Hostmaster instead instead of the registrar.
 
@@ -2440,7 +2652,7 @@ The deletion of host objects are under a similar regime, as specified in the [de
 
 This part of the EPP protocol is described in [RFC:5732]. This command adheres to the standard. The command can be extended to specify another name server administrator than the authenticated user.
 
-:point_right: Please note that IP addresses are required for domain names ending in '.dk', please refer to the [glue record policy](https://github.com/DK-Hostmaster/dkhm-name-service-specification#glue-records).
+:point_right: Please note that IP addresses are required for domain names ending in '.dk', please refer to the [glue record policy][DKHMDNSSPEC-glue].
 
 :warning: By default the authenticated user is attempted used as designated name server administrator, It is however not possible to assign a registrar account as name server administrator, so a regular WHOIS handle pointing to a contact object has to be specified using the extension `dkhm:requestedNsAdmin`, alternatively you can authenticate using a WHOIS handle and the use of the extension can be avoided.
 
@@ -3049,20 +3261,22 @@ Data will be retained with DK Hostmaster as required by Danish legislation.
 
 Here is a list of documents and references used in this document
 
-- [Terms and conditions for the right of use to a .dk domain name][General Terms and Conditions]
-- [RFC:3735: Guidelines for Extending Extensible Provisioning Protocol][RFC:3735]
-- [RFC:5730: EPP Basic Protocol][RFC:5730]
-- [RFC:5731: EPP Domain Name Mapping][RFC:5731]
-- [RFC:5732: EPP Host Mapping][RFC:5732]
-- [RFC:5733: EPP Contact Mapping][RFC:5733]
-- [RFC:5910: Domain Name System (DNS) Security Extensions for the Extensible Provisioning Protocol][RFC:5910]
-
-- [ICANN: EPP status codes](https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en/)
-
-- ["New basis for collaboration between registrars and DK Hostmaster"][CONCEPT]
-- [DK Hostmaster: Name Service Specification][dkhm-name-service-specification]
-- [DK Hostmaster WHOIS Service Specification][DKHMWHOISSPEC]
-- [DK Hostmaster RESTful WHOIS Service Specification][DKHMWHOISRESTSPEC]
+1. [Terms and conditions for the right of use to a .dk domain name][General Terms and Conditions]
+1. [RFC:3735: "Guidelines for Extending Extensible Provisioning Protocol"][RFC:3735]
+1. [RFC:3915 "Domain Registry Grace Period Mapping for the Extensible Provisioning Protocol (EPP)"][RFC:3915]
+1. [RFC:3339 "Date and Time on the Internet: Timestamps"][RFC:3339]
+1. [RFC:5730: "EPP Basic Protocol"][RFC:5730]
+1. [RFC:5731: "EPP Domain Name Mapping"][RFC:5731]
+1. [RFC:5732: "EPP Host Mapping"][RFC:5732]
+1. [RFC:5733: "EPP Contact Mapping"][RFC:5733]
+1. [RFC:5910: "Domain Name System (DNS) Security Extensions for the Extensible Provisioning Protocol"][RFC:5910]
+1. [RFC:7451: "Extension Registry for the Extensible Provisioning Protocol"][RFC:7451]
+1. [RFC:8748 "Registry Fee Extension for the Extensible Provisioning Protocol (EPP)"][RFC:8748]
+1. [ICANN: EPP status codes"][ICANN]
+1. ["New basis for collaboration between registrars and DK Hostmaster"][CONCEPT]
+1. [DK Hostmaster: Name Service Specification][DKHMDNSSPEC]
+1. [DK Hostmaster WHOIS Service Specification][DKHMWHOISSPEC]
+1. [DK Hostmaster RESTful WHOIS Service Specification][DKHMWHOISRESTSPEC]
 
 <a id="resources"></a>
 ## Resources
@@ -3081,6 +3295,7 @@ This is a list of the schemas currently used in the DKHM EPP Service described i
 - `host-1.0.xsd`
 - `dkhm-3.0.xsd`
 - `secDNS-1.1.xsd`
+- `rgp-1.0.xsd`
 
 The files are all available for [download][XSD files]. Details on version history is available in the [EPP XSD Repository][XSD files]
 
@@ -3212,7 +3427,8 @@ EPP service is running in the environment queried.
 | | add DSRECORDS | | :white_check_mark: | | :white_check_mark: \*10 |
 | | remove DSRECORDS | | :white_check_mark: | | :white_check_mark: \*10 |
 | [renew domain](#renew-domain) | | | | :white_check_mark: | |
-| [delete domain](#delete-domain) | | | :white_check_mark: \*6 | | |
+| [delete domain](#delete-domain) | | | :white_check_mark: \*11 | | |
+| [restore domain](#restore-domain) | | | :white_check_mark: | | |
 | [info domain](#info-domain) | | :white_check_mark: \*9 | :white_check_mark:  \*9 | :white_check_mark:  \*9 | :white_check_mark: \*9 |
 | [check domain](#check-domain) | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | [create contact](#create-contact) | | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
@@ -3236,6 +3452,7 @@ EPP service is running in the environment queried.
 - \*8 can only assign self
 - \*9 can only see contact information for authorized objects, access to registrant is authorized as public other roles require authorization via relation
 - \*10 changes status of existing DSRECORDS
+- \*11 request to registrant if lacking privilege
 
 <a id="compatibility-matrix"></a>
 ### Compatibility Matrix
@@ -3251,6 +3468,7 @@ EPP service is running in the environment queried.
 | [Renew Domain](#renew-domain) | 2 | Requires that the requesting user is a registrar and billing contact for the domain. The domain name must not have any financial outstanding |
 | Transfer Domain | N/A | |
 | [Delete Domain](#delete-domain) | 4 | Only registrars administering the domain name |
+| [Restore Domain](#restore-domain) | 4 | Only registrars administering the domain name |
 | [Create Contact](#create-contact) | 1 | Supplied handle/user-id is not supported |
 | [Check Contact](#check-contact) | 1 / 3 | Only registrants disclosed or contacts with relation to authenticated user |
 | [Info Contact](#info-contact) | 1 / 3 | Only registrants disclosed or contacts with relation to authenticated user |
@@ -3263,6 +3481,7 @@ EPP service is running in the environment queried.
 | [Update Host](#update-host) | 2 |  Asynchronous, requires that the requested administrator accepts the responsibility as name server administrator |
 | [Delete Host](#delete-host) | 2 | |
 | [Poll](#poll-and-message-queue) | 1 | |
+| [Balance](#balance-and-prepaid-account) | 4 | |
 
 The version numbers used in the above matrix are major numbers only, eg. 1.X.X.
 
@@ -3296,6 +3515,8 @@ The version numbers used in the above matrix are major numbers only, eg. 1.X.X.
 [epp_create_contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_create_contact_v1.0.png
 [XSD files]: https://github.com/DK-Hostmaster/epp-xsd-files
 [RFC:3735]: http://tools.ietf.org/html/rfc3735
+[RFC:3339]: https://tools.ietf.org/html/rfc3339
+[RFC:3915]: https://tools.ietf.org/html/rfc3915
 [RFC:5730]: http://tools.ietf.org/html/rfc5730
 [RFC:5731]: http://tools.ietf.org/html/rfc5731
 [RFC:5732]: http://tools.ietf.org/html/rfc5732
@@ -3303,10 +3524,14 @@ The version numbers used in the above matrix are major numbers only, eg. 1.X.X.
 [RFC:5733]: http://tools.ietf.org/html/rfc5733
 [RFC:5910]: http://tools.ietf.org/html/rfc5910
 [RFC:7451]: https://tools.ietf.org/html/rfc7451
+[RFC:8748]: https://tools.ietf.org/html/rfc8748
 [IANA]: http://www.iana.org/assignments/epp-extensions/epp-extensions.xhtml
+[ICANN]: https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en/
 [EAN]: https://en.wikipedia.org/wiki/International_Article_Number_(EAN)
-[dkhm-name-service-specification]: https://github.com/DK-Hostmaster/dkhm-name-service-specification
+[DKHMDNSSPEC]: https://github.com/DK-Hostmaster/dkhm-name-service-specification
+[DKHMDNSSPEC-glue]: https://github.com/DK-Hostmaster/dkhm-name-service-specification#glue-records
 [EPOCH]: https://en.wikipedia.org/wiki/Unix_time
 [CONCEPT]: https://www.dk-hostmaster.dk/en/new-basis-collaboration-between-registrars-and-dk-hostmaster
 [DKHMWHOISSPEC]: https://github.com/DK-Hostmaster/whois-service-specification
 [DKHMWHOISRESTSPEC]: https://github.com/DK-Hostmaster/whois-rest-service-specification
+[BALANCE]: https://www.verisign.com/assets/epp-sdk/verisign_epp-extension_balance_v01.html
