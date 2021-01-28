@@ -97,6 +97,7 @@ Revision: 4.0
       - [remove contact](#remove-contact)
       - [Remove DSRECORDS](#remove-dsrecords)
       - [Add DSRECORDS](#add-dsrecords)
+    - [delete domain](#delete-domain)
   - [Contact](#contact)
     - [create contact](#create-contact)
       - [CVR / Vat Number Indication](#cvr--vat-number-indication)
@@ -205,6 +206,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 - 4.0 2021-01-27
   - Introduction of support for registrar/registrant administration
+  - Introduction of support for delete domain command
   - Removed XSD Version History, referencing original source in [EPP XSD repository][XSD files]
   - Addition of disclaimer
 
@@ -617,7 +619,7 @@ All commands are described in detail in this document. Unimplemented commands ar
 
 The following commands have not been implemented in the service described in this specification:
 
-- `delete` (contact/domain)
+- `delete` (contact)
 - `transfer` (contact/domain)
 
 In general the service is not localized and all EPP related errors and messages are provided in English.
@@ -1819,6 +1821,112 @@ Example with removal of existing DSRECORDS and adding a new DSRECORD.
     </command>
 </epp>
 ```
+
+<a id="delete-domain"></a>
+#### delete domain
+
+In addition to the standard EPP `delete domain` command, DK Hostmaster will support scheduling of deletion of domain names, by providing a date to the EPP `delete domain` command via an optional extension.
+
+The default is to deactivate immediately if possible, which complies with [RFC:5731]. Not being able to complete the request will result in a error, also in compliance with [RFC:5731]. Please see below for more information on the business process for deletion.
+
+The extension offers the ability to specify a date, this date will have to be in the future and prior to, or on the expiration date of the specified domain name.
+
+The current expiration date can be obtained using the `info domain` command and is specified in the `domain:exDate` field. The date conforms with the required format.
+
+An example (do note the dates in the below examples are examples and are fabricated and might not be correct, meaning they might be in the past by the time of reading):
+
+```xml
+  <extension>
+    <dkhm:delDate xmlns:dkhm="urn:dkhm:xml:ns:dkhm-3.2">2021-01-31T00:00:00.0Z</dkhm:delDate>
+  </extension>
+```
+
+The date follows the format used in the EPP protocol, which complies with [RFC:3339].
+
+The XSD for the extension look as follows:
+
+```xsd
+  <!-- custom: delDate  -->
+  <simpleType name="delDate">
+    <restriction base="dateTime" />
+  </simpleType>
+```
+
+Ref: [`dkhm-4.0.xsd`][DKHMXSD4.0]
+
+:warning: The reference and file mentioned above is not released at this time, so this file might be re-versioned upon release.
+
+The complete command will look as follows (example lifted from RFC:5731):
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+  <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+    <command>
+      <delete>
+        <domain:delete xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+          <domain:name>eksempel.dk</domain:name>
+          </domain:delete>
+      </delete>
+      <clTRID>ABC-12345</clTRID>
+    </command>
+  </epp>
+```
+
+And the complete command with a deletion date specification (example lifted from RFC:5731 and modified):
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+  <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+    <command>
+      <delete>
+        <domain:delete xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+          <domain:name>eksempel.dk</domain:name>
+          </domain:delete>
+      </delete>
+      <extension>
+        <dkhm:delDate xmlns:dkhm="urn:dkhm:xml:ns:dkhm-4.0">2021-01-31T00:00:00.0Z</dkhm:delDate>
+      </extension>
+      <clTRID>ABC-12345</clTRID>
+    </command>
+  </epp>
+```
+
+Domain names are not deleted immediately, but are flagged as _scheduled for deletion_. This of the `delete command` is successful, the domain name will be flagged for deletion within the timeframe specified by the business rules implemented by DK Hostmaster.
+
+The scheduling of a future delete date supports the handling of automatic renewal or expiration as outlined in "[DKHM RFC for handling of Automatic Renewal and Expiration][DKHMRFCAUTORENEW]".
+
+The response for a `delete domain` command will be `1001`.
+
+Response example (example lifted from RFC:5731 and modified):
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+  <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+    <response>
+      <result code="1001">
+        <msg>Command completed successfully; action pending</msg>
+      </result>
+      <trID>
+        <clTRID>ABC-12345</clTRID>
+        <svTRID>54321-XYZ</svTRID>
+      </trID>
+    </response>
+  </epp>
+```
+
+The expiration date will be adjusted accordingly and a status `pendingDelete` with an advisory date will be applied and made available via the response to the `info domain` command, via the DK Hostmaster extension: `domainAdvisory`.
+
+Example:
+
+```xml
+<extension>
+    <dkhm:domainAdvisory advisory="pendingDeletionDate" date="2021-01-31T00:00:00.0Z" domain="eksempel.dk" xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.0"/>
+</extension>
+```
+
+In the RFC outlining automatic renewal "[DKHM RFC for handling of Automatic Renewal and Expiration][DKHMRFCAUTORENEW]", it is described that a `delete domain` command will disable auto renewal if enabled. Please see the RFC for more details.
+
+Do note that if subordinates exist these will block for a delete and the request will result in an error: `2305`.
 
 <a id="contact"></a>
 ### Contact
@@ -3136,25 +3244,27 @@ EPP service is running in the environment queried.
 | ------------ | ------------ | ------------ |
 | [Log in](#login) | 1 | |
 | [Log out](#logout) | 1 | |
-| [Check Domain](#check-domain) | 1 | |
 | [Create domain](#create-domain) | 1 | Asynchronous, requires order confirmation by the registrant. VID product not supported, PO numbers not supported |
+| [Check Domain](#check-domain) | 1 | |
 | [Info Domain](#info-domain) | 1 / 3 | Billing contact not disclosed, Admin contact not disclosed since version 3. EPP status codes not supported completely |
 | [Update Domain](#update-domain) | 2 | Change of name server is asynchronous, requires approval by the registrant. Change of registrant is not supported |
 | [Renew Domain](#renew-domain) | 2 | Requires that the requesting user is a registrar and billing contact for the domain. The domain name must not have any financial outstanding |
 | Transfer Domain | N/A | |
-| Delete Domain | N/A | |
-| [Check Contact](#check-contact) | 1 / 3 | Only registrants disclosed or contacts with relation to authenticated user |
+| [Delete Domain](#delete-domain) | 4 | Only registrars administering the domain name |
 | [Create Contact](#create-contact) | 1 | Supplied handle/user-id is not supported |
+| [Check Contact](#check-contact) | 1 / 3 | Only registrants disclosed or contacts with relation to authenticated user |
 | [Info Contact](#info-contact) | 1 / 3 | Only registrants disclosed or contacts with relation to authenticated user |
 | [Update Contact](#update-contact) | 2 | Updating email is asynchronous, but is regarded as non-atomic due to the email validation process |
 | Transfer Contact | N/A | |
 | [Delete Contact](#delete-contact) | N/A | |
-| [Check Host](#check-host) | 1 | |
 | [Create Host](#create-host) | 2 | Asynchronous, requires accept of the registrant of the domain name if the domain is under the .dk TLD and requires that the requesting user accepts the responsibility as name server administrator |
+| [Check Host](#check-host) | 1 | |
 | [Info Host](#info-host) | 1 | |
 | [Update Host](#update-host) | 2 |  Asynchronous, requires that the requested administrator accepts the responsibility as name server administrator |
 | [Delete Host](#delete-host) | 2 | |
 | [Poll](#poll-and-message-queue) | 1 | |
+
+The version numbers used in the above matrix are major numbers only, eg. 1.X.X.
 
 [General Terms and Conditions]: https://www.dk-hostmaster.dk/en/general-conditions
 [General Terms and Conditions 3_3]: https://www.dk-hostmaster.dk/en/general-conditions#3.3
