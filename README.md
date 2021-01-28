@@ -55,6 +55,7 @@ Revision: 4.0
   - [Domain Info](#domain-info)
   - [Information Disclosure](#information-disclosure)
   - [Encoding and IDN domains](#encoding-and-idn-domains)
+  - [Visibility of Client ID](#visibility-of-client-id)
 - [Supported Object Transform and Query Commands](#supported-object-transform-and-query-commands)
   - [hello and greeting](#hello-and-greeting)
   - [login](#login)
@@ -688,6 +689,18 @@ The Danish registry supports IDN domain names and the EPP commands support Punyc
 
 For details on supported characters, please see: [the DK Hostmaster Name Service specification][dkhm-name-service-specification].
 
+<a id="visibility-of-client-id"></a>
+### Visibility of Client ID
+
+As specified in [RFC:5731], [RFC:5732] and [RFC:5733] the info commands all display a reference sponsoring entity.
+
+The same scheme will be implemented in RP and the end-user self-service portal (SB) the data presentation is consistent across all portals.
+
+The public facing interface is expected to present the registrar relation as well. Meaning that the information on registrar relation will be made available in:
+
+- in WHOIS, see [DK Hostmaster WHOIS Service Specification][DKHMWHOISSPEC]
+- on www.dk-hostmaster.dk, see - [DK Hostmaster RESTful WHOIS Service Specification][DKHMWHOISRESTSPEC]
+
 <a id="supported-object-transform-and-query-commands"></a>
 ## Supported Object Transform and Query Commands
 
@@ -933,6 +946,28 @@ For clarification `2303` is returned in case a provided message-id (`msgID`) poi
 
 <a id="domain"></a>
 ### Domain
+
+The default behavior of the EPP `create domain` command as described in [RFC:5731], will attach the client-ID (`CLID`) of the authenticated party to the object created.
+
+Having the client-ID specified at this time indicates that the domain name is under registrar management from creation. To change the registrar and discontinue the registrar management will require a transfer.
+
+If the registrar does not want to create domains under registrar management the default behaviour can be defined in RP, where the available are:
+
+- registrar management
+- registrant management
+
+The setting will be global and will influence the behaviour in both:
+
+- EPP
+- RP
+
+These settings are controlling the account as a whole for all relevant commands.
+
+- `create domain`, this section
+- `create contact`, described below
+- `create host`, described below
+
+It has been evaluated, which the default behaviour should be overridable using an extension, this has not been implemented at this time.
 
 <a id="create-domain"></a>
 #### create domain
@@ -1788,6 +1823,30 @@ Example with removal of existing DSRECORDS and adding a new DSRECORD.
 <a id="contact"></a>
 ### Contact
 
+The default behavior of the EPP `create contact` command as described in [RFC:5733], will attach the client-ID (`CLID`) of the authenticated party to the object created, just as for the domain creation described above.
+
+The contact object will be under the sponsoring party throughout it's _life-cycle_ and transfer of contact objects will not be explicitly supported. See our proposal for transfer support described in our RFC: "[DKHM RFC for Transfer Domain EPP Command][DKHMRFCTRANSFER]".
+
+As for the `create domain` command (above) the default behaviour can be defined in RP. Where the option "registrant management", will create contact objects sponsored by DK Hostmaster instead instead of the registrar.
+
+Deletion will not be supported and will work as it currently is implemented in the DK Hostmaster EPP service and described in the specification. See the section: "[Unimplemented commands](#unimplemented-commands)" for details. Contact objects are automatically deleted, under the following policy:
+
+- The contact object is not in use
+- It holds not roles/association with other objects
+- The associated financial account holds a balance of 0
+- It has been inactive for 45 days
+
+The maintenance, meaning changes and updates to data, will also be limited. DK Hostmaster locks contact objects for changes if these have been matched to a register for name and address information, this applies to:
+
+- Danish citizens of the type individual, bound to the CPR register
+- Danish companies, public organizations and associations of the types, bound to the CVR register
+
+The following contact types are also limited, due to the VAT number validation:
+
+- EU companies, public organizations and associations of the types, bound to the EU Vies register
+
+All other types has to be maintained by the sponsoring client, with the exception of the name attribute.
+
 <a id="create-contact"></a>
 #### create contact
 
@@ -2254,7 +2313,11 @@ The later will only be lifted when the contact object is not linked to any other
 
 The default behavior of the EPP `create host` command as described in [RFC:5732], will attach the client-ID (`CLID`) of the authenticated party to the created host object.
 
-The `create host` command will be limited in that sense that it will not be possible to create a host object, which is subordinate to a domain name (superordinate), which is sponsored by another registrar. This limitation will only be enforced for domain names under the `.dk` TLD. Domain names under other TLDs will not be subject to this limitation.
+The `create host` command will be limited in that sense that it will not be possible to create a host object, which is subordinate to a domain name (superordinate), which is sponsored by another registrar.
+
+This mean that the association with the registrar is based on the administrative model.
+
+This limitation will only be enforced for domain names under the `.dk` TLD. Domain names under other TLDs will not be subject to this limitation.
 
 As for the `create domain` and `create contact` commands (above) the default behaviour can be defined in RP. Where the option "registrant management", will create host objects sponsored by DK Hostmaster instead of the registrar.
 
@@ -2262,7 +2325,7 @@ Responsibility and privileges for maintenance (`update host`) of the host object
 
 If the name server responsible is allocated to the registrar account (group), this can be handled via RP and EPP.
 
-The deletion of host objects are under a similar regime, as specified in [delete host](#delete-host) section.
+The deletion of host objects are under a similar regime, as specified in the [delete host](#delete-host) section.
 
 <a id="create-host"></a>
 #### create host
