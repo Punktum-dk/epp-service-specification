@@ -1101,7 +1101,7 @@ The procedures for ID-control are [described on the DK Hostmaster DK website](ht
 The status codes applying to domain are described in the addendum: Status Codes: Domain.
 
 <a id="domain_application_failure"></a>
-### Domain name Application/Creation Failure
+##### Domain name Application/Creation Failure
 
 As described in the introduction, the existing commands, which are categorized as billable are not changed. Due to the change to the billing procedure however, the application/create operation is extended with a error scenario, for when the prepaid account does not have sufficient funds.
 
