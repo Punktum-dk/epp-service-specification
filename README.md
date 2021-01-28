@@ -97,12 +97,6 @@ Revision: 4.0
       - [Remove DSRECORDS](#remove-dsrecords)
       - [Add DSRECORDS](#add-dsrecords)
   - [Host](#host)
-    - [check host](#check-host)
-      - [check host request](#check-host-request)
-      - [check host response](#check-host-response)
-    - [info host](#info-host)
-      - [info host request](#info-host-request)
-      - [info host response](#info-host-response)
     - [create host](#create-host)
       - [create host request](#create-host-request)
       - [create host response](#create-host-response)
@@ -112,6 +106,12 @@ Revision: 4.0
       - [create host request, with request to registrant of host domain name](#create-host-request-with-request-to-registrant-of-host-domain-name)
       - [create host response, from request to registrant of domain name](#create-host-response-from-request-to-registrant-of-domain-name)
       - [Delayed create host response, from request to registrant of domain name](#delayed-create-host-response-from-request-to-registrant-of-domain-name)
+    - [check host](#check-host)
+      - [check host request](#check-host-request)
+      - [check host response](#check-host-response)
+    - [info host](#info-host)
+      - [info host request](#info-host-request)
+      - [info host response](#info-host-response)
     - [update host](#update-host)
       - [process](#process)
       - [Change hostname sub-process](#change-hostname-sub-process)
@@ -1783,108 +1783,6 @@ Example with removal of existing DSRECORDS and adding a new DSRECORD.
 </epp>
 ```
 
-<a id="check-host"></a>
-### check host
-
-This part of the EPP protocol is described in [RFC:5732]. This command adheres to the standard.
-
-<a id="check-host-request"></a>
-#### check host request
-
-```XML
-<?xml version="1.0" encoding="utf-8"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-	<command>
-		<check>
-			<host:check xmlns:host="urn:ietf:params:xml:ns:host-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:host-1.0 host-1.0.xsd">
-				<host:name>ns1.dk-hostmaster.dk</host:name>
-			</host:check>
-		</check>
-		<clTRID>7ede02eed2113c5fe82b404876f2c35f</clTRID>
-	</command>
-</epp>
-```
-
-<a id="check-host-response"></a>
-#### check host response
-
-```XML
-<?xml version="1.0" encoding="utf-8"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-	<response>
-		<result code="1000">
-			<msg>Check result</msg>
-		</result>
-		<resData>
-			<host:chkData xmlns:host="urn:ietf:params:xml:ns:host-1.0">
-				<host:cd>
-					<host:name avail="0">ns1.dk-hostmaster.dk</host:name>
-					<host:reason>In use</host:reason>
-				</host:cd>
-			</host:chkData>
-		</resData>
-		<trID>
-			<clTRID>7ede02eed2113c5fe82b404876f2c35f</clTRID>
-			<svTRID>5FD9F3BE-F6F6-11E3-867F-A6B052036DCB</svTRID>
-		</trID>
-	</response>
-</epp>
-```
-
-<a id="info-host"></a>
-### info host
-
-This part of the EPP protocol is described in [RFC:5732]. This command adheres to the standard.
-
-Please note that according to the RFC [section 3.1.2][RFC:5732-3.1.2], the `CLID` points to the sponsoring client. DK Hostmaster interprets this as the technical contact for the name server pointing to the host object in question.
-
-<a id="info-host-request"></a>
-#### info host request
-
-```XML
-<?xml version="1.0" encoding="utf-8"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-	<command>
-		<info>
-			<host:info xmlns:host="urn:ietf:params:xml:ns:host-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:host-1.0 host-1.0.xsd">
-				<host:name>ns1.dk-hostmaster.dk</host:name>
-			</host:info>
-		</info>
-		<clTRID>c109ef580c81dfca17b4680ddcde72c9</clTRID>
-	</command>
-</epp>
-```
-
-<a id="info-host-response"></a>
-#### info host response
-
-```XML
-<?xml version="1.0" encoding="utf-8"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-	<response>
-		<result code="1000">
-			<msg>Info result</msg>
-		</result>
-		<resData>
-			<host:infData xmlns:host="urn:ietf:params:xml:ns:host-1.0">
-				<host:name>ns1.dk-hostmaster.dk</host:name>
-				<host:roid>NS1_DK-HOSTMASTER_DK-DK</host:roid>
-				<host:status s="linked" />
-				<host:status s="serverDeleteProhibited" />
-				<host:addr ip=“v4”>4.3.2.1</host:addr>
-				<host:clID>DKHM1-DK</host:clID>
-				<host:crID>n/a</host:crID>
-				<host:crDate>2003-07-07T13:47:47.0Z</host:crDate>
-			</host:infData>
-		</resData>
-		<trID>
-			<clTRID>c109ef580c81dfca17b4680ddcde72c9</clTRID>
-			<svTRID>0C96C812-F6F6-11E3-867F-A6B052036DCB</svTRID>
-		</trID>
-	</response>
-</epp>
-```
-
 <a id="host"></a>
 ### Host
 
@@ -2147,6 +2045,108 @@ If the creation of the host has resulting in a delayed operation, pending the de
 ```
 
 Please note the `paResult`, where `1` indicates an accept and `0` would indicate a decline.
+
+<a id="check-host"></a>
+### check host
+
+This part of the EPP protocol is described in [RFC:5732]. This command adheres to the standard.
+
+<a id="check-host-request"></a>
+#### check host request
+
+```XML
+<?xml version="1.0" encoding="utf-8"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+	<command>
+		<check>
+			<host:check xmlns:host="urn:ietf:params:xml:ns:host-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:host-1.0 host-1.0.xsd">
+				<host:name>ns1.dk-hostmaster.dk</host:name>
+			</host:check>
+		</check>
+		<clTRID>7ede02eed2113c5fe82b404876f2c35f</clTRID>
+	</command>
+</epp>
+```
+
+<a id="check-host-response"></a>
+#### check host response
+
+```XML
+<?xml version="1.0" encoding="utf-8"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+	<response>
+		<result code="1000">
+			<msg>Check result</msg>
+		</result>
+		<resData>
+			<host:chkData xmlns:host="urn:ietf:params:xml:ns:host-1.0">
+				<host:cd>
+					<host:name avail="0">ns1.dk-hostmaster.dk</host:name>
+					<host:reason>In use</host:reason>
+				</host:cd>
+			</host:chkData>
+		</resData>
+		<trID>
+			<clTRID>7ede02eed2113c5fe82b404876f2c35f</clTRID>
+			<svTRID>5FD9F3BE-F6F6-11E3-867F-A6B052036DCB</svTRID>
+		</trID>
+	</response>
+</epp>
+```
+
+<a id="info-host"></a>
+### info host
+
+This part of the EPP protocol is described in [RFC:5732]. This command adheres to the standard.
+
+Please note that according to the RFC [section 3.1.2][RFC:5732-3.1.2], the `CLID` points to the sponsoring client. DK Hostmaster interprets this as the technical contact for the name server pointing to the host object in question.
+
+<a id="info-host-request"></a>
+#### info host request
+
+```XML
+<?xml version="1.0" encoding="utf-8"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+	<command>
+		<info>
+			<host:info xmlns:host="urn:ietf:params:xml:ns:host-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:host-1.0 host-1.0.xsd">
+				<host:name>ns1.dk-hostmaster.dk</host:name>
+			</host:info>
+		</info>
+		<clTRID>c109ef580c81dfca17b4680ddcde72c9</clTRID>
+	</command>
+</epp>
+```
+
+<a id="info-host-response"></a>
+#### info host response
+
+```XML
+<?xml version="1.0" encoding="utf-8"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+	<response>
+		<result code="1000">
+			<msg>Info result</msg>
+		</result>
+		<resData>
+			<host:infData xmlns:host="urn:ietf:params:xml:ns:host-1.0">
+				<host:name>ns1.dk-hostmaster.dk</host:name>
+				<host:roid>NS1_DK-HOSTMASTER_DK-DK</host:roid>
+				<host:status s="linked" />
+				<host:status s="serverDeleteProhibited" />
+				<host:addr ip=“v4”>4.3.2.1</host:addr>
+				<host:clID>DKHM1-DK</host:clID>
+				<host:crID>n/a</host:crID>
+				<host:crDate>2003-07-07T13:47:47.0Z</host:crDate>
+			</host:infData>
+		</resData>
+		<trID>
+			<clTRID>c109ef580c81dfca17b4680ddcde72c9</clTRID>
+			<svTRID>0C96C812-F6F6-11E3-867F-A6B052036DCB</svTRID>
+		</trID>
+	</response>
+</epp>
+```
 
 <a id="update-host"></a>
 #### update host
