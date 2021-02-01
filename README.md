@@ -3259,24 +3259,24 @@ Data will be retained with DK Hostmaster as required by Danish legislation.
 <a id="references"></a>
 ## References
 
-Here is a list of documents and references used in this document
+List of references used in this document in alphabetical order.
 
-1. [Terms and conditions for the right of use to a .dk domain name][General Terms and Conditions]
+1. [DK Hostmaster: "New basis for collaboration between registrars and DK Hostmaster"][CONCEPT]
+1. [DK Hostmaster: "Terms and conditions for the right of use to a .dk domain name"][General Terms and Conditions]
+1. [DK Hostmaster: Name Service Specification][DKHMDNSSPEC]
+1. [DK Hostmaster: RESTful WHOIS Service Specification][DKHMWHOISRESTSPEC]
+1. [DK Hostmaster: WHOIS Service Specification][DKHMWHOISSPEC]
+1. [ICANN: EPP status codes"][ICANN]
+1. [RFC:3339: "Date and Time on the Internet: Timestamps"][RFC:3339]
 1. [RFC:3735: "Guidelines for Extending Extensible Provisioning Protocol"][RFC:3735]
-1. [RFC:3915 "Domain Registry Grace Period Mapping for the Extensible Provisioning Protocol (EPP)"][RFC:3915]
-1. [RFC:3339 "Date and Time on the Internet: Timestamps"][RFC:3339]
+1. [RFC:3915: "Domain Registry Grace Period Mapping for the Extensible Provisioning Protocol (EPP)"][RFC:3915]
 1. [RFC:5730: "EPP Basic Protocol"][RFC:5730]
 1. [RFC:5731: "EPP Domain Name Mapping"][RFC:5731]
 1. [RFC:5732: "EPP Host Mapping"][RFC:5732]
 1. [RFC:5733: "EPP Contact Mapping"][RFC:5733]
 1. [RFC:5910: "Domain Name System (DNS) Security Extensions for the Extensible Provisioning Protocol"][RFC:5910]
 1. [RFC:7451: "Extension Registry for the Extensible Provisioning Protocol"][RFC:7451]
-1. [RFC:8748 "Registry Fee Extension for the Extensible Provisioning Protocol (EPP)"][RFC:8748]
-1. [ICANN: EPP status codes"][ICANN]
-1. ["New basis for collaboration between registrars and DK Hostmaster"][CONCEPT]
-1. [DK Hostmaster: Name Service Specification][DKHMDNSSPEC]
-1. [DK Hostmaster WHOIS Service Specification][DKHMWHOISSPEC]
-1. [DK Hostmaster RESTful WHOIS Service Specification][DKHMWHOISRESTSPEC]
+1. [RFC:8748: "Registry Fee Extension for the Extensible Provisioning Protocol (EPP)"][RFC:8748]
 
 <a id="resources"></a>
 ## Resources
@@ -3286,16 +3286,17 @@ A list of resources for DK Hostmaster EPP support is located below.
 <a id="xml-schemas"></a>
 ### XML Schemas
 
-This is a list of the schemas currently used in the DKHM EPP Service described in this document. Please note that the XSD implementation preserves the original namespace and does not make alterations to this apart from adding the already described XML elements.
+This is a list in alphabetical order of the schemas currently used in the DKHM EPP Service described in this document. Please note that the XSD implementation preserves the original namespace and does not make alterations to this apart from adding the already described XML elements.
 
+- `balance-1.0.xsd`
+- `contact-1.0.xsd`
+- `dkhm-3.0.xsd`
+- `domain-1.0.xsd`
 - `epp-1.0.xsd`
 - `eppcom-1.0.xsd`
-- `contact-1.0.xsd`
-- `domain-1.0.xsd`
 - `host-1.0.xsd`
-- `dkhm-3.0.xsd`
-- `secDNS-1.1.xsd`
 - `rgp-1.0.xsd`
+- `secDNS-1.1.xsd`
 
 The files are all available for [download][XSD files]. Details on version history is available in the [EPP XSD Repository][XSD files]
 
@@ -3457,9 +3458,13 @@ EPP service is running in the environment queried.
 <a id="compatibility-matrix"></a>
 ### Compatibility Matrix
 
+This is a high level overview of the EPP commands offered by the DK Hostmaster EPP service, please see the specific commands for details.
+
+The version numbers used in the matrix are major numbers only, eg. 1.X.X.
+
 | EPP Command  | Available since version | Exceptions and notes |
 | ------------ | ------------ | ------------ |
-| [Log in](#login) | 1 | |
+| [Log in](#login) | 1 | Only password authentication is supported |
 | [Log out](#logout) | 1 | |
 | [Create domain](#create-domain) | 1 | Asynchronous, requires order confirmation by the registrant. VID product not supported, PO numbers not supported |
 | [Check Domain](#check-domain) | 1 | |
@@ -3470,11 +3475,11 @@ EPP service is running in the environment queried.
 | [Delete Domain](#delete-domain) | 4 | Only registrars administering the domain name |
 | [Restore Domain](#restore-domain) | 4 | Only registrars administering the domain name |
 | [Create Contact](#create-contact) | 1 | Supplied handle/user-id is not supported |
-| [Check Contact](#check-contact) | 1 / 3 | Only registrants disclosed or contacts with relation to authenticated user |
-| [Info Contact](#info-contact) | 1 / 3 | Only registrants disclosed or contacts with relation to authenticated user |
-| [Update Contact](#update-contact) | 2 | Updating email is asynchronous, but is regarded as non-atomic due to the email validation process |
+| [Check Contact](#check-contact) | 1 / 3 | Only registrants disclosed, additional contacts require relation to authenticated user |
+| [Info Contact](#info-contact) | 1 / 3 | Only registrants disclosed, additional contacts require relation to authenticated user |
+| [Update Contact](#update-contact) | 2 | Updating email is asynchronous and is regarded as non-atomic due to the email validation process |
 | Transfer Contact | N/A | |
-| [Delete Contact](#delete-contact) | N/A | |
+| [Delete Contact](#delete-contact) | N/A | Deletion of contacts is an automated process |
 | [Create Host](#create-host) | 2 | Asynchronous, requires accept of the registrant of the domain name if the domain is under the .dk TLD and requires that the requesting user accepts the responsibility as name server administrator |
 | [Check Host](#check-host) | 1 | |
 | [Info Host](#info-host) | 1 | |
@@ -3482,8 +3487,6 @@ EPP service is running in the environment queried.
 | [Delete Host](#delete-host) | 2 | |
 | [Poll](#poll-and-message-queue) | 1 | |
 | [Balance](#balance-and-prepaid-account) | 4 | |
-
-The version numbers used in the above matrix are major numbers only, eg. 1.X.X.
 
 [General Terms and Conditions]: https://www.dk-hostmaster.dk/en/general-conditions
 [General Terms and Conditions 3_3]: https://www.dk-hostmaster.dk/en/general-conditions#3.3
