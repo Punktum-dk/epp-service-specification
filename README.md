@@ -2031,8 +2031,8 @@ Do note that this can be accomplished by all users with privileges to accomplish
 
 The command simply unsets (removes/clears) an AuthInfo token if it exists.
 
-<a id="check-host"></a>
-### check host
+<a href="delete_domain"></a>
+### delete domain
 
 In addition to the standard EPP `delete domain` command, DK Hostmaster will support scheduling of deletion of domain names, by providing a date to the EPP `delete domain` command via an optional extension.
 
