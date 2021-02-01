@@ -673,6 +673,13 @@ This command does not support the change of the registrant and the setting and r
 
 Host info will only supply the name server administrator/zone contact information if the requesting user has a relationship to the user, either via a domain role or registrar group.
 
+<a id="waiting-list"></a>
+## Waiting List
+
+DK Hostmaster offers a waiting list service for domain names, when a domain name becomes available to the first position on a waiting list, it should be registered using the standard registration process either using the email form or EPP. This influences the create domain command, which should just be populated with the user-id of the user which has been pre-approved for registration of the domain name with DK Hostmaster. No other information is available on waiting lists via EPP.
+
+Please refer to the DK Hostmaster A/S [website](https://www.dk-hostmaster.dk/en/waiting-list) for more information.
+
 <a id="contact-info"></a>
 ### Contact Info
 
