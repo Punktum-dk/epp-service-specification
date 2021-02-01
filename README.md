@@ -42,6 +42,7 @@ Revision: 4.0
   - [`dkhm:requestedNsAdmin`](#dkhmrequestednsadmin)
   - [`dkhm:url`](#dkhmurl)
   - [`dkhm:risk_assessment`](#dkhmrisk_assessment)
+  - [`dkhm:authinfoexdate](#authinfoexdate)
 - [Implementation Limitations](#implementation-limitations)
   - [Commands](#commands)
   - [Unimplemented commands](#unimplemented-commands)
@@ -178,7 +179,7 @@ This document describes and specifies the implementation offered by DK Hostmaste
 <a id="about-this-document"></a>
 ### About this Document
 
-This specification describes version 4.X.X of the DK Hostmaster EPP Implementation. Future releases will be reflected in updates to this specification, please see the   [Document History](#document-history) section below.
+This specification describes version 4.X.X of the DK Hostmaster EPP Implementation. Future releases will be reflected in updates to this specification, please see the [Document History](#document-history) section below.
 
 The document describes the current DK Hostmaster EPP implementation, for more general documentation on the EPP protocol, EPP client development or configuration, please refer to the RFCs and additional resources in the [References](#references) and [Resources](#resources) chapters below.
 
@@ -215,6 +216,8 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
   - Introduction of support for [balance command](#balance-and-prepaid-account)
   - Removed XSD Version History, referencing original source in [EPP XSD repository][XSD files]
   - Addition of disclaimer
+  - Added information on setting/unsetting AuthInfo token for adding and removing name servers for a domain name
+  - Added documentation on the extension to [info domain](#info-domain) with information on the AuthInfo expiration date using the `dkhm::authInfoExDate` extension and introduced in XSD version 3.1
 
 - 3.9 2020-10-19
   - Added some details on sessions in the section on [login](#login)
@@ -510,6 +513,7 @@ Here follows a listed, the extensions are described separately and in detail bel
 - `dkhm:requestedNsAdmin`
 - `dkhm:url`
 - `dkhm:risk_assessment`
+- `dkhm:authInfoExDate`
 
 <a id="dkhmusertype"></a>
 ### `dkhm:userType`
@@ -597,6 +601,13 @@ This extension can be used to redirect an end-user to the next step. For now it 
 
 This extension is used in the poll response in relation to domain creation. The extension provides information on the risk assessment made by DK Hostmaster A/S. Please see the [create domain](#create-domain) command.
 
+<a id="dkhmauthinfoexdate"></a>
+### `dkhm:authInfoExDate`
+
+This extension is used in the expose the expiration date for a AuthInfo token if set for a domain name. Please see the [info domain](#info-domain) command.
+
+Please see the section on AuthInfo token format.
+
 <a id="implementation-limitations"></a>
 ## Implementation Limitations
 
@@ -650,6 +661,8 @@ Not all algorithms are supported, please refer to the [DK Hostmaster Name Servic
 When adding DSRECORDS for a domain name using [create domain](#create-domain) or [update domain](#update-domain), the status is by default active and the DSRECORDS will be published. The DNSSEC status feature for the domain name can prohibit the publication, this feature is available only to the registrant for the specific domain and act as a kill switch for use by the registrant in case of issues with DNSSEC.
 
 Availability of DNSSEC information and status is currently limited to public available data.
+
+In addition with the improvements to the process for change of name servers using [update domain](#update-domain), all current DSRECORDS are deleted as part of this operation.
 
 <a id="contact-creation"></a>
 ### Contact Creation
@@ -1070,7 +1083,7 @@ The [create domain](#create-domain) command has been extended with a field (`ord
 
 ```xml
 <extension>
-	<dkhm:orderconfirmationToken xmlns:dkhm=“urn:dkhm:params:xml:ns:dkhm-3.0”>
+	<dkhm:orderconfirmationToken xmlns:dkhm=“urn:dkhm:params:xml:ns:dkhm-3.1”>
 		1522744544
 	</dkhm:orderconfirmationToken>
 </extension>
@@ -1146,7 +1159,7 @@ Quoted from [RFC:5730].
 			</domain:create>
 		</create>
 		<extension>
-			<dkhm:orderconfirmationToken xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">testtoken</dkhm:orderconfirmationToken>
+			<dkhm:orderconfirmationToken xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.1">testtoken</dkhm:orderconfirmationToken>
 		</extension>
 		<clTRID>92724843f12a3e958588679551aa988d</clTRID>
 	</command>
@@ -1165,10 +1178,10 @@ Quoted from [RFC:5730].
 		</result>
 		<msgQ count="1" id="1"/>
 		<extension>
-			<dkhm:trackingNo xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">2013010100030</dkhm:trackingNo>
-			<dkhm:domain_confirmed xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">1</dkhm:domain_confirmed>
-			<dkhm:registrant_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">1</dkhm:registrant_validated>
-			<dkhm:url xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">https://selfservice-dk-hostmaster.dk/6102505a2e8d0cfbe8c3c99ea49977f36e2d4ee3</dkhm:url>
+			<dkhm:trackingNo xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.1">2013010100030</dkhm:trackingNo>
+			<dkhm:domain_confirmed xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.1">1</dkhm:domain_confirmed>
+			<dkhm:registrant_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.1">1</dkhm:registrant_validated>
+			<dkhm:url xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.1">https://selfservice-dk-hostmaster.dk/6102505a2e8d0cfbe8c3c99ea49977f36e2d4ee3</dkhm:url>
 		</extension>
 		<trID>
 			<clTRID>47a4178679f26909ebcfcfd8572f315c</clTRID>
@@ -1220,7 +1233,7 @@ The outcome can be one of two, please see the examples below:
 				<domain:paDate>2018-06-22T15:07:00.0Z</domain:paDate></domain:panData>
 		</resData>
 		<extension>
-			<dkhm:risk_assessment xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">N/A</dkhm:risk_assessment>    </extension>
+			<dkhm:risk_assessment xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.1">N/A</dkhm:risk_assessment>    </extension>
 		<trID>
 			<clTRID>4fc3af83a40f85dd01bf5110727ee943</clTRID>
 			<svTRID>7F3D4CD8-761D-11E8-8775-F5EABB5937F7</svTRID>    </trID></response>
@@ -1247,7 +1260,7 @@ The outcome can be one of two, please see the examples below:
 			</domain:creData>
 		</resData>
 		<extension>
-			<dkhm:risk_assessment xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">N/A</dkhm:risk_assessment>
+			<dkhm:risk_assessment xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.1">N/A</dkhm:risk_assessment>
 		</extension>
 		<trID>
 			<clTRID>71a61d8181fce08fc1c087f409a6168b</clTRID>
@@ -1335,6 +1348,7 @@ This part of the EPP protocol is described in [RFC:5731]. This command adheres t
 
 - `dkhm:domainAdvisory`
 - `dkhm:registrant_validated`
+- `dkhm:authInfoExDate`
 
 Do note that the response only contains the registrant contact object, if the authenticated user has a relationship via the domain name, which provides access to more information.
 
@@ -1411,7 +1425,7 @@ Please see the addendum on domain status codes.
       </domain:infData>
     </resData>
     <extension>
-      <dkhm:registrant_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">1</dkhm:registrant_validated>
+      <dkhm:registrant_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.1">1</dkhm:registrant_validated>
       <secDNS:infData xmlns:secDNS="urn:ietf:params:xml:ns:secDNS-1.1">
         <secDNS:dsData>
           <secDNS:keyTag>25591</secDNS:keyTag>
@@ -1447,6 +1461,7 @@ Please see the addendum on domain status codes.
 </epp>
 ```
 
+<a id="info-domain-response-with-domain-advisory"></a>
 ##### info domain response with domain advisory
 
 A info domain response can be annotated with information using the extension  `dkhm:domainAdvisory`.
@@ -1460,7 +1475,7 @@ If a domain name is marked for pending deletion, this special status is communic
 
 ```xml
 <extension>
-    <dkhm:domainAdvisory advisory="pendingDeletionDate" date="2020-10-14T00:00:00.0Z" domain="eksempel.dk" xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0"/>
+    <dkhm:domainAdvisory advisory="pendingDeletionDate" date="2020-10-14T00:00:00.0Z" domain="eksempel.dk" xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.1"/>
 </extension>
 ```
 
@@ -1472,11 +1487,24 @@ If a domain name is offered to a position on a waiting list, the advisory `offer
 
 ```xml
 <extension>
-    <dkhm:domainAdvisory advisory="offeredOnWaitingList" domain="eksempel.dk" xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0"/>
+    <dkhm:domainAdvisory advisory="offeredOnWaitingList" domain="eksempel.dk" xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.1"/>
 </extension>
 ```
 
 Do note that the waiting list status is also used in the [check domain](#check-domain) command, using the `reason` field.
+
+<a id="info-domain-response-with-authinfo-token"></a>
+#### info domain response with AuthInfo token
+
+When the AuthInfo token has been set it can be retrieved via the EPP command: `info domain`, do note that the retrieval requires authorization and therefor authentication, which can be used the authorization to include the AuthInfo token in the response, it is only visible to users with the privilege to see it.
+
+The response is further extended with the `dkhm:authInfoExDate` extension, communicating the expiration date of the current AuthInfo for the domain, again only visible if privileges permit.
+
+```xml
+<extension>
+    <dkhm:authInfoExDate xmlns:dkhm="urn:dkhm:xml:ns:dkhm-3.1">2018-11-14T09:00:00.0Z</dkhm:authInfoExDate>
+</extension>
+```
 
 <a id="renew-domain"></a>
 #### renew domain
@@ -1607,6 +1635,9 @@ If the command is valid, the command is separated into one of more of the follow
 1. remove DSRECORDS
 1. add DSRECORDS
 
+1. setting authinfo
+1. unsetting authinfo
+
 The commands are then executed sequentially (order is dictates the precedence) as a single transaction. If a single sub-command fails, the transaction is rolled-back and the relevant error code is returned (`2XXX`).
 
 The command might be stopped if the sub-commands cannot be executed. For example if one of the sub-commands is a: change registrant, none of the other commands can be executed, since role changes will be implicit.
@@ -1697,6 +1728,10 @@ The change of registrant is a *special* operation, it results in all privileges 
 
 The addition of a new name server to a domain name or a re-delegation requires that the new name server must offer resolution for the domain name in question.
 
+Note as of version of 4.X.X the commands to change name servers (addition and removal) require AuthInfo token. The AuthInfo token is either provided out of band or can be obtained using the `info domain` command. It can also be generated using the `update domain` command, please see the section on setting AuthInfo.
+
+With this process change, the change of name servers operation using [update domain](#update-domain), also delete all DSRECORDS.
+
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -1733,6 +1768,10 @@ The addition of a new name server to a domain name or a re-delegation requires t
 The removal of a existing name server from a domain name requires that at least two other name servers are offering resolution for the domain in question, else the command will fail.
 
 Since the update domain command can contain several sub-commands, this could be accompanied by an *add name server* (see above), so the policy requirement is met and resolution is kept.
+
+As noted under "add name server", since version of 4.X.X the commands to change name servers (addition) require AuthInfo token. The AuthInfo token is either provided out of band or can be obtained using the `info domain` command. It can also be generated using the `update domain` command, please see the section on setting AuthInfo.
+
+With this process change, the change of name servers operation using [update domain](#update-domain), also delete all DSRECORDS.
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1913,8 +1952,87 @@ Example with removal of existing DSRECORDS and adding a new DSRECORD.
 </epp>
 ```
 
-<a id="delete-domain"></a>
-#### delete domain
+<a id="setting-authinfo"></a>
+##### Setting AuthInfo
+
+Setting the AuthInfo is done using the `update domain` command. The AuthInfo token is not set as such, but is generated using the keyword: `auto`.
+
+The AuthInfo token and hence the authorization holds a lifespan of 14 days. It can be ended prematurely by unsetting it, please see below.
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <update>
+      <domain:update xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>example.com</domain:name>
+        <domain:chg>
+          <domain:authInfo>
+            <domain:pw>auto</domain:pw>
+          </domain:authInfo>
+        </domain:chg>
+      </domain:update>
+    </update>
+    <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>
+```
+
+The generation of an AuthInfo token can be accomplished by all users with privileges to do so.
+
+<a id="authinfo-token-format"></a>
+##### AuthInfo Token Format
+
+The **AuthInfo** token is generated by DK Hostmaster and will adhere to the following proposed format:
+
+`<handle>-<unique key>`
+
+E.g.
+
+An **AuthInfo** token set request by DK Hostmaster A/S (`DKHM-1`), will resemble the following:
+
+`DKHM1-DK-098f6bcd4621d373cade4e832627b4f6`
+
+We are still evaluating the generation of the unique key, where we want to base the implementation on a unpredictable, but easily transportable format, either based on GUID, UUID or a checksum.
+
+The requirements are:
+
+- Unpredictable (is secure to the extent possible and for the given TTL time frame)
+- Human pronounceable (can be communicated over telephone call)
+- Usable (constrained on length and format)
+
+<a id="unsetting-authinfo"></a>
+#### Unsetting AuthInfo
+
+The requester (setter) of a an AuthInfo authorization might have an interest in ending the life of a AuthInfo token prematurely
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <update>
+      <domain:update xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>example.com</domain:name>
+        <domain:chg>
+          <domain:authInfo>
+            <domain:null>
+          </domain:authInfo>
+        </domain:chg>
+      </domain:update>
+    </update>
+    <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>
+```
+
+Do note that this can be accomplished by all users with privileges to accomplish this. It adheres to [RFC:5731][RFC5731], which states:
+
+> A domain:null element can be used within the domain:authInfo element to remove authorization information.
+
+The command simply unsets (removes/clears) an AuthInfo token if it exists.
+
+<a id="check-host"></a>
+### check host
 
 In addition to the standard EPP `delete domain` command, DK Hostmaster will support scheduling of deletion of domain names, by providing a date to the EPP `delete domain` command via an optional extension.
 
