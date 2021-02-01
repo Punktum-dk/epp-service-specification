@@ -388,7 +388,7 @@ DK Hostmaster is the registry for the ccTLD for Denmark (dk), with DK Hostmaster
 
 The legislation and registry model utilized in Denmark imposes some limitations compared to the general scope of the EPP protocol. These limitations are described in detail below in the chapter entitled Implementation Limitations, and these are explained further in the command descriptions where the single commands deviate from the EPP standard specification. In addition to limitations and deviations found in the above, a few others have been implemented to support DNS registration under Danish legislation, these are described in detail under the individual commands, where relevant.
 
-DK Hostmaster offers two adminstration models, please see [the complete description of the concept][CONCEPT] of the administration models offered by DK Hostmaster A/S for details.
+DK Hostmaster offers two administration models, please see [the complete description of the concept][CONCEPT] of the administration models offered by DK Hostmaster A/S for details.
 
 In brief the two models are:
 
@@ -2641,7 +2641,7 @@ This limitation will only be enforced for domain names under the `.dk` TLD. Doma
 
 As for the `create domain` and `create contact` commands (above) the default behaviour can be defined in RP. Where the option "registrant management", will create host objects sponsored by DK Hostmaster instead of the registrar.
 
-Responsibility and privileges for maintenance (`update host`) of the host object is assigned to the name server administrator as described in the [create hostsection](#create-host) section.
+Responsibility and privileges for maintenance (`update host`) of the host object is assigned to the name server administrator as described in the [create host section](#create-host) section.
 
 If the name server responsible is allocated to the registrar account (group), this can be handled via RP and EPP.
 
@@ -3460,7 +3460,7 @@ EPP service is running in the environment queried.
 
 This is a high level overview of the EPP commands offered by the DK Hostmaster EPP service, please see the specific commands for details.
 
-The version numbers used in the matrix are major numbers only, eg. 1.X.X.
+The version numbers used in the matrix are major numbers only, e.g. 1.X.X.
 
 | EPP Command  | Available since version | Exceptions and notes |
 | ------------ | ------------ | ------------ |

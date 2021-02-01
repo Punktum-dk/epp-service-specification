@@ -156,3 +156,12 @@ www
 xml
 xsd
 xyz
+RESTful
+DKK
+overridable
+DKHMXSD
+DKHMRFCAUTORENEW
+DKHMRFCAUTORENEW
+DKHMXSD
+superordinate
+TLDs
