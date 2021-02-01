@@ -156,3 +156,13 @@ www
 xml
 xsd
 xyz
+AuthInfo
+authinfo
+unsets
+Unsetting
+authInfo
+GUID
+UUID
+TTL
+unsetting
+authinfoexdate

@@ -203,7 +203,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 ### Document History
 
 - 4.0 2020-09-30
-  - Added information on setting/unsetting AuthInfo token for adding and removing nameservers for a domain name
+  - Added information on setting/unsetting AuthInfo token for adding and removing name servers for a domain name
   - Added documentation on the extension to [info domain](#info-domain) with information on the AuthInfo expiration date using the `dkhm::authInfoExDate` extension and introduced in XSD version 3.1
 
 - 3.9 2020-10-19
@@ -586,7 +586,7 @@ This extension is used in the poll response in relation to domain creation. The 
 
 This extension is used in the expose the expiration date for a AuthInfo token if set for a domain name. Please see the [info domain](#info-domain) command.
 
-Please see als the section on AuthInfo token format.
+Please see the section on AuthInfo token format.
 
 <a id="implementation-limitations"></a>
 ## Implementation Limitations
@@ -647,7 +647,7 @@ When adding DSRECORDS for a domain name using [create domain](#create-domain) or
 
 Availability of DNSSEC information and status is currently limited to public available data.
 
-In addition with the improvements to the process for change of nameservers using [update domain](#update-domain), all current DSRECORDS are deleted as part of this operation.
+In addition with the improvements to the process for change of name servers using [update domain](#update-domain), all current DSRECORDS are deleted as part of this operation.
 
 <a id="contact-creation"></a>
 ### Contact Creation
@@ -1591,7 +1591,7 @@ The addition of a new name server to a domain name or a re-delegation requires t
 
 Note as of version of 4.X.X the commands to change name servers (addition and removal) require AuthInfo token. The AuthInfo token is either provided out of band or can be obtained using the `info domain` command. It can also be generated using the `update domain` command, please see the section on setting AuthInfo.
 
-With this process change, the change of nameservers operation using [update domain](#update-domain), also delete all DSRECORDS.
+With this process change, the change of name servers operation using [update domain](#update-domain), also delete all DSRECORDS.
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1632,7 +1632,7 @@ Since the update domain command can contain several sub-commands, this could be 
 
 As noted under "add name server", since version of 4.X.X the commands to change name servers (addition) require AuthInfo token. The AuthInfo token is either provided out of band or can be obtained using the `info domain` command. It can also be generated using the `update domain` command, please see the section on setting AuthInfo.
 
-With this process change, the change of nameservers operation using [update domain](#update-domain), also delete all DSRECORDS.
+With this process change, the change of name servers operation using [update domain](#update-domain), also delete all DSRECORDS.
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1865,7 +1865,7 @@ The requirements are:
 <a id="unsetting-authinfo"></a>
 #### Unsetting AuthInfo
 
-The requestor (setter) of a an AuthInfo authorization might have an interest in ending the life of a AuthInfo token prematurely
+The requester (setter) of a an AuthInfo authorization might have an interest in ending the life of a AuthInfo token prematurely
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
