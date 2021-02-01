@@ -5,8 +5,8 @@
 ![Markdownlint Action](https://github.com/DK-Hostmaster/epp-service-specification/workflows/Markdownlint%20Action/badge.svg)
 ![Spellcheck Action](https://github.com/DK-Hostmaster/epp-service-specification/workflows/Spellcheck%20Action/badge.svg)
 
-2020-09-30
-Revision: 4.0
+2020-10-19
+Revision: 3.9
 
 ## Table of Contents
 
@@ -205,6 +205,9 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 - 4.0 2020-09-30
   - Added information on setting/unsetting AuthInfo token for adding and removing nameservers for a domain name
   - Added documentation on the extension to [info domain](#info-domain) with information on the AuthInfo expiration date using the `dkhm::authInfoExDate` extension and introduced in XSD version 3.1
+
+- 3.9 2020-10-19
+  - Added some details on sessions in the section on [login](#login)
 
 - 3.8 2020-04-21
   - Aligned XSD versions in all examples to version 3.0
@@ -720,7 +723,7 @@ Please see the greeting response included in the [appendices](greeting) for illu
 
 This part of the EPP protocol is described in [RFC 5730][RFC5730]. This command adheres to the standard.
 
-The login uses the general AAA functionality in DK Hostmaster. This mean that in addition to the validation of username and password specified as part of the login request, an attempt is made to authorize the authenticated user for access to the actual EPP service and subsequent operations.
+The login uses the general Authentication Authorization and Access (AAA) framework in DK Hostmaster. This mean that in addition to the validation of username and password specified as part of the login request, an attempt is made to authorize the authenticated user for access to the actual EPP service and subsequent operations.
 
 Authorization is currently only available to specified user roles, therefore the username provided must point to an entity with the role of registrar or name server administrator with the DK Hostmaster registry. See also Available Environments above.
 
@@ -742,6 +745,10 @@ The following characters are legal special characters in passwords:
 ```
 
 Currently, the only language supported is English. So the language parameter is ignored and all responses are provided in English.
+
+Successful authentication established a session with a life span of 700 seconds (5 minutes), it can be kept alive by sending additional `hello` commands or similar.
+
+The overall life span is 28800 seconds (8 hours) after this the session is terminated and should be reestablished with a new authentication (`login`).
 
 <a id="login-request"></a>
 #### login request
