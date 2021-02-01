@@ -654,7 +654,7 @@ Host info will only supply the name server administrator/zone contact informatio
 <a id="waiting-list"></a>
 ## Waiting List
 
-DK Hostmaster offers a waiting list service for domainnames, when a domain name becomes available to the first position on a waiting list, it should be registered using the standard registration process either using the email form or EPP. This influences the create domain command, which should just be populated with the user-id of the user which has been pre-approved for registration of the domain name with DK Hostmaster. No other information is available on waiting lists via EPP.
+DK Hostmaster offers a waiting list service for domain names, when a domain name becomes available to the first position on a waiting list, it should be registered using the standard registration process either using the email form or EPP. This influences the create domain command, which should just be populated with the user-id of the user which has been pre-approved for registration of the domain name with DK Hostmaster. No other information is available on waiting lists via EPP.
 
 Please refer to the DK Hostmaster A/S [website](https://www.dk-hostmaster.dk/en/waiting-list) for more information.
 
