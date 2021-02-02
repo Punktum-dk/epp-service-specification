@@ -542,7 +542,7 @@ Please see:
 <a id="dkhmcontact_validated"></a>
 ### `dkhm:contact_validated`
 
-Contact objects related to the role of registrant has to be validated, this field is used to indicate the status of a validation of a contactobject via the [info contact](#info-contact) command.
+Contact objects related to the role of registrant has to be validated, this field is used to indicate the status of a validation of a contact object via the [info contact](#info-contact) command.
 
 <a id="dkhmcvr"></a>
 ### `dkhm:CVR`
@@ -639,7 +639,7 @@ Related extensions are [`dkhm:EAN`](#dkhmean), [`dkhm:CVR`](#dkhmcvr) and [`dkhm
 <a id="implementation-limitations"></a>
 ## Implementation Limitations
 
-As mentioned the EPP service comes with some limitations. Please see the [Compatibility Matrix](compatibility-matrix) in the appendices for a highlevel overview.
+As mentioned the EPP service comes with some limitations. Please see the [Compatibility Matrix](compatibility-matrix) in the appendices for a high-level overview.
 
 <a id="commands"></a>
 ### Commands
@@ -685,9 +685,9 @@ See also the [login](#login) command for details.
 
 It is currently supported for the following commands:
 
-- [update domain](#update-domain), for use for changing nameservers. Please see the command description for more details.
+- [update domain](#update-domain), for use for changing name servers. Please see the command description for more details.
 
-Specifying `AuthInfo` for a [contact create](#contact-create) has no effect and it is not recommened to disclose this information in this command.
+Specifying `AuthInfo` for a [contact create](#contact-create) has no effect and it is not recommended to disclose this information in this command.
 
 From [RFC:5733]:
 
@@ -839,7 +839,7 @@ Successful authentication established a session with a life span of 700 seconds 
 
 The overall life span is 28800 seconds (8 hours) after this the session is terminated and should be reestablished with a new authentication (`login`).
 
-TODO terminerer vi også connection?
+TODO do we also terminate the connection?
 
 <a id="login-request"></a>
 #### login request
@@ -1835,7 +1835,7 @@ REF: [issue #9](https://github.com/DK-Hostmaster/epp-service-specification/issue
 <a id="change-registrant"></a>
 ##### change registrant
 
-TODO this section requires to be rewritte in the context of registrar handling
+TODO this section requires to be rewritten in the context of registrar handling
 
 The change of registrant is a *special* operation, it results in all privileges and rights being transferred to another entity. A registrar does not hold the privileges to complete such a request, so the object service is unimplemented at this time.
 
@@ -3747,7 +3747,7 @@ EPP service is running in the environment queried.
 - \*2 see sub-commands
 - \*3 changes status of existing DSRECORDS
 - \*4 can only see contact information for authorized objects, access to registrant is authorized as public other roles require authorization via relation
-- \*5 only data not locked by business rules and under external registry adminstration such as CPR, CVR and VIEW registries
+- \*5 only data not locked by business rules and under external registry administration such as CPR, CVR and VIEW registries
 - \*6 only own profile
 - \*7 registrar
 - \*8 subordinate
