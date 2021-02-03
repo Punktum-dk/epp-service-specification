@@ -1,9 +1,9 @@
-![DK Hostmaster Logo](https://www.dk-hostmaster.dk/sites/default/files/dk-logo_0.png)
+![DK Hostmaster Logo][DKHMLOGO]
 
 # DK Hostmaster EPP Service Specification
 
-![Markdownlint Action](https://github.com/DK-Hostmaster/epp-service-specification/workflows/Markdownlint%20Action/badge.svg)
-![Spellcheck Action](https://github.com/DK-Hostmaster/epp-service-specification/workflows/Spellcheck%20Action/badge.svg)
+![Markdownlint Action][GHAMKDBADGE]
+![Spellcheck Action][GHASPLLBADGE]
 
 2021-01-27
 Revision: 4.0
@@ -44,7 +44,6 @@ Revision: 4.0
   - [`dkhm:url`](#dkhmurl)
   - [`dkhm:userType`](#dkhmusertype)
 - [Implementation Limitations](#implementation-limitations)
-  - [Commands](#commands)
   - [Unimplemented Commands](#unimplemented-commands)
   - [Authentication](#authentication)
   - [AuthInfo](#authinfo)
@@ -59,6 +58,7 @@ Revision: 4.0
   - [Information Disclosure](#information-disclosure)
   - [Encoding and IDN domains](#encoding-and-idn-domains)
   - [Disclosure of Client ID](#disclosure-of-client-id)
+  - [Unsupported Domain Status Codes](#unsupported-domain-status-codes)
 - [Supported Object Transform and Query Commands](#supported-object-transform-and-query-commands)
   - [hello and greeting](#hello-and-greeting)
   - [login](#login)
@@ -166,7 +166,7 @@ Revision: 4.0
   - [Retention Statement](#retention-statement)
 - [References](#references)
 - [Resources](#resources)
-  - [XML Schemas](#xml-schemas)
+  - [XSD/XML Schemas](#xsd-xml-schemas)
   - [Mailing list](#mailing-list)
   - [Issue Reporting](#issue-reporting)
   - [Demo/Test Client](#demotest-client)
@@ -199,7 +199,7 @@ prior to being released to production after a grace period.
 
 This document is not the authoritative source for business and policy rules and possible discrepancies between this an any authoritative sources are regarded as errors in this document. This document is aimed at the technical specification and is an interpretation of authoritative sources and can therefor be erroneous.
 
-The actively used XSD file is indicated in the [EPP service specification][wiki], the [EPP XSD file repository][XSD files] might contain changes not actively used by the service.
+The actively used XSD file is indicated in the [EPP service specification][DKHMEPPWIKI], the [EPP XSD file repository][DKHMXSD] might contain changes not actively used by the service.
 
 The current service version can be obtained from the [Greeting](#greeting) message, from the service.
 
@@ -225,7 +225,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
   - Introduction of support for [delete domain command](#delete-domain)
   - Introduction of support for [restore domain command](#restore-domain)
   - Introduction of support for [balance command](#balance-and-prepaid-account)
-  - Removed XSD Version History, referencing original source in [EPP XSD repository][XSD files]
+  - Removed XSD Version History, referencing original source in [EPP XSD repository][DKHMXSD]
   - Addition of disclaimer
   - Added information on setting/unsetting AuthInfo token for adding and removing name servers for a domain name
   - Added documentation on the extension to [info domain](#info-domain) with information on the `AuthInfo` expiration date using the `dkhm::authInfoExDate` extension
@@ -352,11 +352,11 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 - 1.7 2015-05-12
   - This revision of the specification is describing EPP service release 1.3.X
-  - This release also updates the [XSD][XSD Files] specification to revision 1.4, introducing the extension `pnumber` for transport of production unit numbers for validation of Danish companies as part of the [create contact](#create-contact) command
+  - This release also updates the [XSD][DKHMXSD] specification to revision 1.4, introducing the extension `pnumber` for transport of production unit numbers for validation of Danish companies as part of the [create contact](#create-contact) command
 
 - 1.6 2015-01-06
   - This revision of the specification is describing EPP service release 1.2.X
-  - This release also updates the [XSD][XSD Files] specification to revision 1.3
+  - This release also updates the [XSD][DKHMXSD] specification to revision 1.3
   - The document has with this revision been ported from a proprietary format to markdown and is being hosted on GitHub for easier maintenance and distribution, this has resulted in a lot of minor corrections and clarifications.
   - Extended the section about this document, due to the migration to GitHub, so copyright is now explicitly mentioned
   - [info contact](#info-contact) command extended with validation information
@@ -366,7 +366,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 - 1.5 2014-06-18
   - This revision of the specification is describing EPP service release 1.1.X
   - The test environment is no longer active
-  - Examples updated to latest [XSD][XSD Files] revision (1.2)
+  - Examples updated to latest [XSD][DKHMXSD] revision (1.2)
   - Pre-activation token (`orderconfirmationToken`) can be transported via extension for [create domain](#create-domain) command
 
 - 1.4 2013-11-19
@@ -378,7 +378,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
   - This revision of the specification is describing EPP service release 1.0.9
   - Added information on use of `clTRID` in context of [create domain](#create-domain) command
   - Added more information on the domain check command, which has been extended with EPP service release 1.0.9.
-  - This release also updates the [XSD][XSD Files] specification to revision 1.1
+  - This release also updates the [XSD][DKHMXSD] specification to revision 1.1
 
 - 1.2 2013-08-07
   - This revision of the specification is describing EPP service release 1.0.8
@@ -387,13 +387,13 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 - 1.1 2013-05-31
   - Added paragraph on passwords in section on the login command
   - Added mention of standard port 700
-  - Corrected some of the XML examples, which had not been updated to reflect the correct use of [XSDs][XSD Files]
+  - Corrected some of the XML examples, which had not been updated to reflect the correct use of [XSDs][DKHMXSD]
   - Added important note on contact creation
 
 - 1.0 2013-02-25
   - Initial revision
   - Describes EPP service 1.X.X
-  - Introduces [XSD][XSD Files] specification revision 1.0
+  - Introduces [XSD][DKHMXSD] specification revision 1.0
 
 <a id="the-dk-registry-in-brief"></a>
 ## The .dk Registry in Brief
@@ -414,7 +414,7 @@ The EPP service is the same, but the capabilities and business roles vary depend
 - [Privilege Matrix for Registrant Managed Objects](#privilege-matrix-registrant-managed-objects)
 - [Privilege Matrix for Registrar Managed Objects](#privilege-matrix-registrar-managed-objects)
 
-Our EPP extensions are registered with the [IANA EPP Extension Repository][IANA].
+Our EPP extensions are registered with the [IANA EPP Extension Repository][IANA] as by [RFC:7451].
 
 <a id="epp-in-brief"></a>
 ## EPP in Brief
@@ -453,7 +453,7 @@ DK Hostmaster offers the following environments:
 <a id="production"></a>
 #### Production
 
-- Please see [EPP service specification Wiki](https://github.com/DK-Hostmaster/epp-service-specification/wiki) for up to date information for the production environment accessible at: `epp.dk-hostmaster.dk` on port: `700`
+- Please see [EPP service specification Wiki][DKHMEPPWIKI] for up to date information for the production environment accessible at: `epp.dk-hostmaster.dk` on port: `700`
 
 - This environment is the production environment
 - info and check requests made to this environment will reflect live production data
@@ -469,7 +469,7 @@ DK Hostmaster offers the following environments:
 <a id="sandbox"></a>
 #### Sandbox
 
-- Please see [EPP service specification Wiki](https://github.com/DK-Hostmaster/epp-service-specification/wiki) for up to date information for the production environment accessible at : `epp-sandbox.dk-hostmaster.dk` on port: `700`
+- Please see [EPP service specification Wiki][DKHMEPPWIKI] for up to date information for the production environment accessible at : `epp-sandbox.dk-hostmaster.dk` on port: `700`
 
 - This environment is intended for client development towards the DK Hostmaster EPP service
 - info and check requests made to this environment will reflect sandbox data. For host objects, some static content synched in by DK Hostmaster, in addition to sandbox data
@@ -482,7 +482,7 @@ DK Hostmaster offers the following environments:
 
 Please note that when you first start to use the EPP sandbox environment, the access credentials are matching your production credentials. If these do not work as expected (e.g. error `2200`). please contact: DK Hostmaster to get the credentials synchronized.
 
-For more information on the consolidated sandbox environment please see [the specification](https://github.com/DK-Hostmaster/sandbox-environment-specification).
+For more information on the consolidated sandbox environment please see [the specification][DKHMSANDBOX].
 
 <a id="implementation-requirements"></a>
 ## Implementation Requirements
@@ -508,11 +508,13 @@ Maintenance of IP addresses is done in the **Registrar Portal** (RP) and require
 
 The EPP service implemented by DK Hostmaster holds several extensions, these are documented where appropriate for the specific commands etc. This section serves to give an overview of the extensions as a whole.
 
-Please refer to the [EPP XSD file repository][XSD files] for implementation details.
+Please refer to the [EPP XSD file repository][DKHMXSD] for implementation details.
 
 Here follows a list of the extensions in alphabetical order. All are described separately and in detail below.
 
 - `dkhm:authInfoExDate`
+- `dkhm:autoRenew`
+- `dkhm:delDate`
 - `dkhm:contact_validated`
 - `dkhm:CVR`
 - `dkhm:domain_confirmed`
@@ -532,12 +534,36 @@ Here follows a list of the extensions in alphabetical order. All are described s
 <a id="dkhmauthinfoexdate"></a>
 ### `dkhm:authInfoExDate`
 
-This extension is used in the expose the expiration date for a `AuthInfo` token if set for a domain name.
+This extension is used to expose the expiration date for a `AuthInfo` token if set for a domain name.
 
 Please see:
 
 - the [info domain](#info-domain) command
 - [section on AuthInfo token format](#authinfo-token-format)
+
+<a id="dkhmautorenew"></a>
+### `dkhm:autoRenew`
+
+This extension is used to expose the auto-renewal flag for a domain name.
+
+Please see:
+
+- the [info domain](#info-domain) command
+- the [create domain](#create-domain) command
+
+<a id="dkhmdeldate"></a>
+### `dkhm:delDate`
+
+```xml
+<extension>
+    <dkhm:delDate xmlns:dkhm="urn:dkhm:xml:ns:dkhm-4.0">2021-01-31T00:00:00.0Z</dkhm:delDate>
+</extension>
+```
+
+Please see:
+
+- the [info domain](#info-domain) command
+- the [delete domain](#delete-domain) command
 
 <a id="dkhmcontact_validated"></a>
 ### `dkhm:contact_validated`
@@ -547,7 +573,7 @@ Contact objects related to the role of registrant has to be validated, this fiel
 <a id="dkhmcvr"></a>
 ### `dkhm:CVR`
 
-The CVR extension is for holding VAT registration numbers. The number is used for validation and VAT accounting. More information is available under the [create contact](#create-contact) command.
+The CVR extension is for transporting VAT registration numbers. The number is used for validation and VAT accounting. More information is available under the [create contact](#create-contact) command.
 
 <a id="dkhmdomain_confirmed"></a>
 ### `dkhm:domain_confirmed`
@@ -641,33 +667,13 @@ Related extensions are [`dkhm:EAN`](#dkhmean), [`dkhm:CVR`](#dkhmcvr) and [`dkhm
 
 As mentioned the EPP service comes with some limitations. Please see the [Compatibility Matrix](compatibility-matrix) in the appendices for a high-level overview.
 
-<a id="commands"></a>
-### Commands
-
-The current implementation offers support for the following list of commands:
-
-- `hello`
-- `login`, including change password
-- `logout`
-- `create` (contact/domain/host)
-- `check` (contact/domain/host)
-- `info` (contact/domain/host)
-- `update` (contact/domain/host)
-- `renew` (domain)
-- `delete` (host/domain)
-- `poll`, including acknowledgement of messages
-- `balance` command extension
-- `restore` extension to update domain command
-
-All commands are described in detail in this document. Unimplemented commands are listed in a section below.
-
 <a id="unimplemented-commands"></a>
 ### Unimplemented Commands
 
 The following commands have not been implemented in the service described in this specification:
 
-- `delete` (contact)
-- `transfer` (contact/domain)
+- `delete` contact
+- `transfer` contact
 
 In general the service is not localized and all EPP related errors and messages are provided in English.
 
@@ -718,9 +724,9 @@ In addition with the improvements to the process for change of name servers usin
 
 This command does not support the feature of providing a predefined contact-id. The contact-id has to be specified as `auto` and the contact-id is assigned by DK Hostmaster. See also information on the [create contact](#create-contact) command.
 
-TODO find out how this works
-
 Due to a limitation in the AAA system implemented by DK Hostmaster, it is currently not possible to see contact objects using [info contact](#info-contact), if these are not registrants. This is regarded as a temporarily limitation, which will be addressed at some point in the future. The recommendation is to use [check contact](#check-contact).
+
+REF: [issue #34](https://github.com/DK-Hostmaster/epp-service-specification/issues/34)
 
 <a id="host-update"></a>
 ### Host Update
@@ -782,10 +788,60 @@ The public facing interface is expected to present the registrar relation as wel
 - in WHOIS, see [DK Hostmaster WHOIS Service Specification][DKHMWHOISSPEC]
 - on www.dk-hostmaster.dk, see - [DK Hostmaster RESTful WHOIS Service Specification][DKHMWHOISRESTSPEC]
 
+<a id="unsupported-domain-status-codes"></a>
+### Unsupported Domain Status Codes
+
+Several of the domain status codes described in [RFC:5731] and the [ICANN status code description][ICANN] are not supported.
+
+All of the `client*` status codes are note supported:
+
+- `clientDeleteProhibited`
+- `clientHold`
+- `clientRenewProhibited`
+- `clientTransferProhibited`
+- `clientUpdateProhibited`
+
+The administrative models does not support user enforced restraints.
+
+- `addPeriod`
+- `autoRenewPeriod`
+- `renewPeriod`
+- `transferPeriod`
+
+Are all ICANN statuses and are not regarded as standard and they do not map to business rules used in the DK Hostmaster registry system, based on the descriptions in the [ICANN status code description][ICANN].
+
+- `pendingRenew`
+- `pendingRestore`
+- `pendingTransfer`
+
+The operations for renew, restore and transfer are instantaneous and the listed pending-states do therefor not map to business processes used in the DK Hostmaster registry system.
+
+- `inactive`
+
+This state is unsupported, since domain names in the DK Hostmaster registry **must** have associated name servers.
+
+The [domain status codes listing](#domain-status-codes) holds a complete listing of all the status codes.
+
 <a id="supported-object-transform-and-query-commands"></a>
 ## Supported Object Transform and Query Commands
 
-The following describes the currently supported EPP commands. As mentioned previously, some of the commands have been extended beyond the basic capabilities of EPP. These minor extensions are described separately under each command and are included in the [XSD files][XSD Files] listed in the [Resources](#resources) chapter.
+The following section describes the currently supported EPP commands. As mentioned previously, some of the commands have been extended beyond the basic capabilities of EPP. These extensions are described separately under each command and are included in the [DKHMXSD][DKHMXSD] listed in the [Resources](#resources) chapter.
+
+The supported commands are:
+
+- `hello`
+- `login`, including change password
+- `logout`
+- `create` (contact/domain/host)
+- `check` (contact/domain/host)
+- `info` (contact/domain/host)
+- `update` (contact/domain/host)
+- `renew` (domain)
+- `transfer` (domain)
+- `delete` (host/domain)
+- `poll`, including acknowledgement of messages
+- `balance` command extension
+- `restore` extension to update domain command
 
 Commands that have not been extended are not described in much detail, please refer to the general EPP documentation from IETF (see: the RFCs listed in [References](#references)).
 
@@ -802,8 +858,8 @@ As announced in the [greeting](#greeting), the following objects are available:
 
 With regard to extensions, the following are available:
 
-- [secDNS-1.1][XSD Files]
-- [dkhm-4.0][XSD Files]
+- [secDNS-1.1][DKHMXSD]
+- [dkhm-4.0][DKHMXSD]
 
 Please see the greeting response included in the [appendices](#greeting) for illustration of the actual announcement.
 
@@ -838,8 +894,6 @@ Currently, the only language supported is English. So the language parameter is 
 Successful authentication established a session with a life span of 700 seconds (5 minutes), it can be kept alive by sending additional `hello` commands or similar.
 
 The overall life span is 28800 seconds (8 hours) after this the session is terminated and should be reestablished with a new authentication (`login`).
-
-TODO do we also terminate the connection?
 
 <a id="login-request"></a>
 #### login request
@@ -1436,9 +1490,7 @@ Do note that the billing contact and admin/proxy is displayed if the authenticat
 
 For DNSSEC data the availability is limited to only displaying if the information is public available.
 
-Please see the addendum on domain status codes.
-
-TODO add link
+Please see the [addendum on domain status codes](#domain-status-codes).
 
 <a id="info-domain-request"></a>
 ##### info domain request
@@ -1653,7 +1705,7 @@ Not specifying the period parameters will result in the unit: `y` and the value:
 | 2201 | If the authenticated user does not hold the privilege to renew the specified domain object. This privilege is given to the billing contact for the domain name (see also the [login command](#login)) |
 | 2306 | If the specified expiry date is not valid. The provided expiration date has to be equal to the current expiration date or we return `2306` |
 | 2306 | If the calculated expiry date is not allowed. The new expiration date has to be lower than the current expiration date + 5 years. The maximum period to which the expiration date can be extended is 5 years and 3 months. The current expiration date is available via the [info domain](#info-domain) command as `domain:exDate` |
-| 2105 | If the domain object is not eligible for renewal. The domain name has to be in the state ‘Active’ and the expiration date has to be a at least month into the future from the current date. This will also be reflected in status value `serverRenewProhibited`. See also [ICANN description](https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en/#serverRenewProhibited) of status |
+| 2105 | If the domain object is not eligible for renewal. The domain name has to be in the state ‘Active’ and the expiration date has to be a at least month into the future from the current date. This will also be reflected in status value `serverRenewProhibited`. See also [ICANN description][ICANNserverRenewProhibited] of status |
 | 2400 | In case of an exception |
 | 1000 | If the renew domain command is successful |
 
@@ -1785,7 +1837,7 @@ When the command succeeds either `1000` or `1001` is returned the latter if one 
 
 Please see the below sections for details on the different sub-commands.
 
-The command might be blocked and the status code: `serverUpdateProhibited` is returned indicating that an update is not possible. The status code `clientUpdateProhibited` will be returned if the issued update request cannot be fulfilled due to a domain lock with the registry. See also [ICANN description](https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en/) of status codes.
+The command might be blocked and the status code: `serverUpdateProhibited` is returned indicating that an update is not possible. The status code `clientUpdateProhibited` will be returned if the issued update request cannot be fulfilled due to a domain lock with the registry. See also [ICANN description][ICANN] of status codes.
 
 <a id="update-domain-request"></a>
 ##### update domain request
@@ -1808,7 +1860,6 @@ The command might be blocked and the status code: `serverUpdateProhibited` is re
 </epp>
 ```
 
-TODO: The above example is error prone, it will be replaced with a correct example.
 REF: [issue #9](https://github.com/DK-Hostmaster/epp-service-specification/issues/9)
 
 <a id="update-domain-response"></a>
@@ -3495,7 +3546,7 @@ Please refer to the [greeting response example](#greeting) included in the [Appe
 <a id="access"></a>
 ### Access
 
-The EPP service provides access to identified data relating to all available entities (personal and organizational) under the terms and conditions that anonymity will be applied as specified by the entities in question, and in accordance with [General Terms and Conditions][General Terms and Conditions] and legislation.
+The EPP service provides access to identified data relating to all available entities (personal and organizational) under the terms and conditions that anonymity will be applied as specified by the entities in question, and in accordance with [General Terms and Conditions][DKHMTAC] and legislation.
 
 <a id="purpose-statement"></a>
 ### Purpose Statement
@@ -3519,12 +3570,18 @@ Data will be retained with DK Hostmaster as required by Danish legislation.
 
 List of references used in this document in alphabetical order.
 
+1. [DK Hostmaster: "Terms and conditions for the right of use to a .dk domain name"][DKHMTAC]
 1. [DK Hostmaster: "New basis for collaboration between registrars and DK Hostmaster"][CONCEPT]
-1. [DK Hostmaster: "Terms and conditions for the right of use to a .dk domain name"][General Terms and Conditions]
+1. [DK Hostmaster: EPP General Information][DKHMEPP]
+1. [DK Hostmaster: ID-control General Information][DKHMIDENT]
+1. [DK Hostmaster: Waiting list General Information][DKHMWAIT]
 1. [DK Hostmaster: Name Service Specification][DKHMDNSSPEC]
 1. [DK Hostmaster: RESTful WHOIS Service Specification][DKHMWHOISRESTSPEC]
 1. [DK Hostmaster: WHOIS Service Specification][DKHMWHOISSPEC]
-1. [ICANN: EPP status codes"][ICANN]
+1. [DK Hostmaster: Sandbox Environment Specification][DKHMSANDBOX]
+1. [DK Hostmaster: EPP XSD File Repository][EPPXSD]
+1. [ICANN: "EPP Status Codes | What Do They Mean, and Why Should I Know?"][ICANN]
+1. [IANA: "Extensions for the Extensible Provisioning Protocol (EPP)"][IANA]
 1. [RFC:3339: "Date and Time on the Internet: Timestamps"][RFC:3339]
 1. [RFC:3735: "Guidelines for Extending Extensible Provisioning Protocol"][RFC:3735]
 1. [RFC:3915: "Domain Registry Grace Period Mapping for the Extensible Provisioning Protocol (EPP)"][RFC:3915]
@@ -3535,14 +3592,15 @@ List of references used in this document in alphabetical order.
 1. [RFC:5910: "Domain Name System (DNS) Security Extensions for the Extensible Provisioning Protocol"][RFC:5910]
 1. [RFC:7451: "Extension Registry for the Extensible Provisioning Protocol"][RFC:7451]
 1. [RFC:8748: "Registry Fee Extension for the Extensible Provisioning Protocol (EPP)"][RFC:8748]
+1. [Verisign: "Balance Mapping for the Extensible Provisioning Protocol (EPP)"][BALANCE]
 
 <a id="resources"></a>
 ## Resources
 
-A list of resources for DK Hostmaster EPP support is located below.
+A list of resources for DK Hostmaster EPP service support is located below.
 
-<a id="xml-schemas"></a>
-### XML Schemas
+<a id="xsd-xml-schemas"></a>
+### XSD/XML Schemas
 
 This is a list in alphabetical order of the schemas currently used in the DKHM EPP Service described in this document. Please note that the XSD implementation preserves the original namespace and does not make alterations to this apart from adding the already described XML elements.
 
@@ -3556,7 +3614,7 @@ This is a list in alphabetical order of the schemas currently used in the DKHM E
 - `rgp-1.0.xsd`
 - `secDNS-1.1.xsd`
 
-The files are all available for [download][XSD files]. Details on version history is available in the [EPP XSD Repository][XSD files]
+The files are all available for [download][DKHMXSD]. Details on version history is available in the [EPP XSD Repository][DKHMXSD]
 
 <a id="mailing-list"></a>
 ### Mailing list
@@ -3575,16 +3633,12 @@ For issue reporting related to this specification, the EPP implementation or tes
 
 We have developed a demo/test client, which is freely available and open sourced under a MIT license.
 
-The client is available at:
-
-- <https://github.com/DK-Hostmaster/epp-demo-client-mojolicious>
+The client is [available on GitHub][EPPDEMOCLIENT].
 
 <a id="additional-information"></a>
 ### Additional Information
 
-More information is available at the DK Hostmaster website:
-
-- <https://www.dk-hostmaster.dk/en/epp>
+More generic information on EPP is available at the [DK Hostmaster website][DKHMEPP].
 
 <a id="appendices"></a>
 ## Appendices
@@ -3637,29 +3691,35 @@ EPP service is running in the environment queried.
 <a id="status-codes"></a>
 ### Status Codes
 
-<a id="domain-status-codes"></a>
+<a id="<a id="domain-status-codes"></a>
 #### Domain Status Codes
+
+This list of EPP status codes is based on information from [RFC:5731] and the ICANN status code interpretation: ["EPP Status Codes | What Do They Mean, and Why Should I Know?"][ICANN].
+
+The description is the status, use and interpretation by DK Hostmaster.
+
+As a general business rule, DK Hostmaster does not support the `client*` statuses.
 
 | Status Code                | Description  |
 | -------------------------- | ------------ |
-| `addPeriod`                | *unsupported* |
-| `autoRenewPeriod`          | *unsupported* |
-| `inactive`                 | *unsupported at this time* |
+| `addPeriod`                | *unsupported* the status is not described in [RFC:5731] only in [ICANN resource][ICANN] |
+| `autoRenewPeriod`          | *unsupported* the status is not described in [RFC:5731] only in [ICANN resource][ICANN] |
+| `inactive`                 | *unsupported* domain names in the DK Hostmaster registry **must** have associated name servers |
 | `ok`                       | exclusive for all other status codes |
-| `pendingCreate`            | indication that a the given domain is enqueue for possible creation |
-| `pendingDelete`            | deletion is pending, an advisory date is applicable |
-| `pendingRenew`             | *unsupported* |
-| `pendingRestore`           | *unsupported* |
-| `pendingTransfer`          | *unsupported* |
-| `pendingUpdate`            | the domain has active asynchronous requests |
-| `redemptionPeriod`         | *unsupported* |
-| `renewPeriod`              | *unsupported* |
-| `serverDeleteProhibited`   | indicates whether the registrant can delete the domain |
-| `serverHold`               | a given domain is not active, it can hold a number of different states rendering it not-active |
-| `serverRenewProhibited`    | indicates whether the billing contact can renew the domain |
-| `serverTransferProhibited` | *unsupported* |
-| `serverUpdateProhibited`   | indicates whether the registrant for a given domain can have ownership transferred, can appoint new proxy/admin contact, can appoint new billing contact, change name servers and can associate DS Records |
-| `transferPeriod`           | *unsupported* |
+| `pendingCreate`            | indication that a the given domain is enqueue for possible creation, see [domain create](#domain-create) |
+| `pendingDelete`            | deletion is pending, see [domain create](#domain-create). An advisory date is applicable, see: [`dkhm:delDate`](dkhmdeldate) |
+| `pendingRenew`             | *unsupported* as renewal is instantaneous |
+| `pendingRestore`           | *unsupported* as restoration is instantaneous |
+| `pendingTransfer`          | *unsupported* as transfer is instantaneous |
+| `pendingUpdate`            | the domain has active asynchronous requests, see [domain update](#domain-update) |
+| `redemptionPeriod`         | this status is applied when a domain name has `pendingDelete` and the delete operation can be redeemed |
+| `renewPeriod`              | *unsupported* the status is not described in [RFC:5731] |
+| `serverDeleteProhibited`   | indicates whether the registrant or registrar can delete the domain |
+| `serverHold`               | a given domain name is not active, it can hold a number of different _internal_ states rendering it on hold |
+| `serverRenewProhibited`    | indicates a transient status where the billing or registrar contact is not able to renew the domain |
+| `serverTransferProhibited` | indicates status where the registrant or registrar contact is not able to transfer the domain |
+| `serverUpdateProhibited`   | indicates whether the registrant or registrar for a given domain can have ownership transferred, can appoint new proxy/admin contact, can appoint new billing contact, change name servers and can associate DS Records |
+| `transferPeriod`           | *unsupported* the status is not described in [RFC:5731] only in [ICANN resource][ICANN] |
 | `clientDeleteProhibited`   | *unsupported* |
 | `clientHold`               | *unsupported* |
 | `clientRenewProhibited`    | *unsupported* |
@@ -3787,7 +3847,10 @@ The version numbers used in the matrix are major numbers only, e.g. 1.X.X.
 | [Poll](#poll-and-message-queue) | 1 | |
 | [Balance](#balance-and-prepaid-account) | 4 | |
 
-[General Terms and Conditions]: https://www.dk-hostmaster.dk/en/general-conditions
+[DKHMLOGO]: https://www.dk-hostmaster.dk/sites/default/files/dk-logo_0.png
+[GHAMKDBADGE]: https://github.com/DK-Hostmaster/epp-service-specification/workflows/Markdownlint%20Action/badge.svg
+[GHASPLLBADGE]: https://github.com/DK-Hostmaster/epp-service-specification/workflows/Spellcheck%20Action/badge.svg
+
 [epp-update-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_contact_v1.0.png
 [epp-role-resolution]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp-role-resolution_v1.0.png
 [epp-address-resolution]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp-address-resolution_v1.0.png
@@ -3814,24 +3877,26 @@ The version numbers used in the matrix are major numbers only, e.g. 1.X.X.
 [epp-update-domain-change-registrant]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_domain_change_registrant_v1.2.png
 [epp_create_domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_create_domain_v1.0.png
 [epp_create_contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_create_contact_v1.0.png
-[XSD files]: https://github.com/DK-Hostmaster/epp-xsd-files
-[RFC:3735]: http://tools.ietf.org/html/rfc3735
 [RFC:3339]: https://tools.ietf.org/html/rfc3339
+[RFC:3735]: https://tools.ietf.org/html/rfc3735
 [RFC:3915]: https://tools.ietf.org/html/rfc3915
-[RFC:5730]: http://tools.ietf.org/html/rfc5730
-[RFC:5731]: http://tools.ietf.org/html/rfc5731
-[RFC:5732]: http://tools.ietf.org/html/rfc5732
-[RFC:5732-3.1.2]: http://tools.ietf.org/html/rfc5732#section-3.1.2
-[RFC:5733]: http://tools.ietf.org/html/rfc5733
-[RFC:5910]: http://tools.ietf.org/html/rfc5910
-[RFC:5910-3.3]: http://tools.ietf.org/html/rfc5910#section-3.3
+[RFC:5730]: https://tools.ietf.org/html/rfc5730
+[RFC:5731]: https://tools.ietf.org/html/rfc5731
+[RFC:5732]: https://tools.ietf.org/html/rfc5732
+[RFC:5732-3.1.2]: https://tools.ietf.org/html/rfc5732#section-3.1.2
+[RFC:5733]: https://tools.ietf.org/html/rfc5733
+[RFC:5910]: https://tools.ietf.org/html/rfc5910
+[RFC:5910-3.3]: https://tools.ietf.org/html/rfc5910#section-3.3
 [RFC:7451]: https://tools.ietf.org/html/rfc7451
 [RFC:8748]: https://tools.ietf.org/html/rfc8748
-[IANA]: http://www.iana.org/assignments/epp-extensions/epp-extensions.xhtml
+[IANA]: https://www.iana.org/assignments/epp-extensions/epp-extensions.xhtml
 [ICANN]: https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en/
+[ICANNserverRenewProhibited]: https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en/#serverRenewProhibited
 [EAN]: https://en.wikipedia.org/wiki/International_Article_Number_(EAN)
+[DKHMXSD]: https://github.com/DK-Hostmaster/epp-xsd-files
 [DKHMDNSSPEC]: https://github.com/DK-Hostmaster/dkhm-name-service-specification
 [DKHMDNSSPEC-glue]: https://github.com/DK-Hostmaster/dkhm-name-service-specification#glue-records
+[DKHMEPPWIKI]: https://github.com/DK-Hostmaster/epp-service-specification/wiki
 [EPOCH]: https://en.wikipedia.org/wiki/Unix_time
 [CONCEPT]: https://www.dk-hostmaster.dk/en/new-basis-collaboration-between-registrars-and-dk-hostmaster
 [DKHMWHOISSPEC]: https://github.com/DK-Hostmaster/whois-service-specification
@@ -3839,3 +3904,7 @@ The version numbers used in the matrix are major numbers only, e.g. 1.X.X.
 [BALANCE]: https://www.verisign.com/assets/epp-sdk/verisign_epp-extension_balance_v01.html
 [DKHMWAITLIST]: https://www.dk-hostmaster.dk/en/waiting-list
 [DKHMIDENT]: https://www.dk-hostmaster.dk/en/identification
+[DKHMEPP]: https://www.dk-hostmaster.dk/en/epp
+[DKHMSANDBOX]: https://github.com/DK-Hostmaster/sandbox-environment-specification
+[EPPDEMOCLIENT]: https://github.com/DK-Hostmaster/epp-demo-client-mojolicious
+[DKHMTAC]: https://www.dk-hostmaster.dk/en/general-conditions
