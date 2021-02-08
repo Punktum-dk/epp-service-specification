@@ -28,8 +28,10 @@ Revision: 4.0
   - [IP Whitelisting](#ip-whitelisting)
 - [Implementation Extensions](#implementation-extensions)
   - [`dkhm:authinfoexdate](#authinfoexdate)
+  - [`dkhm:autoRenew`](#dkhmautorenew)
   - [`dkhm:contact_validated`](#dkhmcontact_validated)
   - [`dkhm:CVR`](#dkhmcvr)
+  - [`dkhm:delDate`](#dkhmdeldate)
   - [`dkhm:domain_confirmed`](#dkhmdomain_confirmed)
   - [`dkhm:domainAdvisory`](#dkhmdomainadvisory)
   - [`dkhm:EAN`](#dkhmean)
@@ -59,6 +61,8 @@ Revision: 4.0
   - [Encoding and IDN domains](#encoding-and-idn-domains)
   - [Disclosure of Client ID](#disclosure-of-client-id)
   - [Unsupported Domain Status Codes](#unsupported-domain-status-codes)
+  - [Unsupported Contact Status Codes](#unsupported-contact-status-codes)
+  - [Unsupported Host Status Codes](#unsupported-host-status-codes)
 - [Supported Object Transform and Query Commands](#supported-object-transform-and-query-commands)
   - [hello and greeting](#hello-and-greeting)
   - [login](#login)
@@ -104,8 +108,8 @@ Revision: 4.0
       - [remove DSRECORDS](#remove-dsrecords)
       - [add DSRECORDS](#add-dsrecords)
       - [setting AuthInfo](#setting-authinfo)
-      - [AuthInfo Token Format](#authinfo-token-format)
       - [unsetting AuthInfo](#unsetting-authinfo)
+      - [AuthInfo Token Format](#authinfo-token-format)
     - [delete domain](#delete-domain)
       - [delete domain request](#delete-domain-request)
       - [delete domain response](#delete-domain-response)
@@ -150,8 +154,8 @@ Revision: 4.0
     - [update host](#update-host)
       - [process](#process)
       - [Change hostname sub-process](#change-hostname-sub-process)
-      - [Add IP sub-process](#add-ip-sub-process)
-      - [Remove IP sub-process](#remove-ip-sub-process)
+      - [Add IP Address sub-process](#add-ip-address-sub-process)
+      - [Remove IP Address sub-process](#remove-ip-address-sub-process)
       - [Change admin sub-process](#change-admin-sub-process)
       - [update host request with request to new administrator](#update-host-request-with-request-to-new-administrator)
       - [update host response with request to new administrator](#update-host-response-with-request-to-new-administrator)
@@ -175,6 +179,8 @@ Revision: 4.0
   - [Greeting](#greeting)
   - [Status Codes](#status-codes)
     - [Domain Status Codes](#domain-status-codes)
+    - [Contact Status Codes](#domain-status-codes)
+    - [Host Status Codes](#domain-status-codes)
   - [Privilege Matrix for Registrant Managed Objects](#privilege-matrix-registrant-managed-objects)
   - [Privilege Matrix for Registrar Managed Objects](#privilege-matrix-registrar-managed-objects)
   - [Compatibility Matrix](#compatibility-matrix)
@@ -221,14 +227,20 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 - 4.0 2021-01-27
   - Introduction of support for registrar/registrant administration
-  - The procedures for renewal and application/creation are not being changed, in regard to use and protocol. The business policies in relation to these operations, do however change, since the billing operation changes
-  - Introduction of support for [delete domain command](#delete-domain)
-  - Introduction of support for [restore domain command](#restore-domain)
-  - Introduction of support for [balance command](#balance-and-prepaid-account)
-  - Removed XSD Version History, referencing original source in [EPP XSD repository][DKHMXSD]
-  - Addition of disclaimer
-  - Added information on setting/unsetting AuthInfo token for adding and removing name servers for a domain name
+  - The procedures for renewal and application/creation are not being changed, in regard to use and protocol, however
+    - The business policies in relation to these operations, do however change, since the billing operation changes, please see the [create domain](#create-domain) and [renew domain](#renew-domain) commands
+    - The introduction of registrar support influences the business rules for [create domain](#create-domain)
+  - Added information on setting/unsetting autorizations using AuthInfo tokens, see [setting AuthInfo](#setting-AuthInfo) and [unsetting AuthInfo](#unsetting-AuthInfo)
+  - Added description of new and improved change name server process, both using authorisation and under registrar administration
   - Added documentation on the extension to [info domain](#info-domain) with information on the `AuthInfo` expiration date using the `dkhm::authInfoExDate` extension
+  - Added description of the changed [create contact](#create-contact) process, handling registrar administration
+  - Introduction of support for [delete domain](#delete-domain) command
+  - Introduction of support for [restore domain](#restore-domain) via [update domain](#update-domain) command
+  - Introduction of support for [balance](#balance-and-prepaid-account) command
+  - Introduction of support for [transfer domain](#transfer-domain) command
+  - Added clarifications on status codes for domains, contacts and hosts
+  - Removed XSD Version History, referencing original source in [EPP XSD repository][DKHMXSD], so there is a single source for this information
+  - Addition of disclaimer, setting the scope and frame for this specification
 
 - 3.9 2020-10-19
   - Added some details on sessions in the section on [login](#login)
@@ -551,6 +563,16 @@ Please see:
 - the [info domain](#info-domain) command
 - the [create domain](#create-domain) command
 
+<a id="dkhmcontact_validated"></a>
+### `dkhm:contact_validated`
+
+Contact objects related to the role of registrant has to be validated, this field is used to indicate the status of a validation of a contact object via the [info contact](#info-contact) command.
+
+<a id="dkhmcvr"></a>
+### `dkhm:CVR`
+
+The CVR extension is for transporting VAT registration numbers. The number is used for validation and VAT accounting. More information is available under the [create contact](#create-contact) command.
+
 <a id="dkhmdeldate"></a>
 ### `dkhm:delDate`
 
@@ -564,16 +586,6 @@ Please see:
 
 - the [info domain](#info-domain) command
 - the [delete domain](#delete-domain) command
-
-<a id="dkhmcontact_validated"></a>
-### `dkhm:contact_validated`
-
-Contact objects related to the role of registrant has to be validated, this field is used to indicate the status of a validation of a contact object via the [info contact](#info-contact) command.
-
-<a id="dkhmcvr"></a>
-### `dkhm:CVR`
-
-The CVR extension is for transporting VAT registration numbers. The number is used for validation and VAT accounting. More information is available under the [create contact](#create-contact) command.
 
 <a id="dkhmdomain_confirmed"></a>
 ### `dkhm:domain_confirmed`
@@ -821,6 +833,41 @@ The operations for renew, restore and transfer are instantaneous and the listed 
 This state is unsupported, since domain names in the DK Hostmaster registry **must** have associated name servers.
 
 The [domain status codes listing](#domain-status-codes) holds a complete listing of all the status codes.
+
+<a id="unsupported-contact-status-codes"></a>
+### Unsupported Contact Status Codes
+
+Several of the host status codes described in [RFC:5733] are not supported.
+
+All of the `client*` status codes are note supported:
+
+- `clientDeleteProhibited`
+- `clientUpdateProhibited`
+- `clientTransferProhibited`
+
+The administrative models does not support user enforced restraints.
+
+- `pendingCreate`
+- `pendingDelete`
+- `pendingTransfer`
+
+The operations for renew, restore and transfer are instantaneous and the listed pending-states do therefor not map to business processes used in the DK Hostmaster registry system.
+
+<a id="unsupported-host-status-codes"></a>
+### Unsupported Host Status Codes
+
+Several of the host status codes described in [RFC:5732] are not supported.
+
+All of the `client*` status codes are note supported:
+
+- `clientDeleteProhibited`
+- `clientUpdateProhibited`
+
+The administrative models does not support user enforced restraints.
+
+- `pendingTransfer`
+
+The operations for transfer are instantaneous and the listed `pendingTransfer` do therefor not map to business processes used in the DK Hostmaster registry system.
 
 <a id="supported-object-transform-and-query-commands"></a>
 ## Supported Object Transform and Query Commands
@@ -1890,12 +1937,6 @@ TODO this section requires to be rewritten in the context of registrar handling
 
 The change of registrant is a *special* operation, it results in all privileges and rights being transferred to another entity. A registrar does not hold the privileges to complete such a request, so the object service is unimplemented at this time.
 
-![Update domain - Change registrant][epp-update-domain-change-registrant]
-
-| Return Code | Description                                                                                 |
-| ----------- | ------------------------------------------------------------------------------------------- |
-| 2307        | Unimplemented object service, the service does not support change of registrant on a domain |
-
 <a id="add-name-server"></a>
 ##### add name server
 
@@ -2153,29 +2194,8 @@ The AuthInfo token and hence the authorization holds a lifespan of 14 days. It c
 
 The generation of an AuthInfo token can be accomplished by all users with privileges to do so.
 
-<a id="authinfo-token-format"></a>
-##### AuthInfo Token Format
-
-The **AuthInfo** token is generated by DK Hostmaster and will adhere to the following proposed format:
-
-`<handle>-<unique key>`
-
-E.g.
-
-An **AuthInfo** token set request by DK Hostmaster A/S (`DKHM-1`), will resemble the following:
-
-`DKHM1-DK-098f6bcd4621d373cade4e832627b4f6`
-
-We are still evaluating the generation of the unique key, where we want to base the implementation on a unpredictable, but easily transportable format, either based on GUID, UUID or a checksum.
-
-The requirements are:
-
-- Unpredictable (is secure to the extent possible and for the given TTL time frame)
-- Human pronounceable (can be communicated over telephone call)
-- Usable (constrained on length and format)
-
 <a id="unsetting-authinfo"></a>
-#### Unsetting AuthInfo
+##### Unsetting AuthInfo
 
 The requester (setter) of a an AuthInfo authorization might have an interest in ending the life of a AuthInfo token prematurely
 
@@ -2203,6 +2223,27 @@ Do note that this can be accomplished by all users with privileges to accomplish
 > A domain:null element can be used within the domain:authInfo element to remove authorization information.
 
 The command simply unsets (removes/clears) an AuthInfo token if it exists.
+
+<a id="authinfo-token-format"></a>
+##### AuthInfo Token Format
+
+The **AuthInfo** token is generated by DK Hostmaster and will adhere to the following proposed format:
+
+`<handle>-<unique key>`
+
+E.g.
+
+An **AuthInfo** token set request by DK Hostmaster A/S (`DKHM-1`), will resemble the following:
+
+`DKHM1-DK-098f6bcd4621d373cade4e832627b4f6`
+
+We are still evaluating the generation of the unique key, where we want to base the implementation on a unpredictable, but easily transportable format, either based on GUID, UUID or a checksum.
+
+The requirements are:
+
+- Unpredictable (is secure to the extent possible and for the given TTL time frame)
+- Human pronounceable (can be communicated over telephone call)
+- Usable (constrained on length and format)
 
 <a href="delete-domain"></a>
 #### delete domain
@@ -2491,13 +2532,13 @@ This command has been extended with the following fields:
 
 The user type will result in context-specific interpretation of the following fields:
 
-- EAN - this number is only supported for user types: `company`, `public_organization` and `association`. It is only mandatory for `public_organization` and optional for `company` and `association`. [EAN][EAN description] is used by the public sector in Denmark for electronic invoicing, private companies can also be assigned [EAN], but this it not so widespread at this time. EAN is required by law for public sector organizations, so this field has to be completed and it has to validate for this type.
+- EAN - this number is only supported for user types: `company`, `public_organization` and `association`. It is only mandatory for `public_organization` and optional for `company` and `association`. [EAN][EAN] is used by the public sector in Denmark for electronic invoicing, private companies can also be assigned [EAN], but this it not so widespread at this time. EAN is required by law for public sector organizations, so this field has to be completed and it has to validate for this type.
 - CVR - (VAT number) this is only supported for user types: `company`, `public_organization` and `association`. The number is **required** for handling VAT correctly, The rules for indication of the field is specified in the table below.
 - p-number - (production unit number) this is only supported for user types: `company`, `public_organization` and `association`. The number is used for handling validation correctly and it relates to the CVR (Vat number field) the field is optional.
 
-This field is validated on the server side, it is however recommended to perform a check contact on the requested contact-id prior to the [create domain](#create-domain) request if a contact-id is already known from a contact create or previous domain creation.
+This field is validated on the server side, it is however recommended to perform a [check contact](#check-contact) on the requested contact-id prior to the [create domain](#create-domain) request if a contact-id is already known from a contact create or previous domain creation/application.
 
-The `contact-id` field is auto-generated and assigned by DK Hostmaster. EPP do however open for providing a contact-id in the context of the create contact command, this is not supported by DK Hostmaster at this point.
+The `contact-id` field is auto-generated and assigned by DK Hostmaster. EPP do however open for providing a contact-id in the context of the create contact command, this is not supported by DK Hostmaster at this point, see also: [Implementation Limitations](#implementation-limitations).
 
 <a id="cvr--vat-number-indication"></a>
 ##### CVR / Vat Number Indication
@@ -2592,8 +2633,8 @@ The data is collected as required by Danish legislation. See also the data colle
 
 Please note:
 
-- `authInfo` section is ignored is not recommended for transport of end-user passwords
-- User-creation is silent and the designated user is not notified about the the creation, unless this is a part of the process of associating the user with other objects
+- `authInfo` section is ignored is not recommended for transport of end-user passwords, see also [AuthInfo](#authinfo).
+- Contact creation is silent and the designated contact object is not notified about the the creation, unless this is a part of the process of associating the user with other objects
 
 <a id="create-contact-request"></a>
 ##### create contact request
@@ -2642,7 +2683,7 @@ Please note:
 </epp>
 ```
 
-Do note that the `authInfo` part is ignored, but cannot be omitted.
+Do note that the `authInfo` part is ignored, but cannot be omitted, since it is specified as mandatory by the EPP protocol in [RFC:5733].
 
 <a id="create-contact-response"></a>
 ##### create contact response
@@ -2725,11 +2766,11 @@ This part of the EPP protocol is described in [RFC:5733]. This command adheres t
 
 This part of the EPP protocol is described in [RFC:5733]. This command has been extended with information on whether the contact in queried has been validated according to requirements and policies with DK Hostmaster.
 
-See the extension: `dkhm:contact_validated` in the response.
+See the extension: [`dkhm:contact_validated`](#dkhmcontact_validated) extension used in the response.
 
 Please note that the email address (`contact:email`) is masked and the value: `anonymous@dk-hostmaster.dk` is always returned for this field, Unless the authenticated user has a relationship via the domain name or a registrar group association, which provides access to more information.
 
-The info contact command response is only available for the registrant contact object, unless the authenticated user has a relationship via the domain name or a registrar group association, which provides access to more information or additional contact objects as
+The info contact command response is only available for the registrant contact object, unless the authenticated user has a relationship via the domain name or a registrar group association, which provides access to more information or additional contact objects.
 
 <a id="info-contact-request"></a>
 ##### info contact request
@@ -2820,7 +2861,7 @@ These of course all controlled by relevant privileges.
 
 Please note:
 
-- `authInfo` section is ignored is not recommended for transport of end-user passwords
+- `authInfo` section is ignored is not recommended for transport of end-user passwords, see also [AuthInfo](#authinfo).
 
 <a id="update-contact-request"></a>
 ##### update contact request
@@ -2868,6 +2909,8 @@ Please note:
 	</command>
 </epp>
 ```
+
+Do note that the `authInfo` part is ignored, but cannot be omitted, since it is specified as mandatory by the EPP protocol in [RFC:5733].
 
 <a id="update-contact-response"></a>
 ##### update contact response
@@ -2972,18 +3015,18 @@ The command can be used in two scenarios:
 1. The command is used as described in the RFC and the authenticated user is appointed as administrator for the name server created
 2. The command is extended with a contact object pointing to an existing user, which is requested to take the role as name server administrator for the host object requested created
 
-| Return Code  | Description |
-| ------------ | ------------ |
-| 1000 | If the create host command is successful |
-| 1001 | If the create host command awaits acknowledgement by the contact-id specified in `dkhm:requestedNsAdmin` |
-| 2003 | If required IP address is not specified |
-| 2004 | If the specified IP addresses are non-public addresses |
-| 2005 | Syntax of the command is not correct |
-| 2201 | If the authenticated user does not hold the privilege to update the specified host object |
-| 2302 | If the specified host object already exist |
-| 2303 | If the contact-id pointed to in `dkhm:requestedNsAdmin` points to a non-existing contact object |
-| 2303 | If the domain name for the host is not registered |
-| 2306 | If the specified name server administrator is a registrar account |
+| Return Code | Description |
+| ----------- | ------------ |
+| 1000        | If the create host command is successful |
+| 1001        | If the create host command awaits acknowledgement by the contact-id specified in `dkhm:requestedNsAdmin` |
+| 2003        | If required IP address is not specified |
+| 2004        | If the specified IP addresses are non-public addresses |
+| 2005        | Syntax of the command is not correct |
+| 2201        | If the authenticated user does not hold the privilege to update the specified host object |
+| 2302        | If the specified host object already exist |
+| 2303        | If the contact-id pointed to in `dkhm:requestedNsAdmin` points to a non-existing contact object |
+| 2303        | If the domain name for the host is not registered |
+| 2306        | If the specified name server administrator is a registrar account |
 
 As for update domain `1001` holds higher precedence than `1000`, so if any of the sub-commands require additional review and are _pending_, the return code will be `1001`.
 
@@ -3269,7 +3312,12 @@ This part of the EPP protocol is described in [RFC:5732]. This command adheres t
 
 This part of the EPP protocol is described in [RFC:5732]. This command adheres to the standard.
 
-Please note that according to the RFC [section 3.1.2][RFC:5732-3.1.2], the `CLID` points to the sponsoring client. DK Hostmaster interprets this as the technical contact for the name server pointing to the host object in question.
+Please note that according to the RFC [section 3.1.2][RFC:5732-3.1.2], the `CLID` points to the sponsoring client.
+
+This field supports the two administrative models as follows:
+
+- For registrar managed host object, the `CLID` points to the registrar, see also [Disclosure of Client ID](#disclosure-of-client-id)
+- For registrar managed host objects, DK Hostmaster interprets this as the technical contact for the name server identified by the host object
 
 <a id="info-host-request"></a>
 #### info host request
@@ -3341,8 +3389,8 @@ The process of changing a host name is unsupported by DK Hostmaster and will alw
 | ----------- | ------------ |
 | 2102        | Change of hostname is not supported |
 
-<a id="add-ip-sub-process"></a>
-##### Add IP sub-process
+<a id="add-ip-address-sub-process"></a>
+##### Add IP Address sub-process
 
 Addition of IP addressed supports the additional of IPv4 and IPv6 addresses. These are required as part of our glue record policy. If additional status elements are added to this command it will fail.
 
@@ -3355,8 +3403,8 @@ Addition of IP addressed supports the additional of IPv4 and IPv6 addresses. The
 
 ![Diagram of EPP update host add IP][epp_update_host_add_ip]
 
-<a id="remove-ip-sub-process"></a>
-##### Remove IP sub-process
+<a id="remove-ip-address-sub-process"></a>
+##### Remove IP Address sub-process
 
 Addition of IP addressed supports the additional of IPv4 and IPv6 addresses. These are required as part of our glue record policy. If additional status elements are added to this command it will fail.
 
@@ -3694,16 +3742,21 @@ EPP service is running in the environment queried.
 <a id="<a id="domain-status-codes"></a>
 #### Domain Status Codes
 
-This list of EPP status codes is based on information from [RFC:5731] and the ICANN status code interpretation: ["EPP Status Codes | What Do They Mean, and Why Should I Know?"][ICANN].
+This list of EPP domain status codes is based on information from [RFC:5731] and the ICANN status code interpretation: ["EPP Status Codes | What Do They Mean, and Why Should I Know?"][ICANN].
 
 The description is the status, use and interpretation by DK Hostmaster.
 
-As a general business rule, DK Hostmaster does not support the `client*` statuses.
+As a general business rule, DK Hostmaster does not support the `client*` statuses, see also: [Unsupported Domain Status Codes](#unsupported-domain-status-codes) in the [Implementation Limitations](#implementation-limitations) section.
 
 | Status Code                | Description  |
 | -------------------------- | ------------ |
 | `addPeriod`                | *unsupported* the status is not described in [RFC:5731] only in [ICANN resource][ICANN] |
 | `autoRenewPeriod`          | *unsupported* the status is not described in [RFC:5731] only in [ICANN resource][ICANN] |
+| `clientDeleteProhibited`   | *unsupported* |
+| `clientHold`               | *unsupported* |
+| `clientRenewProhibited`    | *unsupported* |
+| `clientTransferProhibited` | *unsupported* |
+| `clientUpdateProhibited`   | *unsupported* |
 | `inactive`                 | *unsupported* domain names in the DK Hostmaster registry **must** have associated name servers |
 | `ok`                       | exclusive for all other status codes |
 | `pendingCreate`            | indication that a the given domain is enqueue for possible creation, see [domain create](#domain-create) |
@@ -3720,11 +3773,53 @@ As a general business rule, DK Hostmaster does not support the `client*` statuse
 | `serverTransferProhibited` | indicates status where the registrant or registrar contact is not able to transfer the domain |
 | `serverUpdateProhibited`   | indicates whether the registrant or registrar for a given domain can have ownership transferred, can appoint new proxy/admin contact, can appoint new billing contact, change name servers and can associate DS Records |
 | `transferPeriod`           | *unsupported* the status is not described in [RFC:5731] only in [ICANN resource][ICANN] |
+
+<a id="<a id="contact-status-codes"></a>
+#### Contact Status Codes
+
+This list of EPP contact status codes is based on information from [RFC:5733].
+
+The description is the status, use and interpretation by DK Hostmaster.
+
+As a general business rule, DK Hostmaster does not support the `client*` statuses, see also: [Unsupported Contact Status Codes](#unsupported-contact-status-codes) in the [Implementation Limitations](#implementation-limitations) section.
+
+
+| Status Code                | Description   |
+| -------------------------- | ------------- |
 | `clientDeleteProhibited`   | *unsupported* |
-| `clientHold`               | *unsupported* |
-| `clientRenewProhibited`    | *unsupported* |
 | `clientTransferProhibited` | *unsupported* |
 | `clientUpdateProhibited`   | *unsupported* |
+| `linked`                   |               |
+| `ok`                       |               |
+| `pendingCreate`            | *unsupported* as creation is instantaneous |
+| `pendingDelete`            | *unsupported* |
+| `pendingTransfer`          | *unsupported* as transfer is instantaneous |
+| `pendingUpdate`            |               |
+| `serverDeleteProhibited`   |               |
+| `serverTransferProhibited` |               |
+| `serverUpdateProhibited`   |               |
+
+<a id="<a id="host-status-codes"></a>
+#### Host Status Codes
+
+This list of EPP host status codes is based on information from [RFC:5732].
+
+The description is the status, use and interpretation by DK Hostmaster.
+
+As a general business rule, DK Hostmaster does not support the `client*` statuses, see also: [Unsupported Host Status Codes](#unsupported-host-status-codes) in the [Implementation Limitations](#implementation-limitations) section.
+
+| Status Code              | Description   |
+| ------------------------ | ------------- |
+| `clientDeleteProhibited` | *unsupported* |
+| `clientUpdateProhibited` | *unsupported* |
+| `linked`                 |               |
+| `ok`                     |               |
+| `pendingCreate`          |               |
+| `pendingDelete`          |               |
+| `pendingTransfer`        | *unsupported* as transfer is instantaneous |
+| `pendingUpdate`          |               |
+| `serverDeleteProhibited` | *unsupported* |
+| `serverUpdateProhibited` | *unsupported* |
 
 <a id="privilege-matrix-registrant-managed-objects"></a>
 ### Privilege Matrix for Registrant Managed Objects
