@@ -3783,7 +3783,6 @@ The description is the status, use and interpretation by DK Hostmaster.
 
 As a general business rule, DK Hostmaster does not support the `client*` statuses, see also: [Unsupported Contact Status Codes](#unsupported-contact-status-codes) in the [Implementation Limitations](#implementation-limitations) section.
 
-
 | Status Code                | Description   |
 | -------------------------- | ------------- |
 | `clientDeleteProhibited`   | *unsupported* |
@@ -3907,7 +3906,6 @@ As a general business rule, DK Hostmaster does not support the `client*` statuse
 - \*7 registrar
 - \*8 subordinate
 - \*8 NSA
-
 
 <a id="compatibility-matrix"></a>
 ### Compatibility Matrix
