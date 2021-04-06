@@ -116,6 +116,12 @@ Revision: 4.0
     - [restore domain](#restore-domain)
       - [restore domain request](#restore-domain-request)
       - [restore domain response](#restore-domain-response)
+    - [transfer domain](#transfer-domain)
+      - [transfer domain request](#transfer-domain-request)
+      - [transfer domain response](#transfer-domain-response)
+    - [withdraw](#withdraw)
+      - [withdraw request](#withdraw-request)
+      - [withdraw response](#withdraw-response)
   - [Contact](#contact)
     - [create contact](#create-contact)
       - [CVR / Vat Number Indication](#cvr--vat-number-indication)
@@ -703,7 +709,10 @@ See also the [login](#login) command for details.
 
 It is currently supported for the following commands:
 
-- [update domain](#update-domain), for use for changing name servers. Please see the command description for more details.
+- [update domain](#update-domain), for use for changing name servers
+- [transfer domain](#transfer-domain), for use for changing registrar
+
+Please see the command descriptions for more details.
 
 Specifying `AuthInfo` for a [contact create](#contact-create) has no effect and it is not recommended to disclose this information in this command.
 
@@ -2490,6 +2499,185 @@ Example is lifted from [RFC:3915].
 
 The `restore` command is an extension to `update domain`. All is described in [RFC:3915]. The XSD has been included in our EPP XSD repository as `rgs-1.0.xsd` all lifted from [RFC:3915], please see [the repository][DKHMXSD4.1] for details.
 
+<a id="transfer-domain"></a>
+#### transfer domain
+
+The transfer command is only available to registrars. The command should used in the following use-cases.
+
+- Transfer from DK Hostmaster to future registrar
+- Transfer from current registrar to future registrar
+
+The implementation is based on a _pull_ model and both operations require authorization via the use of an AuthInfo token and designated domain name. The operation has to be initiated by the future registrar. who has acquired the authorizaation (AuthInfo token) from the current registrar or the registrant.
+
+The transfer from DK Hostmaster to a new registrar implies a change of administrative model from "registrant management" to "registrar management". Whereas the transfer from registrar to registrar is only a change of administrative party not the administrative model.
+
+The registrar always have the option to withdraw from the role of registrar for a given domain name, this change does not require an authorization. The operation is implemented using the [withdraw](#withdraw-domain) command, described below in details. This command set the registrar to be the registry (DK Hostmaster) and the administrative model changes from "registrar management" to "registrant management".
+
+Also the registrant has the option to exchange the current registrar. This operation implies a change of administrative model from "registrar management" to "registrant management" and is limited to change of model. A change of registrar, requires authorization of a third party by the registrant and that the designated registrar executes the operation of taking the role of administrator as described inially in this section.
+
+The administration of authorizations is described in detail under the [update-domain](#update-domain) command.
+
+- [Setting AuthInfo](#setting-authinfo)
+- [Unsetting AuthInfo](#unsetting-authinfo)
+
+Do also see the general description of the [AuthInfo](#authinfo) implementation.
+
+The transfer process differs from the one outlined in the [RFC:5731], the following status codes should only be the ones observed:
+
+- `serverApproved`
+
+The following should not be observed (ref: `domain:trStatus`), since the process does not implement the same transactional model:
+
+- `clientApproved`
+- `clientCancelled`
+- `clientRejected`
+- `pending`
+- `serverCancelled`
+
+Upon transfer, the contact object referring to the registrant is being evaluated for optimal handling of the related data. This mean that both options of transferring and cloning of contacts are evaluated for possible outcomes. Do note that DK Hostmaster does not implement direct transfer of contact objects as described in the "Implementation Limitations" section.
+
+The below matix outlines the handling strategies and there precendence by use case.
+
+| Use Case                          | Contact Object Handling |
+| --------------------------------- | ----------------------- |
+| From DKHM to registrar            | Transfer, Cloning       |
+| From registrar to registrar       | Cloning                 |
+| From registrar to DKHM (withdraw) | Cloning                 |
+
+- transfer of a the registrant, simply means that the contact object does not have any relations binding it to other objects within the registry and the sponsor can be exchanged. If releations to other objects are in place, a cloning of the designated contact objects is done instead, leaving a copy of the object with the registry. The clone might be deleted if these relations are terminated or removed, please see the description of the contact object deletion policy for details.
+
+The cloning is a _best-effort_ cloning, since the ID-control status cannot be guaranteed to be consistent in the case where a contact object is locked to a register, but has limitations in access to data due to policies in regard to disclosure etc.
+
+<a id="transfer-domain-request"></a>
+##### transfer domain request
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <transfer op="request">
+      <domain:transfer xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>eksempel.dk</domain:name>
+        <domain:period unit="y">1</domain:period>
+        <domain:authInfo>
+          <domain:pw>2fooBAR</domain:pw>
+        </domain:authInfo>
+      </domain:transfer>
+    </transfer>
+    <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>
+```
+
+Example is lifted from [RFC:5731] and modified.
+
+<a id="transfer-domain-response"></a>
+##### transfer domain response
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <response>
+    <result code="1000">
+      <msg>Command completed successfully</msg>
+    </result>
+    <resData>
+      <domain:trnData xmlndomain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>eksempel.dk</domain:name>
+        <domain:trStatus>serverApproved</domain:trStatus>
+        <domain:reID>ClientX</domain:reID>
+        <domain:reDate>2000-06-08T22:00:00.0Z</domain:reDate>
+        <domain:acID>ClientY</domain:acID>
+        <domain:acDate>2000-06-13T22:00:00.0Z</domain:acDate>
+        <domain:exDate>2002-09-08T22:00:00.0Z</domain:exDate>
+      </domain:trnData>
+    </resData>
+    <trID>
+      <clTRID>ABC-12345</clTRID>
+      <svTRID>54322-XYZ</svTRID>
+    </trID>
+  </response>
+</epp>
+```
+
+Example is lifted from [RFC:5731] and modified.
+
+<a id="withdraw"></a>
+#### Withdraw
+
+DK Hostmaster support the option for registrars of transferring out, so where the regular transfer command (described above) is a _pull_ operation. The registrar can _push_ a domain name from it's portfolio to DK Hostmaster, when and if a registrar requires so.
+
+The process resembles the transfer, but with the receiving account being DK Hostmaster.
+
+The implementation is based on the extension developed by Norid, the registry for the ccTLD for Norway (.no). The specification is listed in the references section below.
+
+Since this extension is at a higher level than the other extensions defined by DK Hostmaster. The definition look as follows:
+
+```xsd
+<!-- dkhm-4.0.xsd -->
+<element name="withdraw" type="dkhm:withdrawType"/>
+<complexType name="withdrawType">
+  <sequence>
+    <element name="name" type="eppcom:labelType"/>
+  </sequence>
+</complexType>
+```
+
+Ref: [`dkhm-4.0.xsd`][DKHMXSD4.0]
+
+```xsd
+<?xml version="1.0" encoding="UTF-8"?>
+
+<schema targetNamespace="urn:dkhm:params:xml:ns:dkhm-domain-4.0"
+        xmlns:dkhm-domain="urn:dkhm:params:xml:ns:dkhm-domain-4.0"
+        xmlns:epp="urn:ietf:params:xml:ns:epp-1.0"
+        xmlns:eppcom="urn:ietf:params:xml:ns:eppcom-1.0"
+        xmlns="http://www.w3.org/2001/XMLSchema"
+        elementFormDefault="qualified">
+
+  <import namespace="urn:ietf:params:xml:ns:eppcom-1.0" schemaLocation="eppcom-1.0.xsd"/>
+  <import namespace="urn:ietf:params:xml:ns:epp-1.0" schemaLocation="epp-1.0.xsd"/>
+
+  <annotation>
+    <documentation>Extensible Provisioning Protocol v1.0 provisioning schema. DKHM extension v4.0 for domain</documentation>
+  </annotation>
+
+  <element name="withdraw" type="dkhm-domain:withdrawType"/>
+
+  <complexType name="withdrawType">
+    <sequence>
+      <element name="name" type="eppcom:labelType"/>
+    </sequence>
+  </complexType>
+</schema>
+```
+
+Ref: [`dkhm-domain-4.0.xsd`][DKHMDOMAINXSD4.0]
+
+<a id="withdraw-request"></a>
+##### withdraw request
+
+An example of a withdraw XML request would look as follows (example lifted from Norid specification and modified):
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+  <extension>
+    <command xmlns="urn:dkhm:params:xml:ns:dkhm-4.0">
+      <withdraw>
+        <domain:withdraw xmlns:domain="urn:dkhm:params:xml:ns:dkhm-domain-4.0">
+          <domain:name>eksempel.dk</domain:name>
+        </domain:withdraw>
+      </withdraw>
+      <clTRID>ABC-12345</clTRID>
+    </command>
+  </extension>
+</epp>
+```
+
+<a id="withdraw-request"></a>
+##### withdraw response
+
 <a id="contact"></a>
 ### Contact
 
@@ -3016,7 +3204,7 @@ The command can be used in two scenarios:
 2. The command is extended with a contact object pointing to an existing user, which is requested to take the role as name server administrator for the host object requested created
 
 | Return Code | Description |
-| ----------- | ------------ |
+| ----------- | ----------- |
 | 1000        | If the create host command is successful |
 | 1001        | If the create host command awaits acknowledgement by the contact-id specified in `dkhm:requestedNsAdmin` |
 | 2003        | If required IP address is not specified |
