@@ -2341,7 +2341,7 @@ And the complete command with a deletion date specification (example lifted from
 
 Domain names are not deleted immediately, but are flagged as _scheduled for deletion_. This of the `delete command` is successful, the domain name will be flagged for deletion within the timeframe specified by the business rules implemented by DK Hostmaster.
 
-The scheduling of a future delete date supports the handling of automatic renewal or expiration as outlined in "[DKHM RFC for handling of Automatic Renewal and Expiration][DKHMRFCAUTORENEW]".
+The scheduling of a future delete date supports the handling of automatic renewal or expiration as outlined in the section on `autoRenew`.
 
 The response for a `delete domain` command will be `1001`.
 
@@ -2372,7 +2372,7 @@ Example:
 </extension>
 ```
 
-In the RFC outlining automatic renewal "[DKHM RFC for handling of Automatic Renewal and Expiration][DKHMRFCAUTORENEW]", it is described that a `delete domain` command will disable auto renewal if enabled. Please see the RFC for more details.
+Do note that a `delete domain` command will disable auto renewal if enabled.
 
 Do note that if subordinates exist these will block for a delete and the request will result in an error: `2305`.
 
