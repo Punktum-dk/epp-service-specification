@@ -584,7 +584,7 @@ The CVR extension is for transporting VAT registration numbers. The number is us
 
 ```xml
 <extension>
-    <dkhm:delDate xmlns:dkhm="urn:dkhm:xml:ns:dkhm-4.0">2021-01-31T00:00:00.0Z</dkhm:delDate>
+    <dkhm:delDate xmlns:dkhm="urn:dkhm:xml:ns:dkhm-4.3">2021-01-31T00:00:00.0Z</dkhm:delDate>
 </extension>
 ```
 
@@ -919,7 +919,7 @@ As announced in the [greeting](#greeting), the following objects are available:
 With regard to extensions, the following are available:
 
 - [secDNS-1.1][DKHMXSD]
-- [dkhm-4.0][DKHMXSD]
+- [dkhm-4.3][DKHMXSD]
 
 Please see the greeting response included in the [appendices](#greeting) for illustration of the actual announcement.
 
@@ -1720,7 +1720,7 @@ When the AuthInfo token has been set it can be retrieved via the EPP command: `i
       </domain:infData>
     </resData>
     <extension>
-      <dkhm:authInfoExDate xmlns:dkhm="urn:dkhm:xml:ns:dkhm-4.0">2018-11-14T09:00:00.0Z</dkhm:authInfoExDate>
+      <dkhm:authInfoExDate xmlns:dkhm="urn:dkhm:xml:ns:dkhm-4.3">2018-11-14T09:00:00.0Z</dkhm:authInfoExDate>
     </extension>
     <trID>
       <clTRID>ABC-12345</clTRID>
@@ -2297,7 +2297,7 @@ The XSD for the extension look as follows:
   </simpleType>
 ```
 
-Ref: [`dkhm-4.0.xsd`][DKHMXSD4.0]
+Ref: [`dkhm-4.3.xsd`][DKHMXSD]
 
 :warning: The reference and file mentioned above is not released at this time, so this file might be re-versioned upon release.
 
@@ -2332,7 +2332,7 @@ And the complete command with a deletion date specification (example lifted from
           </domain:delete>
       </delete>
       <extension>
-        <dkhm:delDate xmlns:dkhm="urn:dkhm:xml:ns:dkhm-4.0">2021-01-31T00:00:00.0Z</dkhm:delDate>
+        <dkhm:delDate xmlns:dkhm="urn:dkhm:xml:ns:dkhm-4.3">2021-01-31T00:00:00.0Z</dkhm:delDate>
       </extension>
       <clTRID>ABC-12345</clTRID>
     </command>
@@ -2368,7 +2368,7 @@ Example:
 
 ```xml
 <extension>
-    <dkhm:domainAdvisory advisory="pendingDeletionDate" date="2021-01-31T00:00:00.0Z" domain="eksempel.dk" xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.0"/>
+    <dkhm:domainAdvisory advisory="pendingDeletionDate" date="2021-01-31T00:00:00.0Z" domain="eksempel.dk" xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.3"/>
 </extension>
 ```
 
@@ -2507,7 +2507,7 @@ Example is lifted from [RFC:3915].
 <a id="xsd-definition"></a>
 ##### XSD Definition
 
-The `restore` command is an extension to `update domain`. All is described in [RFC:3915]. The XSD has been included in our EPP XSD repository as `rgs-1.0.xsd` all lifted from [RFC:3915], please see [the repository][DKHMXSD4.1] for details.
+The `restore` command is an extension to `update domain`. All is described in [RFC:3915]. The XSD has been included in our EPP XSD repository as `rgs-1.0.xsd` all lifted from [RFC:3915], please see [the repository][DKHMXSD] for details.
 
 <a id="transfer-domain"></a>
 #### transfer domain
@@ -2624,7 +2624,7 @@ The implementation is based on the extension developed by Norid, the registry fo
 Since this extension is at a higher level than the other extensions defined by DK Hostmaster. The definition look as follows:
 
 ```xsd
-<!-- dkhm-4.0.xsd -->
+<!-- dkhm-4.3.xsd -->
 <element name="withdraw" type="dkhm:withdrawType"/>
 <complexType name="withdrawType">
   <sequence>
@@ -2633,13 +2633,13 @@ Since this extension is at a higher level than the other extensions defined by D
 </complexType>
 ```
 
-Ref: [`dkhm-4.0.xsd`][DKHMXSD4.0]
+Ref: [`dkhm-4.3.xsd`][DKHMXSD]
 
 ```xsd
 <?xml version="1.0" encoding="UTF-8"?>
 
-<schema targetNamespace="urn:dkhm:params:xml:ns:dkhm-domain-4.0"
-        xmlns:dkhm-domain="urn:dkhm:params:xml:ns:dkhm-domain-4.0"
+<schema targetNamespace="urn:dkhm:params:xml:ns:dkhm-domain-4.3"
+        xmlns:dkhm-domain="urn:dkhm:params:xml:ns:dkhm-domain-4.3"
         xmlns:epp="urn:ietf:params:xml:ns:epp-1.0"
         xmlns:eppcom="urn:ietf:params:xml:ns:eppcom-1.0"
         xmlns="http://www.w3.org/2001/XMLSchema"
@@ -2649,7 +2649,7 @@ Ref: [`dkhm-4.0.xsd`][DKHMXSD4.0]
   <import namespace="urn:ietf:params:xml:ns:epp-1.0" schemaLocation="epp-1.0.xsd"/>
 
   <annotation>
-    <documentation>Extensible Provisioning Protocol v1.0 provisioning schema. DKHM extension v4.0 for domain</documentation>
+    <documentation>Extensible Provisioning Protocol v1.0 provisioning schema. DKHM extension v4.3 for domain</documentation>
   </annotation>
 
   <element name="withdraw" type="dkhm-domain:withdrawType"/>
@@ -2662,7 +2662,7 @@ Ref: [`dkhm-4.0.xsd`][DKHMXSD4.0]
 </schema>
 ```
 
-Ref: [`dkhm-domain-4.0.xsd`][DKHMDOMAINXSD4.0]
+Ref: [`dkhm-domain-4.3.xsd`][DKHMXSD]
 
 <a id="withdraw-request"></a>
 ##### withdraw request
@@ -2673,9 +2673,9 @@ An example of a withdraw XML request would look as follows (example lifted from 
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
   <extension>
-    <command xmlns="urn:dkhm:params:xml:ns:dkhm-4.0">
+    <command xmlns="urn:dkhm:params:xml:ns:dkhm-4.3">
       <withdraw>
-        <domain:withdraw xmlns:domain="urn:dkhm:params:xml:ns:dkhm-domain-4.0">
+        <domain:withdraw xmlns:domain="urn:dkhm:params:xml:ns:dkhm-domain-4.3">
           <domain:name>eksempel.dk</domain:name>
         </domain:withdraw>
       </withdraw>
@@ -3909,7 +3909,7 @@ EPP service is running in the environment queried.
             <objURI>urn:ietf:params:xml:ns:contact-1.0</objURI>
             <svcExtension>
                 <extURI>urn:ietf:params:xml:ns:secDNS-1.1</extURI>
-                <extURI>urn:dkhm:params:xml:ns:dkhm-4.0</extURI>
+                <extURI>urn:dkhm:params:xml:ns:dkhm-4.3</extURI>
             </svcExtension>
         </svcMenu>
         <dcp>
