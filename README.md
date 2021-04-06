@@ -711,10 +711,11 @@ It is currently supported for the following commands:
 
 - [update domain](#update-domain), for use for changing name servers
 - [transfer domain](#transfer-domain), for use for changing registrar
+- [create domain](#create-domain), for use for registering a domain name offered from a waiting list
 
 Please see the command descriptions for more details.
 
-For registration of domain names offered from a waiting list, the `AuthInfo` field is utilized for the [create domain](#create-domain), the format of the token is however in this use simpler.
+For registration of domain names offered from a waiting list, the `AuthInfo` field is utilized for the [create domain](#create-domain), the format of the token is however in this context is simpler.
 
 Specifying `AuthInfo` for a [contact create](#contact-create) has no effect and it is not recommended to disclose this information in this command.
 
@@ -1715,7 +1716,7 @@ When the AuthInfo token has been set it can be retrieved via the EPP command: `i
         <domain:exDate>2005-04-03T22:00:00.0Z</domain:exDate>
         <domain:trDate>2000-04-08T09:00:00.0Z</domain:trDate>
         <domain:authInfo>
-          <domain:pw>DKHM1-DK-098f6bcd4621d373cade4e832627b4f6-TRANSFER</domain:pw>
+          <domain:pw>DKHM1-DK-098f6bcd4621d373cade4e832627b4f6</domain:pw>
         </domain:authInfo>
       </domain:infData>
     </resData>
@@ -1730,11 +1731,13 @@ When the AuthInfo token has been set it can be retrieved via the EPP command: `i
 </epp>
 ```
 
+TODO: this example need to be updated.
+
 The response is further extended with the `dkhm:authInfoExDate` extension, communicating the expiration date of the current `AuthInfo` for the domain, again only visible if privileges permit.
 
 ```xml
 <extension>
-    <dkhm:authInfoExDate xmlns:dkhm="urn:dkhm:xml:ns:dkhm-3.1">2018-11-14T09:00:00.0Z</dkhm:authInfoExDate>
+    <dkhm:authInfoExDate xmlns:dkhm="urn:dkhm:xml:ns:dkhm-4.3">2018-11-14T09:00:00.0Z</dkhm:authInfoExDate>
 </extension>
 ```
 
@@ -2188,7 +2191,10 @@ Example with removal of existing DSRECORDS and adding a new DSRECORD.
 <a id="setting-authinfo"></a>
 ##### Setting AuthInfo
 
-Setting the AuthInfo is done using the `update domain` command. The AuthInfo token is not set as such, but is generated using the keyword: `auto`.
+Setting the AuthInfo is done using the `update domain` command. The AuthInfo token is not set as such, but is generated using a keyword indicating the authorization scope, currently supported keywords are:
+
+- `autoredel`
+- `autotransfer`
 
 The AuthInfo token and hence the authorization holds a lifespan of 14 days. It can be ended prematurely by unsetting it, please see below.
 
@@ -2201,7 +2207,7 @@ The AuthInfo token and hence the authorization holds a lifespan of 14 days. It c
         <domain:name>example.com</domain:name>
         <domain:chg>
           <domain:authInfo>
-            <domain:pw>auto</domain:pw>
+            <domain:pw>autoredel</domain:pw>
           </domain:authInfo>
         </domain:chg>
       </domain:update>
@@ -2570,7 +2576,7 @@ The cloning is a _best-effort_ cloning, since the ID-control status cannot be gu
         <domain:name>eksempel.dk</domain:name>
         <domain:period unit="y">1</domain:period>
         <domain:authInfo>
-          <domain:pw>2fooBAR</domain:pw>
+          <domain:pw>DKHM1-DK-098f6bcd4621d373cade4e832627b4f6</domain:pw>
         </domain:authInfo>
       </domain:transfer>
     </transfer>
