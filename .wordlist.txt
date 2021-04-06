@@ -184,3 +184,5 @@ cade
 jd
 Norid
 DKHMDOMAINXSD
+autoredel
+serverApproved
