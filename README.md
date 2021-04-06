@@ -714,6 +714,8 @@ It is currently supported for the following commands:
 
 Please see the command descriptions for more details.
 
+For registration of domain names offered from a waiting list, the `AuthInfo` field is utilized for the [create domain](#create-domain), the format of the token is however in this use simpler.
+
 Specifying `AuthInfo` for a [contact create](#contact-create) has no effect and it is not recommended to disclose this information in this command.
 
 From [RFC:5733]:
@@ -767,7 +769,9 @@ The command [info host](#info-host) will only supply the name server administrat
 <a id="waiting-list"></a>
 ## Waiting List
 
-DK Hostmaster offers a waiting list service for domain names, when a domain name becomes available to the first position on a waiting list, it should be registered using the standard registration process either via RP or EPP. This influences the [create domain](#create-domain) command, which should just be populated with the user-id of the user which has been pre-approved for registration of the domain name with DK Hostmaster.
+DK Hostmaster offers a waiting list service for domain names, when a domain name becomes available to the first position on a waiting list, it should be registered using the standard registration process either via RP or EPP. This influences the [create domain](#create-domain) command, which should just be populated with the token issued by DK Hostmaster authorizing registration
+
+Alternatively the user-id of the waiting list user which has been pre-approved for registration of the domain name with DK Hostmaster.
 
 No other information is available on waiting lists via EPP.
 
@@ -1242,9 +1246,15 @@ All domain requests are enqueued for further processing and their creation will 
 
 Please note:
 
-- `authInfo` section is ignored is not recommended for transport of end-user passwords, see also section in : [Implementation Limitations](#implementation-limitations) on [authinfo](#authinfo).
+- `authInfo` section is not used for transport of end-user passwords, see also section in : [Implementation Limitations](#implementation-limitations) on [authinfo](#authinfo)
 
-A well-formed request for domain creation will then always result in:
+Domains offered from a waiting list can be registered using the `create domain` command. It requires the authorization token issued by DK Hostmaster to the designated registrant. The token has to be transported via the `AuthInfo` field.
+
+The `AuthInfo` token used for registration of domain names offered from a waiting list are a 8 digit hexidecimal case insensitive string. The token is offered to the designated registrant out of band and is valid for 14 days.
+
+As described in the section on [waiting lists]("waiting-list) the token is not necessary if the designated registrant for the application use the user-id of the waiting list customer and designated registrant.
+
+A well-formed request for domain creation will always result in:
 
 ```text
 1001, “Commmand completed successfully; action pending”
@@ -1296,7 +1306,7 @@ As part of the process the final response to a [create domain](#create-domain) i
 
 The procedures for ID-control are [described on the DK Hostmaster DK website][DKHMIDENT].
 
-The status codes applying to domain are described in the addendum: Status Codes: Domain.
+The status codes applying to domain are described in the addendum: [Domain Status Codes](#domain-status-codes).
 
 <a id="domain_application_failure"></a>
 ##### Domain name Application/Creation Failure
@@ -2246,13 +2256,13 @@ An **AuthInfo** token set request by DK Hostmaster A/S (`DKHM-1`), will resemble
 
 `DKHM1-DK-098f6bcd4621d373cade4e832627b4f6`
 
-We are still evaluating the generation of the unique key, where we want to base the implementation on a unpredictable, but easily transportable format, either based on GUID, UUID or a checksum.
-
 The requirements are:
 
 - Unpredictable (is secure to the extent possible and for the given TTL time frame)
 - Human pronounceable (can be communicated over telephone call)
 - Usable (constrained on length and format)
+
+For registration of domain names offered from a waiting list, the authorization is using `AuthInfo`, the token here is however simpler and is currently formatted as a 8 character string of case insensitive hexidecimal characters.
 
 <a href="delete-domain"></a>
 #### delete domain
