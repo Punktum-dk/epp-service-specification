@@ -1250,7 +1250,7 @@ Please note:
 
 Domains offered from a waiting list can be registered using the `create domain` command. It requires the authorization token issued by DK Hostmaster to the designated registrant. The token has to be transported via the `AuthInfo` field.
 
-The `AuthInfo` token used for registration of domain names offered from a waiting list are a 8 digit hexidecimal case insensitive string. The token is offered to the designated registrant out of band and is valid for 14 days.
+The `AuthInfo` token used for registration of domain names offered from a waiting list are a 8 digit hexadecimal case insensitive string. The token is offered to the designated registrant out of band and is valid for 14 days.
 
 As described in the section on [waiting lists]("waiting-list) the token is not necessary if the designated registrant for the application use the user-id of the waiting list customer and designated registrant.
 
@@ -2262,7 +2262,7 @@ The requirements are:
 - Human pronounceable (can be communicated over telephone call)
 - Usable (constrained on length and format)
 
-For registration of domain names offered from a waiting list, the authorization is using `AuthInfo`, the token here is however simpler and is currently formatted as a 8 character string of case insensitive hexidecimal characters.
+For registration of domain names offered from a waiting list, the authorization is using `AuthInfo`, the token here is however simpler and is currently formatted as a 8 character string of case insensitive hexadecimal characters.
 
 <a href="delete-domain"></a>
 #### delete domain
@@ -2517,13 +2517,13 @@ The transfer command is only available to registrars. The command should used in
 - Transfer from DK Hostmaster to future registrar
 - Transfer from current registrar to future registrar
 
-The implementation is based on a _pull_ model and both operations require authorization via the use of an AuthInfo token and designated domain name. The operation has to be initiated by the future registrar. who has acquired the authorizaation (AuthInfo token) from the current registrar or the registrant.
+The implementation is based on a _pull_ model and both operations require authorization via the use of an AuthInfo token and designated domain name. The operation has to be initiated by the future registrar. who has acquired the authorization (AuthInfo token) from the current registrar or the registrant.
 
 The transfer from DK Hostmaster to a new registrar implies a change of administrative model from "registrant management" to "registrar management". Whereas the transfer from registrar to registrar is only a change of administrative party not the administrative model.
 
 The registrar always have the option to withdraw from the role of registrar for a given domain name, this change does not require an authorization. The operation is implemented using the [withdraw](#withdraw-domain) command, described below in details. This command set the registrar to be the registry (DK Hostmaster) and the administrative model changes from "registrar management" to "registrant management".
 
-Also the registrant has the option to exchange the current registrar. This operation implies a change of administrative model from "registrar management" to "registrant management" and is limited to change of model. A change of registrar, requires authorization of a third party by the registrant and that the designated registrar executes the operation of taking the role of administrator as described inially in this section.
+Also the registrant has the option to exchange the current registrar. This operation implies a change of administrative model from "registrar management" to "registrant management" and is limited to change of model. A change of registrar, requires authorization of a third party by the registrant and that the designated registrar executes the operation of taking the role of administrator as described initially in this section.
 
 The administration of authorizations is described in detail under the [update-domain](#update-domain) command.
 
@@ -2546,7 +2546,7 @@ The following should not be observed (ref: `domain:trStatus`), since the process
 
 Upon transfer, the contact object referring to the registrant is being evaluated for optimal handling of the related data. This mean that both options of transferring and cloning of contacts are evaluated for possible outcomes. Do note that DK Hostmaster does not implement direct transfer of contact objects as described in the "Implementation Limitations" section.
 
-The below matix outlines the handling strategies and there precendence by use case.
+The below matrix outlines the handling strategies and there precedence by use case.
 
 | Use Case                          | Contact Object Handling |
 | --------------------------------- | ----------------------- |
@@ -2554,7 +2554,7 @@ The below matix outlines the handling strategies and there precendence by use ca
 | From registrar to registrar       | Cloning                 |
 | From registrar to DKHM (withdraw) | Cloning                 |
 
-- transfer of a the registrant, simply means that the contact object does not have any relations binding it to other objects within the registry and the sponsor can be exchanged. If releations to other objects are in place, a cloning of the designated contact objects is done instead, leaving a copy of the object with the registry. The clone might be deleted if these relations are terminated or removed, please see the description of the contact object deletion policy for details.
+- transfer of a the registrant, simply means that the contact object does not have any relations binding it to other objects within the registry and the sponsor can be exchanged. If relations to other objects are in place, a cloning of the designated contact objects is done instead, leaving a copy of the object with the registry. The clone might be deleted if these relations are terminated or removed, please see the description of the contact object deletion policy for details.
 
 The cloning is a _best-effort_ cloning, since the ID-control status cannot be guaranteed to be consistent in the case where a contact object is locked to a register, but has limitations in access to data due to policies in regard to disclosure etc.
 
