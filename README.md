@@ -35,6 +35,7 @@ Revision: 4.0
   - [`dkhm:domain_confirmed`](#dkhmdomain_confirmed)
   - [`dkhm:domainAdvisory`](#dkhmdomainadvisory)
   - [`dkhm:EAN`](#dkhmean)
+  - [`dkhm:management](#dkhmmanagement)
   - [`dkhm:mobilephone`](#dkhmmobilephone)
   - [`dkhm:orderconfirmationToken`](#dkhmorderconfirmationtoken)
   - [`dkhm:pnumber`](#dkhmpnumber)
@@ -237,6 +238,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
     - The business policies in relation to these operations, do however change, since the billing operation changes, please see the [create domain](#create-domain) and [renew domain](#renew-domain) commands
     - The introduction of registrar support influences the business rules for [create domain](#create-domain)
   - Added information on setting/unsetting autorizations using AuthInfo tokens, see [setting AuthInfo](#setting-AuthInfo) and [unsetting AuthInfo](#unsetting-AuthInfo)
+  - Added information on `dkhm:management` extension for create domain](#create-domain) and [create contact](#create-contact), which overrides account default
   - Added description of new and improved change name server process, both using authorisation and under registrar administration
   - Added documentation on the extension to [info domain](#info-domain) with information on the `AuthInfo` expiration date using the `dkhm::authInfoExDate` extension
   - Added description of the changed [create contact](#create-contact) process, handling registrar administration
@@ -246,6 +248,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
   - Introduction of support for [transfer domain](#transfer-domain) command
   - Added clarifications on status codes for domains, contacts and hosts
   - Removed XSD Version History, referencing original source in [EPP XSD repository][DKHMXSD], so there is a single source for this information
+  - This version of the specification is based on the DK Hostmaster EPP XSD version 4.3
   - Addition of disclaimer, setting the scope and frame for this specification
 
 - 3.9 2020-10-19
@@ -538,6 +541,7 @@ Here follows a list of the extensions in alphabetical order. All are described s
 - `dkhm:domain_confirmed`
 - `dkhm:domainAdvisory`
 - `dkhm:EAN`
+- `dkhm:management`
 - `dkhm:mobilephone`
 - `dkhm:orderconfirmationToken`
 - `dkhm:pnumber`
@@ -612,6 +616,19 @@ Currently two advisories are communicated:
 ### `dkhm:EAN`
 
 The EAN extension, holds the [EAN number][EAN] associated with public organizations in Denmark. The field is mandatory for this type of contact objects and is required for electronic invoicing, more information is available under the [create contact](#create-contact) command.
+
+<a id="dkhmmanagement"></a>
+### `dkhm:management`
+
+The choice of administration model is based on a default for the specific registrar account. The default can be overridden per request or application using the extension: `dkhm:management`, which support two values:
+
+- `registrar`, indicating registrar management
+- `registrant`, indicating registrant management
+
+The extension can be used with the commands:
+
+- [create domain](#create-domain)
+- [create contact](#create-contact)
 
 <a id="dkhmmobilephone"></a>
 ### `dkhm:mobilephone`
@@ -1314,7 +1331,7 @@ The status codes applying to domain are described in the addendum: [Domain Statu
 
 As described in the introduction, the existing commands, which are categorized as billable are not changed. Due to the change to the billing procedure however, the application/create operation is extended with a error scenario, for when the prepaid account does not have sufficient funds.
 
-The proposed error message is the following.
+The proposed error message is the following, quoted from [RFC:5730].
 
 > 2104    "Billing failure"
 >
@@ -1322,7 +1339,14 @@ The proposed error message is the following.
 > to execute a billable operation and the command cannot be
 > completed due to a client-billing failure.
 
-Quoted from [RFC:5730].
+The choice of administration model is based on the default set for the registrar account. This can be set in the registrar portal. It can be overwritten per application using the `dkhm:management` extension, which can have one of two values:
+
+- `registrar`, indicating registrar management
+- `registrant`, indicating registrant management
+
+The designated registrant (contact) has to be under the same management model or the application will be rejected.
+
+The creation of contacts (registrants) is covered under [create contact](#create-contact).
 
 ![Create domain][epp_create_domain]
 
@@ -2743,6 +2767,11 @@ The user type will result in context-specific interpretation of the following fi
 This field is validated on the server side, it is however recommended to perform a [check contact](#check-contact) on the requested contact-id prior to the [create domain](#create-domain) request if a contact-id is already known from a contact create or previous domain creation/application.
 
 The `contact-id` field is auto-generated and assigned by DK Hostmaster. EPP do however open for providing a contact-id in the context of the create contact command, this is not supported by DK Hostmaster at this point, see also: [Implementation Limitations](#implementation-limitations).
+
+The choice of administration model is based on the default set for the registrar account, this influences domain application and contact creation and this can be set in the registrar portal. It can be overwritten per request using the `dkhm:management` extension, which can have one of two values:
+
+- `registrar`, indicating registrar management
+- `registrant`, indicating registrant management
 
 <a id="cvr--vat-number-indication"></a>
 ##### CVR / Vat Number Indication
