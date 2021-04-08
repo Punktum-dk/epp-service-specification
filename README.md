@@ -5,7 +5,7 @@
 ![Markdownlint Action][GHAMKDBADGE]
 ![Spellcheck Action][GHASPLLBADGE]
 
-2021-01-27
+2021-04-08
 Revision: 4.0
 
 ## Table of Contents
@@ -232,7 +232,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 <a id="document-history"></a>
 ### Document History
 
-- 4.0 2021-01-27
+- 4.0 2021-04-08
   - Introduction of support for registrar/registrant administration
   - The procedures for renewal and application/creation are not being changed, in regard to use and protocol, however
     - The business policies in relation to these operations, do however change, since the billing operation changes, please see the [create domain](#create-domain) and [renew domain](#renew-domain) commands
