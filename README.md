@@ -35,7 +35,7 @@ Revision: 4.0
   - [`dkhm:domain_confirmed`](#dkhmdomain_confirmed)
   - [`dkhm:domainAdvisory`](#dkhmdomainadvisory)
   - [`dkhm:EAN`](#dkhmean)
-  - [`dkhm:management](#dkhmmanagement)
+  - [`dkhm:management`](#dkhmmanagement)
   - [`dkhm:mobilephone`](#dkhmmobilephone)
   - [`dkhm:orderconfirmationToken`](#dkhmorderconfirmationtoken)
   - [`dkhm:pnumber`](#dkhmpnumber)
