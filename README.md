@@ -35,7 +35,7 @@ Revision: 4.0
   - [`dkhm:domain_confirmed`](#dkhmdomain_confirmed)
   - [`dkhm:domainAdvisory`](#dkhmdomainadvisory)
   - [`dkhm:EAN`](#dkhmean)
-  - [`dkhm:management](#dkhmmanagement)
+  - [`dkhm:management`](#dkhmmanagement)
   - [`dkhm:mobilephone`](#dkhmmobilephone)
   - [`dkhm:orderconfirmationToken`](#dkhmorderconfirmationtoken)
   - [`dkhm:pnumber`](#dkhmpnumber)
@@ -4134,7 +4134,7 @@ As a general business rule, DK Hostmaster does not support the `client*` statuse
 - \*2 see sub-commands
 - \*3 changes status of existing DSRECORDS
 - \*4 can only see contact information for authorized objects, access to registrant is authorized as public other roles require authorization via relation
-- \*5 only data not locked by business rules and under external registry administration such as CPR, CVR and VIEW registries
+- \*5 only data not locked by business rules and under external registry administration such as CPR, CVR and VIES registers
 - \*6 only own profile
 - \*7 registrar
 - \*8 subordinate
