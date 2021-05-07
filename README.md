@@ -2267,7 +2267,7 @@ The requester (setter) of a an AuthInfo authorization might have an interest in 
 </epp>
 ```
 
-Do note that this can be accomplished by all users with privileges to accomplish this. It adheres to [RFC:5731][RFC5731], which states:
+Do note that this can be accomplished by all users with privileges to accomplish this. It adheres to [RFC:5731], which states:
 
 > A domain:null element can be used within the domain:authInfo element to remove authorization information.
 
