@@ -2409,7 +2409,7 @@ Do note that if subordinates exist these will block for a delete and the request
 <a id="restore-domain"></a>
 #### restore domain
 
-As described in [RFC:3915][RFC3915], with a support for grace periods, it is possible to restore a domain name scheduled for deletion, (in the state `pendingDelete`).
+As described in [RFC:3915], with a support for grace periods, it is possible to restore a domain name scheduled for deletion, (in the state `pendingDelete`).
 
 DK Hostmaster will support the ability to restore for two use-cases:
 
@@ -2479,7 +2479,7 @@ The mandatory fields:
 - `rgp:delTime`
 - `rgp:resTime`
 
-Have to be specified and will be evaluated according to [RFC:3915][RFC3915].
+Have to be specified and will be evaluated according to [RFC:3915].
 
 - The `rgp:delTime` value has to match the deletion date and time.
 - The `rgp:resTime` value will be ignored since, we do not handle the `request` operation.
