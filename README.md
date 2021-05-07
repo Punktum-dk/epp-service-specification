@@ -27,7 +27,7 @@ Revision: 4.0
   - [Client Transaction ID \(`clTRID`\)](#client-transaction-id-cltrid)
   - [IP Whitelisting](#ip-whitelisting)
 - [Implementation Extensions](#implementation-extensions)
-  - [`dkhm:authinfoexdate](#authinfoexdate)
+  - [`dkhm:authinfoexdate`](#authinfoexdate)
   - [`dkhm:autoRenew`](#dkhmautorenew)
   - [`dkhm:contact_validated`](#dkhmcontact_validated)
   - [`dkhm:CVR`](#dkhmcvr)
