@@ -3979,7 +3979,7 @@ EPP service is running in the environment queried.
 <a id="status-codes"></a>
 ### Status Codes
 
-<a id="<a id="domain-status-codes"></a>
+<a id="domain-status-codes"></a>
 #### Domain Status Codes
 
 This list of EPP domain status codes is based on information from [RFC:5731] and the ICANN status code interpretation: ["EPP Status Codes | What Do They Mean, and Why Should I Know?"][ICANN].
@@ -4014,7 +4014,7 @@ As a general business rule, DK Hostmaster does not support the `client*` statuse
 | `serverUpdateProhibited`   | indicates whether the registrant or registrar for a given domain can have ownership transferred, can appoint new proxy/admin contact, can appoint new billing contact, change name servers and can associate DS Records |
 | `transferPeriod`           | *unsupported* the status is not described in [RFC:5731] only in [ICANN resource][ICANN] |
 
-<a id="<a id="contact-status-codes"></a>
+<a id="contact-status-codes"></a>
 #### Contact Status Codes
 
 This list of EPP contact status codes is based on information from [RFC:5733].
@@ -4038,7 +4038,7 @@ As a general business rule, DK Hostmaster does not support the `client*` statuse
 | `serverTransferProhibited` |               |
 | `serverUpdateProhibited`   |               |
 
-<a id="<a id="host-status-codes"></a>
+<a id="host-status-codes"></a>
 #### Host Status Codes
 
 This list of EPP host status codes is based on information from [RFC:5732].
