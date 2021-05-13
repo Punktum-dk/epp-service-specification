@@ -469,7 +469,14 @@ The EPP service supports the following protocols for transport security:
 <a id="available-environments"></a>
 ### Available Environments
 
-DK Hostmaster offers the following environments:
+DK Hostmaster offers the following two environments:
+
+- production
+- sandbox
+
+Updates to both environments are announced via the tech-announce mailing list.
+
+Please see the [information page][DKHMMAIL] for details on subscribing etc.
 
 <a id="production"></a>
 #### Production
@@ -4234,3 +4241,4 @@ The version numbers used in the matrix are major numbers only, e.g. 1.X.X.
 [DKHMSANDBOX]: https://github.com/DK-Hostmaster/sandbox-environment-specification
 [EPPDEMOCLIENT]: https://github.com/DK-Hostmaster/epp-demo-client-mojolicious
 [DKHMTAC]: https://www.dk-hostmaster.dk/en/general-conditions
+[DKHMMAIL]: https://www.dk-hostmaster.dk/en/mailing-lists
