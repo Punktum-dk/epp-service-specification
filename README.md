@@ -1986,8 +1986,6 @@ REF: [issue #9](https://github.com/DK-Hostmaster/epp-service-specification/issue
 <a id="change-registrant"></a>
 ##### change registrant
 
-TODO this section requires to be rewritten in the context of registrar handling
-
 The change of registrant is a *special* operation, it results in all privileges and rights being transferred to another entity. A registrar does not hold the privileges to complete such a request, so the object service is unimplemented at this time.
 
 <a id="add-name-server"></a>
