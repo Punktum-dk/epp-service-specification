@@ -2339,7 +2339,7 @@ Ref: [`dkhm-4.3.xsd`][DKHMXSD]
 <a id="delete-domain-response></a>
 ##### delete domain response
 
-The complete command will look as follows (example lifted from RFC:5731):
+The complete command will look as follows (example lifted from [RFC:5731]):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -2355,7 +2355,7 @@ The complete command will look as follows (example lifted from RFC:5731):
   </epp>
 ```
 
-And the complete command with a deletion date specification (example lifted from RFC:5731 and modified):
+And the complete command with a deletion date specification (example lifted from [RFC:5731] and modified):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -2380,7 +2380,7 @@ The scheduling of a future delete date supports the handling of automatic renewa
 
 The response for a `delete domain` command will be `1001`.
 
-Response example (example lifted from RFC:5731 and modified):
+Response example (example lifted from [RFC:5731] and modified):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
