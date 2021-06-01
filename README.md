@@ -1299,7 +1299,7 @@ The [create domain](#create-domain) command has been extended with a field (`ord
 
 ```xml
 <extension>
-	<dkhm:orderconfirmationToken xmlns:dkhm=“urn:dkhm:params:xml:ns:dkhm-3.1”>
+	<dkhm:orderconfirmationToken xmlns:dkhm=“urn:dkhm:params:xml:ns:dkhm-4.3”>
 		1522744544
 	</dkhm:orderconfirmationToken>
 </extension>
@@ -1385,7 +1385,7 @@ The creation of contacts (registrants) is covered under [create contact](#create
 			</domain:create>
 		</create>
 		<extension>
-			<dkhm:orderconfirmationToken xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.1">testtoken</dkhm:orderconfirmationToken>
+			<dkhm:orderconfirmationToken xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.3">testtoken</dkhm:orderconfirmationToken>
 		</extension>
 		<clTRID>92724843f12a3e958588679551aa988d</clTRID>
 	</command>
@@ -1404,10 +1404,10 @@ The creation of contacts (registrants) is covered under [create contact](#create
 		</result>
 		<msgQ count="1" id="1"/>
 		<extension>
-			<dkhm:trackingNo xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.1">2013010100030</dkhm:trackingNo>
-			<dkhm:domain_confirmed xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.1">1</dkhm:domain_confirmed>
-			<dkhm:registrant_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.1">1</dkhm:registrant_validated>
-			<dkhm:url xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.1">https://selfservice-dk-hostmaster.dk/6102505a2e8d0cfbe8c3c99ea49977f36e2d4ee3</dkhm:url>
+			<dkhm:trackingNo xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.3">2013010100030</dkhm:trackingNo>
+			<dkhm:domain_confirmed xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.3">1</dkhm:domain_confirmed>
+			<dkhm:registrant_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.3">1</dkhm:registrant_validated>
+			<dkhm:url xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.3">https://selfservice-dk-hostmaster.dk/6102505a2e8d0cfbe8c3c99ea49977f36e2d4ee3</dkhm:url>
 		</extension>
 		<trID>
 			<clTRID>47a4178679f26909ebcfcfd8572f315c</clTRID>
@@ -1459,7 +1459,7 @@ The outcome can be one of two, please see the examples below:
 				<domain:paDate>2018-06-22T15:07:00.0Z</domain:paDate></domain:panData>
 		</resData>
 		<extension>
-			<dkhm:risk_assessment xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.1">N/A</dkhm:risk_assessment>    </extension>
+			<dkhm:risk_assessment xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.3">N/A</dkhm:risk_assessment>    </extension>
 		<trID>
 			<clTRID>4fc3af83a40f85dd01bf5110727ee943</clTRID>
 			<svTRID>7F3D4CD8-761D-11E8-8775-F5EABB5937F7</svTRID>    </trID></response>
@@ -1486,7 +1486,7 @@ The outcome can be one of two, please see the examples below:
 			</domain:creData>
 		</resData>
 		<extension>
-			<dkhm:risk_assessment xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.1">N/A</dkhm:risk_assessment>
+			<dkhm:risk_assessment xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.3">N/A</dkhm:risk_assessment>
 		</extension>
 		<trID>
 			<clTRID>71a61d8181fce08fc1c087f409a6168b</clTRID>
@@ -1651,7 +1651,7 @@ Please see the [addendum on domain status codes](#domain-status-codes).
       </domain:infData>
     </resData>
     <extension>
-      <dkhm:registrant_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.1">1</dkhm:registrant_validated>
+      <dkhm:registrant_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.3">1</dkhm:registrant_validated>
       <secDNS:infData xmlns:secDNS="urn:ietf:params:xml:ns:secDNS-1.1">
         <secDNS:dsData>
           <secDNS:keyTag>25591</secDNS:keyTag>
@@ -1701,7 +1701,7 @@ If a domain name is marked for pending deletion, this special status is communic
 
 ```xml
 <extension>
-    <dkhm:domainAdvisory advisory="pendingDeletionDate" date="2020-10-14T00:00:00.0Z" domain="eksempel.dk" xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.1"/>
+    <dkhm:domainAdvisory advisory="pendingDeletionDate" date="2020-10-14T00:00:00.0Z" domain="eksempel.dk" xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.3"/>
 </extension>
 ```
 
@@ -1713,7 +1713,7 @@ If a domain name is offered to a position on a waiting list, the advisory `offer
 
 ```xml
 <extension>
-    <dkhm:domainAdvisory advisory="offeredOnWaitingList" domain="eksempel.dk" xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.1"/>
+    <dkhm:domainAdvisory advisory="offeredOnWaitingList" domain="eksempel.dk" xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.3"/>
 </extension>
 ```
 
