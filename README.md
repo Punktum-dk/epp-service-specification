@@ -1992,8 +1992,6 @@ REF: [issue #9](https://github.com/DK-Hostmaster/epp-service-specification/issue
 <a id="change-registrant"></a>
 ##### change registrant
 
-TODO this section requires to be rewritten in the context of registrar handling
-
 The change of registrant is a *special* operation, it results in all privileges and rights being transferred to another entity. A registrar does not hold the privileges to complete such a request, so the object service is unimplemented at this time.
 
 <a id="add-name-server"></a>
@@ -2347,7 +2345,7 @@ Ref: [`dkhm-4.3.xsd`][DKHMXSD]
 <a id="delete-domain-response></a>
 ##### delete domain response
 
-The complete command will look as follows (example lifted from RFC:5731):
+The complete command will look as follows (example lifted from [RFC:5731]):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -2363,7 +2361,7 @@ The complete command will look as follows (example lifted from RFC:5731):
   </epp>
 ```
 
-And the complete command with a deletion date specification (example lifted from RFC:5731 and modified):
+And the complete command with a deletion date specification (example lifted from [RFC:5731] and modified):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -2388,7 +2386,7 @@ The scheduling of a future delete date supports the handling of automatic renewa
 
 The response for a `delete domain` command will be `1001`.
 
-Response example (example lifted from RFC:5731 and modified):
+Response example (example lifted from [RFC:5731] and modified):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -3876,12 +3874,12 @@ List of references used in this document in alphabetical order.
 1. [DK Hostmaster: "New basis for collaboration between registrars and DK Hostmaster"][CONCEPT]
 1. [DK Hostmaster: EPP General Information][DKHMEPP]
 1. [DK Hostmaster: ID-control General Information][DKHMIDENT]
-1. [DK Hostmaster: Waiting list General Information][DKHMWAIT]
+1. [DK Hostmaster: Waiting list General Information][DKHMWAITLIST]
 1. [DK Hostmaster: Name Service Specification][DKHMDNSSPEC]
 1. [DK Hostmaster: RESTful WHOIS Service Specification][DKHMWHOISRESTSPEC]
 1. [DK Hostmaster: WHOIS Service Specification][DKHMWHOISSPEC]
 1. [DK Hostmaster: Sandbox Environment Specification][DKHMSANDBOX]
-1. [DK Hostmaster: EPP XSD File Repository][EPPXSD]
+1. [DK Hostmaster: EPP XSD File Repository][DKHMXSD]
 1. [ICANN: "EPP Status Codes | What Do They Mean, and Why Should I Know?"][ICANN]
 1. [IANA: "Extensions for the Extensible Provisioning Protocol (EPP)"][IANA]
 1. [RFC:3339: "Date and Time on the Internet: Timestamps"][RFC:3339]
