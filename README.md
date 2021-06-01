@@ -238,7 +238,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
     - The business policies in relation to these operations, do however change, since the billing operation changes, please see the [create domain](#create-domain) and [renew domain](#renew-domain) commands
     - The introduction of registrar support influences the business rules for [create domain](#create-domain)
   - Added information on setting/unsetting autorizations using AuthInfo tokens, see [setting AuthInfo](#setting-AuthInfo) and [unsetting AuthInfo](#unsetting-AuthInfo)
-  - Added information on `dkhm:management` extension for create domain](#create-domain) and [create contact](#create-contact), which overrides account default
+  - Added information on `dkhm:management` extension for [create domain](#create-domain) and [create contact](#create-contact), which overrides account default
   - Added description of new and improved change name server process, both using authorisation and under registrar administration
   - Added documentation on the extension to [info domain](#info-domain) with information on the `AuthInfo` expiration date using the `dkhm::authInfoExDate` extension
   - Added description of the changed [create contact](#create-contact) process, handling registrar administration
@@ -1070,11 +1070,11 @@ There are no special additions or alterations to the specification or use of thi
 
 For clarification `2303` is returned in case a provided message-id (`msgID`) point to a non-existing message.
 
-| Return Code | Description |
+| Return Code | Description                                    |
 | ----------- | ---------------------------------------------- |
-| 2303        | In case a request message no longer exist      |
+| 2303        | In case a requested message no longer exist    |
 | 1301        | Command completed successfully; ack to dequeue |
-| 1000        | A messages was successfully dequeue using ack  |
+| 1000        | A messages was successfully dequeued using ack |
 
 <a id="poll-req-request"></a>
 #### poll req request
@@ -1236,6 +1236,12 @@ Example lifted from "[Balance Mapping for the Extensible Provisioning Protocol (
 ```
 
 Example lifted from "[Balance Mapping for the Extensible Provisioning Protocol (EPP)][BALANCE]" (see [References](#references)).
+
+| Return Code | Description                                                   |
+| ----------- | ------------------------------------------------------------- |
+| 2201        | No authorization to view the balance of the requested account |
+| 2303        | The account for which balance was requested does not exist    |
+| 1000        | Request was responded to successfully                         |
 
 <a id="domain"></a>
 ### Domain
@@ -1762,7 +1768,7 @@ When the AuthInfo token has been set it can be retrieved via the EPP command: `i
 </epp>
 ```
 
-TODO: this example need to be updated.
+TODO: this example needs to be updated.
 
 The response is further extended with the `dkhm:authInfoExDate` extension, communicating the expiration date of the current `AuthInfo` for the domain, again only visible if privileges permit.
 
@@ -2648,6 +2654,14 @@ Example is lifted from [RFC:5731] and modified.
 ```
 
 Example is lifted from [RFC:5731] and modified.
+
+| Return Code  | Description |
+| ------------ | ------------ |
+| 1000         | If the update domain command is successful |
+| 2005         | Syntax of the command is not correct |
+| 2201         | If the authenticated user does not hold the privilege to transfer the specified domain object |
+| 2201         | If the provided AuthInfo information is not valid |
+| 2303         | If the specified domain name does not exist |
 
 <a id="withdraw"></a>
 #### Withdraw
@@ -4028,8 +4042,8 @@ As a general business rule, DK Hostmaster does not support the `client*` statuse
 | `clientDeleteProhibited`   | *unsupported* |
 | `clientTransferProhibited` | *unsupported* |
 | `clientUpdateProhibited`   | *unsupported* |
-| `linked`                   |               |
-| `ok`                       |               |
+| `linked`                   | Object is linked to other objects |
+| `ok`                       | exclusive for all other status codes |
 | `pendingCreate`            | *unsupported* as creation is instantaneous |
 | `pendingDelete`            | *unsupported* |
 | `pendingTransfer`          | *unsupported* as transfer is instantaneous |
@@ -4051,13 +4065,13 @@ As a general business rule, DK Hostmaster does not support the `client*` statuse
 | ------------------------ | ------------- |
 | `clientDeleteProhibited` | *unsupported* |
 | `clientUpdateProhibited` | *unsupported* |
-| `linked`                 |               |
-| `ok`                     |               |
+| `linked`                 | Object is linked to other objects |
+| `ok`                     | No pending or prohibited operations |
 | `pendingCreate`          |               |
 | `pendingDelete`          |               |
 | `pendingTransfer`        | *unsupported* as transfer is instantaneous |
 | `pendingUpdate`          |               |
-| `serverDeleteProhibited` | *unsupported* |
+| `serverDeleteProhibited` |               |
 | `serverUpdateProhibited` | *unsupported* |
 
 <a id="privilege-matrix-registrant-managed-objects"></a>
