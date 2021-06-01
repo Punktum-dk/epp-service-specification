@@ -4010,20 +4010,20 @@ As a general business rule, DK Hostmaster does not support the `client*` statuse
 | `clientTransferProhibited` | *unsupported* |
 | `clientUpdateProhibited`   | *unsupported* |
 | `inactive`                 | *unsupported* domain names in the DK Hostmaster registry **must** have associated name servers |
-| `ok`                       | exclusive for all other status codes |
-| `pendingCreate`            | indication that a the given domain is enqueue for possible creation, see [domain create](#domain-create) |
-| `pendingDelete`            | deletion is pending, see [domain create](#domain-create). An advisory date is applicable, see: [`dkhm:delDate`](dkhmdeldate) |
+| `ok`                       | Exclusive for all other status codes |
+| `pendingCreate`            | Indication that a the given domain is enqueue for possible creation, see [domain create](#domain-create) |
+| `pendingDelete`            | Deletion is pending, see [domain create](#domain-create). An advisory date is applicable, see: [`dkhm:delDate`](dkhmdeldate) |
 | `pendingRenew`             | *unsupported* as renewal is instantaneous |
 | `pendingRestore`           | *unsupported* as restoration is instantaneous |
 | `pendingTransfer`          | *unsupported* as transfer is instantaneous |
-| `pendingUpdate`            | the domain has active asynchronous requests, see [domain update](#domain-update) |
-| `redemptionPeriod`         | this status is applied when a domain name has `pendingDelete` and the delete operation can be redeemed |
+| `pendingUpdate`            | The domain has active asynchronous requests, see [domain update](#domain-update) |
+| `redemptionPeriod`         | This status is applied when a domain name has `pendingDelete` and the delete operation can be redeemed |
 | `renewPeriod`              | *unsupported* the status is not described in [RFC:5731] |
-| `serverDeleteProhibited`   | indicates whether the registrant or registrar can delete the domain |
-| `serverHold`               | a given domain name is not active, it can hold a number of different _internal_ states rendering it on hold |
-| `serverRenewProhibited`    | indicates a transient status where the billing or registrar contact is not able to renew the domain |
-| `serverTransferProhibited` | indicates status where the registrant or registrar contact is not able to transfer the domain |
-| `serverUpdateProhibited`   | indicates whether the registrant or registrar for a given domain can have ownership transferred, can appoint new proxy/admin contact, can appoint new billing contact, change name servers and can associate DS Records |
+| `serverDeleteProhibited`   | Indicates whether the registrant or registrar can delete the domain |
+| `serverHold`               | Given domain name is not active, it can hold a number of different _internal_ states rendering it on hold |
+| `serverRenewProhibited`    | Indicates a transient status where the billing or registrar contact is not able to renew the domain |
+| `serverTransferProhibited` | Indicates status where the registrant or registrar contact is not able to transfer the domain |
+| `serverUpdateProhibited`   | Indicates whether the registrant or registrar for a given domain can have ownership transferred, can appoint new proxy/admin contact, can appoint new billing contact, change name servers and can associate DS Records |
 | `transferPeriod`           | *unsupported* the status is not described in [RFC:5731] only in [ICANN resource][ICANN] |
 
 <a id="contact-status-codes"></a>
@@ -4041,7 +4041,7 @@ As a general business rule, DK Hostmaster does not support the `client*` statuse
 | `clientTransferProhibited` | *unsupported* |
 | `clientUpdateProhibited`   | *unsupported* |
 | `linked`                   | Object is linked to other objects |
-| `ok`                       | exclusive for all other status codes |
+| `ok`                       | Exclusive for all other status codes |
 | `pendingCreate`            | *unsupported* as creation is instantaneous |
 | `pendingDelete`            | *unsupported* |
 | `pendingTransfer`          | *unsupported* as transfer is instantaneous |
@@ -4070,7 +4070,7 @@ As a general business rule, DK Hostmaster does not support the `client*` statuse
 | `pendingTransfer`        | *unsupported* as transfer is instantaneous |
 | `pendingUpdate`          |               |
 | `serverDeleteProhibited` |               |
-| `serverUpdateProhibited` | *unsupported* |
+| `serverUpdateProhibited` |               |
 
 <a id="privilege-matrix-registrant-managed-objects"></a>
 ### Privilege Matrix for Registrant Managed Objects
