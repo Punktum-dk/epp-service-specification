@@ -28,7 +28,6 @@ EPP
 EØS
 FAE
 FB
-Files in repository contain spelling errors
 GUID
 HOSTMASTER
 Hostmaster
@@ -58,7 +57,6 @@ TTL
 UTF
 UUID
 Unsetting
-Using pyspelling on repository files outlined in >.spellcheck.yaml<
 VID
 WHOIS
 WXY
