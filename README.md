@@ -234,6 +234,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 - 4.0 2021-04-08
   - Introduction of support for registrar/registrant administration
+  - Outlined business rules for [`dkhm:orderConfirmationToken`](#dkhmorderconfirmationtoken)
   - The procedures for renewal and application/creation are not being changed, in regard to use and protocol, however
     - The business policies in relation to these operations, do however change, since the billing operation changes, please see the [create domain](#create-domain) and [renew domain](#renew-domain) commands
     - The introduction of registrar support influences the business rules for [create domain](#create-domain)
@@ -1305,7 +1306,9 @@ The [create domain](#create-domain) command has been extended with a field (`ord
 </extension>
 ```
 
-The token is a timestamp in [EPOCH] format, indicating when the agreement was accepted.
+The token is a timestamp in [EPOCH] format, indicating when the agreement was accepted. The [EPOCH] timestamp has to be specify adhering to the POSIX/UNIX standard and has to be specified in seconds. We do not support milliseconds or nanoseconds.
+
+The EPOCH timestamp must not exceed 24 hours into the future compared to local time resolution. In case this exception occurs error code `2004` and a descriptive message. 
 
 The `token` is handled the following way:
 
