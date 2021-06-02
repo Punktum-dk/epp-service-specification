@@ -1308,7 +1308,7 @@ The [create domain](#create-domain) command has been extended with a field (`ord
 
 The token is a timestamp in [EPOCH] format, indicating when the agreement was accepted. The [EPOCH] timestamp has to be specify adhering to the POSIX/UNIX standard and has to be specified in seconds. We do not support milliseconds or nanoseconds.
 
-The EPOCH timestamp must not exceed 24 hours into the future compared to local time resolution. In case this exception occurs error code `2004` and a descriptive message. 
+The EPOCH timestamp must not exceed 24 hours into the future compared to local time resolution. In case this exception occurs error code `2004` and a descriptive message.
 
 The `token` is handled the following way:
 
