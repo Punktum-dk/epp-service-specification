@@ -1,0 +1,16 @@
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.3.0
+    hooks:
+    -   id: check-yaml
+        name: Check YAML
+-   repo: https://github.com/sirosen/check-jsonschema
+    rev: 0.3.1
+    hooks:
+    -   id: check-github-workflows
+    -   id: check-github-actions
+-   repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.27.1
+    hooks:
+    -   id: markdownlint
+        name: Test Markdownfiles with markdownlint
