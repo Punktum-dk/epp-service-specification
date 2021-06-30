@@ -2,8 +2,11 @@ repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v2.3.0
     hooks:
+    -   id: trailing-whitespace
+    -   id: end-of-file-fixer
     -   id: check-yaml
         name: Check YAML
+    -   id: check-added-large-files
 -   repo: https://github.com/sirosen/check-jsonschema
     rev: 0.3.1
     hooks:
