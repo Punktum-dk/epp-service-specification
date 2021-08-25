@@ -1289,7 +1289,7 @@ As described in the section on [waiting lists]("waiting-list) the token is not n
 A well-formed request for domain creation will always result in:
 
 ```text
-1001, “Commmand completed successfully; action pending”
+1001, “Command completed successfully; action pending”
 ```
 
 The extension in response will provide a unique tracking number, which can be used to identify the creation request across provisioning channels offered by DK Hostmaster. The result of the further processing will be relayed back via EPP, see [Poll and Messages](#poll-and-messages) below.
