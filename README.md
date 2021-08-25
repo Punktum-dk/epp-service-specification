@@ -1366,6 +1366,11 @@ The creation of contacts (registrants) is covered under [create contact](#create
 
 ![Create domain][epp_create_domain]
 
+| Return Code | Description |
+| ----------- | ----------- |
+| 1001 | Commmand completed successfully; action pending |
+| 2104 | Billing failure |
+
 <a id="create-domain-request"></a>
 ##### create domain request
 
@@ -1519,6 +1524,11 @@ Please note that the command supports Punycode notation for specifying IDN domai
 <a id="check-domain"></a>
 #### check domain
 
+| Return Code | Description |
+| ----------- | ----------- |
+| 1000 | If the check domain command is successful |
+| 2303 | If the specified domain object does not exist |
+
 <a id="check-domain-request"></a>
 ##### check domain request
 
@@ -1598,6 +1608,11 @@ Do note that the billing contact and admin/proxy is displayed if the authenticat
 For DNSSEC data the availability is limited to only displaying if the information is public available.
 
 Please see the [addendum on domain status codes](#domain-status-codes).
+
+| Return Code | Description |
+| ----------- | ----------- |
+| 1000 | If the info domain command is successful |
+| 2303 | If the specified domain object does not exist |
 
 <a id="info-domain-request"></a>
 ##### info domain request
@@ -1722,6 +1737,39 @@ If a domain name is offered to a position on a waiting list, the advisory `offer
 
 Do note that the waiting list status is also used in the [check domain](#check-domain) command, using the `reason` field.
 
+Since a waiting list offering is not a complete domain name registration the responses is limited.
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+    <response>
+        <result code="1000">
+            <msg>Command completed successfully</msg>
+        </result>
+        <resData>
+            <domain:infData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+                <domain:name>eksempel.dk</domain:name>
+                <domain:roid>EKSEMPEL_DK-DK</domain:roid>
+                <domain:status s="ok"/>
+                <domain:registrant>UNKNOWN-DK</domain:registrant>
+                <domain:clID>DKHM1-DK</domain:clID>
+                <domain:crID>UNKNOWN-DK</domain:crID>
+            </domain:infData>
+        </resData>
+        <extension>
+            <dkhm:domainAdvisory advisory="offeredOnWaitingList" domain="eksempel.dk"
+                xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.3"/>
+        </extension>
+        <trID>
+            <clTRID>733a8410c40f76de6b41c9fa51d48f81</clTRID>
+            <svTRID>4B1EF7E6-00E2-11EC-AEDE-C9E35F504B00</svTRID>
+        </trID>
+    </response>
+</epp>
+```
+
 <a id="info-domain-response-with-authinfo-token"></a>
 #### info domain response with AuthInfo token
 
@@ -1807,16 +1855,16 @@ Not specifying the period parameters will result in the unit: `y` and the value:
 
 ![Diagram of EPP process for EPP renew domain][epp-renew-domain]
 
-| Return Code  | Description |
-| ------------ | ------------ |
+| Return Code | Description |
+| ----------- | ----------- |
+| 1000 | If the renew domain command is successful |
 | 2005 | Syntax of the command is not correct |
-| 2303 | If the specified domain object does not exist |
+| 2105 | If the domain object is not eligible for renewal. The domain name has to be in the state ‘Active’ and the expiration date has to be a at least month into the future from the current date. This will also be reflected in status value `serverRenewProhibited`. See also [ICANN description][ICANNserverRenewProhibited] of status |
 | 2201 | If the authenticated user does not hold the privilege to renew the specified domain object. This privilege is given to the billing contact for the domain name (see also the [login command](#login)) |
+| 2303 | If the specified domain object does not exist |
 | 2306 | If the specified expiry date is not valid. The provided expiration date has to be equal to the current expiration date or we return `2306` |
 | 2306 | If the calculated expiry date is not allowed. The new expiration date has to be lower than the current expiration date + 5 years. The maximum period to which the expiration date can be extended is 5 years and 3 months. The current expiration date is available via the [info domain](#info-domain) command as `domain:exDate` |
-| 2105 | If the domain object is not eligible for renewal. The domain name has to be in the state ‘Active’ and the expiration date has to be a at least month into the future from the current date. This will also be reflected in status value `serverRenewProhibited`. See also [ICANN description][ICANNserverRenewProhibited] of status |
 | 2400 | In case of an exception |
-| 1000 | If the renew domain command is successful |
 
 This complete process is atomic and might throw an unrecoverable exception: `2400` either due to unforeseen circumstances or a change in the state of the domain name.
 
