@@ -1289,7 +1289,7 @@ As described in the section on [waiting lists]("waiting-list) the token is not n
 A well-formed request for domain creation will always result in:
 
 ```text
-1001, “Commmand completed successfully; action pending”
+1001, “Command completed successfully; action pending”
 ```
 
 The extension in response will provide a unique tracking number, which can be used to identify the creation request across provisioning channels offered by DK Hostmaster. The result of the further processing will be relayed back via EPP, see [Poll and Messages](#poll-and-messages) below.
@@ -2311,42 +2311,14 @@ For registration of domain names offered from a waiting list, the authorization 
 <a href="delete-domain"></a>
 #### delete domain
 
-In addition to the standard EPP `delete domain` command, DK Hostmaster will support scheduling of deletion of domain names, by providing a date to the EPP `delete domain` command via an optional extension.
-
-The default is to deactivate immediately if possible, which complies with [RFC:5731]. Not being able to complete the request will result in a error, also in compliance with [RFC:5731]. Please see below for more information on the business process for deletion.
-
-The extension offers the ability to specify a date, this date will have to be in the future and prior to, or on the expiration date of the specified domain name.
+The default `delete domain` command behaviour is to deactivate immediately, which complies with [RFC:5731]. Not being able to complete the request will result in a error, also in compliance with [RFC:5731]. Please see below for more information on the business process for deletion.
 
 The current expiration date can be obtained using the `info domain` command and is specified in the `domain:exDate` field. The date conforms with the required format.
 
-An example (do note the dates in the below examples are examples and are fabricated and might not be correct, meaning they might be in the past by the time of reading):
-
-```xml
-  <extension>
-    <dkhm:delDate xmlns:dkhm="urn:dkhm:xml:ns:dkhm-3.2">2021-01-31T00:00:00.0Z</dkhm:delDate>
-  </extension>
-```
-
-The date follows the format used in the EPP protocol, which complies with [RFC:3339].
+The alternative approach to deletion is to set auto expire, which will cancel the domain name automatically at expiration.
 
 <a id="delete-domain-request></a>
 ##### delete domain request
-
-The XSD for the extension look as follows:
-
-```xsd
-  <!-- custom: delDate  -->
-  <simpleType name="delDate">
-    <restriction base="dateTime" />
-  </simpleType>
-```
-
-Ref: [`dkhm-4.3.xsd`][DKHMXSD]
-
-:warning: The reference and file mentioned above is not released at this time, so this file might be re-versioned upon release.
-
-<a id="delete-domain-response></a>
-##### delete domain response
 
 The complete command will look as follows (example lifted from [RFC:5731]):
 
@@ -2364,6 +2336,9 @@ The complete command will look as follows (example lifted from [RFC:5731]):
   </epp>
 ```
 
+<a id="delete-domain-response></a>
+##### delete domain response
+
 And the complete command with a deletion date specification (example lifted from [RFC:5731] and modified):
 
 ```xml
@@ -2375,17 +2350,12 @@ And the complete command with a deletion date specification (example lifted from
           <domain:name>eksempel.dk</domain:name>
           </domain:delete>
       </delete>
-      <extension>
-        <dkhm:delDate xmlns:dkhm="urn:dkhm:xml:ns:dkhm-4.3">2021-01-31T00:00:00.0Z</dkhm:delDate>
-      </extension>
       <clTRID>ABC-12345</clTRID>
     </command>
   </epp>
 ```
 
 Domain names are not deleted immediately, but are flagged as _scheduled for deletion_. This of the `delete command` is successful, the domain name will be flagged for deletion within the timeframe specified by the business rules implemented by DK Hostmaster.
-
-The scheduling of a future delete date supports the handling of automatic renewal or expiration as outlined in the section on `autoRenew`.
 
 The response for a `delete domain` command will be `1001`.
 
