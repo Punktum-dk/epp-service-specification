@@ -14,9 +14,9 @@ DKHMXSD
 DKK
 DNS
 DNSKEY
+DSRECORD
 DNSSEC
 DS
-DSRECORD
 DSRECORDS
 EABB
 EAN
@@ -186,3 +186,4 @@ autoredel
 serverApproved
 dequeued
 POSIX
+AEDE

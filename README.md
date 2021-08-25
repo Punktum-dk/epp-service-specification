@@ -1368,7 +1368,7 @@ The creation of contacts (registrants) is covered under [create contact](#create
 
 | Return Code | Description |
 | ----------- | ----------- |
-| 1001 | Commmand completed successfully; action pending |
+| 1001 | Command completed successfully; action pending |
 | 2104 | Billing failure |
 
 <a id="create-domain-request"></a>
