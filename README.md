@@ -2043,7 +2043,120 @@ REF: [issue #9](https://github.com/DK-Hostmaster/epp-service-specification/issue
 <a id="change-registrant"></a>
 ##### change registrant
 
-The change of registrant is a *special* operation, it results in all privileges and rights being transferred to another entity. A registrar does not hold the privileges to complete such a request, so the object service is unimplemented at this time.
+The change of registrant operation results in all privileges and rights being transferred to another entity. A registrar only holds the privileges to complete such an operation for domains in own portfolio.
+
+This mean the following prerequisites have to be met:
+
+- The domain name has to be in the portfolio of the registrar requesting the change
+
+- The registrant on the domain name has to be in the portfolio of the registrar requesting the change
+
+- The domain name has to be in a state where it can have the registrant changed
+
+- The contact designated to be appointed as the new registrant are in the portfolio of the registrar requesting the change
+
+- The contact designated to be appointed as the new registrant has to be in a state where it can be assigned the role of registrant
+
+The command can be issued in two variations:
+
+1. With the use of the `dkhm:orderConfirmationToken`, where the designated registrant has approved Terms and Condition for DK Hostmaster with the registrar.
+
+1. As standard without any use of extensions
+
+The two above methods reflect the same usage as for domain name application using [domain create](#domain-create).
+
+Here follows an example of a request to change the registrant using the seconds method.
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+    <command>
+        <update>
+            <domain:update xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+                <domain:name>eksempel.dk</domain:name>
+                <domain:chg>
+                    <domain:registrant>DKHM1-DK</domain:registrant>
+                </domain:chg>
+            </domain:update>
+        </update>
+        <clTRID>ABC-12345</clTRID>
+    </command>
+</epp>
+```
+
+The response indicates that the operation has one or more pending actions
+
+1. DK Hostmaster require that the designated registrant accepts terms and conditions
+
+1. DK Hostmaster require that ID-control is successfully completed
+
+If the registrant already has completed ID-control, the second action will not be required.
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+    <response>
+        <result code="1001">
+	        <msg>Command completed successfully; action pending</msg>
+        </result>
+        <trID>
+            <clTRID>ABC-12345</clTRID>
+            <svTRID>54321-XYZ</svTRID>
+        </trID>
+    </response>
+</epp>
+```
+
+To assist the registrant the registrar can offer collect the accept of terms and conditions for DK Hostmaster and indicate the accept of these via the extension: `dkhm:orderConfirmationToken`.
+
+Then the request would have to be extended with the use of the mentioned extension:
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+    <command>
+        <update>
+            <domain:update xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+                <domain:name>eksempel.dk</domain:name>
+                <domain:chg>
+                    <domain:registrant>DKHM1-DK</domain:registrant>
+                </domain:chg>
+            </domain:update>
+        </update>
+		<extension>
+			<dkhm:orderconfirmationToken xmlns:dkhm=“urn:dkhm:params:xml:ns:dkhm-4.3”>
+				1522744544
+			</dkhm:orderconfirmationToken>
+		</extension>
+        <clTRID>ABC-12345</clTRID>
+    </command>
+</epp>
+```
+
+The below example of a response, when the accept of terms and conditions has been collected and ID-control has been completed beforehand.
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+    <response>
+        <result code="1000">
+            <msg>Command completed successfully</msg>
+        </result>
+        <trID>
+            <clTRID>ABC-12345</clTRID>
+            <svTRID>54321-XYZ</svTRID>
+        </trID>
+    </response>
+</epp>
+```
+
+| Return Code | Description |
+| ----------- | ------------ |
+| 1000        | If the update domain command is successful |
+| 1001        | If the update domain command is successful, but an action is pending |
+| 2005        | Syntax of the command is not correct |
+| 2201        | If the authenticated user does not hold the privilege to update the specified domain object |
+| 2303        | If the specified domain name does not exist |
 
 <a id="add-name-server"></a>
 ##### add name server
