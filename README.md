@@ -234,7 +234,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 - 4.0 2021-04-08
   - Introduction of support for registrar/registrant administration
-  - Outlined business rules for [`dkhm:orderConfirmationToken`](#dkhmorderconfirmationtoken)
+  - Outlined business rules for [`dkhm:orderconfirmationToken`](#dkhmorderconfirmationtoken)
   - The procedures for renewal and application/creation are not being changed, in regard to use and protocol, however
     - The business policies in relation to these operations, do however change, since the billing operation changes, please see the [create domain](#create-domain) and [renew domain](#renew-domain) commands
     - The introduction of registrar support influences the business rules for [create domain](#create-domain)
@@ -2059,7 +2059,7 @@ This mean the following prerequisites have to be met:
 
 The command can be issued in two variations:
 
-1. With the use of the `dkhm:orderConfirmationToken`, where the designated registrant has approved Terms and Condition for DK Hostmaster with the registrar.
+1. With the use of the `dkhm:orderconfirmationToken`, where the designated registrant has approved Terms and Condition for DK Hostmaster with the registrar.
 
 1. As standard without any use of extensions
 
@@ -2107,7 +2107,7 @@ If the registrant already has completed ID-control, the second action will not b
 </epp>
 ```
 
-To assist the registrant the registrar can offer collect the accept of terms and conditions for DK Hostmaster and indicate the accept of these via the extension: `dkhm:orderConfirmationToken`.
+To assist the registrant the registrar can offer collect the accept of terms and conditions for DK Hostmaster and indicate the accept of these via the extension: `dkhm:orderconfirmationToken`.
 
 Then the request would have to be extended with the use of the mentioned extension:
 
