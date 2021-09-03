@@ -1580,6 +1580,33 @@ The available values for the `reason` field are:
 - `Enqueued` for domain names awaiting domain name application processing, This can last a few seconds to a few days if the application require accept of terms and conditions from the designated registrant
 - `Offered for pos. on waiting list`, for when the domain name has been offered to a designated registrant from a waiting list position
 
+An example for a waiting list position offering would look as follows:
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+    <response>
+        <result code="1000">
+            <msg>Command completed successfully</msg>
+        </result>
+        <resData>
+            <domain:chkData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+                <domain:cd>
+                    <domain:name avail="0">waiting-list.dk</domain:name>
+                    <domain:reason>Offered for pos. on waiting list</domain:reason>
+                </domain:cd>
+            </domain:chkData>
+        </resData>
+        <trID>
+            <clTRID>24234ad07890f6961184fd58268904dd</clTRID>
+            <svTRID>B8D178A4-097A-11EC-A97C-5241511D3588</svTRID>
+        </trID>
+    </response>
+</epp>
+```
+
 <a id="info-domain"></a>
 #### info domain
 
