@@ -820,6 +820,16 @@ Availability of DNSSEC information and status is currently limited to public ava
 
 Please note that some information is not disclosed when using Object Query Commands. See the specific commands for more information.
 
+Additionally DK Hostmaster does not implement the optional `contact:disclose` element.
+
+> An OPTIONAL <contact:disclose> element that allows a client to
+> identify elements that require exceptional server-operator
+> handling to allow or restrict disclosure to third parties.  See
+> Section 2.9 for a description of the child elements contained
+> within the <contact:disclose> element.
+
+From [RFC:5733].
+
 <a id="encoding-and-idn-domains"></a>
 ### Encoding and IDN domains
 
@@ -852,7 +862,7 @@ All of the `client*` status codes are note supported:
 - `clientTransferProhibited`
 - `clientUpdateProhibited`
 
-The administrative models does not support user enforced restraints.
+The administrative model does not support user enforced restraints.
 
 - `addPeriod`
 - `autoRenewPeriod`
@@ -884,7 +894,7 @@ All of the `client*` status codes are note supported:
 - `clientUpdateProhibited`
 - `clientTransferProhibited`
 
-The administrative models does not support user enforced restraints.
+The administrative model does not support user enforced restraints.
 
 - `pendingCreate`
 - `pendingDelete`
@@ -902,7 +912,7 @@ All of the `client*` status codes are note supported:
 - `clientDeleteProhibited`
 - `clientUpdateProhibited`
 
-The administrative models does not support user enforced restraints.
+The administrative model does not support user enforced restraints.
 
 - `pendingTransfer`
 
