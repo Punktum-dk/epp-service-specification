@@ -1197,7 +1197,7 @@ The operations currently classified as billable are:
 - Restoration from deletion, this is described in detail in the [restore domain](#restore-domain) section
 - Restoration from suspension, also described in detail in the [restore domain](#restore-domain) section
 
-This mean that a new error scenario is introduced for creation/application, where an application/create request will be declined, in case of insufficient funds. The renewal operation is not subjected to this policy, please refer to the registrar contract for specific details as this is a technical document and not the authoritative source for business and policy rules.
+This mean that a new error scenario is introduced with version 4.0.0 of the service for creation/application, where an application/create request will be declined, in case of insufficient funds. The renewal operation is not subjected to this policy, please refer to the registrar contract for specific details as this is a technical document and not the authoritative source for business and policy rules.
 
 All prices and amounts relating to currencies are provided in DKK, converted to the EPP currency type, using decimal point (`.`) and not decimal comma (`,`), which is the definition for the Danish locale.
 
@@ -2756,19 +2756,13 @@ The following should not be observed (ref: `domain:trStatus`), since the process
 - `pending`
 - `serverCancelled`
 
-Upon transfer, the contact object referring to the registrant is being evaluated for optimal handling of the related data. This mean that both options of transferring and cloning of contacts are evaluated for possible outcomes. Do note that DK Hostmaster does not implement direct transfer of contact objects as described in the "Implementation Limitations" section.
+Upon transfer, the contact object referring to the registrant role, is being cloned to avoid issues with _disappearing data_ and _sponsorship_ in cross-portfolio operations. Do note that DK Hostmaster does not implement direct transfer of contact objects as described in the "Implementation Limitations" section.
 
-The below matrix outlines the handling strategies and there precedence by use case.
-
-| Use Case                          | Contact Object Handling |
-| --------------------------------- | ----------------------- |
-| From DKHM to registrar            | Transfer, Cloning       |
-| From registrar to registrar       | Cloning                 |
-| From registrar to DKHM (withdraw) | Cloning                 |
-
-- transfer of a the registrant, simply means that the contact object does not have any relations binding it to other objects within the registry and the sponsor can be exchanged. If relations to other objects are in place, a cloning of the designated contact objects is done instead, leaving a copy of the object with the registry. The clone might be deleted if these relations are terminated or removed, please see the description of the contact object deletion policy for details.
+A contact object (registrant) is cloned without additional relations bound to other objects within the registry or another portfolio, only the key object, the domain name is transferred, togehter with potential subordinate objecs such as name servers.
 
 The cloning is a _best-effort_ cloning, since the ID-control status cannot be guaranteed to be consistent in the case where a contact object is locked to a register, but has limitations in access to data due to policies in regard to disclosure etc.
+
+The clone might be deleted if these relations are terminated or removed, please see the description of the contact object deletion policy described in the section on the [delete contact command](#delete-contact) for details.
 
 <a id="transfer-domain-request"></a>
 ##### transfer domain request
