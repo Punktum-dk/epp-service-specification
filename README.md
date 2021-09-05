@@ -3088,8 +3088,8 @@ Please note:
 			</contact:create>
 		</create>
 		<extension>
-			<dkhm:userType xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">company</dkhm:userType>
-			<dkhm:CVR xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">1234567891231</dkhm:CVR>
+			<dkhm:userType xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.3">company</dkhm:userType>
+			<dkhm:CVR xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.3">1234567891231</dkhm:CVR>
 		</extension>
 		<clTRID>8cced469f2bfdbb0dcad16b875d87c99</clTRID>
 	</command>
@@ -3237,7 +3237,7 @@ The info contact command response is only available for the registrant contact o
 			</contact:infData>
 		</resData>
 		<extension>
-			<dkhm:contact_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">1</dkhm:contact_validated>
+			<dkhm:contact_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.3">1</dkhm:contact_validated>
 		</extension>
 		<trID>
 			<clTRID>76edfef5b78cdaefe8fb426eb8d74b75</clTRID>
@@ -3315,8 +3315,8 @@ Please note:
 			</contact:update>
 		</update>
 		<extension>
-				<dkhm:secondaryEmail xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">email@eksempel.dk</dkhm:secondaryEmail>
-				<dkhm:mobilephone xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">+1.7034444445</dkhm:mobilephone>
+				<dkhm:secondaryEmail xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.3">email@eksempel.dk</dkhm:secondaryEmail>
+				<dkhm:mobilephone xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.3">+1.7034444445</dkhm:mobilephone>
 		</extension>
 		<clTRID>ABC-12345</clTRID>
 	</command>
@@ -3514,7 +3514,7 @@ Request to create a host object, requesting a different administrator of the hos
 			</host:create>
 		</create>
 		<extension>
-			<dkhm:requestedNsAdmin xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">ADMIN2-DK</dkhm:requestedNsAdmin>
+			<dkhm:requestedNsAdmin xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.3">ADMIN2-DK</dkhm:requestedNsAdmin>
 		</extension>
 		<clTRID>ABC-12345</clTRID>
 	</command>
@@ -3876,7 +3876,7 @@ Request to update a host object, requesting a different administrator of the hos
 			</host:update>
 		</update>
 		<extension>
-			<dkhm:requestedNsAdmin xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.0">DKHM1-DK</dkhm:requestedNsAdmin>
+			<dkhm:requestedNsAdmin xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.3">DKHM1-DK</dkhm:requestedNsAdmin>
 		</extension>
 		<clTRID>7a4ac69d335ae661e29fc2c262c5800e</clTRID>
 	</command>
