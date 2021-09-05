@@ -1,4 +1,4 @@
-# Basic dependabot.yml file 
+# Basic dependabot.yml file
 # REF: https://docs.github.com/en/code-security/supply-chain-security/keeping-your-actions-up-to-date-with-dependabot
 
 version: 2
@@ -10,4 +10,3 @@ updates:
     # Check for updates once a week
     schedule:
       interval: "weekly"
-
