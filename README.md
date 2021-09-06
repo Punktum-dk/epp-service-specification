@@ -2764,7 +2764,7 @@ The following should not be observed (ref: `domain:trStatus`), since the process
 
 Upon transfer, the contact object referring to the registrant role, is being cloned to avoid issues with _disappearing data_ and _sponsorship_ in cross-portfolio operations. Do note that DK Hostmaster does not implement direct transfer of contact objects as described in the "Implementation Limitations" section.
 
-A contact object (registrant) is cloned without additional relations bound to other objects within the registry or another portfolio, only the key object, the domain name is transferred, togehter with potential subordinate objecs such as name servers.
+A contact object (registrant) is cloned without additional relations bound to other objects within the registry or another portfolio, only the key object, the domain name is transferred, together with potential subordinate objects such as name servers.
 
 The cloning is a _best-effort_ cloning, since the ID-control status cannot be guaranteed to be consistent in the case where a contact object is locked to a register, but has limitations in access to data due to policies in regard to disclosure etc.
 
