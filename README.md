@@ -2505,7 +2505,7 @@ The current expiration date can be obtained using the `info domain` command and 
 
 The alternative approach to deletion is to set auto expire, which will cancel the domain name automatically at expiration.
 
-<a id="delete-domain-request></a>
+<a id="delete-domain-request"></a>
 ##### delete domain request
 
 The complete command will look as follows (example lifted from [RFC:5731]):
@@ -2524,7 +2524,7 @@ The complete command will look as follows (example lifted from [RFC:5731]):
   </epp>
 ```
 
-<a id="delete-domain-response></a>
+<a id="delete-domain-response"></a>
 ##### delete domain response
 
 And the complete command with a deletion date specification (example lifted from [RFC:5731] and modified):
