@@ -1657,6 +1657,13 @@ Do note that the billing contact and admin/proxy is displayed if the authenticat
 
 For DNSSEC data the availability is limited to only displaying if the information is public available.
 
+The `domain:clID` field communicates portfolio information about the given domain:
+
+- For registrant managed domain names: <domain:clID>DKHM1-DK<domain:clID>, indicating DK Hostmaster A/S
+- For registrar managed domain names:
+    - <domain:clID>REG-123456</domain:clID>, as seen by users associated with the registrar account
+    - <domain:clID>Example Registry Name</domain:clID>, as seen by users not associated with the registrar account
+
 Please see the [addendum on domain status codes](#domain-status-codes).
 
 | Return Code | Description |
