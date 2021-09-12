@@ -143,6 +143,7 @@ Revision: 4.0
     - [delete contact](#delete-contact)
       - [delete contact request](#delete-contact-request)
       - [delete contact response](#delete-contact-response)
+    - [transfer contact](#transfer-contact)
   - [Host](#host)
     - [create host](#create-host)
       - [create host request](#create-host-request)
@@ -211,7 +212,7 @@ Do note that the specification aims to describes the latest release of the servi
 so given changes implemented in the service are reflected in the specification. Do note that a service might be released to the sandbox environment
 prior to being released to production after a grace period.
 
-This document is not the authoritative source for business and policy rules and possible discrepancies between this an any authoritative sources are regarded as errors in this document. This document is aimed at the technical specification and is an interpretation of authoritative sources and can therefor be erroneous.
+This document is not the authoritative source for business and policy rules and possible discrepancies between this an any authoritative sources are regarded as errors in this document. This document is aimed at being the external technical specification and describes the implementation facing the users and is an interpretation of authoritative sources and can therefor be erroneous.
 
 The actively used XSD file is indicated in the [EPP service specification][DKHMEPPWIKI], the [EPP XSD file repository][DKHMXSD] might contain changes not actively used by the service.
 
@@ -3457,6 +3458,13 @@ The later will only be lifted when the contact object is not linked to any other
 </epp>
 ```
 
+<a id="transfer-contact"></a>
+#### transfer contact
+
+Transfer of contacts is not supported in the .dk registry.
+
+When a [transfer domain](#transfer-domain) or [withdraw](#withdraw) operation is done. The contact object appointed to the registrar role is cloned and the clone is allocated to the new portfolio and the original contact object is left intact in the original portfolio.
+
 <a id="host"></a>
 ### Host
 
@@ -4353,7 +4361,7 @@ As a general business rule, DK Hostmaster does not support the `client*` statuse
 |                                   | remove billing contact |                        |                        |
 |                                   | add admin contact      |                        |                        |
 |                                   | remove admin contact   |                        |                        |
-|                                   | change registrant      |                        |                        |
+|                                   | change registrant      | :white_check_mark:     |                        |
 |                                   | add name server        | :white_check_mark: \*3 | :white_check_mark: \*3 |
 |                                   | remove name server     | :white_check_mark: \*3 | :white_check_mark: \*3 |
 |                                   | add DSRECORDS          | :white_check_mark: \*3 | :white_check_mark: \*3 |
@@ -4382,7 +4390,7 @@ As a general business rule, DK Hostmaster does not support the `client*` statuse
 - \*6 only own profile
 - \*7 registrar
 - \*8 subordinate
-- \*8 NSA
+- \*9 NSA
 
 <a id="compatibility-matrix"></a>
 ### Compatibility Matrix
@@ -4400,14 +4408,14 @@ The version numbers used in the matrix are major numbers only, e.g. 1.X.X.
 | [Info Domain](#info-domain) | 1 / 3 | Billing contact not disclosed, Admin contact not disclosed since version 3. EPP status codes not supported completely |
 | [Update Domain](#update-domain) | 2 | Change of name server is asynchronous, requires approval by the registrant. Change of registrant is not supported |
 | [Renew Domain](#renew-domain) | 2 | Requires that the requesting user is a registrar and billing contact for the domain. The domain name must not have any financial outstanding |
-| Transfer Domain | N/A | |
+| [Transfer Domain](#transfer-domain) | 4 | |
 | [Delete Domain](#delete-domain) | 4 | Only registrars administering the domain name |
 | [Restore Domain](#restore-domain) | 4 | Only registrars administering the domain name |
 | [Create Contact](#create-contact) | 1 | Supplied handle/user-id is not supported |
 | [Check Contact](#check-contact) | 1 / 3 | Only registrants disclosed, additional contacts require relation to authenticated user |
 | [Info Contact](#info-contact) | 1 / 3 | Only registrants disclosed, additional contacts require relation to authenticated user |
 | [Update Contact](#update-contact) | 2 | Updating email is asynchronous and is regarded as non-atomic due to the email validation process |
-| Transfer Contact | N/A | |
+| [Transfer Contact](#transfer-contact) | N/A | Contact objects cannot be transferred only domain names. Contact objects are cloned upon transfer |
 | [Delete Contact](#delete-contact) | N/A | Deletion of contacts is an automated process |
 | [Create Host](#create-host) | 2 | Asynchronous, requires accept of the registrant of the domain name if the domain is under the .dk TLD and requires that the requesting user accepts the responsibility as name server administrator |
 | [Check Host](#check-host) | 1 | |
