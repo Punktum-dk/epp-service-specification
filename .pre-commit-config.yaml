@@ -17,3 +17,7 @@ repos:
     hooks:
     -   id: markdownlint
         name: Test Markdownfiles with markdownlint
+-   repo: https://github.com/jonasbn/pre-commit-hooks
+    rev: v0.5.0
+    hooks:
+    -   id: spellcheck
