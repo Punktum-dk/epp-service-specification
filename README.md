@@ -4236,7 +4236,7 @@ As a general business rule, DK Hostmaster does not support the `client*` statuse
 | `clientUpdateProhibited`   | *unsupported* |
 | `inactive`                 | *unsupported* domain names in the DK Hostmaster registry **must** have associated name servers |
 | `ok`                       | Exclusive for all other status codes |
-| `pendingCreate`            | Indication that a the given domain is enqueue for possible creation, see [domain create](#domain-create) |
+| `pendingCreate`            | Indication that a the given domain is enqueue for possible creation, see [domain create](#domain-create) or is awaiting allocation with DK Hostmaster |
 | `pendingDelete`            | Deletion is pending, see [domain create](#domain-create). An advisory date is applicable, see: [`dkhm:delDate`](dkhmdeldate) |
 | `pendingRenew`             | *unsupported* as renewal is instantaneous |
 | `pendingRestore`           | *unsupported* as restoration is instantaneous |
@@ -4271,9 +4271,9 @@ As a general business rule, DK Hostmaster does not support the `client*` statuse
 | `pendingDelete`            | *unsupported* |
 | `pendingTransfer`          | *unsupported* as transfer is instantaneous |
 | `pendingUpdate`            |               |
-| `serverDeleteProhibited`   |               |
-| `serverTransferProhibited` |               |
-| `serverUpdateProhibited`   |               |
+| `serverDeleteProhibited`   | if a user is use (_linked_) it cannot be deleted, the delete command is not supported |
+| `serverTransferProhibited` | *unsupported* as users cannot be transferred |
+| `serverUpdateProhibited`   | Object cannot be updated currently |
 
 <a id="host-status-codes"></a>
 #### Host Status Codes
@@ -4290,12 +4290,12 @@ As a general business rule, DK Hostmaster does not support the `client*` statuse
 | `clientUpdateProhibited` | *unsupported* |
 | `linked`                 | Object is linked to other objects |
 | `ok`                     | No pending or prohibited operations. Exclusive for all other status codes, except `linked` |
-| `pendingCreate`          | Awaiting accept from either registrant if required or appointed name server administrator |
+| `pendingCreate`          | Awaiting accept from registrant if required |
 | `pendingDelete`          | Host object has been marked for deletion via deletion of superordinate domain name |
 | `pendingTransfer`        | *unsupported* as transfer is instantaneous |
-| `pendingUpdate`          | *unsupported* |
+| `pendingUpdate`          | Awaiting accept from appointed name server administrator  |
 | `serverDeleteProhibited` | If the host is linked is it not eligible for deletion |
-| `serverUpdateProhibited` |               |
+| `serverUpdateProhibited` | If the host is marked for deletion (see `pendingDelete` this status will be set |
 
 <a id="privilege-matrix-registrant-managed-objects"></a>
 ### Privilege Matrix for Registrant Managed Objects
