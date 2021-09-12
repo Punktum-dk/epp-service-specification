@@ -3481,7 +3481,7 @@ The deletion of host objects are under a similar regime, as specified in the [de
 
 This part of the EPP protocol is described in [RFC:5732]. This command adheres to the standard. The command can be extended to specify another name server administrator than the authenticated user.
 
-:point_right: Please note that IP addresses are required for domain names ending in '.dk', please refer to the [glue record policy][DKHMDNSSPEC-glue].
+:point_right: Please note that IP addresses are required for domain names ending in '.dk', please refer to the [glue record policy][DKHMDNSSPECGLUE].
 
 :warning: By default the authenticated user is attempted used as designated name server administrator, It is however not possible to assign a registrar account as name server administrator, so a regular WHOIS handle pointing to a contact object has to be specified using the extension `dkhm:requestedNsAdmin`, alternatively you can authenticate using a WHOIS handle and the use of the extension can be avoided.
 
@@ -3869,7 +3869,7 @@ The process of changing a host name is unsupported by DK Hostmaster and will alw
 <a id="add-ip-address-sub-process"></a>
 ##### Add IP Address sub-process
 
-Addition of IP addressed supports the additional of IPv4 and IPv6 addresses. These are required as part of our glue record policy. If additional status elements are added to this command it will fail.
+Addition of IP addressed supports the additional of IPv4 and IPv6 addresses. These might be required as part of our [glue record policy][DKHMDNSSPECGLUE]. If additional status elements are added to this command it will fail.
 
 | Return Code | Description |
 | ----------- | ------------ |
@@ -3883,7 +3883,7 @@ Addition of IP addressed supports the additional of IPv4 and IPv6 addresses. The
 <a id="remove-ip-address-sub-process"></a>
 ##### Remove IP Address sub-process
 
-Addition of IP addressed supports the additional of IPv4 and IPv6 addresses. These are required as part of our glue record policy. If additional status elements are added to this command it will fail.
+Addition of IP addressed supports the additional of IPv4 and IPv6 addresses. These might be required as part of our [glue record policy][DKHMDNSSPECGLUE]. If additional status elements are added to this command it will fail.
 
 | Return Code | Description |
 | ----------- | ------------ |
@@ -4465,7 +4465,7 @@ The version numbers used in the matrix are major numbers only, e.g. 1.X.X.
 [EAN]: https://en.wikipedia.org/wiki/International_Article_Number_(EAN)
 [DKHMXSD]: https://github.com/DK-Hostmaster/epp-xsd-files
 [DKHMDNSSPEC]: https://github.com/DK-Hostmaster/dkhm-name-service-specification
-[DKHMDNSSPEC-glue]: https://github.com/DK-Hostmaster/dkhm-name-service-specification#glue-records
+[DKHMDNSSPECGLUE]: https://github.com/DK-Hostmaster/dkhm-name-service-specification#glue-records
 [DKHMEPPWIKI]: https://github.com/DK-Hostmaster/epp-service-specification/wiki
 [EPOCH]: https://en.wikipedia.org/wiki/Unix_time
 [CONCEPT]: https://www.dk-hostmaster.dk/en/new-basis-collaboration-between-registrars-and-dk-hostmaster
