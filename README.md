@@ -548,6 +548,8 @@ Access to the EPP service production environment requires IP whitelisting of IP 
 
 Maintenance of IP addresses is done in the **Registrar Portal** (RP) and requires an active registrar account for access.
 
+Please see the [Registrar Portal Service Specification][DKHMRPSPEC] for details.
+
 <a id="implementation-extensions"></a>
 
 ## Implementation Extensions
@@ -4280,6 +4282,7 @@ List of references used in this document in alphabetical order.
 1. [DK Hostmaster: Name Service Specification][DKHMDNSSPEC]
 1. [DK Hostmaster: RESTful WHOIS Service Specification][DKHMWHOISRESTSPEC]
 1. [DK Hostmaster: WHOIS Service Specification][DKHMWHOISSPEC]
+1. [DK Hostmaster: Registrar Portal Service Specification][DKHMRPSPEC]
 1. [DK Hostmaster: Sandbox Environment Specification][DKHMSANDBOX]
 1. [DK Hostmaster: EPP XSD File Repository][DKHMXSD]
 1. [ICANN: "EPP Status Codes | What Do They Mean, and Why Should I Know?"][ICANN]
@@ -4662,6 +4665,7 @@ The version numbers used in the matrix are major numbers only, e.g. 1.X.X.
 [EPOCH]: https://en.wikipedia.org/wiki/Unix_time
 [CONCEPT]: https://www.dk-hostmaster.dk/en/new-basis-collaboration-between-registrars-and-dk-hostmaster
 [DKHMWHOISSPEC]: https://github.com/DK-Hostmaster/whois-service-specification
+[DKHMRPSPEC]: https://github.com/DK-Hostmaster/rp-service-specification
 [DKHMWHOISRESTSPEC]: https://github.com/DK-Hostmaster/whois-rest-service-specification
 [BALANCE]: https://www.verisign.com/assets/epp-sdk/verisign_epp-extension_balance_v01.html
 [DKHMWAITLIST]: https://www.dk-hostmaster.dk/en/waiting-list
