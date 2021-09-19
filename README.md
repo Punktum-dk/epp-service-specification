@@ -5,7 +5,7 @@
 ![Markdownlint Action][GHAMKDBADGE]
 ![Spellcheck Action][GHASPLLBADGE]
 
-2021-04-08
+2021-09-19
 Revision: 4.0
 
 ## Table of Contents
@@ -192,6 +192,7 @@ Revision: 4.0
     - [Host Status Codes](#domain-status-codes)
   - [Privilege Matrix for Registrant Managed Objects](#privilege-matrix-registrant-managed-objects)
   - [Privilege Matrix for Registrar Managed Objects](#privilege-matrix-registrar-managed-objects)
+  - [Feature and Meta-role Matrix](#feature-and-meta-role-matrix)
   - [Compatibility Matrix](#compatibility-matrix)
 
 <!-- /MarkdownTOC -->
@@ -238,7 +239,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 ### Document History
 
-- 4.0 2021-04-08
+- 4.0 2021-09-19
   - Introduction of support for registrar/registrant administration
   - Outlined business rules for [`dkhm:orderconfirmationToken`](#dkhmorderconfirmationtoken)
   - The procedures for renewal and application/creation are not being changed, in regard to use and protocol, however
@@ -257,6 +258,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
   - Removed XSD Version History, referencing original source in [EPP XSD repository][DKHMXSD], so there is a single source for this information
   - This version of the specification is based on the DK Hostmaster EPP XSD version 4.3
   - Addition of disclaimer, setting the scope and frame for this specification
+  - Addition of [Feature and Meta-role Matrix](#feature-and-meta-role-matrix)
 
 - 3.9 2020-10-19
   - Added some details on sessions in the section on [login](#login)
@@ -4552,9 +4554,9 @@ As a general business rule, DK Hostmaster does not support the `client*` statuse
 |                                   | remove name server     | :white_check_mark: \*3 | :white_check_mark: \*3 |
 |                                   | add DSRECORDS          | :white_check_mark: \*3 | :white_check_mark: \*3 |
 |                                   | remove DSRECORDS       | :white_check_mark: \*3 | :white_check_mark: \*3 |
-| [renew domain](#renew-domain)     |                        | :white_check_mark: \*7 |                        |
-| [delete domain](#delete-domain)   |                        | :white_check_mark: \*7 |                        |
-| [restore domain](#restore-domain) |                        | :white_check_mark: \*7 |                        |
+| [renew domain](#renew-domain)     |                        | :white_check_mark:     |                        |
+| [delete domain](#delete-domain)   |                        | :white_check_mark:     |                        |
+| [restore domain](#restore-domain) |                        | :white_check_mark:     |                        |
 | [info domain](#info-domain)       |                        | :white_check_mark: \*4 | :white_check_mark: \*4 |
 | [check domain](#check-domain)     |                        | :white_check_mark:     | :white_check_mark:     |
 | [create contact](#create-contact) |                        | :white_check_mark:     | :white_check_mark:     |
@@ -4562,9 +4564,9 @@ As a general business rule, DK Hostmaster does not support the `client*` statuse
 | [delete contact](#delete-contact) |                        |                        |                        |
 | [info contact](#info-contact)     |                        | :white_check_mark: \*4 | :white_check_mark: \*4 |
 | [check contact](#check-contact)   |                        | :white_check_mark:     | :white_check_mark:     |
-| [create host](#create-host)       |                        | :white_check_mark: \*8 |                        |
-| [update host](#update-host)       |                        | :white_check_mark: \*8 | :white_check_mark: \*9 |
-| [delete host](#delete-host)       |                        | :white_check_mark: \*8 | :white_check_mark: \*9 |
+| [create host](#create-host)       |                        | :white_check_mark: \*7 |                        |
+| [update host](#update-host)       |                        | :white_check_mark: \*7 | :white_check_mark:     |
+| [delete host](#delete-host)       |                        | :white_check_mark: \*7 | :white_check_mark:     |
 | [info host](#info-host)           |                        | :white_check_mark:     | :white_check_mark:     |
 | [check host](#check-host)         |                        | :white_check_mark:     | :white_check_mark:     |
 
@@ -4574,9 +4576,40 @@ As a general business rule, DK Hostmaster does not support the `client*` statuse
 - \*4 can only see contact information for authorized objects, access to registrant is authorized as public other roles require authorization via relation
 - \*5 only data not locked by business rules and under external registry administration such as CPR, CVR and VIES registers
 - \*6 only own profile
-- \*7 registrar
-- \*8 subordinate
-- \*9 NSA
+- \*7 subordinate
+
+<a id="feature-and-meta-role-matrix"></a>
+
+### Feature and Meta-role Matrix
+
+| Feature                                                                            | Meta-role     |
+|:-----------------------------------------------------------------------------------|:--------------|
+| [Create Portal User](#create-portal-user)                                          | Administrator |
+| [Enable/Disable Portal User](#enable-or-disable-portal-user)                       | Administrator |
+| [Edit Portal User](#edit-portal-user)                                              | Administrator |
+| [Delete Portal User](#delete-portal-user)                                          | Administrator |
+| [Create Service User](#create-service-user)                                        | Administrator |
+| [Enable/Disable Service User](#enable-or-disable-service-user)                     | Administrator |
+| [Edit Service User](#edit-service-user)                                            | Administrator |
+| [Delete Service User](#delete-service-user)                                        | Administrator |
+| [Link WHOIS Handle](#link-whois-handle)                                            | Administrator |
+| [Unlink WHOIS Handle](#unlink-whois-handle)                                        | Administrator |
+| [Merge WHOIS Handles](#mergewhois-handles)                                         | Administrator |
+| [Create WHOIS Registrar Account Handle](#create-whois-handle)                      | Administrator |
+| [Apply/Create domain name](#domain-name-application)                               | Registrar |
+| [Transfer Domain Name](#transfer-domain-name)                                      | Registrar |
+| Generate authorization for transfer                                                | Proxy |
+| [Add funds to Registrar Account](#add-funds-to-registrar-account)                  | Payer |
+| [Renew Domain Name](#renew-domain-name)                                            | Payer |
+| Change Name Servers                                                                | Name Server Administrator |
+| Generate authorization for change of name servers                                  | Name Server Administrator |
+| Administer Name Servers                                                            | Name Server Administrator |
+| Administer domain name                                                             | Proxy |
+| Administer WHOIS user registrant                                                   | Proxy |
+| [Restore Domain Name](#restore-domain-name)                                        | Proxy |
+| [Cancel/Delete Domain Name](#cancel-domain-name)                                   | Proxy |
+| [Set auto-expire/renewal for domain name](#set-auto-expirerenewal-for-domain-name) | Proxy |
+| Set period for domain name                                                         | Proxy / Payer |
 
 <a id="compatibility-matrix"></a>
 
