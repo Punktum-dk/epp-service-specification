@@ -239,7 +239,8 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 ### Document History
 
-- X.X 2021-09-24
+- 4.1 2021-0924
+  - Added documentation for new error scenario for [create domain](#create_domain) for a registrar managed domain name, specifying other contacts than the registrant will result in an error `2306`
   - Added a description of possible challenge with auto matching user for [create contact](#create_contact), since ID-control can alter data as part of the validation
 
 - 4.0 2021-09-19
@@ -1454,7 +1455,7 @@ The proposed error message is the following, quoted from [RFC:5730].
 
 > 2104    "Billing failure"
 >
-> his response code MUST be returned when a server attempts
+> This response code MUST be returned when a server attempts
 > to execute a billable operation and the command cannot be
 > completed due to a client-billing failure.
 
@@ -1473,6 +1474,7 @@ The creation of contacts (registrants) is covered under [create contact](#create
 | ----------- | ----------- |
 | 1001 | Command completed successfully; action pending |
 | 2104 | Billing failure |
+| 2306 | Specifying contacts for registrar handled domains is not allowed |
 
 <a id="create-domain-request"></a>
 
