@@ -239,8 +239,9 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 ### Document History
 
-- X.X 2021-0924
+- 4.1 2021-0924
   - Added documentation for new error scenario for [create domain](#create_domain) for a registrar managed domain name, specifying other contacts than the registrant will result in an error `2306`
+  - Added a description of possible challenge with auto matching user for [create contact](#create_contact), since ID-control can alter data as part of the validation
 
 - 4.0 2021-09-19
   - Introduction of support for registrar/registrant administration
@@ -3191,6 +3192,8 @@ The match for the _smart_ creation are applicable for the following data:
 - `<contact:cc>`
 
 The match has to be exact in order for the command to return an existing user-id / handle.
+
+Since created users might be selected for ID-control and ID-control can alter the data an `[contact info](#info-contact)`, can be useful to validate customer data. Prior to attempted match.
 
 ![Diagram for contact creation][epp_create_contact]
 
