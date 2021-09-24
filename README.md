@@ -242,6 +242,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 - 4.1 2021-0924
   - Added documentation for new error scenario for [create domain](#create_domain) for a registrar managed domain name, specifying other contacts than the registrant will result in an error `2306`
   - Added a description of possible challenge with auto matching user for [create contact](#create_contact), since ID-control can alter data as part of the validation
+  - This revision of the specification describes version 4.0.1 of the EPP service
 
 - 4.0 2021-09-19
   - Introduction of support for registrar/registrant administration
@@ -263,6 +264,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
   - This version of the specification is based on the DK Hostmaster EPP XSD version 4.3
   - Addition of disclaimer, setting the scope and frame for this specification
   - Addition of [Feature and Meta-role Matrix](#feature-and-meta-role-matrix)
+  - This revision of the specification describes version 4.0.0 of the EPP service
 
 - 3.9 2020-10-19
   - Added some details on sessions in the section on [login](#login)
