@@ -913,12 +913,18 @@ For details on supported characters, please see: [the DK Hostmaster Name Service
 
 As specified in [RFC:5731], [RFC:5732] and [RFC:5733] the info commands all display a reference sponsoring entity.
 
-The same scheme will be implemented in RP and the end-user self-service portal (SB) the data presentation is consistent across all portals.
+The same scheme will be implemented in the Registrar Portal (SB) and the end-user self-service portal (SB) the data presentation is consistent across all portals.
 
 The public facing interface is expected to present the registrar relation as well. Meaning that the information on registrar relation will be made available in:
 
 - in WHOIS, see [DK Hostmaster WHOIS Service Specification][DKHMWHOISSPEC]
 - on www.dk-hostmaster.dk, see - [DK Hostmaster RESTful WHOIS Service Specification][DKHMWHOISRESTSPEC]
+
+The following commands for more details:
+
+- [info contact](#info_contact)
+- [info domain](#info_domain)
+- [info host](#info_host)
 
 <a id="unsupported-domain-status-codes"></a>
 
@@ -1751,10 +1757,10 @@ For DNSSEC data the availability is limited to only displaying if the informatio
 
 The `domain:clID` field communicates portfolio information about the given domain:
 
-- For registrant managed domain names: <domain:clID>DKHM1-DK<domain:clID>, indicating DK Hostmaster A/S
+- For registrant managed domain names: `<domain:clID>DKHM1-DK<domain:clID>`, indicating DK Hostmaster A/S
 - For registrar managed domain names:
-    - <domain:clID>REG-123456</domain:clID>, as seen by users associated with the registrar account
-    - <domain:clID>Example Registry Name</domain:clID>, as seen by users not associated with the registrar account
+    - `<domain:clID>REG-123456</domain:clID>`, as seen by users associated with the registrar account
+    - `<domain:clID>Example Registry Name</domain:clID>`, as seen by users not associated with the registrar account
 
 Please see the [addendum on domain status codes](#domain-status-codes).
 
