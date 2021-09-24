@@ -5,8 +5,8 @@
 ![Markdownlint Action][GHAMKDBADGE]
 ![Spellcheck Action][GHASPLLBADGE]
 
-2021-09-19
-Revision: 4.0
+2021-09-24
+Revision: 4.1
 
 ## Table of Contents
 
