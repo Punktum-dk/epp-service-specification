@@ -229,6 +229,8 @@ This document is owned and maintained by DK Hostmaster A/S and must not be distr
 
 All examples provided in the document are fabricated/modified from real data to demonstrate commands etc. any resemblance to actual data are coincidental.
 
+Diagrams to support feature descriptions can be seen by clicking the :eye_speech_bubble: icon, where made available.
+
 <a id="license"></a>
 
 ### License
@@ -238,6 +240,9 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 <a id="document-history"></a>
 
 ### Document History
+
+- 4.2 2021-10-02
+  - All diagrams moved out of the document and linked instead of displayed
 
 - 4.1 2021-09-24
   - Added documentation for new error scenario for [create domain](#create_domain) for a registrar managed domain name, specifying other contacts than the registrant will result in an error `2306`
@@ -1476,7 +1481,7 @@ The designated registrant (contact) has to be under the same management model or
 
 The creation of contacts (registrants) is covered under [create contact](#create-contact).
 
-![Create domain][epp_create_domain]
+See diagram: [:eye_speech_bubble:][epp_create_domain]
 
 | Return Code | Description |
 | ----------- | ----------- |
@@ -1638,7 +1643,7 @@ As for the user entities some mappings are made so all relevant roles are specif
 
 Please note that the command supports Punycode notation for specifying IDN domain names, but responses are in the specified UTF-8 character set.
 
-![Diagram of role resolution for EPP create domain][epp-role-resolution]
+See Diagram of role resolution for EPP create domain: [:eye_speech_bubble:][epp-role-resolution]
 
 <a id="check-domain"></a>
 
@@ -2015,7 +2020,7 @@ Not specifying acceptable parameters will result in error code `2005` with a mes
 
 Not specifying the period parameters will result in the unit: `y` and the value: `1`.
 
-![Diagram of EPP process for EPP renew domain][epp-renew-domain]
+See diagram of EPP process for EPP renew domain: [:eye_speech_bubble:][epp-renew-domain]
 
 | Return Code | Description |
 | ----------- | ----------- |
@@ -2034,7 +2039,7 @@ On success we emit the return code `1000`. No further communication is made via 
 
 The sub-process called, can be depicted as follows:
 
-![Diagram of DKH sub-process for EPP renew domain][dkh-renew-domain]
+Diagram of DKH sub-process for EPP renew domain [:eye_speech_bubble:][dkh-renew-domain]
 
 <a id="renew-domain-request"></a>
 
@@ -2106,7 +2111,7 @@ In addition it supports DNSSEC management capabilities as specified in [RFC:5910
 
 The command will be evaluated as an atomic command, even though it is dispatched to several sub-commands.
 
-![Diagram of EPP process for EPP update domain][epp-update-domain]
+Diagram of EPP process for EPP update domain [:eye_speech_bubble:][epp-update-domain]
 
 The requirements for the command to commence with processing it that the following data are available:
 
@@ -2142,7 +2147,7 @@ Do note that the change of billing contact, if inserting a registrar-user, will 
 
 When the command succeeds either `1000` or `1001` is returned the latter if one of the operations initiated by the sub-command require additional actions to be taken, `1001` will have precedence over `1000`. If a `1001` is returned the status code `pendingUpdate` might be set if an additional **update domain** command is issued.
 
-![Diagram of EPP process for EPP update domain command evaluation][epp-update-domain-evaluate]
+Diagram of EPP process for EPP update domain command evaluation [:eye_speech_bubble:][epp-update-domain-evaluate]
 
 | Return Code  | Description |
 | ------------ | ------------ |
@@ -2358,7 +2363,7 @@ With this process change, the change of name servers operation using [update dom
 </epp>
 ```
 
-![Update domain - Add name server][epp-update-domain-add-ns]
+Diagram: Update domain - Add name server [:eye_speech_bubble:][epp-update-domain-add-ns]
 
 | Return Code | Description |
 | ----------- | ------------ |
@@ -2401,7 +2406,7 @@ With this process change, the change of name servers operation using [update dom
 </epp>
 ```
 
-![Update domain - Remove name server][epp-update-domain-remove-ns]
+Diagram Update domain - Remove name server [:eye_speech_bubble:][epp-update-domain-remove-ns]
 
 | Return Code | Description |
 | ----------- | ------------ |
@@ -2443,9 +2448,9 @@ Adding new users require special privileges, currently only with the registrant,
 </epp>
 ```
 
-![Update domain - Add billing/admin contact][epp-update-domain-add-contact]
+Diagram: Update domain - Add billing/admin contact [:eye_speech_bubble:][epp-update-domain-add-contact]
 
-![Update domain - Add billing/admin contact sub-process][dkh-update-domain-add-contact]
+Diagram: Update domain - Add billing/admin contact sub-process [:eye_speech_bubble:][dkh-update-domain-add-contact]
 
 <a id="remove-contact"></a>
 
@@ -2475,9 +2480,9 @@ The removal of a existing contact is possible for both billing and admin contact
 </epp>
 ```
 
-![Update domain - Remove billing/admin contact][epp-update-domain-remove-contact]
+Diagram: Update domain - Remove billing/admin contact [:eye_speech_bubble:][epp-update-domain-remove-contact]
 
-![Update domain - Remove billing/admin contact sub-process][dkh-update-domain-remove-contact]
+Diagram: Update domain - Remove billing/admin contact sub-process [:eye_speech_bubble:][dkh-update-domain-remove-contact]
 
 <a id="remove-dsrecords"></a>
 
@@ -3203,7 +3208,7 @@ The match has to be exact in order for the command to return an existing user-id
 
 Since created users might be selected for ID-control and ID-control can alter the data an `[contact info](#info-contact)`, can be useful to validate customer data. Prior to attempted match.
 
-![Diagram for contact creation][epp_create_contact]
+Diagram for contact creation [:eye_speech_bubble:][epp_create_contact]
 
 <a id="address-handling"></a>
 
@@ -3220,7 +3225,7 @@ For Denmark the local representation is chosen and the international representat
 
 This is a diagram depicting the general algorithm used for resolving the address data. The algorithm presupposes that at least one address is present.
 
-![Diagram of address resolution for contact creation][epp-address-resolution]
+Diagram of address resolution for contact creation [:eye_speech_bubble:][epp-address-resolution]
 
 It is important to note that if the international representation is specified, but data are provided in local representation or only local representation is provided for an international address, communication to the specified address might prove unreliable.
 
@@ -3483,7 +3488,7 @@ These of course all controlled by relevant privileges.
 - Secondary email
 - Mobile phone
 
-![Diagram of EPP update contact][epp-update-contact]
+Diagram of EPP update contact [:eye_speech_bubble:][epp-update-contact]
 
 Please note:
 
@@ -3649,7 +3654,7 @@ This part of the EPP protocol is described in [RFC:5732]. This command adheres t
 
 :warning: By default the authenticated user is attempted used as designated name server administrator, It is however not possible to assign a registrar account as name server administrator, so a regular WHOIS handle pointing to a contact object has to be specified using the extension `dkhm:requestedNsAdmin`, alternatively you can authenticate using a WHOIS handle and the use of the extension can be avoided.
 
-![Diagram of EPP create host][epp_create_host]
+Diagram of EPP create host [:eye_speech_bubble:][epp_create_host]
 
 The command can be used in two scenarios:
 
@@ -3671,7 +3676,7 @@ The command can be used in two scenarios:
 
 As for update domain `1001` holds higher precedence than `1000`, so if any of the sub-commands require additional review and are _pending_, the return code will be `1001`.
 
-![Diagram of DKH create host][dkh_create_host]
+Diagram of DKH create host [:eye_speech_bubble:][dkh_create_host]
 
 <a id="create-host-request"></a>
 
@@ -4033,7 +4038,7 @@ This part of the EPP protocol is described in [RFC:5732]. This command adheres t
 
 This is the overall process, the process is divided into sub-processes, please see the processes below for details.
 
-![Diagram of EPP update host][epp_update_host]
+Diagram of EPP update host [:eye_speech_bubble:][epp_update_host]
 
 <a id="change-hostname-sub-process"></a>
 
@@ -4041,7 +4046,7 @@ This is the overall process, the process is divided into sub-processes, please s
 
 The process of changing a host name is unsupported by DK Hostmaster and will always result in an error code: `2102`.
 
-![Diagram of EPP update host change hostname][epp_update_host_change_hostname]
+Diagram of EPP update host change hostname [:eye_speech_bubble:][epp_update_host_change_hostname]
 
 | Return Code | Description |
 | ----------- | ------------ |
@@ -4060,7 +4065,7 @@ Addition of IP addressed supports the additional of IPv4 and IPv6 addresses. The
 | 2005        | Syntax of the command is not correct |
 | 2102        | Change of status for host object is not supported |
 
-![Diagram of EPP update host add IP][epp_update_host_add_ip]
+Diagram of EPP update host add IP [:eye_speech_bubble:][epp_update_host_add_ip]
 
 <a id="remove-ip-address-sub-process"></a>
 
@@ -4075,13 +4080,13 @@ Addition of IP addressed supports the additional of IPv4 and IPv6 addresses. The
 | 2102        | The command contains status elements |
 | 2304        | The number of IP addresses are below the required limit |
 
-![Diagram of EPP update host remove IP][epp_update_host_remove_ip]
+Diagram of EPP update host remove IP [:eye_speech_bubble:][epp_update_host_remove_ip]
 
 <a id="change-admin-sub-process"></a>
 
 ##### Change admin sub-process
 
-![Diagram of EPP update host change admin][epp_update_host_change_admin]
+Diagram of EPP update host change admin [:eye_speech_bubble:][epp_update_host_change_admin]
 
 The command can be used in two scenarios:
 
@@ -4106,7 +4111,7 @@ As for update host `1001` holds higher precedence than `1000`, so if any of the 
 
 As described in Implementation Limitations, the service does not support setting of status via update host.
 
-![Diagram of DKH update host][dkh_update_host]
+Diagram of DKH update host [:eye_speech_bubble:][dkh_update_host]
 
 <a id="update-host-request-with-request-to-new-administrator"></a>
 
@@ -4198,7 +4203,7 @@ Please note the `paResult`, where `1` indicates an accept and `0` would indicate
 
 This part of the EPP protocol is described in [RFC:5732]. This command adheres to the standard.
 
-![Diagram of EPP delete host][epp_delete_host]
+Diagram of EPP delete host [:eye_speech_bubble:][epp_delete_host]
 
 The deletion of a host object can only be requested by the administrator.
 
