@@ -26,8 +26,10 @@ Revision: 4.1
 - [Implementation Requirements](#implementation-requirements)
   - [Client Transaction ID \(`clTRID`\)](#client-transaction-id-cltrid)
   - [IP Whitelisting](#ip-whitelisting)
+  - [Service Users](#service-users)
+  - [Registrar Account Settings](#registrar-account-settings)
 - [Implementation Extensions](#implementation-extensions)
-  - [`dkhm:authinfoexdate`](#authinfoexdate)
+  - [`dkhm:authInfoExDate`](#authinfoexdate)
   - [`dkhm:autoRenew`](#dkhmautorenew)
   - [`dkhm:contact_validated`](#dkhmcontact_validated)
   - [`dkhm:CVR`](#dkhmcvr)
@@ -47,23 +49,26 @@ Revision: 4.1
   - [`dkhm:url`](#dkhmurl)
   - [`dkhm:userType`](#dkhmusertype)
 - [Implementation Limitations](#implementation-limitations)
-  - [Unimplemented Commands](#unimplemented-commands)
   - [Authentication](#authentication)
   - [AuthInfo](#authinfo)
-  - [DNSSEC](#dnssec)
   - [Contact Creation](#contact-creation)
-  - [Host Update](#host-update)
-  - [Domain Update](#domain-update)
-  - [Host Info](#host-info)
-  - [Waiting List]("waiting-list)
   - [Contact Info](#contact-info)
-  - [Domain Info](#domain-info)
-  - [Information Disclosure](#information-disclosure)
-  - [Encoding and IDN domains](#encoding-and-idn-domains)
+  - [Contact Update](#contact-update)
   - [Disclosure of Client ID](#disclosure-of-client-id)
-  - [Unsupported Domain Status Codes](#unsupported-domain-status-codes)
+  - [DNSSEC](#dnssec)
+  - [Domain Info](#domain-info)
+  - [Domain Update](#domain-update)
+  - [Encoding and IDN domains](#encoding-and-idn-domains)
+  - [Host Info](#host-info)
+  - [Host Update](#host-update)
+  - [Information Disclosure](#information-disclosure)
+  - [Unimplemented Commands](#unimplemented-commands)
+    - [Unimplemented Command: Delete Contact](#unimplemented-command-delete-contact)
+    - [Unimplemented Command: Transfer Contact](#unimplemented-command-transfer-contact)
   - [Unsupported Contact Status Codes](#unsupported-contact-status-codes)
+  - [Unsupported Domain Status Codes](#unsupported-domain-status-codes)
   - [Unsupported Host Status Codes](#unsupported-host-status-codes)
+  - [Waiting List](#waiting-list)
 - [Supported Object Transform and Query Commands](#supported-object-transform-and-query-commands)
   - [hello and greeting](#hello-and-greeting)
   - [login](#login)
@@ -72,13 +77,13 @@ Revision: 4.1
   - [logout](#logout)
     - [logout request](#logout-request)
     - [logout response](#logout-response)
-  - [poll and Message Queue](#poll-and-message-queue)
+  - [Poll and Message Queue](#poll-and-message-queue)
     - [poll req request](#poll-req-request)
     - [poll req response](#poll-req-response)
     - [poll ack request](#poll-ack-request)
     - [poll ack response](#poll-ack-response)
     - [poll ack response for non-existent message \(or previously acknowledged message\)](#poll-ack-response-for-non-existent-message-or-previously-acknowledged-message)
-  - [balance and Prepaid Account](#balance-and-prepaid-account)
+  - [Balance and Prepaid Account](#balance-and-prepaid-account)
     - [balance request](#balance-request)
     - [balance response](#balance-response)
   - [Domain](#domain)
@@ -243,6 +248,14 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 - 4.2 2021-10-02
   - All diagrams moved out of the document and linked instead of displayed
+  - Added section on [Service Users](#service-users) to the [Implementation Requirements](#imtplementation-requirements) section
+  - Added section on [Registrar Account Settings](#registrar-account-settings) to the [Implementation Requirements](#imtplementation-requirements) section
+  - Added [Contact Update](#contact-update) section under [Implementation Limitations](#implementation-limitations)
+  - Overall clean up and clarification of the documentation and all [Appendices](#appendices)
+    - Removing obsolete information
+    - Clarifying business rules
+  - Added example of first poll message to a [create domain](#create_domain), indicating the pending operation
+  - Updated example of [info domain](#info-domain) response with information on the `AuthInfo` token and expiration date using the `dkhm::authInfoExDate` extension
 
 - 4.1 2021-09-24
   - Added documentation for new error scenario for [create domain](#create_domain) for a registrar managed domain name, specifying other contacts than the registrant will result in an error `2306`
@@ -470,7 +483,7 @@ Please note that the service does not support XML entity expansion on the server
 
 ## EPP Service
 
-The DK Hostmaster’s EPP Service is based on an SOA architecture. EPP implementation is regarded as a service offered to external parties requiring provisioning actions towards DK Hostmaster.
+The DK Hostmaster’s EPP Service implementation is regarded as a service offered to external parties requiring provisioning actions towards DK Hostmaster.
 
 The EPP service requires the use of and possible development of EPP client software. This is beyond the scope of this specification as the API and other assets for assisting in this are the primary object of this document.
 
@@ -516,7 +529,7 @@ Please see the [information page][DKHMMAIL] for details on subscribing etc.
 - Contacts (users) will be created and will be available in other systems like the self-service system etc.
 - Hosts (name servers) will be processed for possible activation
 - The Change Password operation is available in this environment
-- Please note that this operation will change the password and this change will be reflected in other systems
+- Please note that this operation will change the password and this change will be reflected in other production systems
 - This is environment is using [IP Whitelisting](#ip-whitelisting)
 - This environment is only available to registrars
 
@@ -563,6 +576,45 @@ Maintenance of IP addresses is done in the **Registrar Portal** (RP) and require
 
 Please see the [Registrar Portal Service Specification][DKHMRPSPEC] for details.
 
+<a id="service-users"></a>
+
+### Service Users
+
+Access to the EPP service production environment requires IP whitelisting of IP addresses.
+
+Creation and maintenance of service users has to be done in the **Registrar Portal** (RP) and requires an active registrar account for access.
+
+Please see the [Registrar Portal Service Specification][DKHMRPSPEC] for details.
+
+<a id="registrar-account-settings"></a>
+
+### Registrar Account Settings
+
+The EPP service can not work directly the registrar account, only directly on objects such as:
+
+- domain names
+- contacts
+- name servers (hosts)
+
+Many of the object related commands are working indirectly with the registrar account for:
+
+- billable operations
+- change of relations between objects
+
+The EPP does not have any commands that work on the account level, except for the `balance` command, please see the section: "[Balance and Prepaid Account](#balance-and-prepaid-account)" for details.
+
+[create domain](#create-domain), [create contact](#create-contact) and [create host](#create-host) are reacting to the the setting of the default management model. Settings can be overwritten using extension:
+
+- [`dkhm:management`](#dkhmmanagement)
+
+[create domain](#create-domain) is reacting to the the setting of the default renewal model. Settings can be changed used extension:
+
+- [`dkhm:autoRenew`](#dkhmautorenew)
+
+Specification and setting if registrar account settings are reserved to the **Registrar Portal** (RP) and requires an active registrar account for access.
+
+Please see the [Registrar Portal Service Specification][DKHMRPSPEC] for details.
+
 <a id="implementation-extensions"></a>
 
 ## Implementation Extensions
@@ -601,8 +653,8 @@ This extension is used to expose the expiration date for a `AuthInfo` token if s
 
 Please see:
 
-- the [info domain](#info-domain) command
-- [section on AuthInfo token format](#authinfo-token-format)
+- The [info domain](#info-domain) command
+- The [section on AuthInfo token format](#authinfo-token-format)
 
 <a id="dkhmautorenew"></a>
 
@@ -612,11 +664,11 @@ This extension is used to expose the auto-renewal flag for a domain name.
 
 Please see:
 
-- the [info domain](#info-domain) command
-- the [create domain](#create-domain) command
-- the [update domain](#update-domain) command
+- the [info domain](#info-domain) command, for inspecting the setting for a given domain name
+- the [create domain](#create-domain) command and overriding the [registrar account default](#registrar-account-settings)
+- the [update domain](#update-domain) command for changing the setting for a given domain name
 
-The choice of renewal policy is based on the default for the specific registrar account. The default can be overridden per request or application using the extension: `dkhm:autoRenew`, which support two values:
+The choice of renewal policy is based on the [registrar account default](#registrar-account-settings) for the specific registrar account. The default can be overridden per request or application using the extension: `dkhm:autoRenew`, which support two values:
 
 - `true`, indicating auto-renewal
 - `false`, indicating auto-expire
@@ -654,7 +706,7 @@ Please see:
 
 ### `dkhm:domain_confirmed`
 
-Domain names registered with DK Hostmaster, has to be confirmed by the registrant, this is can either be done using pre-application agreement to terms, see the [`dkhm:orderconfirmationToken`](#dkhmorderconfirmationtoken) extension or other systems with DK Hostmaster. The domain confirmation process is handled via via the [create domain](#create-domain) command using this extension.
+Domain names registered with DK Hostmaster, has to be confirmed by the registrant, this is can either be done using pre-application agreement to DK Hostmaster's Terms and Conditions, see the [`dkhm:orderconfirmationToken`](#dkhmorderconfirmationtoken) extension or other systems with DK Hostmaster. The domain confirmation process is handled via via the [create domain](#create-domain) command using this extension.
 
 <a id="dkhmdomainadvisory"></a>
 
@@ -667,6 +719,16 @@ Currently two advisories are communicated:
 - `pendingDeletionDate`, indicating that a given domain name is scheduled for deletion
 - `offeredOnWaitingList`, indicating that a given domain name has been offered to a designated registrant
 
+Domain names pending deletion are in a 30 day redemption period. This period can be initiated by:
+
+- Automatic expiration, see [`dkhm:autoRenew`](#dkhmautorenew)
+- Manual cancellation, for EPP via the [delete domain](#delete-domain) command
+- Deletion from suspension due lack of payment
+
+Through out the redemption period it is possible to restore the domain using the [restore domain](#restore-domain).
+
+Domain names offered on waiting list, has to be registered using [create domain](#create-domain) as for regular domain name applications.
+
 <a id="dkhmean"></a>
 
 ### `dkhm:EAN`
@@ -677,7 +739,7 @@ The EAN extension, holds the [EAN number][EAN] associated with public organizati
 
 ### `dkhm:management`
 
-The choice of administration model is based on the default for the specific registrar account. The default can be overridden per request or application using the extension: `dkhm:management`, which support two values:
+The choice of administration model is based on the [registrar account default](#registrar-account-settings) for the specific registrar account. The default can be overridden per request or application using the extension: `dkhm:management`, which support two values:
 
 - `registrar`, indicating registrar management
 - `registrant`, indicating registrant management
@@ -687,7 +749,7 @@ The extension can be used with the commands:
 - [create domain](#create-domain)
 - [create contact](#create-contact)
 
-If not specified the default of the registrar account will be used. The default can be set in the registrar portal.
+If not specified the default of the registrar account will be used. The default can be set in the registrar portal, see: [Registrar Account Settings](#registrar-account-settings).
 
 To change the management model for an existing domain, please see the [transfer domain](#transfer-domain) command.
 
@@ -717,9 +779,11 @@ See also: [`dkhm:CVR`](#dkhmcvr)
 
 ### `dkhm:registrant_validated`
 
-Contact objects related to the role of registrant has to be validated, this field is used to indicate the status of a validation object via the [create domain](#create-domain) command.
+Contact objects related to the role of registrant has to be validated and possibly ID-controlled, this field is used to indicate the status of a validation object via the [create domain](#create-domain) command.
 
 See also [`contact_validated`](#dkhmcontact_validated).
+
+The procedures for ID-control are [described on the DK Hostmaster DK website][DKHMIDENT].
 
 <a id="dkhmrequestednsadmin"></a>
 
@@ -772,16 +836,7 @@ Related extensions are [`dkhm:EAN`](#dkhmean), [`dkhm:CVR`](#dkhmcvr) and [`dkhm
 
 ## Implementation Limitations
 
-As mentioned the EPP service comes with some limitations. Please see the [Compatibility Matrix](compatibility-matrix) in the appendices for a high-level overview.
-
-<a id="unimplemented-commands"></a>
-
-### Unimplemented Commands
-
-The following commands have not been implemented in the service described in this specification:
-
-- `delete` contact
-- `transfer` contact
+As mentioned the DK Hostmaster EPP service implementation comes with some limitations. Please see the [Compatibility Matrix](compatibility-matrix) in the appendices for a high-level overview.
 
 In general the service is not localized and all EPP related errors and messages are provided in English.
 
@@ -791,7 +846,7 @@ In general the service is not localized and all EPP related errors and messages 
 
 The DK Hostmaster EPP service, only support username/password authentication.
 
-See also the [login](#login) command for details.
+See also the [login](#login) command for details and the section on [Service Users](#service-users).
 
 <a id="authinfo"></a>
 
@@ -805,7 +860,7 @@ It is currently supported for the following commands:
 - [transfer domain](#transfer-domain), for use for changing registrar
 - [create domain](#create-domain), for use for registering a domain name offered from a waiting list
 
-Please see the command descriptions for more details.
+Please see the individual command descriptions for more details.
 
 For registration of domain names offered from a waiting list, the `AuthInfo` field is utilized for the [create domain](#create-domain), the format of the token is however in this context is simpler.
 
@@ -818,23 +873,7 @@ From [RFC:5733]:
 > mapping includes a password-based authentication mechanism, but
 > the schema allows new mechanisms to be defined in new schemas.
 
-The element is not optional, but mandatory, it should not be populated with sensitive information.
-
-<a id="dnssec"></a>
-
-### DNSSEC
-
-I accordance with [RFC:5910]. We support DS only and not DNSKEY. In addition the maximum signature lifetime (`secDNS:maxSigLife`) is disregarded. See [section 3.3][RFC:5910-3.3]) in the referenced RFC.
-
-DK Hostmaster specifies rules ownership of DNSSEC keys. If you provide DNSSEC keys a part of registration using [create domain](#create-domain) or later updating using [update domain](#update-domain), the keys are associated with the NSA as owner.
-
-Not all algorithms are supported, please refer to the [DK Hostmaster Name Service specification][DKHMDNSSPEC] for a complete list of supported algorithms.
-
-When adding DSRECORDS for a domain name using [create domain](#create-domain) or [update domain](#update-domain), the status is by default active and the DSRECORDS will be published. The DNSSEC status feature for the domain name can prohibit the publication, this feature is available only to the registrant for the specific domain and act as a kill switch for use by the registrant in case of issues with DNSSEC.
-
-Availability of DNSSEC information and status is currently limited to public available data.
-
-In addition with the improvements to the process for change of name servers using [update domain](#update-domain), all current DSRECORDS are deleted as part of this operation.
+The element is not optional, but mandatory, it should **not** be populated with sensitive information.
 
 <a id="contact-creation"></a>
 
@@ -846,73 +885,17 @@ Due to a limitation in the AAA system implemented by DK Hostmaster, it is curren
 
 REF: [issue #34](https://github.com/DK-Hostmaster/epp-service-specification/issues/34)
 
-<a id="host-update"></a>
-
-### Host Update
-
-This command does not support the setting and removal of status using the XML element: `host:status`. The status is assigned by DK Hostmaster. See also information on the [update host](#update-host) command.
-
-<a id="domain-update"></a>
-
-### Domain Update
-
-This command does not support the change of the registrant and the setting and removal of status using the XML element: `domain:status`. The status is assigned by DK Hostmaster. See also information on the [update domain](#update-domain) command.
-
-<a id="host-info"></a>
-
-### Host Info
-
-The command [info host](#info-host) will only supply the name server administrator/zone contact information if the requesting and authenticated user has a relationship to the user, either via a domain role or registrar group, which provides authorization to access the information.
-
-<a id="waiting-list"></a>
-
-## Waiting List
-
-DK Hostmaster offers a waiting list service for domain names, when a domain name becomes available to the first position on a waiting list, it should be registered using the standard registration process either via RP or EPP. This influences the [create domain](#create-domain) command, which should just be populated with the token issued by DK Hostmaster authorizing registration
-
-Alternatively the user-id of the waiting list user which has been pre-approved for registration of the domain name with DK Hostmaster.
-
-No other information is available on waiting lists via EPP.
-
-Please refer to the DK Hostmaster [website][DKHMWAITLIST] for more information.
-
 <a id="contact-info"></a>
 
 ### Contact Info
 
 The command [info contact](#info-contact) will only supply the registrant information. For other contact objects, only if the requesting user and authenticated has a relationship to the designated contact object, either via a host or domain role or registrar group.
 
-<a id="domain-info"></a>
+<a id="contact-update"></a>
 
-### Domain Info
+### Contact Update
 
-The command [info domain](#info-domain) will only supply the registrant information for relevant contact objects. For other contact objects assigned to the domain name, the requesting user has to have a relationship to the domain or contact object, either via a host or domain role or registrar group.
-
-Availability of DNSSEC information and status is currently limited to public available data.
-
-<a id="information-disclosure"></a>
-
-### Information Disclosure
-
-Please note that some information is not disclosed when using Object Query Commands. See the specific commands for more information.
-
-Additionally DK Hostmaster does not implement the optional `contact:disclose` element.
-
-> An OPTIONAL <contact:disclose> element that allows a client to
-> identify elements that require exceptional server-operator
-> handling to allow or restrict disclosure to third parties.  See
-> Section 2.9 for a description of the child elements contained
-> within the <contact:disclose> element.
-
-From [RFC:5733].
-
-<a id="encoding-and-idn-domains"></a>
-
-### Encoding and IDN domains
-
-DK Hostmaster supports IDN domain names and the EPP commands support Punycode notation for this in requests. DK Hostmaster does not support Punycode notation in responses at this time.
-
-For details on supported characters, please see: [the DK Hostmaster Name Service specification][DKHMDNSSPEC].
+This command does not support the setting and removal of status using the XML element: `contact:status`. The status is assigned by DK Hostmaster. See also information on the [update contact](#update-contact) command and the appendix with [Contact Status Codes](#contact-status-codes).
 
 <a id="disclosure-of-client-id"></a>
 
@@ -933,40 +916,81 @@ The following commands for more details:
 - [info domain](#info_domain)
 - [info host](#info_host)
 
-<a id="unsupported-domain-status-codes"></a>
+<a id="dnssec"></a>
 
-### Unsupported Domain Status Codes
+### DNSSEC
 
-Several of the domain status codes described in [RFC:5731] and the [ICANN status code description][ICANN] are not supported.
+I accordance with [RFC:5910]. We support DS only and not DNSKEY. In addition the maximum signature lifetime (`secDNS:maxSigLife`) is disregarded. See [section 3.3][RFC:5910-3.3]) in the referenced RFC.
 
-All of the `client*` status codes are note supported:
+Not all algorithms are supported, please refer to the [DK Hostmaster Name Service specification][DKHMDNSSPEC] for a complete list of supported algorithms.
 
-- `clientDeleteProhibited`
-- `clientHold`
-- `clientRenewProhibited`
-- `clientTransferProhibited`
-- `clientUpdateProhibited`
+Change of name servers using [update domain](#update-domain), removes all current DSRECORDS as part of the operation.
 
-The administrative model does not support user enforced restraints.
+<a id="domain-info"></a>
 
-- `addPeriod`
-- `autoRenewPeriod`
-- `renewPeriod`
-- `transferPeriod`
+### Domain Info
 
-Are all ICANN statuses and are not regarded as standard and they do not map to business rules used in the DK Hostmaster registry system, based on the descriptions in the [ICANN status code description][ICANN].
+The command [info domain](#info-domain) will only supply the registrant information for relevant contact objects. For other contact objects assigned to the domain name, the requesting user has to have a relationship to the domain or contact object, either via a host or domain role or registrar group.
 
-- `pendingRenew`
-- `pendingRestore`
-- `pendingTransfer`
+Availability of DNSSEC information and status is currently limited to public available data.
 
-The operations for renew, restore and transfer are instantaneous and the listed pending-states do therefor not map to business processes used in the DK Hostmaster registry system.
+<a id="domain-update"></a>
 
-- `inactive`
+### Domain Update
 
-This state is unsupported, since domain names in the DK Hostmaster registry **must** have associated name servers.
+This command does not support the setting and removal of status using the XML element: `domain:status`. The status is assigned by DK Hostmaster. See also information on the [update domain](#update-domain) command and the appendix with [Domain Status Codes](#domain-status-codes).
 
-The [domain status codes listing](#domain-status-codes) holds a complete listing of all the status codes.
+<a id="encoding-and-idn-domains"></a>
+
+### Encoding and IDN domains
+
+DK Hostmaster supports IDN domain names and the EPP commands support Punycode notation for this in requests. DK Hostmaster does not support Punycode notation in responses at this time.
+
+For details on supported characters, please see: [the DK Hostmaster Name Service specification][DKHMDNSSPEC].
+
+<a id="host-info"></a>
+
+### Host Info
+
+The command [info host](#info-host) will only supply the name server administrator/zone contact information if the requesting and authenticated user has a relationship to the user, either via a domain role or registrar group, which provides authorization to access the information.
+
+<a id="host-update"></a>
+
+### Host Update
+
+This command does not support the setting and removal of status using the XML element: `host:status`. The status is assigned by DK Hostmaster. See also information on the [update host](#update-host) command and the appendix with [Host Status Codes](#domain-status-codes).
+
+<a id="information-disclosure"></a>
+
+### Information Disclosure
+
+Please note that some information is not disclosed when using Object Query Commands. See the specific commands for more information.
+
+Additionally DK Hostmaster does not implement the optional `contact:disclose` element.
+
+> An OPTIONAL <contact:disclose> element that allows a client to
+> identify elements that require exceptional server-operator
+> handling to allow or restrict disclosure to third parties.  See
+> Section 2.9 for a description of the child elements contained
+> within the <contact:disclose> element.
+
+From [RFC:5733].
+
+<a id="unimplemented-commands"></a>
+
+### Unimplemented Commands
+
+<a id="unimplemented-command-delete-contact"></a>
+
+#### Unimplemented Command: Delete Contact
+
+The `delete contact` command is not implemented by DK Hostmaster, unlinked contacts are automatically deleted by DK Hostmaster.
+
+<a id="unimplemented-command-transfer-contact"></a>
+
+#### Unimplemented Command: Transfer Contact
+
+The `transfer contact` command is not implemented by DK Hostmaster, Contacts are transferred with their domain name, please see the [transfer domain](#transfer-domain) command.
 
 <a id="unsupported-contact-status-codes"></a>
 
@@ -980,13 +1004,50 @@ All of the `client*` status codes are note supported:
 - `clientUpdateProhibited`
 - `clientTransferProhibited`
 
-The administrative model does not support user enforced restraints.
+Since the administrative model does not support user enforced restraints.
 
 - `pendingCreate`
 - `pendingDelete`
 - `pendingTransfer`
 
-The operations for renew, restore and transfer are instantaneous and the listed pending-states do therefor not map to business processes used in the DK Hostmaster registry system.
+The operation to create a contact is instantaneous.
+
+The listed pending-states for [delete contact](#unimplemented-command-delete-contact) and [transfer contact](#unimplemented-command-transfer-contact) are not supported in the DK Hostmaster registry system.
+
+<a id="unsupported-domain-status-codes"></a>
+
+### Unsupported Domain Status Codes
+
+Several of the domain status codes described in [RFC:5731] and the [ICANN status code description][ICANN] are not supported.
+
+All of the `client*` status codes are not supported:
+
+- `clientDeleteProhibited`
+- `clientHold`
+- `clientRenewProhibited`
+- `clientTransferProhibited`
+- `clientUpdateProhibited`
+
+Since the administrative model does not support user enforced restraints.
+
+- `addPeriod`
+- `autoRenewPeriod`
+- `renewPeriod`
+- `transferPeriod`
+
+Are all ICANN statuses and are not regarded as standard and they do not map to business rules used in the DK Hostmaster registry system, based on the descriptions in the [ICANN status code description][ICANN].
+
+- `pendingRenew`
+- `pendingRestore`
+- `pendingTransfer`
+
+The operations for [renew domain](#renew-domain), [restore domain](#restore-domain) and [transfer domain](#transfer-domain) are instantaneous and the listed pending-states do therefor not map to business processes used in the DK Hostmaster registry system.
+
+- `inactive`
+
+This state is unsupported, since domain names in the DK Hostmaster registry **must** have associated name servers, please see the [Name Service Specification][DKHMDNSSPEC].
+
+The [domain status codes listing](#domain-status-codes) holds a complete listing of all the status codes.
 
 <a id="unsupported-host-status-codes"></a>
 
@@ -1003,13 +1064,34 @@ The administrative model does not support user enforced restraints.
 
 - `pendingTransfer`
 
-The operations for transfer are instantaneous and the listed `pendingTransfer` do therefor not map to business processes used in the DK Hostmaster registry system.
+The transfers for of hosts are a part of the [domain transfer](#domain-transfer) operation, which is instantaneous and as outlined in [RFC:5732] transfer of host objects is does not really apply.
+
+From [RFC:5732]:
+
+> Transfer semantics do not directly apply to host objects, so there is
+> no mapping defined for the EPP <transfer> command.  Host objects are
+> subordinate to an existing superordinate domain object and, as such,
+> they are subject to transfer when a domain object is transferred.
+
+<a id="waiting-list"></a>
+
+## Waiting List
+
+DK Hostmaster offers a waiting list service for domain names, when a domain name becomes available to the first position on a waiting list, it should be registered using the standard registration process either via the Registrar Portal or EPP.
+
+This utilized the [create domain](#create-domain) command, which should either be populated with the token issued by DK Hostmaster authorizing registration. Alternatively the user-id of the waiting list user which has been pre-approved for registration of the domain name with DK Hostmaster.
+
+The state that a domain name is offered to a waiting list can be inspected via the [info domain](#info-domain) via the [`dkhm:domainAdvisory`](#dkhmdomainadvisory) extension.
+
+No other information is available on waiting lists via EPP at this time.
+
+Please refer to the DK Hostmaster [website][DKHMWAITLIST] for more information.
 
 <a id="supported-object-transform-and-query-commands"></a>
 
 ## Supported Object Transform and Query Commands
 
-The following section describes the currently supported EPP commands. As mentioned previously, some of the commands have been extended beyond the basic capabilities of EPP. These extensions are described separately under each command and are included in the [DKHMXSD][DKHMXSD] listed in the [Resources](#resources) chapter.
+The following section describes the supported EPP commands. As mentioned previously, some of the commands have been extended beyond the basic capabilities of EPP. These extensions are described separately under each command and are included in the [DKHMXSD][DKHMXSD] listed in the [Resources](#resources) chapter. An alphabetical list is also available in the [Implementation Extensions](#implementation-extensions) section.
 
 The supported commands are:
 
@@ -1027,19 +1109,19 @@ The supported commands are:
 - `balance` command extension
 - `restore` extension to update domain command
 
-Commands that have not been extended are not described in much detail, please refer to the general EPP documentation from IETF (see: the RFCs listed in [References](#references)).
+Commands that have not been extended are not described in much detail, please refer to the general EPP documentation from IETF via the RFCs listed in [References](#references).
 
 <a id="hello-and-greeting"></a>
 
 ### hello and greeting
 
-This part of the EPP protocol is described in [RFC:5730]. This command adheres to the standard. For a more detailed explanation of the data collection policy announced via the greeting, please see the [Data Collection Policy](#data-collection-policy) chapter.
+This part of the EPP protocol is described in [RFC:5730]. This command adheres to the standard. For a more detailed explanation of the data collection policy announced via the greeting, please see the [Data Collection Policy](#data-collection-policy) section.
 
 As announced in the [greeting](#greeting), the following objects are available:
 
-- `Host`, see also the chapter on [Host assets](#host)
-- `Domain`, see also the chapter on [Domain assets](#domain)
-- `Contact`, see also the chapter on [Contact assets](#contact)
+- `Host`, see also the section on [Host assets](#host)
+- `Domain`, see also the section on [Domain assets](#domain)
+- `Contact`, see also the section on [Contact assets](#contact)
 
 With regard to extensions, the following are available:
 
@@ -1054,15 +1136,15 @@ Please see the greeting response included in the [appendices](#greeting) for ill
 
 This part of the EPP protocol is described in [RFC:5730]. This command adheres to the standard.
 
-The login uses the general Authentication Authorization and Access (AAA) framework in DK Hostmaster. This mean that in addition to the validation of username and password specified as part of the login request, an attempt is made to authorize the authenticated user for access to the actual EPP service and subsequent operations.
+The login uses the general Authentication Authorization and Access (AAA) framework in DK Hostmaster. This mean that in addition to the validation of username and password specified as part of the [login request](#login_request), an attempt is made to authorize the authenticated user for access to the actual EPP service and subsequent operations.
 
-Authorization is currently only available to specified user roles, therefore the username provided must point to an entity with the role of registrar or name server administrator with the DK Hostmaster registry. See also Available Environments above.
+[Service Users](#service-users) is an alternative to using regular WHOIS handles. They are reserved to a specific service, like for example EPP and can only be created by the administrator of a registrar group.
 
 DK Hostmaster supports the change of passwords via EPP. Please refer to the chapter Available Environments for any special circumstances.
 
 Password should adhere to the following requirements:
 
-EPP supports a password with at least 6 and max 16, where DK Hostmaster supports 8 - 64 characters. The password must include at least three of these four character types:
+EPP supports a password with at least 6 and a maximum 16 characters, where DK Hostmaster supports 8 - 64 characters. The password must include at least three of these four character types:
 
 - Lower-case letters
 - Upper-case letters
@@ -1075,11 +1157,11 @@ The following characters are legal special characters in passwords:
 % ` ' ( ) * + - , . / : ; < > = ! _ & ~ { } | ^ ? $ # @ " [ ]
 ```
 
-Currently, the only language supported is English. So the language parameter is ignored and all responses are provided in English.
-
 Successful authentication established a session with a life span of 700 seconds (5 minutes), it can be kept alive by sending additional `hello` commands or similar.
 
 The overall life span is 28800 seconds (8 hours) after this the session is terminated and should be reestablished with a new authentication (`login`).
+
+A connection can be prematurely terminated if the service gets in a unstable state.
 
 <a id="login-request"></a>
 
@@ -1169,7 +1251,7 @@ There are no special additions or alterations to the specification or use of thi
 
 <a id="poll-and-message-queue"></a>
 
-### poll and Message Queue
+### Poll and Message Queue
 
 This part of the EPP protocol is described in [RFC:5730]. This command adheres to the standard.
 
@@ -1179,9 +1261,9 @@ For clarification `2303` is returned in case a provided message-id (`msgID`) poi
 
 | Return Code | Description                                    |
 | ----------- | ---------------------------------------------- |
-| 2303        | In case a requested message no longer exist    |
-| 1301        | Command completed successfully; ack to dequeue |
 | 1000        | A messages was successfully dequeued using ack |
+| 1301        | Command completed successfully; ack to dequeue |
+| 2303        | In case a requested message no longer exist    |
 
 <a id="poll-req-request"></a>
 
@@ -1286,9 +1368,9 @@ For clarification `2303` is returned in case a provided message-id (`msgID`) poi
 
 <a id="balance-and-prepaid-account"></a>
 
-### balance and Prepaid Account
+### Balance and Prepaid Account
 
-With the introduction of the registrar management, a prepaid model for registrars is also put in place.
+With the introduction of administrative model registrar management, a prepaid model for registrars is exchanging the previous invoice driven process and interaction.
 
 This mean that EPP commands relating to billable operations are evaluated in context of the registrar account and accounting is completed as part of the execution of the operation.
 
@@ -1296,12 +1378,14 @@ The operations currently classified as billable are:
 
 - Domain name application/creation, this is described in detail in the [create domain](#create-domain) section
 - Domain name renewal. this is described in detail in the [renew domain](#renew-domain) section
-- Restoration from deletion, this is described in detail in the [restore domain](#restore-domain) section
-- Restoration from suspension, also described in detail in the [restore domain](#restore-domain) section
+- Restoration from deletion (cancellation), this is described in detail in the [restore domain](#restore-domain) section
+- Restoration from suspension due to automatic expiration, also described in detail in the [restore domain](#restore-domain) section
 
-This mean that a new error scenario is introduced with version 4.0.0 of the service for creation/application, where an application/create request will be declined, in case of insufficient funds. The renewal operation is not subjected to this policy, please refer to the registrar contract for specific details as this is a technical document and not the authoritative source for business and policy rules.
+This mean that a new error scenario is introduced with version 4.0.0 of the service for creation/application, where an application/create request will be declined, in case of insufficient funds. The manual renewal operation via [renew domain](#renew-domain) and the option of [automatic renewal](#dkhmautorenew) is not subjected to this policy, please refer to the registrar contract for specific details as this is a technical document and not the authoritative source for business and policy rules.
 
 All prices and amounts relating to currencies are provided in DKK, converted to the EPP currency type, using decimal point (`.`) and not decimal comma (`,`), which is the definition for the Danish locale.
+
+The balance command implementation is based on the extension developed by Verisign, please see: [Verisign: "Balance Mapping for the Extensible Provisioning Protocol (EPP)"][BALANCE],  see also [References](#references)
 
 <a id="balance-request"></a>
 
@@ -1319,7 +1403,7 @@ All prices and amounts relating to currencies are provided in DKK, converted to 
 </epp>
 ```
 
-Example lifted from "[Balance Mapping for the Extensible Provisioning Protocol (EPP)][BALANCE]" (see [References](#references)).
+Example lifted from "[Balance Mapping for the Extensible Provisioning Protocol (EPP)][BALANCE]". see [References](#references).
 
 <a id="balance-response"></a>
 
@@ -1350,13 +1434,13 @@ Example lifted from "[Balance Mapping for the Extensible Provisioning Protocol (
 </epp>
 ```
 
-Example lifted from "[Balance Mapping for the Extensible Provisioning Protocol (EPP)][BALANCE]" (see [References](#references)).
+Example lifted from "[Balance Mapping for the Extensible Provisioning Protocol (EPP)][BALANCE]", see [References](#references).
 
 | Return Code | Description                                                   |
 | ----------- | ------------------------------------------------------------- |
+| 1000        | Request was responded to successfully                         |
 | 2201        | No authorization to view the balance of the requested account |
 | 2303        | The account for which balance was requested does not exist    |
-| 1000        | Request was responded to successfully                         |
 
 <a id="domain"></a>
 
@@ -1370,19 +1454,19 @@ For more information on the [disclose of the Client ID](#disclosure-of-client-id
 
 If the registrar does not want to create domains under registrar management the default behaviour can be configured in RP, where the available are:
 
-- registrar management
-- registrant management
+- `registrar management`
+- `registrant management`
 
 The setting will be global and will influence the behaviour in both:
 
 - EPP
 - RP
 
-These settings are controlling the account as a whole for all relevant commands.
+These [Registrar Account Settings](#registrar-account-settings) are controlling the account as a whole for all relevant commands.
 
 - `create domain`, this section
-- [create contact](#create-contact), described below
-- [create host](#create-host), described below
+- [create contact](#create-contact)
+- [create host](#create-host)
 
 <a id="create-domain"></a>
 
@@ -1390,7 +1474,7 @@ These settings are controlling the account as a whole for all relevant commands.
 
 This part of the EPP protocol is described in [RFC:5730]. This command adheres to the standard. DK Hostmaster, however, is based on an asynchronous domain creation workflow.
 
-All domain requests are enqueued for further processing and their creation will be in a state of pending.
+All domain requests are enqueued for further processing and their creation will be in a state of pending (`1001`).
 
 Please note:
 
@@ -1408,9 +1492,37 @@ A well-formed request for domain creation will always result in:
 1001, “Command completed successfully; action pending”
 ```
 
-The extension in response will provide a unique tracking number, which can be used to identify the creation request across provisioning channels offered by DK Hostmaster. The result of the further processing will be relayed back via EPP, see [Poll and Messages](#poll-and-messages) below.
+The extension in response will provide a unique tracking number, in EPP the `svTRID`, which can be used to identify the creation request across provisioning channels offered by DK Hostmaster. The result of the further processing will be relayed back via EPP, see [Poll and Messages](#poll-and-messages) below.
 
 The customized response for a domain creation request looks as follows:
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
+    xmlns:xsi=http://www.w3.org/2001/XMLSchema-instance xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+    <response>
+        <result code="1301">
+            <msg>Command completed successfully; ack to dequeue</msg>
+        </result>
+        <msgQ count="1" id="1630296">
+            <msg>Create domain pending for eksempel.dk</msg>
+        </msgQ>
+        <resData>
+            <domain:creData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+                <domain:name>eksempel.dk</domain:name>
+                <domain:crDate>2021-10-03T13:30:47.0Z</domain:crDate>
+            </domain:creData>
+        </resData>
+        <extension>
+            <dkhm:risk_assessment xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.3">N/A</dkhm:risk_assessment>
+        </extension>
+        <trID>
+            <clTRID>92724843f12a3e958588679551aa988d</clTRID>
+            <svTRID>6118C396-243D-11EC-9746-E6CC5F504B00</svTRID>
+        </trID>
+    </response>
+</epp>
+```
 
 The [create domain](#create-domain) command has been extended with a field (`orderconfirmationToken`) making it possible to assign a token indicating that the registrant has agreed to the terms and conditions for DK Hostmaster with the registrar.
 
@@ -1456,6 +1568,8 @@ As part of the process the final response to a [create domain](#create-domain) i
 
 The procedures for ID-control are [described on the DK Hostmaster DK website][DKHMIDENT].
 
+Upon approval of the application, meaning the pending operation is processed, the domain name will still reflect: `pendingCreate`. The `pendingCreate` is not removed until the back-end system serving the EPP service indicates that the operation is completed. The domain name can however be active and it is published to the zone, but some operations are prohibited until finalization of the provisioning towards all systems is completed.
+
 The status codes applying to domain are described in the addendum: [Domain Status Codes](#domain-status-codes).
 
 <a id="domain_application_failure"></a>
@@ -1499,7 +1613,7 @@ See diagram: [:eye_speech_bubble:][epp_create_domain]
 	<command>
 		<create>
 			<domain:create xmlns:domain="urn:ietf:params:xml:ns:domain-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:domain-1.0 domain-1.0.xsd">
-				<domain:name>dk-hostmaster-test-906.dk</domain:name>
+				<domain:name>eksempel.dk</domain:name>
 				<domain:period unit="y">1</domain:period>
 				<domain:ns>
 					<domain:hostObj>ns1.dk-hostmaster.dk</domain:hostObj>
@@ -1528,7 +1642,7 @@ See diagram: [:eye_speech_bubble:][epp_create_domain]
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
 	<response>
 		<result code="1001">
-			<msg>Create domain pending for domain1.dk</msg>
+			<msg>Create domain pending for eksempel.dk</msg>
 		</result>
 		<msgQ count="1" id="1"/>
 		<extension>
@@ -1538,7 +1652,7 @@ See diagram: [:eye_speech_bubble:][epp_create_domain]
 			<dkhm:url xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.3">https://selfservice-dk-hostmaster.dk/6102505a2e8d0cfbe8c3c99ea49977f36e2d4ee3</dkhm:url>
 		</extension>
 		<trID>
-			<clTRID>47a4178679f26909ebcfcfd8572f315c</clTRID>
+			<clTRID>92724843f12a3e958588679551aa988d</clTRID>
 			<svTRID>EDF4F436-9CC9-11E4-AC57-51CB2AC2711D-2013010100030</svTRID>
 		</trID>
 	</response>
@@ -1551,7 +1665,7 @@ This tracking number (`trackingNo`), listed as an extension and does not replace
 <svTRID>9917BE58-3D53-11E2-A5BD-C532BF0DC46A-1234</svTRID>
 ```
 
-An important note is that the `clTRID` is mandatory for this command. Since we use the `clTRID` to report back via the message polling functionality, when the domain creation request changes state.
+An important note is that the `clTRID` is mandatory for this command. Since we use the `clTRID` to report back via the message polling functionality, when the domain creation request changes state. See the [Client Transaction ID \(`clTRID`\)](#client-transaction-id-cltrid) section under [Implementation Requirements](#implementation-requirements).
 
 The default value for domain value, if not specified, is one year.
 
@@ -1591,7 +1705,7 @@ The outcome can be one of two, please see the examples below:
 		<extension>
 			<dkhm:risk_assessment xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.3">N/A</dkhm:risk_assessment>    </extension>
 		<trID>
-			<clTRID>4fc3af83a40f85dd01bf5110727ee943</clTRID>
+			<clTRID>92724843f12a3e958588679551aa988d</clTRID>
 			<svTRID>7F3D4CD8-761D-11E8-8775-F5EABB5937F7</svTRID>    </trID></response>
 </epp>
 ```
@@ -1627,23 +1741,30 @@ The outcome can be one of two, please see the examples below:
 </epp>
 ```
 
+| Return Code | Description |
+| ----------- | ----------- |
+| 1000 | Command completed successfully, messages has been successfully acked, there are more messages |
+| 1300 | Command completed successfully, there are no more messages |
+| 1301 | Command completed successfully, ack to dequeue |
+| 2303 | If the specified message does not exist |
+
 <a id="role-mapping"></a>
 
 ##### Role Mapping
 
 As for the user entities some mappings are made so all relevant roles are specified.
 
-| EPP        | DKHM                       | Fallback   | Note                                                |
-| ---------- | -------------------------- | ---------- | --------------------------------------------------- |
-| admin      | administrator (fuldmægtig) | registrant | optional, will use fallback                         |
-| billing    | billing (betaler)          | registrant | optional, will use fallback                         |
-| tech       | keyholder (nøgleansvarlig) |            | optional, will be ignored if keyholder is specified |
-| registrant | registrant                 | mandatory  |                                                     |
-| registrar  | registrar                  | mandatory  |                                                     |
+| EPP        | DKHM       | Fallback   | Note                                                       |
+| ---------- | ---------- | ---------- | ---------------------------------------------------------- |
+| admin      | proxy      | registrant | optional, will use fallback                                |
+| billing    | billing    | registrant | optional, will use fallback                                |
+| tech       | keyholder  |            | optional, will be ignored if keyholder is specified in EPP |
+| registrant | registrant | mandatory  |                                                            |
+| registrar  | registrar  | mandatory  |                                                            |
 
 Please note that the command supports Punycode notation for specifying IDN domain names, but responses are in the specified UTF-8 character set.
 
-See Diagram of role resolution for EPP create domain: [:eye_speech_bubble:][epp-role-resolution]
+See the diagram of role resolution for EPP create domain for a graphical representation [:eye_speech_bubble:][epp-role-resolution]
 
 <a id="check-domain"></a>
 
@@ -1758,7 +1879,7 @@ and additionally:
 <domain:contact type="billing">DKHM1-DK</domain:contact>
 ```
 
-Do note that the billing contact and admin/proxy is displayed if the authenticated user has user has authorization to see this information. The registrant role information for the domain is public available. The authorization requires a relationship via a role on the domain name or a registrar group association
+Do note that the billing contact and proxy is displayed if the authenticated user has user has authorization to see this information. The registrant role information for the domain is public available. The authorization requires a relationship via a role on the domain name or a registrar group association
 
 For DNSSEC data the availability is limited to only displaying if the information is public available.
 
@@ -1873,14 +1994,14 @@ Please see the [addendum on domain status codes](#domain-status-codes).
 
 ##### info domain response with domain advisory
 
-A info domain response can be annotated with information using the extension  `dkhm:domainAdvisory`.
+A info domain response can be annotated with information using the extension  [`dkhm:domainAdvisory`](#dkhmdomainadvisory).
 
 The advisory can currently communicate two advisories:
 
 - `pendingDeletionDate`, indicating that a given domain name is scheduled for deletion
 - `offeredOnWaitingList`, indicating that a given domain name has been offered to a designated registrant
 
-If a domain name is marked for pending deletion, this special status is communicated via the `dkhm:domainAdvisory` extension.
+If a domain name is marked for pending deletion, this special status is communicated via the [`dkhm:domainAdvisory`](#dkhmdomainadvisory) extension.
 
 ```xml
 <extension>
@@ -1902,7 +2023,7 @@ If a domain name is offered to a position on a waiting list, the advisory `offer
 
 Do note that the waiting list status is also used in the [check domain](#check-domain) command, using the `reason` field.
 
-Since a waiting list offering is not a complete domain name registration the responses is limited.
+Since a waiting list offering is not a complete domain name registration the data in the response is limited compared to a registered domain name..
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1943,51 +2064,45 @@ When the AuthInfo token has been set it can be retrieved via the EPP command: `i
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <response>
-    <result code="1000">
-      <msg>Command completed successfully</msg>
-    </result>
-    <resData>
-      <domain:infData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-        <domain:name>example.com</domain:name>
-        <domain:roid>EXAMPLE1-REP</domain:roid>
-        <domain:status s="ok"/>
-        <domain:registrant>jd1234</domain:registrant>
-        <domain:contact type="admin">sh8013</domain:contact>
-        <domain:contact type="tech">sh8013</domain:contact>
-        <domain:ns>
-          <domain:hostObj>ns1.example.com</domain:hostObj>
-          <domain:hostObj>ns1.example.net</domain:hostObj>
-        </domain:ns>
-        <domain:host>ns1.example.com</domain:host>
-        <domain:host>ns2.example.com</domain:host>
-        <domain:clID>ClientX</domain:clID>
-        <domain:crID>ClientY</domain:crID>
-        <domain:crDate>1999-04-03T22:00:00.0Z</domain:crDate>
-        <domain:upID>ClientX</domain:upID>
-        <domain:upDate>1999-12-03T09:00:00.0Z</domain:upDate>
-        <domain:exDate>2005-04-03T22:00:00.0Z</domain:exDate>
-        <domain:trDate>2000-04-08T09:00:00.0Z</domain:trDate>
-        <domain:authInfo>
-          <domain:pw>DKHM1-DK-098f6bcd4621d373cade4e832627b4f6</domain:pw>
-        </domain:authInfo>
-      </domain:infData>
-    </resData>
-    <extension>
-      <dkhm:authInfoExDate xmlns:dkhm="urn:dkhm:xml:ns:dkhm-4.3">2018-11-14T09:00:00.0Z</dkhm:authInfoExDate>
-    </extension>
-    <trID>
-      <clTRID>ABC-12345</clTRID>
-      <svTRID>54322-XYZ</svTRID>
-    </trID>
-  </response>
+
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
+    xmlns:xsi=http://www.w3.org/2001/XMLSchema-instance xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+    <response>
+        <result code="1000">
+            <msg>Command completed successfully</msg>
+        </result>
+        <resData>
+            <domain:infData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+                <domain:name>eksempel.dk</domain:name>
+                <domain:roid>EKSEMPEL_DK-DK</domain:roid>
+                <domain:status s="ok"/>
+                <domain:registrant>DKHM1-DK</domain:registrant>
+                <domain:ns>
+                    <domain:hostObj>auth01.ns.dk-hostmaster.dk</domain:hostObj>
+                    <domain:hostObj>auth02.ns.dk-hostmaster.dk</domain:hostObj>
+                    <domain:hostObj>auth03.ns.dk-hostmaster.dk</domain:hostObj>
+                </domain:ns>
+                <domain:clID>REG-123456</domain:clID>
+                <domain:crID>DKHM1-DK</domain:crID>
+                <domain:crDate>1999-05-17T00:00:00.0Z</domain:crDate>
+                <domain:exDate>2022-06-30T00:00:00.0Z</domain:exDate>
+            </domain:infData>
+        </resData>
+        <extension>
+            <dkhm:registrant_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.3">1</dkhm:registrant_validated>
+            <dkhm:authInfo expdate="2021-10-17T14:16:35.0Z" op="transfer"
+                xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.3">REG-0-d5288a8aa482bcf2fb5152bfbb7d877d</dkhm:authInfo>
+            <dkhm:autoRenew xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.3">true</dkhm:autoRenew>
+        </extension>
+        <trID>
+            <clTRID>b53dcd043c802e860ad39d9ac852543c</clTRID>
+            <svTRID>C39E4576-2443-11EC-A2F7-E1CC5F504B00</svTRID>
+        </trID>
+    </response>
 </epp>
 ```
 
-TODO: this example needs to be updated.
-
-The response is further extended with the `dkhm:authInfoExDate` extension, communicating the expiration date of the current `AuthInfo` for the domain, again only visible if privileges permit.
+The response is further extended with the [`dkhm:authInfoExDate`](#authinfoexdate) extension, communicating the expiration date of the current `AuthInfo` for the domain, again only visible if privileges permit.
 
 ```xml
 <extension>
@@ -2001,7 +2116,7 @@ The response is further extended with the `dkhm:authInfoExDate` extension, commu
 
 This part of the EPP protocol is described in [RFC:5731]. This command adheres to the standard.
 
-Do note that for period specification, only the unit `y` for year is accepted.
+Do note that for period specification, only the unit `y` indicating year is accepted.
 
 The following values for the period specification are accepted:
 
@@ -2030,16 +2145,24 @@ See diagram of EPP process for EPP renew domain: [:eye_speech_bubble:][epp-renew
 | 2201 | If the authenticated user does not hold the privilege to renew the specified domain object. This privilege is given to the billing contact for the domain name (see also the [login command](#login)) |
 | 2303 | If the specified domain object does not exist |
 | 2306 | If the specified expiry date is not valid. The provided expiration date has to be equal to the current expiration date or we return `2306` |
-| 2306 | If the calculated expiry date is not allowed. The new expiration date has to be lower than the current expiration date + 5 years. The maximum period to which the expiration date can be extended is 5 years and 3 months. The current expiration date is available via the [info domain](#info-domain) command as `domain:exDate` |
+| 2306 | If the calculated expiry date is not allowed. The new expiration date has to be lower than the current expiration date + 10 years. The maximum period to which the expiration date can be extended is 10 years and 3 months. The current expiration date is available via the [info domain](#info-domain) command as `domain:exDate` |
 | 2400 | In case of an exception |
 
 This complete process is atomic and might throw an unrecoverable exception: `2400` either due to unforeseen circumstances or a change in the state of the domain name.
 
-On success we emit the return code `1000`. No further communication is made via the EPP service. An invoice is generated and is distributed out of band for EPP as shown in the sub-process and an additional *message* is sent out of band for EPP to the billing contact and the registrant
+On success we emit the return code `1000`. No further communication is made via the EPP service. The billable transaction is deducted from the [Prepaid Account](#balance-and-prepaid-account).
 
-The sub-process called, can be depicted as follows:
+The sub-process called, can be depicted as in this diagram of DK Hostmaster sub-process for EPP renew domain [:eye_speech_bubble:][dkh-renew-domain]
 
-Diagram of DKH sub-process for EPP renew domain [:eye_speech_bubble:][dkh-renew-domain]
+The status code `serverRenewProhibited` is set:
+
+- If the status `pendingCreate` is set, see [domain create](#domain-create)
+- If the status `pendingDelete` is set
+- If the registrant has not accepted the Terms and Conditions of DK Hostmaster
+- If the domain name period renewal will exceed the maximum period of 10 years and 3 months
+- If the domain name is not settled/paid
+- If the domain name is suspended due to automatic expiration
+- If the domain name is on hold or blocked, meaning it has been suspended by DK Hostmaster
 
 <a id="renew-domain-request"></a>
 
@@ -2090,7 +2213,7 @@ Diagram of DKH sub-process for EPP renew domain [:eye_speech_bubble:][dkh-renew-
 
 This part of the EPP protocol is described in [RFC:5731]. This command does not adhere to the standard
 
-- `authInfo` is used to handle AuthInfo tokens and cannot be used for and is not recommended for transport of end-user passwords
+- `authInfo` is used to handle AuthInfo tokens and cannot be used for and is **not** recommended for transport of end-user passwords
 - `contact` object in the  `ns` section is ignored
 
 This command covers a lot of functionality, it can complete operations such as:
@@ -2675,13 +2798,21 @@ For registration of domain names offered from a waiting list, the authorization 
 
 The default `delete domain` command behaviour is to deactivate immediately, which complies with [RFC:5731]. Not being able to complete the request will result in a error, also in compliance with [RFC:5731]. Please see below for more information on the business process for deletion.
 
-The current expiration date can be obtained using the `info domain` command and is specified in the `domain:exDate` field. The date conforms with the required format.
+The current expiration date can be obtained using the `info domain` command and is specified in the `domain:exDate` field. The date conforms with the required format. The [status code](status-codes), `pendingDelete` delete is set and can be removed either by the execution of the process after the redemption period or a [restore](#domain-restore) operation.
 
-The alternative approach to deletion is to set auto expire, which will cancel the domain name automatically at expiration.
+The alternative approach to deletion is to set auto expire, which will cancel the domain name subscription automatically at expiration.
 
 Do note that it is not possible to delete a domain name on the or after the expiration date of a domain name. Domain name deletion is not prohibited on the expiration date, but due to technical constraints it is recommended to set automatic expiration instead, which will have the same result.
 
 The deletion of a domain name results in a 30 day suspension, which is regarded as a redemption period where it is possible to restore the suspended domain name using the [restore domain](#restore-domain) command.
+
+The status code `serverDeleteProhibited` is set:
+
+- If the status `pendingCreate` is set, see [domain create](#domain-create)
+- If the status `pendingDelete` is set
+- If the domain name is on hold or blocked, meaning it has been suspended by DK Hostmaster
+- If the domain name is superordinate to a name server, which has active name service
+- If the domain completed ID-control unsuccessfully
 
 <a id="delete-domain-request"></a>
 
@@ -2937,6 +3068,14 @@ A contact object (registrant) is cloned without additional relations bound to ot
 The cloning is a _best-effort_ cloning, since the ID-control status cannot be guaranteed to be consistent in the case where a contact object is locked to a register, but has limitations in access to data due to policies in regard to disclosure etc.
 
 The clone might be deleted if these relations are terminated or removed, please see the description of the contact object deletion policy described in the section on the [delete contact command](#delete-contact) for details.
+
+The status code `serverTransferProhibited` is set:
+
+- If the status `pendingCreate` is set, see [domain create](#domain-create)
+- If the domain name is not settled/paid
+- If the domain name is registrant managed and has VID service
+- If the registrant has an active or declined ID-control request
+- If the domain name is on hold or blocked, meaning it has been suspended by DK Hostmaster
 
 <a id="transition-period"></a>
 
@@ -4439,23 +4578,23 @@ As a general business rule, DK Hostmaster does not support the `client*` statuse
 
 | Status Code                | Description  |
 | -------------------------- | ------------ |
-| `addPeriod`                | *unsupported* the status is not described in [RFC:5731] only in [ICANN resource][ICANN] |
-| `autoRenewPeriod`          | *unsupported* the status is not described in [RFC:5731] only in [ICANN resource][ICANN] |
-| `clientDeleteProhibited`   | *unsupported* |
-| `clientHold`               | *unsupported* |
-| `clientRenewProhibited`    | *unsupported* |
-| `clientTransferProhibited` | *unsupported* |
-| `clientUpdateProhibited`   | *unsupported* |
-| `inactive`                 | *unsupported* domain names in the DK Hostmaster registry **must** have associated name servers |
+| `addPeriod`                | *unsupported* the status is not described in [RFC:5731] only in [ICANN resource][ICANN], see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes) |
+| `autoRenewPeriod`          | *unsupported* the status is not described in [RFC:5731] only in [ICANN resource][ICANN], see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes) |
+| `clientDeleteProhibited`   | *unsupported*, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes) |
+| `clientHold`               | *unsupported*, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes) |
+| `clientRenewProhibited`    | *unsupported*, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes) |
+| `clientTransferProhibited` | *unsupported*, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes) |
+| `clientUpdateProhibited`   | *unsupported*, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes) |
+| `inactive`                 | *unsupported* domain names in the DK Hostmaster registry **must** have associated name servers, , see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes) |
 | `ok`                       | Exclusive for all other status codes |
 | `pendingCreate`            | Indication that a the given domain is enqueue for possible creation, see [domain create](#domain-create) or is awaiting allocation with DK Hostmaster |
-| `pendingDelete`            | Deletion is pending, see [domain create](#domain-create). An advisory date is applicable, see: [`dkhm:delDate`](dkhmdeldate) |
-| `pendingRenew`             | *unsupported* as renewal is instantaneous |
-| `pendingRestore`           | *unsupported* as restoration is instantaneous |
-| `pendingTransfer`          | *unsupported* as transfer is instantaneous |
-| `pendingUpdate`            | The domain has active asynchronous requests, see [domain update](#domain-update) |
-| `redemptionPeriod`         | This status is applied when a domain name has `pendingDelete` and the delete operation can be redeemed |
-| `renewPeriod`              | *unsupported* the status is not described in [RFC:5731] |
+| `pendingDelete`            | Deletion is pending, see [delete domain](#delete-domain). An advisory date is applicable via the extension [`dkhm:delDate`](dkhmdeldate) |
+| `pendingRenew`             | *unsupported* as renewal is instantaneous, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes) |
+| `pendingRestore`           | *unsupported* as restoration is instantaneous, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes) |
+| `pendingTransfer`          | *unsupported* as transfer is instantaneous, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes) |
+| `pendingUpdate`            | The domain has active asynchronous requests, see [update domain](#update-domain) |
+| `redemptionPeriod`         | This status is applied when a domain name has `pendingDelete` and the delete operation can be redeemed using [restore domain](#restore-domain) |
+| `renewPeriod`              | *unsupported* the status is not described in [RFC:5731] only in [ICANN resource][ICANN], see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes) |
 | `serverDeleteProhibited`   | Indicates whether the registrant or registrar can delete the domain |
 | `serverHold`               | Given domain name is not active, it can hold a number of different _internal_ states rendering it on hold |
 | `serverRenewProhibited`    | Indicates a transient status where the billing or registrar contact is not able to renew the domain |
@@ -4475,18 +4614,18 @@ As a general business rule, DK Hostmaster does not support the `client*` statuse
 
 | Status Code                | Description   |
 | -------------------------- | ------------- |
-| `clientDeleteProhibited`   | *unsupported* |
-| `clientTransferProhibited` | *unsupported* |
-| `clientUpdateProhibited`   | *unsupported* |
+| `clientDeleteProhibited`   | *unsupported*, see: [Unsupported Contact Status Codes](#unsupported-contact-status-codes) |
+| `clientTransferProhibited` | *unsupported*, see: [Unsupported Contact Status Codes](#unsupported-contact-status-codes) |
+| `clientUpdateProhibited`   | *unsupported*, see: [Unsupported Contact Status Codes](#unsupported-contact-status-codes) |
 | `linked`                   | Object is linked to other objects |
 | `ok`                       | Exclusive for all other status codes, except `linked` |
-| `pendingCreate`            | *unsupported* as creation is instantaneous |
-| `pendingDelete`            | *unsupported* |
-| `pendingTransfer`          | *unsupported* as transfer is instantaneous |
-| `pendingUpdate`            |               |
-| `serverDeleteProhibited`   | if a user is use (_linked_) it cannot be deleted, the delete command is not supported |
-| `serverTransferProhibited` | *unsupported* as users cannot be transferred |
-| `serverUpdateProhibited`   | Object cannot be updated currently |
+| `pendingCreate`            | *unsupported* as creation is instantaneous, see: [Unsupported Contact Status Codes](#unsupported-contact-status-codes) |
+| `pendingDelete`            | *unsupported*, see: [Unsupported Contact Status Codes](#unsupported-contact-status-codes) |
+| `pendingTransfer`          | *unsupported* as transfer is instantaneous, see: [Unsupported Contact Status Codes](#unsupported-domain-status-codes) |
+| `pendingUpdate`            | *unsupported* at this time |
+| `serverDeleteProhibited`   | Always set deletions are an automated process and the delete command is not supported, see [Unimplemented Command: Delete Contact](#unimplemented-command-delete-contact) |
+| `serverTransferProhibited` | Always set as users cannot be transferred, see: [Unsupported Contact Status Codes](#unsupported-contact-status-codes) and [Unimplemented Command: Transfer Contact](#unimplemented-command-transfer-contact) |
+| `serverUpdateProhibited`   | *unsupported* at this time |
 
 <a id="host-status-codes"></a>
 
@@ -4498,52 +4637,60 @@ The description is the status, use and interpretation by DK Hostmaster.
 
 As a general business rule, DK Hostmaster does not support the `client*` statuses, see also: [Unsupported Host Status Codes](#unsupported-host-status-codes) in the [Implementation Limitations](#implementation-limitations) section.
 
-| Status Code              | Description   |
-| ------------------------ | ------------- |
-| `clientDeleteProhibited` | *unsupported* |
-| `clientUpdateProhibited` | *unsupported* |
-| `linked`                 | Object is linked to other objects |
-| `ok`                     | No pending or prohibited operations. Exclusive for all other status codes, except `linked` |
-| `pendingCreate`          | Awaiting accept from registrant if required |
-| `pendingDelete`          | Host object has been marked for deletion via deletion of superordinate domain name |
-| `pendingTransfer`        | *unsupported* as transfer is instantaneous |
-| `pendingUpdate`          | Awaiting accept from appointed name server administrator  |
-| `serverDeleteProhibited` | If the host is linked is it not eligible for deletion |
-| `serverUpdateProhibited` | If the host is marked for deletion (see `pendingDelete` this status will be set |
+| Status Code                | Description   |
+| -------------------------- | ------------- |
+| `clientDeleteProhibited`   | *unsupported*, see: [Unsupported Host Status Codes](#unsupported-host-status-codes) |
+| `clientUpdateProhibited`   | *unsupported*, see: [Unsupported Host Status Codes](#unsupported-host-status-codes) |
+| `linked`                   | Object is linked to other objects |
+| `ok`                       | No pending or prohibited operations. Exclusive for all other status codes, except `linked` |
+| `pendingCreate`            | Awaiting accept from registrant if required and awaiting accept from appointed name server administrator if required |
+| `pendingDelete`            | Host object has been marked for deletion via deletion of superordinate domain name |
+| `pendingTransfer`          | *unsupported* as transfer is instantaneous, see: [Unsupported Host Status Codes](#unsupported-host-status-codes) and [RFC:5732] |
+| `pendingUpdate`            | Awaiting accept from appointed name server administrator if required |
+| `serverDeleteProhibited`   | If the host is linked is it not eligible for deletion |
+| `serverTransferProhibited` | *unsupported* as transfer for hosts is not defined, see: [Unsupported Host Status Codes](#unsupported-host-status-codes) and [RFC:5732] |
+| `serverUpdateProhibited`   | If the host is marked for deletion (see `pendingDelete` this status will be set |
 
 <a id="privilege-matrix-registrant-managed-objects"></a>
 
 ### Privilege Matrix for Registrant Managed Objects
 
-| Command                           | Sub-command            | Registrar              | Domain name admin      | Domain name billing    | Name server admin           |
-| --------------------------------- | ---------------------- |:----------------------:|:----------------------:|:----------------------:|:---------------------------:|
-| [login](#login)                   |                        | :white_check_mark:     | :white_check_mark: \*1 | :white_check_mark: \*1 | :white_check_mark: \*1      |
-| [create domain](#create-domain)   |                        | :white_check_mark:     |                        |                        |                             |
-| [update domain](#update-domain)   |                        |                        | :white_check_mark: \*2 |                        | :white_check_mark: \*2      |
-|                                   | add billing contact    | :white_check_mark: \*8 | :white_check_mark: \*3 |                        |                             |
-|                                   | remove billing contact | :white_check_mark: \*4 | :white_check_mark: \*4 | :white_check_mark: \*4 |                             |
-|                                   | add admin contact      |                        | :white_check_mark: \*5 |                        |                             |
-|                                   | remove admin contact   |                        | :white_check_mark: \*4 |                        |                             |
-|                                   | change registrant      |                        | :white_check_mark: \*6 |                        |                             |
-|                                   | add name server        |                        | :white_check_mark: \*6 |                        | :white_check_mark: \*6/\*10 |
-|                                   | remove name server     |                        | :white_check_mark: \*6 |                        | :white_check_mark: \*6/\*10 |
-|                                   | add DSRECORDS          |                        | :white_check_mark:     |                        | :white_check_mark: \*10     |
-|                                   | remove DSRECORDS       |                        | :white_check_mark:     |                        | :white_check_mark: \*10     |
-| [renew domain](#renew-domain)     |                        |                        |                        | :white_check_mark:     |                             |
-| [delete domain](#delete-domain)   |                        |                        | :white_check_mark: \*6 |                        |                             |
-| [restore domain](#restore-domain) |                        |                        | :white_check_mark:     |                        |                             |
-| [info domain](#info-domain)       |                        | :white_check_mark: \*9 | :white_check_mark: \*9 | :white_check_mark: \*9 | :white_check_mark: \*9      |
-| [check domain](#check-domain)     |                        | :white_check_mark:     | :white_check_mark:     | :white_check_mark:     | :white_check_mark:          |
-| [create contact](#create-contact) |                        | :white_check_mark:     | :white_check_mark:     | :white_check_mark:     | :white_check_mark:          |
-| [update contact](#update-contact) |                        | :white_check_mark: \*7 |                        |                        | :white_check_mark: \*7      |
-| [delete contact](#delete-contact) |                        |                        |                        |                        |                             |
-| [info contact](#info-contact)     |                        | :white_check_mark: \*9 | :white_check_mark: \*9 | :white_check_mark: \*9 | :white_check_mark: \*9      |
-| [check contact](#check-contact)   |                        | :white_check_mark:     | :white_check_mark:     | :white_check_mark:     | :white_check_mark:          |
-| [create host](#create-host)       |                        | :white_check_mark:     |                        |                        | :white_check_mark:          |
-| [update host](#update-host)       |                        |                        |                        |                        | :white_check_mark:          |
-| [delete host](#delete-host)       |                        |                        |                        |                        | :white_check_mark:          |
-| [info host](#info-host)           |                        | :white_check_mark:     |                        |                        | :white_check_mark:          |
-| [check host](#check-host)         |                        | :white_check_mark:     |                        |                        | :white_check_mark:          |
+| Command                                 | Sub-command                             | Registrar              | Domain name admin      | Domain name billing    | Name server admin           |
+| --------------------------------------- | --------------------------------------- |:----------------------:|:----------------------:|:----------------------:|:---------------------------:|
+| [login](#login)                         |                                         | :white_check_mark:     | :white_check_mark: \*1 | :white_check_mark: \*1 | :white_check_mark: \*1      |
+| [create domain](#create-domain)         |                                         | :white_check_mark:     |                        |                        |                             |
+| [update domain](#update-domain)         |                                         |                        | :white_check_mark: \*2 |                        | :white_check_mark: \*2      |
+|                                         | add billing contact                     | :white_check_mark: \*8 | :white_check_mark: \*3 |                        |                             |
+|                                         | remove billing contact                  | :white_check_mark: \*4 | :white_check_mark: \*4 | :white_check_mark: \*4 |                             |
+|                                         | add admin contact                       |                        | :white_check_mark: \*5 |                        |                             |
+|                                         | remove admin contact                    |                        | :white_check_mark: \*4 |                        |                             |
+|                                         | change registrant                       |                        | :white_check_mark: \*6 |                        |                             |
+|                                         | add name server                         |                        | :white_check_mark: \*6 |                        | :white_check_mark: \*6/\*10 |
+|                                         | remove name server                      |                        | :white_check_mark: \*6 |                        | :white_check_mark: \*6/\*10 |
+|                                         | add DSRECORDS                           |                        | :white_check_mark:     |                        | :white_check_mark: \*10     |
+|                                         | remove DSRECORDS                        |                        | :white_check_mark:     |                        | :white_check_mark: \*10     |
+|                                         | set AuthInfo for change of name servers |                        | :white_check_mark:     |                        | :white_check_mark:          |
+|                                         | unset AuthInfo change of name servers   |                        | :white_check_mark:     |                        | :white_check_mark:          |
+|                                         | set AuthInfo for transfer               |                        | :white_check_mark:     |                        |                             |
+|                                         | unset AuthInfo for transfer             |                        | :white_check_mark:     |                        |                             |
+| [renew domain](#renew-domain)           |                                         |                        |                        | :white_check_mark:     |                             |
+| [delete domain](#delete-domain)         |                                         |                        | :white_check_mark: \*6 |                        |                             |
+| [restore domain](#restore-domain)       |                                         |                        | :white_check_mark:     |                        |                             |
+| [info domain](#info-domain)             |                                         | :white_check_mark: \*9 | :white_check_mark: \*9 | :white_check_mark: \*9 | :white_check_mark: \*9      |
+| [check domain](#check-domain)           |                                         | :white_check_mark:     | :white_check_mark:     | :white_check_mark:     | :white_check_mark:          |
+| [transfer domain](#transfer-domain)     |                                         |                        |                        |                        |                             |
+| [withdraw](#withdraw)                   |                                         | :white_check_mark:     |                        |                        |                             |
+| [create contact](#create-contact)       |                                         | :white_check_mark:     | :white_check_mark:     | :white_check_mark:     | :white_check_mark:          |
+| [update contact](#update-contact)       |                                         | :white_check_mark: \*7 |                        |                        | :white_check_mark: \*7      |
+| [info contact](#info-contact)           |                                         | :white_check_mark: \*9 | :white_check_mark: \*9 | :white_check_mark: \*9 | :white_check_mark: \*9      |
+| [check contact](#check-contact)         |                                         | :white_check_mark:     | :white_check_mark:     | :white_check_mark:     | :white_check_mark:          |
+| [create host](#create-host)             |                                         | :white_check_mark:     |                        |                        | :white_check_mark:          |
+| [update host](#update-host)             |                                         |                        |                        |                        | :white_check_mark:          |
+| [delete host](#delete-host)             |                                         |                        |                        |                        | :white_check_mark:          |
+| [info host](#info-host)                 |                                         | :white_check_mark:     |                        |                        | :white_check_mark:          |
+| [check host](#check-host)               |                                         | :white_check_mark:     |                        |                        | :white_check_mark:          |
+| [poll](#poll-and-message-queue)         |                                         | :white_check_mark:     | :white_check_mark:     | :white_check_mark:     | :white_check_mark:          |
+| [balance](#balance-and-prepaid-account) |                                         | :white_check_mark:     |                        | :white_check_mark:     | :white_check_mark:          |
 
 - \*1 as registrar, meaning a user associated with a registrar group
 - \*2 see sub-commands
@@ -4560,76 +4707,91 @@ As a general business rule, DK Hostmaster does not support the `client*` statuse
 
 ### Privilege Matrix for Registrar Managed Objects
 
-| Command                           | Sub-command            | Registrar              | Name server admin      |
-| --------------------------------- | ---------------------- |:----------------------:|:----------------------:|
-| [login](#login)                   |                        | :white_check_mark:     | :white_check_mark: \*1 |
-| [create domain](#create-domain)   |                        | :white_check_mark:     |                        |
-| [update domain](#update-domain)   |                        | :white_check_mark: \*2 | :white_check_mark: \*2 |
-|                                   | add billing contact    |                        |                        |
-|                                   | remove billing contact |                        |                        |
-|                                   | add admin contact      |                        |                        |
-|                                   | remove admin contact   |                        |                        |
-|                                   | change registrant      | :white_check_mark:     |                        |
-|                                   | add name server        | :white_check_mark: \*3 | :white_check_mark: \*3 |
-|                                   | remove name server     | :white_check_mark: \*3 | :white_check_mark: \*3 |
-|                                   | add DSRECORDS          | :white_check_mark: \*3 | :white_check_mark: \*3 |
-|                                   | remove DSRECORDS       | :white_check_mark: \*3 | :white_check_mark: \*3 |
-| [renew domain](#renew-domain)     |                        | :white_check_mark:     |                        |
-| [delete domain](#delete-domain)   |                        | :white_check_mark:     |                        |
-| [restore domain](#restore-domain) |                        | :white_check_mark:     |                        |
-| [info domain](#info-domain)       |                        | :white_check_mark: \*4 | :white_check_mark: \*4 |
-| [check domain](#check-domain)     |                        | :white_check_mark:     | :white_check_mark:     |
-| [create contact](#create-contact) |                        | :white_check_mark:     | :white_check_mark:     |
-| [update contact](#update-contact) |                        | :white_check_mark: \*5 | :white_check_mark: \*6 |
-| [delete contact](#delete-contact) |                        |                        |                        |
-| [info contact](#info-contact)     |                        | :white_check_mark: \*4 | :white_check_mark: \*4 |
-| [check contact](#check-contact)   |                        | :white_check_mark:     | :white_check_mark:     |
-| [create host](#create-host)       |                        | :white_check_mark: \*7 |                        |
-| [update host](#update-host)       |                        | :white_check_mark: \*7 | :white_check_mark:     |
-| [delete host](#delete-host)       |                        | :white_check_mark: \*7 | :white_check_mark:     |
-| [info host](#info-host)           |                        | :white_check_mark:     | :white_check_mark:     |
-| [check host](#check-host)         |                        | :white_check_mark:     | :white_check_mark:     |
+| Command                                 | Sub-command                             | Registrar              | Name server admin      |
+| --------------------------------------- | --------------------------------------- |:----------------------:|:----------------------:|
+| [login](#login)                         |                                         | :white_check_mark:     | :white_check_mark:     |
+| [create domain](#create-domain)         |                                         | :white_check_mark:     |                        |
+| [update domain](#update-domain)         |                                         | :white_check_mark: \*1 | :white_check_mark: \*1 |
+|                                         | add billing contact                     |                        |                        |
+|                                         | remove billing contact                  |                        |                        |
+|                                         | add admin contact                       |                        |                        |
+|                                         | remove admin contact                    |                        |                        |
+|                                         | change registrant                       | :white_check_mark:     |                        |
+|                                         | add name server                         | :white_check_mark:     | :white_check_mark:     |
+|                                         | remove name server                      | :white_check_mark: \*2 | :white_check_mark: \*2 |
+|                                         | add DSRECORDS                           | :white_check_mark:     | :white_check_mark:     |
+|                                         | remove DSRECORDS                        | :white_check_mark:     | :white_check_mark:     |
+|                                         | set AuthInfo for change of name servers | :white_check_mark:     | :white_check_mark:     |
+|                                         | unset AuthInfo change of name servers   | :white_check_mark:     | :white_check_mark:     |
+|                                         | set AuthInfo for transfer               | :white_check_mark:     |                        |
+|                                         | unset AuthInfo for transfer             | :white_check_mark:     |                        |
+| [renew domain](#renew-domain)           |                                         | :white_check_mark:     |                        |
+| [delete domain](#delete-domain)         |                                         | :white_check_mark:     |                        |
+| [restore domain](#restore-domain)       |                                         | :white_check_mark:     |                        |
+| [info domain](#info-domain)             |                                         | :white_check_mark: \*3 | :white_check_mark: \*3 |
+| [check domain](#check-domain)           |                                         | :white_check_mark:     | :white_check_mark:     |
+| [transfer domain](#transfer-domain)     |                                         | :white_check_mark: \*4 |                        |
+| [withdraw](#withdraw)                   |                                         | :white_check_mark:     |                        |
+| [create contact](#create-contact)       |                                         | :white_check_mark:     | :white_check_mark:     |
+| [update contact](#update-contact)       |                                         | :white_check_mark: \*5 | :white_check_mark: \*6 |
+| [info contact](#info-contact)           |                                         | :white_check_mark: \*3 | :white_check_mark: \*3 |
+| [check contact](#check-contact)         |                                         | :white_check_mark:     | :white_check_mark:     |
+| [create host](#create-host)             |                                         | :white_check_mark:     |                        |
+| [update host](#update-host)             |                                         | :white_check_mark: \*7 | :white_check_mark:     |
+| [delete host](#delete-host)             |                                         | :white_check_mark: \*7 | :white_check_mark:     |
+| [info host](#info-host)                 |                                         | :white_check_mark:     | :white_check_mark:     |
+| [check host](#check-host)               |                                         | :white_check_mark:     | :white_check_mark:     |
+| [poll](#poll-and-message-queue)         |                                         | :white_check_mark:     | :white_check_mark:     |
+| [balance](#balance-and-prepaid-account) |                                         | :white_check_mark:     | :white_check_mark:     |
 
-- \*1 as registrar, meaning a user associated with a registrar group
-- \*2 see sub-commands
-- \*3 changes status of existing DSRECORDS
-- \*4 can only see contact information for authorized objects, access to registrant is authorized as public other roles require authorization via relation
+- \*1 see sub-commands
+- \*2 changes status of existing DSRECORDS
+- \*3 can only see contact information for authorized objects, access to registrant is authorized as public other roles require authorization via relation
+- \*4 requires authorization
 - \*5 only data not locked by business rules and under external registry administration such as CPR, CVR and VIES registers
 - \*6 only own profile
-- \*7 subordinate
+- \*7 only subordinate host names
 
 <a id="feature-and-meta-role-matrix"></a>
 
 ### Feature and Meta-role Matrix
 
-| Feature                                                                            | Meta-role     |
-|:-----------------------------------------------------------------------------------|:--------------|
-| [Create Portal User](#create-portal-user)                                          | Administrator |
-| [Enable/Disable Portal User](#enable-or-disable-portal-user)                       | Administrator |
-| [Edit Portal User](#edit-portal-user)                                              | Administrator |
-| [Delete Portal User](#delete-portal-user)                                          | Administrator |
-| [Create Service User](#create-service-user)                                        | Administrator |
-| [Enable/Disable Service User](#enable-or-disable-service-user)                     | Administrator |
-| [Edit Service User](#edit-service-user)                                            | Administrator |
-| [Delete Service User](#delete-service-user)                                        | Administrator |
-| [Link WHOIS Handle](#link-whois-handle)                                            | Administrator |
-| [Unlink WHOIS Handle](#unlink-whois-handle)                                        | Administrator |
-| [Merge WHOIS Handles](#mergewhois-handles)                                         | Administrator |
-| [Create WHOIS Registrar Account Handle](#create-whois-handle)                      | Administrator |
-| [Apply/Create domain name](#domain-name-application)                               | Registrar |
-| [Transfer Domain Name](#transfer-domain-name)                                      | Registrar |
-| Generate authorization for transfer                                                | Proxy |
-| [Add funds to Registrar Account](#add-funds-to-registrar-account)                  | Payer |
-| [Renew Domain Name](#renew-domain-name)                                            | Payer |
-| Change Name Servers                                                                | Name Server Administrator |
-| Generate authorization for change of name servers                                  | Name Server Administrator |
-| Administer Name Servers                                                            | Name Server Administrator |
-| Administer domain name                                                             | Proxy |
-| Administer WHOIS user registrant                                                   | Proxy |
-| [Restore Domain Name](#restore-domain-name)                                        | Proxy |
-| [Cancel/Delete Domain Name](#cancel-domain-name)                                   | Proxy |
-| [Set auto-expire/renewal for domain name](#set-auto-expirerenewal-for-domain-name) | Proxy |
-| Set period for domain name                                                         | Proxy / Payer |
+| Command                                 | Sub-command                             | Meta-role                 |
+| --------------------------------------- | --------------------------------------- |:------------------------- |
+| [login](#login)                         |                                         | All                       |
+| [create domain](#create-domain)         |                                         | Registrar                 |
+| [update domain](#update-domain)         |                                         | Proxy                     |
+|                                         | add billing contact                     | Proxy                     |
+|                                         | remove billing contact                  | Proxy                     |
+|                                         | add admin contact                       | Proxy                     |
+|                                         | remove admin contact                    | Proxy                     |
+|                                         | change registrant                       | Proxy                     |
+|                                         | add name server                         | Name Server Administrator |
+|                                         | remove name server                      | Name Server Administrator |
+|                                         | add DSRECORDS                           | Name Server Administrator |
+|                                         | remove DSRECORDS                        | Name Server Administrator |
+|                                         | set AuthInfo for change of name servers | Name Server Administrator |
+|                                         | unset AuthInfo change of name servers   | Name Server Administrator |
+|                                         | set AuthInfo for transfer               | Proxy                     |
+|                                         | unset AuthInfo for transfer             | Proxy                     |
+| [renew domain](#renew-domain)           |                                         | Payer                     |
+| [delete domain](#delete-domain)         |                                         | Proxy                     |
+| [restore domain](#restore-domain)       |                                         | Proxy                     |
+| [info domain](#info-domain)             |                                         | All                       |
+| [check domain](#check-domain)           |                                         | All                       |
+| [transfer domain](#transfer-domain)     |                                         | Proxy                     |
+| [withdraw](#withdraw)                   |                                         | Proxy                     |
+| [create contact](#create-contact)       |                                         | All                       |
+| [update contact](#update-contact)       |                                         | Proxy                     |
+| [info contact](#info-contact)           |                                         | All                       |
+| [check contact](#check-contact)         |                                         | All                       |
+| [create host](#create-host)             |                                         | Name Server Administrator |
+| [update host](#update-host)             |                                         | Name Server Administrator |
+| [delete host](#delete-host)             |                                         | Name Server Administrator |
+| [info host](#info-host)                 |                                         | All                       |
+| [check host](#check-host)               |                                         | All                       |
+| [poll](#poll-and-message-queue)         |                                         | All                       |
+| [balance](#balance-and-prepaid-account) |                                         | Payer                     |
 
 <a id="compatibility-matrix"></a>
 
@@ -4637,33 +4799,40 @@ As a general business rule, DK Hostmaster does not support the `client*` statuse
 
 This is a high level overview of the EPP commands offered by the DK Hostmaster EPP service, please see the specific commands for details.
 
-The version numbers used in the matrix are major numbers only, e.g. 1.X.X.
+The version numbers used in the matrix are major numbers only, e.g. 1 for 1.X.X.
 
-| EPP Command  | Available since version | Exceptions and notes |
-| ------------ | ------------ | ------------ |
-| [Log in](#login) | 1 | Only password authentication is supported |
-| [Log out](#logout) | 1 | |
-| [Create domain](#create-domain) | 1 | Asynchronous, requires order confirmation by the registrant. VID product not supported, PO numbers not supported |
-| [Check Domain](#check-domain) | 1 | |
-| [Info Domain](#info-domain) | 1 / 3 | Billing contact not disclosed, Admin contact not disclosed since version 3. EPP status codes not supported completely |
-| [Update Domain](#update-domain) | 2 | Change of name server is asynchronous, requires approval by the registrant. Change of registrant is not supported |
-| [Renew Domain](#renew-domain) | 2 | Requires that the requesting user is a registrar and billing contact for the domain. The domain name must not have any financial outstanding |
-| [Transfer Domain](#transfer-domain) | 4 | |
-| [Delete Domain](#delete-domain) | 4 | Only registrars administering the domain name |
-| [Restore Domain](#restore-domain) | 4 | Only registrars administering the domain name |
-| [Create Contact](#create-contact) | 1 | Supplied handle/user-id is not supported |
-| [Check Contact](#check-contact) | 1 / 3 | Only registrants disclosed, additional contacts require relation to authenticated user |
-| [Info Contact](#info-contact) | 1 / 3 | Only registrants disclosed, additional contacts require relation to authenticated user |
-| [Update Contact](#update-contact) | 2 | Updating email is asynchronous and is regarded as non-atomic due to the email validation process |
-| [Transfer Contact](#transfer-contact) | N/A | Contact objects cannot be transferred only domain names. Contact objects are cloned upon transfer |
-| [Delete Contact](#delete-contact) | N/A | Deletion of contacts is an automated process |
-| [Create Host](#create-host) | 2 | Asynchronous, requires accept of the registrant of the domain name if the domain is under the .dk TLD and requires that the requesting user accepts the responsibility as name server administrator |
-| [Check Host](#check-host) | 1 | |
-| [Info Host](#info-host) | 1 | |
-| [Update Host](#update-host) | 2 |  Asynchronous, requires that the requested administrator accepts the responsibility as name server administrator |
-| [Delete Host](#delete-host) | 2 | |
-| [Poll](#poll-and-message-queue) | 1 | |
-| [Balance](#balance-and-prepaid-account) | 4 | |
+| EPP Command                             | Available since version | Exceptions and notes                                                                              |
+| --------------------------------------- | ----------------------- | ------------------------------------------------------------------------------------------------- |
+| [Log in](#login)                        | 1                       | Only password authentication is supported                                                         |
+| [Log out](#logout)                      | 1                       |                                                                                                   |
+| [Create domain](#create-domain)         | 1                       | Asynchronous \*1                                                                                  |
+| [Check Domain](#check-domain)           | 1                       |                                                                                                   |
+| [Info Domain](#info-domain)             | 1 / 3                   | Billing contact not disclosed. Proxy contact not disclosed since version 3                        |
+| [Update Domain](#update-domain)         | 2                       | Asynchronous \*2                                                                                 |
+| [Renew Domain](#renew-domain)           | 2                       |                                                                                                   |
+| [Transfer Domain](#transfer-domain)     | 4                       |                                                                                                   |
+| [Withdraw](#withdraw)                   | 4                       |                                                                                                   |
+| [Delete Domain](#delete-domain)         | 4                       |                                                                                                   |
+| [Restore Domain](#restore-domain)       | 4                       |                                                                                                   |
+| [Create Contact](#create-contact)       | 1                       | Supplying handle/user-id is not supported                                                         |
+| [Check Contact](#check-contact)         | 1 / 3                   | Only registrants disclosed, other contacts requires relation to authenticated user                |
+| [Info Contact](#info-contact)           | 1 / 3                   | Only registrants disclosed, other contacts requires relation to authenticated user                |
+| [Update Contact](#update-contact)       | 2                       | Asynchronous \*3                                                                                  |
+| [Transfer Contact](#transfer-contact)   | N/A                     | Contact objects cannot be transferred only domain names. Contact objects are cloned upon transfer |
+| [Delete Contact](#delete-contact)       | N/A                     | Deletion of contacts is an automated process                                                      |
+| [Create Host](#create-host)             | 2                       | Asynchronous \*4                                                                                  |
+| [Check Host](#check-host)               | 1                       |                                                                                                   |
+| [Info Host](#info-host)                 | 1                       |                                                                                                   |
+| [Update Host](#update-host)             | 2                       | Asynchronous \*5                                                                                  |
+| [Delete Host](#delete-host)             | 2                       |                                                                                                   |
+| [Poll](#poll-and-message-queue)         | 1                       |                                                                                                   |
+| [Balance](#balance-and-prepaid-account) | 4                       |                                                                                                   |
+
+- \*1 Requires order confirmation by the registrant. VID product not supported, PO numbers not supported
+- \*2 Change of name server is asynchronous, requires approval by the registrant
+- \*3 Updating email is asynchronous and is regarded as non-atomic due to the email validation process
+- \*4 Requires accept of the registrant of the domain name if the domain is under the .dk TLD and requires that the requesting user accepts the responsibility as name server administrator
+- \*5 Requires that the requested administrator accepts the responsibility as name server administrator
 
 [DKHMLOGO]: https://www.dk-hostmaster.dk/sites/default/files/dk-logo_0.png
 [GHAMKDBADGE]: https://github.com/DK-Hostmaster/epp-service-specification/workflows/Markdownlint%20Action/badge.svg
