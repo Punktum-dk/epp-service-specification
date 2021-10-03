@@ -255,7 +255,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
     - Removing obsolete information
     - Clarifying business rules
   - Added example of first poll message to a [create domain](#create_domain), indicating the pending operation
-  - Updated example of [info domain](#info-domain) response with information on the `AuthInfo` token and expiration date using the `dkhm::authInfoExDate` extension
+  - Updated example of [info domain](#info-domain) response with information on the `AuthInfo` token and expiration date using the `dkhm:authInfoExDate` extension
 
 - 4.1 2021-09-24
   - Added documentation for new error scenario for [create domain](#create_domain) for a registrar managed domain name, specifying other contacts than the registrant will result in an error `2306`
@@ -271,7 +271,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
   - Added information on setting/unsetting autorizations using AuthInfo tokens, see [setting AuthInfo](#setting-AuthInfo) and [unsetting AuthInfo](#unsetting-AuthInfo)
   - Added information on `dkhm:management` extension for [create domain](#create-domain) and [create contact](#create-contact), which overrides account default
   - Added description of new and improved change name server process, both using authorisation and under registrar administration
-  - Added documentation on the extension to [info domain](#info-domain) with information on the `AuthInfo` expiration date using the `dkhm::authInfoExDate` extension
+  - Added documentation on the extension to [info domain](#info-domain) with information on the `AuthInfo` expiration date using the `dkhm:authInfoExDate` extension
   - Added description of the changed [create contact](#create-contact) process, handling registrar administration
   - Introduction of support for [delete domain](#delete-domain) command
   - Introduction of support for [restore domain](#restore-domain) via [update domain](#update-domain) command
