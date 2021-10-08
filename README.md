@@ -4768,7 +4768,7 @@ As a general business rule, DK Hostmaster does not support the `client*` statuse
 | [info host](#info-host)                 |                                         |   :white_check_mark:   |   :white_check_mark:   |
 | [check host](#check-host)               |                                         |   :white_check_mark:   |   :white_check_mark:   |
 | [poll](#poll-and-message-queue)         |                                         |   :white_check_mark:   |   :white_check_mark:   |
-| [balance](#balance-and-prepaid-account) |                                         |   :white_check_mark:   |   :white_check_mark:   |
+| [balance](#balance-and-prepaid-account) |                                         |   :white_check_mark:   |                        |
 
 - \*1 see sub-commands
 - \*2 changes status of existing DSRECORDS
@@ -4817,7 +4817,7 @@ As a general business rule, DK Hostmaster does not support the `client*` statuse
 | [info host](#info-host)                 |                                         | All                       |
 | [check host](#check-host)               |                                         | All                       |
 | [poll](#poll-and-message-queue)         |                                         | All                       |
-| [balance](#balance-and-prepaid-account) |                                         | Payer                     |
+| [balance](#balance-and-prepaid-account) |                                         | Registrar/Payer           |
 
 <a id="compatibility-matrix"></a>
 
