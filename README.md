@@ -256,6 +256,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
     - Clarifying business rules
   - Added example of first poll message to a [create domain](#create_domain), indicating the pending operation
   - Updated example of [info domain](#info-domain) response with information on the `AuthInfo` token and expiration date using the `dkhm:authInfoExDate` extension
+  - Added missing example of [withdraw response](#withdraw-response)
 
 - 4.1 2021-09-24
   - Added documentation for new error scenario for [create domain](#create_domain) for a registrar managed domain name, specifying other contacts than the registrant will result in an error `2306`
@@ -3235,9 +3236,34 @@ An example of a withdraw XML request would look as follows (example lifted from 
 </epp>
 ```
 
-<a id="withdraw-request"></a>
+<a id="withdraw-response"></a>
 
 ##### withdraw response
+
+<epp xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd"
+    xmlns="urn:ietf:params:xml:ns:epp-1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <response>
+        <result code="1000">
+            <msg>Command completed successfully</msg>
+        </result>
+        <resData>
+            <domain:trnData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+                <domain:name>eksempel.dk</domain:name>
+                <domain:trStatus>serverApproved</domain:trStatus>
+                <domain:reID>REG-12345</domain:reID>
+                <domain:reDate>2021-10-08T06:35:28Z</domain:reDate>
+                <domain:acID>DKHM1-DK</domain:acID>
+                <domain:acDate>2021-10-08T06:35:28Z</domain:acDate>
+                <domain:exDate>2021-10-08T06:35:28Z</domain:exDate>
+            </domain:trnData>
+        </resData>
+        <trID>
+            <clTRID>ABC-12345</clTRID>
+            <svTRID>ED213B80-2801-11EC-AA6C-3E865F504B00</svTRID>
+        </trID>
+    </response>
+</epp>
 
 <a id="contact"></a>
 
