@@ -257,6 +257,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
   - Added example of first poll message to a [create domain](#create_domain), indicating the pending operation
   - Updated example of [info domain](#info-domain) response with information on the `AuthInfo` token and expiration date using the `dkhm:authInfoExDate` extension
   - Added missing example of [withdraw response](#withdraw-response)
+  - Added overview of contact objects and information on locking of data, see [Contact](#contact)
 
 - 4.1 2021-09-24
   - Added documentation for new error scenario for [create domain](#create_domain) for a registrar managed domain name, specifying other contacts than the registrant will result in an error `2306`
@@ -3153,13 +3154,14 @@ Example is lifted from [RFC:5731] and modified.
 
 Example is lifted from [RFC:5731] and modified.
 
-| Return Code | Description                                                                                   |
-|-------------|-----------------------------------------------------------------------------------------------|
-| 1000        | If the update domain command is successful                                                    |
-| 2005        | Syntax of the command is not correct                                                          |
-| 2201        | If the authenticated user does not hold the privilege to transfer the specified domain object |
-| 2201        | If the provided AuthInfo information is not valid                                             |
-| 2303        | If the specified domain name does not exist                                                   |
+| Return Code | Description                                                                                                                        |
+|-------------|------------------------------------------------------------------------------------------------------------------------------------|
+| 1000        | If the transfer domain command is successful                                                                                       |
+| 2005        | Syntax of the command is not correct                                                                                               |
+| 2201        | If the authenticated user does not hold the privilege to transfer the specified domain object or the AuthInfo token does not exist |
+| 2303        | If the specified domain name does not exist                                                                                        |
+| 2304        | If the requesting user does not have the privilege and is not authorized to transfer the domain                                    |
+| 2400        | The operation failed                                                                                                               |
 
 <a id="withdraw"></a>
 
@@ -3271,11 +3273,11 @@ An example of a withdraw XML request would look as follows (example lifted from 
 
 The default behavior of the EPP `create contact` command as described in [RFC:5733], will attach the client-ID (`CLID`) of the authenticated party to the object created, just as for the domain creation described above.
 
-The contact object will be under the sponsoring party throughout it's _life-cycle_ and transfer of contact objects will not be explicitly supported.
+The contact object will be under the sponsoring party throughout it's _life-cycle_ and transfer of contact objects will not be explicitly supported, see [Unimplemented commands](#unimplemented-commands) section.
 
 As for the `create domain` command (above) the default behaviour can be defined in RP. Where the option "registrant management", will create contact objects sponsored by DK Hostmaster instead instead of the registrar.
 
-Deletion will not be supported and will work as it currently is implemented in the DK Hostmaster EPP service and described in the specification. See the section: "[Unimplemented commands](#unimplemented-commands)" for details. Contact objects are automatically deleted, under the following policy:
+Deletion will not be supported and will work as it currently is implemented in the DK Hostmaster EPP service and described in the specification. See the section: [Unimplemented commands](#unimplemented-commands) for details. Contact objects are automatically deleted, under the following policy:
 
 - The contact object is not in use
 - It holds not roles/association with other objects
@@ -3292,6 +3294,33 @@ The following contact types are also limited, due to the VAT number validation:
 - EU companies, public organizations and associations of the types, bound to the EU Vies register
 
 All other types has to be maintained by the sponsoring client, with the exception of the name attribute.
+
+A contact object consist of the following data.
+
+| Data            | Can be locked      | Note                                                                                                                            |
+|-----------------|--------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| User type       | :white_check_mark: | The is communicated via the extension: `dkhm:userType`                                                                          |
+| Name            | :white_check_mark: | The is included in the standard, see: [RFC:5733] (`contact:name`) / (`contact:org`), see: [Address Handling](#address-handling) |
+| Address         | :white_check_mark: | The is included in the standard, see: [RFC:5733] (`contact:addr`)                                                               |
+| Country         | :white_check_mark: | The is included in the standard, see: [RFC:5733] (`contact:voice`)                                                              |
+| Attention       |                    | The is included in the standard, see: [RFC:5733] (`contact:name`) / (`contact:org`), see: [Address Handling](#address-handling) |
+| Phone           |                    | The is included in the standard, see: [RFC:5733] (`contact:voice`)                                                              |
+| Mobile phone    |                    | The is communicated via the extension: `dkhm:mobilephone`                                                                       |
+| Fax             |                    | The is included in the standard, see: [RFC:5733] (`contact:fax`)                                                                |
+| Email           |                    | The is included in the standard, see: [RFC:5733] (`contact:email`)                                                              |
+| Secondary email |                    | The is communicated via the extension: `dkhm:secondaryEmail`                                                                    |
+| VAT number      | :white_check_mark: | The is communicated via the extension: `dkhm:CVR`                                                                               |
+| P-number        |                    | The is communicated via the extension: `dkhm:pnumber`                                                                           |
+| EAN             | :white_check_mark: | The is communicated via the extension: `dkhm:EAN`                                                                               |
+
+The locking of data is towards an authoritative register, like CPR (Central Person Register, Danish individuals) or CVR (Dansk Virksomheds Register, Danish companies, associations and public organisations).
+
+Locking is applied in conjunction with
+
+- Successful ID-control
+- For Danish companies, associations and public organisations if a CVR number is matched towards the CVR register
+- For European companies, associations and public organisations if a VAT number is matched towards the VIES service
+- For contact object appointed as registrants and waiting list position owners, the name is locked in order to prevent change of ownership of these
 
 <a id="create-contact"></a>
 
