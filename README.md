@@ -5,8 +5,7 @@
 ![Markdownlint Action][GHAMKDBADGE]
 ![Spellcheck Action][GHASPLLBADGE]
 
-2021-09-24
-Revision: 4.1
+2021-10-21 Revision: 4.2
 
 ## Table of Contents
 
@@ -246,7 +245,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 ### Document History
 
-- 4.2 2021-10-02
+- 4.2 2021-10-21
   - All diagrams moved out of the document and linked instead of displayed
   - Added section on [Service Users](#service-users) to the [Implementation Requirements](#imtplementation-requirements) section
   - Added section on [Registrar Account Settings](#registrar-account-settings) to the [Implementation Requirements](#imtplementation-requirements) section
