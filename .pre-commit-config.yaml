@@ -18,7 +18,7 @@ repos:
     -   id: markdownlint
         name: Test Markdownfiles with markdownlint
 -   repo: https://github.com/jonasbn/pre-commit-hooks
-    rev: v0.5.0
+    rev: v0.6.0
     hooks:
     -   id: spellcheck
         name: Testing spelling with pyspelling
