@@ -5,7 +5,7 @@
 ![Markdownlint Action][GHAMKDBADGE]
 ![Spellcheck Action][GHASPLLBADGE]
 
-2021-10-21 Revision: 4.2
+2021-10-25 Revision: 4.3
 
 ## Table of Contents
 
@@ -56,6 +56,7 @@
   - [Disclosure of Client ID](#disclosure-of-client-id)
   - [DNSSEC](#dnssec)
   - [Domain Info](#domain-info)
+  - [Domain Transfer](#domain-transfer)
   - [Domain Update](#domain-update)
   - [Encoding and IDN domains](#encoding-and-idn-domains)
   - [Host Info](#host-info)
@@ -244,6 +245,10 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 <a id="document-history"></a>
 
 ### Document History
+
+- 4.3 2021-10-25
+
+  - Added description of [limitations of domain transfer](#domain-transfer) in regard to the optional period field
 
 - 4.2 2021-10-21
   - All diagrams moved out of the document and linked instead of displayed
@@ -934,6 +939,12 @@ Change of name servers using [update domain](#update-domain), removes all curren
 The command [info domain](#info-domain) will only supply the registrant information for relevant contact objects. For other contact objects assigned to the domain name, the requesting user has to have a relationship to the domain or contact object, either via a host or domain role or registrar group.
 
 Availability of DNSSEC information and status is currently limited to public available data.
+
+<a id="domain-transfer"></a>
+
+### Domain Transfer
+
+In [RFC:5731 section 3.2.4][RFC:5731-3.2.4] is it described that an optional period can be specified. DK Hostmaster does not support the extension of a period via a transfer.
 
 <a id="domain-update"></a>
 
@@ -4923,6 +4934,7 @@ The version numbers used in the matrix are major numbers only, e.g. 1 for 1.X.X.
 [RFC:3915]: https://tools.ietf.org/html/rfc3915
 [RFC:5730]: https://tools.ietf.org/html/rfc5730
 [RFC:5731]: https://tools.ietf.org/html/rfc5731
+[RFC:5731-3.2.4]: https://datatracker.ietf.org/doc/html/rfc5731#section-3.2.4
 [RFC:5732]: https://tools.ietf.org/html/rfc5732
 [RFC:5732-3.1.2]: https://tools.ietf.org/html/rfc5732#section-3.1.2
 [RFC:5733]: https://tools.ietf.org/html/rfc5733
