@@ -1613,11 +1613,24 @@ The creation of contacts (registrants) is covered under [create contact](#create
 
 See diagram: [:eye_speech_bubble:][epp_create_domain]
 
-| Return Code | Description                                                      |
-|-------------|------------------------------------------------------------------|
-| 1001        | Command completed successfully; action pending                   |
-| 2104        | Billing failure                                                  |
-| 2306        | Specifying contacts for registrar handled domains is not allowed |
+| Return Code | Description                                                              |
+|-------------|--------------------------------------------------------------------------|
+| 1001        | Command completed successfully; action pending                           |
+| 2001        | Invalid period [`period`]. Must be within range                          |
+| 2201        | Registrant has previously failed ID-control and cannot become registrant |
+| 2201        | Registrar handle is not permitted for registrant role.                   |
+| 2004        | `dkhm:orderconfirmationToken`: >`token`< exceeds allowed threshold       |
+| 2004        | Too few users for contact type                                           |
+| 2004        | Too many users for contact type                                          |
+| 2005        | Bad value for `dkhm:orderconfirmationToken`: >`token`<                   |
+| 2104        | Insufficient credit. Domain cannot be created.                           |
+| 2305        | Specified user handle not permitted when handled by registrar            |
+| 2305        | Specified user handle not permitted without handling by registrar        |
+| 2306        | Specifying contacts for registrar handled domains is not allowed         |
+| 2400        | Internal error. No connection to ECDS service.                           |
+| 2500        | Internal error. ECDS operation not found in the configuration            |
+| 2500        | Internal error. Can't get prices from ECDS.                              |
+| 2500        | Internal error.                                                          |
 
 <a id="create-domain-request"></a>
 
