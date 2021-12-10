@@ -2145,6 +2145,29 @@ The response is further extended with the [`dkhm:authInfoExDate`](#authinfoexdat
 
 This part of the EPP protocol is described in [RFC:5731]. This command adheres to the standard.
 
+Domain name subscriptions can be renewed manually via the EPP service. The feature applies to both:
+
+- Registrant managed domain names, where the registrar is appointed as the billing contact
+- Registrar managed domain names
+
+Manual renewal can be done up to the expiration date of the specific domain name. It does not influence automatic renewal or automatic expiration apart from delaying there effective execution and automatic change to the domain name lifespan, please see the below matrices outlining the different scenarios for manual renewal.
+
+| Registrar Management | Billing contact is registrar | Billing contact is non-registrar |
+|----------------------|------------------------------|----------------------------------|
+| Automatic renewal    | < expiration date            | N/A                              |
+| Automatic expiration | < expiration date            | N/A                              |
+
+| Registrant Management | Billing contact is registrar | Billing contact is non-registrar |
+|-----------------------|------------------------------|----------------------------------|
+| Automatic renewal     | < expiration date            | < expiration date - X days :bookmark: *1|
+| Automatic expiration  | < expiration date            | N/A                              |
+
+:bookmark_tabs: *1 When an invoice is generated for a registrant managed domain name where the billing contact is a non-registrar, the domain names with expiration in a given calendar month are collected on a single invoice for the month as a whole. This mean that a given domain name can be marked for collection between 45 to 75 days prior to expiration. The 45 days are due to the constraints involving requirements for automatic payment via **Betalings Service** (BS) and since a domain name can have expiration by the end of the month, the length of the month has to be taken into account, extending the period with 30 days, giving a total of 75 days.
+
+Do note the constraints on when you can change the billing contact, since might limit window of opportunity for manual renewal and being the billing contact for the domain is a explicit requirement.
+
+See current prices at the DK Hostmaster website: [Products and Prices][DKHMPRICES]. Insufficient funds in the registrar account will not prohibit this operation.
+
 Do note that for period specification, only the unit `y` indicating year is accepted.
 
 The following values for the period specification are accepted:
@@ -2574,13 +2597,13 @@ Diagram Update domain - Remove name server [:eye_speech_bubble:][epp-update-doma
 
 ##### add contact
 
-The addition of a new contact has to adhere to some policies.
+The addition of a new contact to a domain name has to adhere to some policies. Do note that the change of roles only applies to registrant managed domain names, since the roles on a registrar managed domain name are implicitly the registrar managing the domain name.
 
 1. If the contact is the admin, only the billing role can be added
 2. If the authenticated user is a registrar only billing can be added
 3. The new contact is requested to accept the role, so the operation is asynchronous
 
-Adding new users require special privileges, currently only with the registrant, apart from the policy listed above.
+Adding new users require special privileges, only with the registrant, apart from the policy listed above.
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -2604,6 +2627,13 @@ Diagram: Update domain - Add billing/admin contact [:eye_speech_bubble:][epp-upd
 
 Diagram: Update domain - Add billing/admin contact sub-process [:eye_speech_bubble:][dkh-update-domain-add-contact]
 
+| Return Code | Description                                                                                              |
+|-------------|----------------------------------------------------------------------------------------------------------|
+| 1000        | If the update domain command is successful                                                               |
+| 2005        | Syntax of the command is not correct                                                                     |
+| 2201        | If the authenticated user does not hold the privilege to update the specified domain object              |
+| 2303        | If the specified domain name does not exist                                                              |
+
 <a id="remove-contact"></a>
 
 ##### remove contact
@@ -2613,6 +2643,8 @@ The removal of a existing contact is possible for both billing and admin contact
 1. If the contact is the admin, both billing and admin roles can be removed
 2. The admin can add a new billing role (see above)
 3. If no addition the role defaults to the registrant becoming the inhabitant of the role, no request is made, the registrant is only informed of the change out of band
+
+When a contact is removed from a given the registrant is instated in the role.
 
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -2635,6 +2667,13 @@ The removal of a existing contact is possible for both billing and admin contact
 Diagram: Update domain - Remove billing/admin contact [:eye_speech_bubble:][epp-update-domain-remove-contact]
 
 Diagram: Update domain - Remove billing/admin contact sub-process [:eye_speech_bubble:][dkh-update-domain-remove-contact]
+
+| Return Code | Description                                                                                              |
+|-------------|----------------------------------------------------------------------------------------------------------|
+| 1000        | If the update domain command is successful                                                               |
+| 2005        | Syntax of the command is not correct                                                                     |
+| 2201        | If the authenticated user does not hold the privilege to update the specified domain object              |
+| 2303        | If the specified domain name does not exist                                                              |
 
 <a id="remove-dsrecords"></a>
 
@@ -5009,3 +5048,4 @@ The version numbers used in the matrix are major numbers only, e.g. 1 for 1.X.X.
 [EPPDEMOCLIENT]: https://github.com/DK-Hostmaster/epp-demo-client-mojolicious
 [DKHMTAC]: https://www.dk-hostmaster.dk/en/general-conditions
 [DKHMMAIL]: https://www.dk-hostmaster.dk/en/mailing-lists
+[DKHMPRICES]: https://www.dk-hostmaster.dk/en/products-and-prices
