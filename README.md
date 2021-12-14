@@ -3337,6 +3337,7 @@ An example of a withdraw XML request would look as follows (example lifted from 
 
 ##### withdraw response
 
+```xml
 <epp xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd"
     xmlns="urn:ietf:params:xml:ns:epp-1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -3361,6 +3362,7 @@ An example of a withdraw XML request would look as follows (example lifted from 
         </trID>
     </response>
 </epp>
+```
 
 <a id="contact"></a>
 
