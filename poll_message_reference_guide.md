@@ -2,7 +2,7 @@
 
 The following contains an overview of all poll messages supported.
 
-|Object|Operation                    |Message                                                                                                            | 
+|Object|Operation                    |Message                                                                                                            |
 |------|-----------------------------|-------------------------------------------------------------------------------------------------------------------|
 |domain|create_domain                |Create domain pending for %s.dk                                                                                    |
 |domain|create_domain                |Created domain for %s.dk has been approved                                                                         |
