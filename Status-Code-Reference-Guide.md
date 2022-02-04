@@ -1,4 +1,4 @@
-# EPP Status Code Reference Guide
+# EPP Status Code Reference Guide -DRAFT
 
 This is a complete list of all EPP status codes and texts that will be supported with the upcomming 4.3.0 release of DK Hostmaster EPP service.
 Feel free to create pull requests for any errors or omissions you may spot in the review process. Once confirmed and deployed, this documentation will move to the Wiki section of the EPP service specification.
