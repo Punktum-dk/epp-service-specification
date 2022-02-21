@@ -47,6 +47,7 @@ Feel free to create pull requests for any errors or omissions you may spot in th
 |EPP_PARAMETER_SYNTAX_ERROR           |2005       |Name and CVR number does not match                                    |Specified name and CVR number does not match data registered at CVR                                                     |
 |EPP_PARAMETER_SYNTAX_ERROR           |2005       |You need to specify pnumber                                           |If CVR number has > 1 pnumber attached, pnumber must be specified                                                       |
 |EPP_COMMAND_FAILED                   |2400       |Unable to verify CVR number. Please try again later.                  |We are unable to contact CVR for data verification                                                                      |
+|EPP_DATA_MANAGEMENT_POLICY_VIOLATION |2308       |Multiple operations perfomed in one request: (%s)                     |The client attempted to perform multiple operations on an object in the same request                                    |
 
 ## Info contact
 
@@ -135,6 +136,7 @@ Feel free to create pull requests for any errors or omissions you may spot in th
 |EPP_PARAMETER_RANGE_ERROR            |2004       |Bad digest length                                                     |The length of the specified digest is not the length that is expected for that digest type                              |
 |EPP_OBJECT_EXISTS_ERROR              |2302       |DS set already exists                                                 |DS record to add already exists                                                                                         |
 |EPP_BILLING_FAILURE                  |2104       |Billing failure                                                       |This operation requires a prepaid account                                                                               |
+|EPP_DATA_MANAGEMENT_POLICY_VIOLATION |2308       |Multiple operations perfomed in one request: (%s)                     |The client attempted to perform multiple operations on an object in the same request                                    |
 
 ## Info domain
 
@@ -220,6 +222,7 @@ Feel free to create pull requests for any errors or omissions you may spot in th
 |EPP_UNIMPLEMENTED_SERVICE            |2307       |Unimplemented command                                                 |Changing hostname for a nameserver is not implemented                                                                   |
 |EPP_PARAMETER_RANGE_ERROR            |2004       |Host IP address already exists                                        |The assigned IP addres is alreadu in use                                                                                |
 |EPP_PENDING_CODE                     |1001       |Command completed successfully; action pending                        |Update registered, pending NSA accept                                                                                   |
+|EPP_DATA_MANAGEMENT_POLICY_VIOLATION |2308       |Multiple operations perfomed in one request: (%s)                     |The client attempted to perform multiple operations on an object in the same request                                    |
 
 ## Info host
 
