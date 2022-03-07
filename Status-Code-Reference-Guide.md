@@ -140,6 +140,9 @@ This is a complete list of all EPP status codes and messages supported by DK Hos
 |EPP_OBJECT_EXISTS_ERROR              |2302       |DS set already exists                                                 |DS record to add already exists                                                                                         |
 |EPP_BILLING_FAILURE                  |2104       |Billing failure                                                       |This operation requires a prepaid account                                                                               |
 |EPP_DATA_MANAGEMENT_POLICY_VIOLATION |2308       |Multiple operations perfomed in one request: (%s)                     |The client attempted to perform multiple operations on an object in the same request                                    |
+|EPP_OBJECT_NOT_EXISTS_ERROR          |2303       |No DS records for domain                                              |Attempt to delete DS records for a domain without DS records assigned                                                   |
+|EPP_PROHIBITED_OPERATION             |2304       |Domain status prohibits operation                                     |The current status of the domain prohibits deleting DS records                                                          |
+
 
 ## Info domain
 
