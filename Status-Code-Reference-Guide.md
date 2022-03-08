@@ -140,6 +140,8 @@ This is a complete list of all EPP status codes and messages supported by DK Hos
 |EPP_OBJECT_EXISTS_ERROR              |2302       |DS set already exists                                                 |DS record to add already exists                                                                                         |
 |EPP_BILLING_FAILURE                  |2104       |Billing failure                                                       |This operation requires a prepaid account                                                                               |
 |EPP_DATA_MANAGEMENT_POLICY_VIOLATION |2308       |Multiple operations perfomed in one request: (%s)                     |The client attempted to perform multiple operations on an object in the same request                                    |
+|EPP_AUTHORIZATION_ERROR              |2201       |The given handle/user ID cannot be used as registrant                 |The user ID cannot be used as registrant possibly due to state or user ID                                             |
+|EPP_AUTHORIZATION_ERROR              |2201       |The given handle/user ID cannot be used as registrant, due to missing/rejected ID control  |The user has to complete ID control, in order to be used here.                                  |                                             |
 
 ## Info domain
 
