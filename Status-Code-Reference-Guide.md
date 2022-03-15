@@ -5,8 +5,7 @@ This is a complete list of all EPP status codes and messages supported by DK Hos
 ## Changelog
 
 * 2202-03-15 Added status codes to update domain operations: 2201 related to ID control state on user ID and 2303/2304 related to DS operations.
-
-* 2202-03-02 First version release. 
+* 2202-03-02 First version release.
 
 ## General status messages
 
