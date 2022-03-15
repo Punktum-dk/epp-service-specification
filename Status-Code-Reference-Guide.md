@@ -142,7 +142,8 @@ This is a complete list of all EPP status codes and messages supported by DK Hos
 |EPP_DATA_MANAGEMENT_POLICY_VIOLATION |2308       |Multiple operations perfomed in one request: (%s)                     |The client attempted to perform multiple operations on an object in the same request                                    |
 |EPP_OBJECT_NOT_EXISTS_ERROR          |2303       |No DS records for domain                                              |Attempt to delete DS records for a domain without DS records assigned                                                   |
 |EPP_PROHIBITED_OPERATION             |2304       |Domain status prohibits operation                                     |The current status of the domain prohibits deleting DS records                                                          |
-
+|EPP_AUTHORIZATION_ERROR              |2201       |The given handle/user ID cannot be used as registrant                 |The user ID cannot be used as registrant possibly due to state or user ID                                             |
+|EPP_AUTHORIZATION_ERROR              |2201       |The given handle/user ID cannot be used as registrant, due to missing/rejected ID control  |The user has to complete ID control, in order to be used here.                                  |                                             |
 
 ## Info domain
 
