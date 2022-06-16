@@ -5,7 +5,7 @@
 ![Markdownlint Action][GHAMKDBADGE]
 ![Spellcheck Action][GHASPLLBADGE]
 
-2021-12-06 Revision: 4.4
+2022-06-16 Revision: 4.5
 
 ## Table of Contents
 
@@ -246,6 +246,9 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 <a id="document-history"></a>
 
 ### Document History
+ - 4.5 2022-06-16
+  
+   - Added information about [Poll req response data](#poll-req-resdata)
 
 - 4.4 2021-12-06
 
