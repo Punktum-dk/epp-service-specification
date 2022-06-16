@@ -199,6 +199,7 @@
   - [Privilege Matrix for Registrar Managed Objects](#privilege-matrix-registrar-managed-objects)
   - [Feature and Meta-role Matrix](#feature-and-meta-role-matrix)
   - [Compatibility Matrix](#compatibility-matrix)
+  - [Poll req response data](#poll-req-resdata)
 
 <!-- /MarkdownTOC -->
 
@@ -4986,6 +4987,46 @@ The version numbers used in the matrix are major numbers only, e.g. 1 for 1.X.X.
 - \*4 Requires accept of the registrant of the domain name if the domain is under the .dk TLD and requires that the requesting user accepts the responsibility as name server administrator
 - \*5 Requires that the requested administrator accepts the responsibility as name server administrator
 
+ 
+<a id="poll-req-resdata"></a>
+
+### Poll req response data
+
+The poll req command returns resdata (beside returning the primary &lt;msg&gt;). The resdata depends on the message type, and usually returns a small subset of the essential information like a domain name, host name or contact id, and a create date. The create date is not available on messages, and is thus set to message timestamp, instead of the start time of the operation.
+
+Sample resdata for common message types:
+
+#### Message type: create_domain
+    <resData>
+      <domain:creData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>example.dk</domain:name>
+        <domain:crDate>2022-06-16T11:24:03.0Z</domain:crDate>
+      </domain:creData>
+    </resData>
+#### Message type: transfer_domain
+    <resData>
+      <domain:trnData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>example.dk</domain:name>
+        <domain:trStatus>pending</domain:trStatus>
+        <domain:reID>DKHM1-DK</domain:reID>
+        <domain:reDate>2022-06-16T11:24:03.0Z</domain:reDate>
+      </domain:trnData>
+    </resData>
+#### Message type: change_nameserver
+    <resData>
+      <host:creData xmlns:host="urn:ietf:params:xml:ns:host-1.0">
+        <host:name>ns1.example.dk</host:name>
+        <host:crDate>2022-06-16T11:24:03.0Z</host:crDate>
+      </host:creData>
+    </resData>
+#### Message type: accept_nameserver_role
+    <resData>
+      <host:creData xmlns:host="urn:ietf:params:xml:ns:host-1.0">
+        <host:name>ns1.example.dk</host:name>
+        <host:crDate>2022-06-16T11:24:03.0Z</host:crDate>
+      </host:creData>
+    </resData>  
+      
 [DKHMLOGO]: https://www.dk-hostmaster.dk/sites/default/files/dk-logo_0.png
 [GHAMKDBADGE]: https://github.com/DK-Hostmaster/epp-service-specification/workflows/Markdownlint%20Action/badge.svg
 [GHASPLLBADGE]: https://github.com/DK-Hostmaster/epp-service-specification/workflows/Spellcheck%20Action/badge.svg
