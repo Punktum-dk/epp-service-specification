@@ -743,7 +743,7 @@ Domain names offered on waiting list, has to be registered using [create domain]
 
 ### `dkhm:EAN`
 
-The EAN extension, holds the [EAN number][EAN] associated with public organizations in Denmark. The field is optional for this type of contact objects and is required for electronic invoicing, more information is available under the [create contact](#create-contact) command.
+The EAN extension, holds the [EAN number][EAN] associated with public organizations and companies in Denmark. The field is optional, but is required for electronic invoicing (OIOUBL). More information is available under the [create contact](#create-contact) command.
 
 <a id="dkhmmanagement"></a>
 
@@ -3435,7 +3435,7 @@ This command has been extended with the following fields:
 
 The user type will result in context-specific interpretation of the following fields:
 
-- EAN - this number is optional and is only supported for user types: `company`, `public_organization` and `association`. [EAN][EAN] is used by the public sector in Denmark for electronic invoicing, private companies can also be assigned [EAN], but this it not so widespread at this time.
+- EAN - this number is only supported for public organizations and dompanies in Denmark, user types: `company`, `public_organization` and `association`. The field is optional, but is required for electronic invoicing (OIOUBL).
 - CVR - (VAT number) this is only supported for user types: `company`, `public_organization` and `association`. The number is **required** for handling VAT correctly, The rules for indication of the field is specified in the table below.
 - p-number - (production unit number) this is only supported for user types: `company`, `public_organization` and `association`. The number is used for handling validation correctly and it relates to the CVR (Vat number field) the field is optional.
 
