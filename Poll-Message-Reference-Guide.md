@@ -23,3 +23,4 @@ This is a complete list of all EPP poll messages currently available in producti
 |domain|create_domain                |Application for domain: %s.dk has been enqueued and is pending                                                     |
 |domain|transfer_domain              |Transfer of %s.dk to %s-DK has expired                                                                             |
 |domain|create_domain                |Object exists                                                                                                      |
+|domain|change_nameserver            |Nameservers for domain %s.dk has been changed from %s, %s to %s, %s                                                |
