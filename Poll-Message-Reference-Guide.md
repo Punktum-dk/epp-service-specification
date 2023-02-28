@@ -29,3 +29,4 @@ This is a complete list of all EPP poll messages currently available in producti
 |contact|delete_contact               |Contact %-DK has been deleted                                                                                      |
 |domain |delete_domain                |Domain %.dk has been deleted                                                                                       |
 |domain |dsrecords_changed            |DS Records on %.dk has been changed                                                                                |
+|host   |create_host                  |Host % has been created                                                                                            |
