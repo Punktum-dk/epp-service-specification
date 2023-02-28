@@ -16,7 +16,6 @@ This is a complete list of all EPP poll messages currently available in producti
 |domain |create_domain                |Created domain for %.dk has been approved                                                                                |
 |domain |create_domain                |Application for domain for %.dk has been enqueued and is pending                                                         |
 |domain |create_domain                |Application for domain: %.dk has expired                                                                                 |
-|domain |create_domain                |Application for domain: %.dk has been enqueued and is pending                                                            |
 |domain |create_domain                |Object exists                                                                                                            |
 |domain |delete_domain                |Domain %.dk has been deleted                                                                                             |
 |domain |dsrecords_changed            |DS Records on %.dk has been changed                                                                                      |
