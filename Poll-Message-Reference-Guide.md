@@ -1,10 +1,10 @@
-# Poll Message Reference Guide - DRAFT
+# Poll Message Reference Guide
 
 This is a complete list of all EPP poll messages currently available in production in the DK Hostmaster EPP service.
 
-Feel free to create pull requests for any errors or omissions you may spot in the review process.
+## Document History
 
-Once confirmed and deployed, this documentation will move to the Wiki section of the EPP service specification.
+## Poll Messages
 
 |Object|Operation                    |Message                                                                                                            |
 |------|-----------------------------|-------------------------------------------------------------------------------------------------------------------|
