@@ -3,6 +3,7 @@
 This is a complete list of all EPP poll messages currently available in production in the DK Hostmaster EPP service.
 
 ## Document History
+2022-02-22  Initial document draft published
 
 ## Poll Messages
 
