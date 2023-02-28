@@ -28,3 +28,4 @@ This is a complete list of all EPP poll messages currently available in producti
 |domain |change_billing               |REG-% has been removed as billing contact for %.dk                                                                 |
 |contact|delete_contact               |Contact %-DK has been deleted                                                                                      |
 |domain |delete_domain                |Domain %.dk has been deleted                                                                                       |
+|domain |dsrecords_changed            |DS Records on %.dk has been changed                                                                                |
