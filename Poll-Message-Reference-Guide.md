@@ -3,8 +3,8 @@
 This is a complete list of all EPP poll messages currently available in production in the DK Hostmaster EPP service.
 
 ## Document History
-2023-02-28 Added new poll messages: contact_updated, delete_contact
-2022-02-22 Initial document draft published
+* 2023-02-28 Added new poll messages: contact_updated, delete_contact
+* 2022-02-22 Initial document draft published
 
 ## Poll Messages
 
