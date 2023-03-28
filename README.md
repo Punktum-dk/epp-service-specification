@@ -2935,22 +2935,6 @@ The complete command will look as follows (example lifted from [RFC:5731]):
 
 ##### delete domain response
 
-And the complete command with a deletion date specification (example lifted from [RFC:5731] and modified):
-
-```xml
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-  <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-    <command>
-      <delete>
-        <domain:delete xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-          <domain:name>eksempel.dk</domain:name>
-          </domain:delete>
-      </delete>
-      <clTRID>ABC-12345</clTRID>
-    </command>
-  </epp>
-```
-
 Domain names are not deleted immediately, but are flagged as _scheduled for deletion_. This of the `delete command` is successful, the domain name will be flagged for deletion within the timeframe specified by the business rules implemented by DK Hostmaster.
 
 The response for a `delete domain` command will be `1001`.
