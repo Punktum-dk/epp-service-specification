@@ -1,6 +1,6 @@
 ![DK Hostmaster Logo][DKHMLOGO]
 
-# DK Hostmaster EPP Service Specification
+# Punktum dk EPP Service Specification
 
 ![Markdownlint Action][GHAMKDBADGE]
 ![Spellcheck Action][GHASPLLBADGE]
