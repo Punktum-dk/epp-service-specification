@@ -1,4 +1,4 @@
-![DK Hostmaster Logo][DKHMLOGO]
+![Punktum dk Logo][DKHMLOGO]
 
 # Punktum dk EPP Service Specification
 
@@ -206,15 +206,15 @@
 
 ## Introduction
 
-This document describes and specifies the implementation offered by DK Hostmaster for interaction with the central registry for the ccTLD dk using the Extensible Provisioning Protocol (EPP). It is primarily aimed at a technical audience, and the reader is required to have prior knowledge of DNS registration and administration and EPP.
+This document describes and specifies the implementation offered by Punktum dk for interaction with the central registry for the ccTLD dk using the Extensible Provisioning Protocol (EPP). It is primarily aimed at a technical audience, and the reader is required to have prior knowledge of DNS registration and administration and EPP.
 
 <a id="about-this-document"></a>
 
 ### About this Document
 
-This specification describes version 4.X.X of the DK Hostmaster EPP Implementation. Future releases will be reflected in updates to this specification, please see the [Document History](#document-history) section below.
+This specification describes version 4.X.X of the Punktum dk EPP Implementation. Future releases will be reflected in updates to this specification, please see the [Document History](#document-history) section below.
 
-The document describes the current DK Hostmaster EPP implementation, for more general documentation on the EPP protocol, EPP client development or configuration, please refer to the RFCs and additional resources in the [References](#references) and [Resources](#resources) chapters below.
+The document describes the current Punktum dk EPP implementation, for more general documentation on the EPP protocol, EPP client development or configuration, please refer to the RFCs and additional resources in the [References](#references) and [Resources](#resources) chapters below.
 
 Do note that the specification aims to describes the latest release of the service. Service version is listed in the [Document History](#document-history),
 so given changes implemented in the service are reflected in the specification. Do note that a service might be released to the sandbox environment
@@ -230,7 +230,7 @@ Any future extensions and possible additions and changes to the implementation a
 
 The specification mentions the **Registrar Portal** service (RP), which complements the EPP service for consistency between services.
 
-This document is owned and maintained by DK Hostmaster A/S and must not be distributed without this information.
+This document is owned and maintained by Punktum dk A/S and must not be distributed without this information.
 
 All examples provided in the document are fabricated/modified from real data to demonstrate commands etc. any resemblance to actual data are coincidental.
 
@@ -240,7 +240,7 @@ Diagrams to support feature descriptions can be seen by clicking the :eye_speech
 
 ### License
 
-This document is copyright by DK Hostmaster A/S and is licensed under the MIT License, please see the separate LICENSE file for details.
+This document is copyright by Punktum dk A/S and is licensed under the MIT License, please see the separate LICENSE file for details.
 
 <a id="document-history"></a>
 
@@ -289,7 +289,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
   - Introduction of support for [transfer domain](#transfer-domain) command
   - Added clarifications on status codes for domains, contacts and hosts
   - Removed XSD Version History, referencing original source in [EPP XSD repository][DKHMXSD], so there is a single source for this information
-  - This version of the specification is based on the DK Hostmaster EPP XSD version 4.3
+  - This version of the specification is based on the Punktum dk EPP XSD version 4.3
   - Addition of disclaimer, setting the scope and frame for this specification
   - Addition of [Feature and Meta-role Matrix](#feature-and-meta-role-matrix)
   - This revision of the specification describes version 4.0.0 of the EPP service
@@ -411,7 +411,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 - 1.8 2015-09-03
   - Minor corrections
-  - More information on extensions for possible registration of the DK Hostmaster extensions with IANA in relation to [RFC:7451]
+  - More information on extensions for possible registration of the Punktum dk extensions with IANA in relation to [RFC:7451]
   - Added [RFC:7451] compliant descriptions in subdirectory: `rfc7451/`
 
 - 1.7 2015-05-12
@@ -463,16 +463,16 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 ## The .dk Registry in Brief
 
-DK Hostmaster is the registry for the ccTLD for Denmark (dk), with DK Hostmaster maintaining the central DNS registry.
+Punktum dk is the registry for the ccTLD for Denmark (dk), with Punktum dk maintaining the central DNS registry.
 
 The legislation and registry model utilized in Denmark imposes some limitations compared to the general scope of the EPP protocol. These limitations are described in detail below in the chapter entitled Implementation Limitations, and these are explained further in the command descriptions where the single commands deviate from the EPP standard specification. In addition to limitations and deviations in the mentioned sections, a few others have been implemented to support DNS registration under Danish legislation, these are described in detail under the individual commands where relevant.
 
-DK Hostmaster offer two administration models, please see [the complete description of the concept][CONCEPT] of the administration models offered by DK Hostmaster A/S for details.
+Punktum dk offer two administration models, please see [the complete description of the concept][CONCEPT] of the administration models offered by Punktum dk A/S for details.
 
 In brief the two models are:
 
-- Registrar managed, where the registrar takes the administrative role of the domain name and administers the assets with DK Hostmaster "registrar management"
-- Registrant managed, where the registrant administers the assets directly with DK Hostmaster, also referred to as: "registrant management"
+- Registrar managed, where the registrar takes the administrative role of the domain name and administers the assets with Punktum dk "registrar management"
+- Registrant managed, where the registrant administers the assets directly with Punktum dk, also referred to as: "registrant management"
 
 The EPP service is the same, but the capabilities and business roles vary depending on choice of administrative model. This is described in detail under the different commands and outlined in:
 
@@ -493,11 +493,11 @@ Please note that the service does not support XML entity expansion on the server
 
 ## EPP Service
 
-The DK Hostmaster’s EPP Service implementation is regarded as a service offered to external parties requiring provisioning actions towards DK Hostmaster.
+The Punktum dk’s EPP Service implementation is regarded as a service offered to external parties requiring provisioning actions towards Punktum dk.
 
 The EPP service requires the use of and possible development of EPP client software. This is beyond the scope of this specification as the API and other assets for assisting in this are the primary object of this document.
 
-In addition to the assets, DK Hostmaster aims to assist users and developers of EPP client software with integration towards DK Hostmaster and therefore provide facilities to ease this integration. This is primarily centered around a sandbox environment and related documentation.
+In addition to the assets, Punktum dk aims to assist users and developers of EPP client software with integration towards Punktum dk and therefore provide facilities to ease this integration. This is primarily centered around a sandbox environment and related documentation.
 
 The service is implemented under the following principles:
 
@@ -517,7 +517,7 @@ The EPP service supports the following protocols for transport security:
 
 ### Available Environments
 
-DK Hostmaster offers the following two environments:
+Punktum dk offers the following two environments:
 
 - production
 - sandbox
@@ -549,8 +549,8 @@ Please see the [information page][DKHMMAIL] for details on subscribing etc.
 
 - Please see [EPP service specification Wiki][DKHMEPPWIKI] for up to date information for the production environment accessible at : `epp-sandbox.dk-hostmaster.dk` on port: `700`
 
-- This environment is intended for client development towards the DK Hostmaster EPP service
-- info and check requests made to this environment will reflect sandbox data. For host objects, some static content synched in by DK Hostmaster, in addition to sandbox data
+- This environment is intended for client development towards the Punktum dk EPP service
+- info and check requests made to this environment will reflect sandbox data. For host objects, some static content synched in by Punktum dk, in addition to sandbox data
 - create requests made to this environment will be serialized in the sandbox environment, provided that syntax and data are valid
 - Domains will be enqueued and are processed for possible activation, responses are reflected in messages available for polling, propagation into a zone file is not supported
 - Contacts (users) can be created and will only be available in the sandbox system
@@ -558,7 +558,7 @@ Please see the [information page][DKHMMAIL] for details on subscribing etc.
 - The Change Password operation will only change the password in the sandbox environment
 - This environment is available to both registrars and name server administrators
 
-Please note that when you first start to use the EPP sandbox environment, the access credentials are matching your production credentials. If these do not work as expected (e.g. error `2200`). please contact: DK Hostmaster to get the credentials synchronized.
+Please note that when you first start to use the EPP sandbox environment, the access credentials are matching your production credentials. If these do not work as expected (e.g. error `2200`). please contact: Punktum dk to get the credentials synchronized.
 
 For more information on the consolidated sandbox environment please see [the specification][DKHMSANDBOX].
 
@@ -566,7 +566,7 @@ For more information on the consolidated sandbox environment please see [the spe
 
 ## Implementation Requirements
 
-This section outlines the overall requirements in regard to implementing an EPP client to work with the DK Hostmaster EPP service.
+This section outlines the overall requirements in regard to implementing an EPP client to work with the Punktum dk EPP service.
 
 <a id="client-transaction-id-cltrid"></a>
 
@@ -629,7 +629,7 @@ Please see the [Registrar Portal Service Specification][DKHMRPSPEC] for details.
 
 ## Implementation Extensions
 
-The EPP service implemented by DK Hostmaster holds several extensions, these are documented where appropriate for the specific commands etc. This section serves to give an overview of the extensions as a whole.
+The EPP service implemented by Punktum dk holds several extensions, these are documented where appropriate for the specific commands etc. This section serves to give an overview of the extensions as a whole.
 
 Please refer to the [EPP XSD file repository][DKHMXSD] for implementation details.
 
@@ -716,7 +716,7 @@ Please see:
 
 ### `dkhm:domain_confirmed`
 
-Domain names registered with DK Hostmaster, has to be confirmed by the registrant, this is can either be done using pre-application agreement to DK Hostmaster's Terms and Conditions, see the [`dkhm:orderconfirmationToken`](#dkhmorderconfirmationtoken) extension or other systems with DK Hostmaster. The domain confirmation process is handled via via the [create domain](#create-domain) command using this extension.
+Domain names registered with Punktum dk, has to be confirmed by the registrant, this is can either be done using pre-application agreement to Punktum dk's Terms and Conditions, see the [`dkhm:orderconfirmationToken`](#dkhmorderconfirmationtoken) extension or other systems with Punktum dk. The domain confirmation process is handled via via the [create domain](#create-domain) command using this extension.
 
 <a id="dkhmdomainadvisory"></a>
 
@@ -793,7 +793,7 @@ Contact objects related to the role of registrant has to be validated and possib
 
 See also [`contact_validated`](#dkhmcontact_validated).
 
-The procedures for ID-control are [described on the DK Hostmaster DK website][DKHMIDENT].
+The procedures for ID-control are [described on the Punktum dk DK website][DKHMIDENT].
 
 <a id="dkhmrequestednsadmin"></a>
 
@@ -805,7 +805,7 @@ The extension is used for [update host](#update-host) and [create host](#create-
 
 ### `dkhm:risk_assessment`
 
-This extension is used in the poll response in relation to domain creation. The extension provides information on the risk assessment made by DK Hostmaster.
+This extension is used in the poll response in relation to domain creation. The extension provides information on the risk assessment made by Punktum dk.
 
 Please see the [create domain](#create-domain) command.
 
@@ -825,7 +825,7 @@ A unique tracking number for a domain registration for uniformity with RP. EPP i
 
 ### `dkhm:url`
 
-This extension can be used to redirect an end-user to the next step. For now it is used in relation to domain creation, where the user can be directed to the next step if this is handled by DK Hostmaster. More information is available under the [create domain](#create-domain) command.
+This extension can be used to redirect an end-user to the next step. For now it is used in relation to domain creation, where the user can be directed to the next step if this is handled by Punktum dk. More information is available under the [create domain](#create-domain) command.
 
 <a id="dkhmusertype"></a>
 
@@ -846,7 +846,7 @@ Related extensions are [`dkhm:EAN`](#dkhmean), [`dkhm:CVR`](#dkhmcvr) and [`dkhm
 
 ## Implementation Limitations
 
-As mentioned the DK Hostmaster EPP service implementation comes with some limitations. Please see the [Compatibility Matrix](compatibility-matrix) in the appendices for a high-level overview.
+As mentioned the Punktum dk EPP service implementation comes with some limitations. Please see the [Compatibility Matrix](compatibility-matrix) in the appendices for a high-level overview.
 
 In general the service is not localized and all EPP related errors and messages are provided in English.
 
@@ -854,7 +854,7 @@ In general the service is not localized and all EPP related errors and messages 
 
 ### Authentication
 
-The DK Hostmaster EPP service, only support username/password authentication.
+The Punktum dk EPP service, only support username/password authentication.
 
 See also the [login](#login) command for details and the section on [Service Users](#service-users).
 
@@ -889,9 +889,9 @@ The element is not optional, but mandatory, it should **not** be populated with 
 
 ### Contact Creation
 
-This command does not support the feature of providing a predefined contact-id. The contact-id has to be specified as `auto` and the contact-id is assigned by DK Hostmaster. See also information on the [create contact](#create-contact) command.
+This command does not support the feature of providing a predefined contact-id. The contact-id has to be specified as `auto` and the contact-id is assigned by Punktum dk. See also information on the [create contact](#create-contact) command.
 
-Due to a limitation in the AAA system implemented by DK Hostmaster, it is currently not possible to see contact objects using [info contact](#info-contact), if these are not registrants. This is regarded as a temporarily limitation, which will be addressed at some point in the future. The recommendation is to use [check contact](#check-contact).
+Due to a limitation in the AAA system implemented by Punktum dk, it is currently not possible to see contact objects using [info contact](#info-contact), if these are not registrants. This is regarded as a temporarily limitation, which will be addressed at some point in the future. The recommendation is to use [check contact](#check-contact).
 
 REF: [issue #34](https://github.com/DK-Hostmaster/epp-service-specification/issues/34)
 
@@ -905,7 +905,7 @@ The command [info contact](#info-contact) will only supply the registrant inform
 
 ### Contact Update
 
-This command does not support the setting and removal of status using the XML element: `contact:status`. The status is assigned by DK Hostmaster. See also information on the [update contact](#update-contact) command and the appendix with [Contact Status Codes](#contact-status-codes).
+This command does not support the setting and removal of status using the XML element: `contact:status`. The status is assigned by Punktum dk. See also information on the [update contact](#update-contact) command and the appendix with [Contact Status Codes](#contact-status-codes).
 
 <a id="disclosure-of-client-id"></a>
 
@@ -917,8 +917,8 @@ The same scheme will be implemented in the Registrar Portal (SB) and the end-use
 
 The public facing interface is expected to present the registrar relation as well. Meaning that the information on registrar relation will be made available in:
 
-- in WHOIS, see [DK Hostmaster WHOIS Service Specification][DKHMWHOISSPEC]
-- on www.dk-hostmaster.dk, see - [DK Hostmaster RESTful WHOIS Service Specification][DKHMWHOISRESTSPEC]
+- in WHOIS, see [Punktum dk WHOIS Service Specification][DKHMWHOISSPEC]
+- on www.dk-hostmaster.dk, see - [Punktum dk RESTful WHOIS Service Specification][DKHMWHOISRESTSPEC]
 
 The following commands for more details:
 
@@ -932,7 +932,7 @@ The following commands for more details:
 
 I accordance with [RFC:5910]. We support DS only and not DNSKEY. In addition the maximum signature lifetime (`secDNS:maxSigLife`) is disregarded. See [section 3.3][RFC:5910-3.3]) in the referenced RFC.
 
-Not all algorithms are supported, please refer to the [DK Hostmaster Name Service specification][DKHMDNSSPEC] for a complete list of supported algorithms.
+Not all algorithms are supported, please refer to the [Punktum dk Name Service specification][DKHMDNSSPEC] for a complete list of supported algorithms.
 
 Change of name servers using [update domain](#update-domain), removes all current DSRECORDS as part of the operation.
 
@@ -948,21 +948,21 @@ Availability of DNSSEC information and status is currently limited to public ava
 
 ### Domain Transfer
 
-In [RFC:5731 section 3.2.4][RFC:5731-3.2.4] is it described that an optional period can be specified. DK Hostmaster does not support the extension of a period via a transfer.
+In [RFC:5731 section 3.2.4][RFC:5731-3.2.4] is it described that an optional period can be specified. Punktum dk does not support the extension of a period via a transfer.
 
 <a id="domain-update"></a>
 
 ### Domain Update
 
-This command does not support the setting and removal of status using the XML element: `domain:status`. The status is assigned by DK Hostmaster. See also information on the [update domain](#update-domain) command and the appendix with [Domain Status Codes](#domain-status-codes).
+This command does not support the setting and removal of status using the XML element: `domain:status`. The status is assigned by Punktum dk. See also information on the [update domain](#update-domain) command and the appendix with [Domain Status Codes](#domain-status-codes).
 
 <a id="encoding-and-idn-domains"></a>
 
 ### Encoding and IDN domains
 
-DK Hostmaster supports IDN domain names and the EPP commands support Punycode notation for this in requests. DK Hostmaster does not support Punycode notation in responses at this time.
+Punktum dk supports IDN domain names and the EPP commands support Punycode notation for this in requests. Punktum dk does not support Punycode notation in responses at this time.
 
-For details on supported characters, please see: [the DK Hostmaster Name Service specification][DKHMDNSSPEC].
+For details on supported characters, please see: [the Punktum dk Name Service specification][DKHMDNSSPEC].
 
 <a id="host-info"></a>
 
@@ -974,7 +974,7 @@ The command [info host](#info-host) will only supply the name server administrat
 
 ### Host Update
 
-This command does not support the setting and removal of status using the XML element: `host:status`. The status is assigned by DK Hostmaster. See also information on the [update host](#update-host) command and the appendix with [Host Status Codes](#domain-status-codes).
+This command does not support the setting and removal of status using the XML element: `host:status`. The status is assigned by Punktum dk. See also information on the [update host](#update-host) command and the appendix with [Host Status Codes](#domain-status-codes).
 
 <a id="information-disclosure"></a>
 
@@ -982,7 +982,7 @@ This command does not support the setting and removal of status using the XML el
 
 Please note that some information is not disclosed when using Object Query Commands. See the specific commands for more information.
 
-Additionally DK Hostmaster does not implement the optional `contact:disclose` element.
+Additionally Punktum dk does not implement the optional `contact:disclose` element.
 
 > An OPTIONAL <contact:disclose> element that allows a client to
 > identify elements that require exceptional server-operator
@@ -1000,13 +1000,13 @@ From [RFC:5733].
 
 #### Unimplemented Command: Delete Contact
 
-The `delete contact` command is not implemented by DK Hostmaster, unlinked contacts are automatically deleted by DK Hostmaster.
+The `delete contact` command is not implemented by Punktum dk, unlinked contacts are automatically deleted by Punktum dk.
 
 <a id="unimplemented-command-transfer-contact"></a>
 
 #### Unimplemented Command: Transfer Contact
 
-The `transfer contact` command is not implemented by DK Hostmaster, Contacts are transferred with their domain name, please see the [transfer domain](#transfer-domain) command.
+The `transfer contact` command is not implemented by Punktum dk, Contacts are transferred with their domain name, please see the [transfer domain](#transfer-domain) command.
 
 <a id="unsupported-contact-status-codes"></a>
 
@@ -1028,7 +1028,7 @@ Since the administrative model does not support user enforced restraints.
 
 The operation to create a contact is instantaneous.
 
-The listed pending-states for [delete contact](#unimplemented-command-delete-contact) and [transfer contact](#unimplemented-command-transfer-contact) are not supported in the DK Hostmaster registry system.
+The listed pending-states for [delete contact](#unimplemented-command-delete-contact) and [transfer contact](#unimplemented-command-transfer-contact) are not supported in the Punktum dk registry system.
 
 <a id="unsupported-domain-status-codes"></a>
 
@@ -1051,17 +1051,17 @@ Since the administrative model does not support user enforced restraints.
 - `renewPeriod`
 - `transferPeriod`
 
-Are all ICANN statuses and are not regarded as standard and they do not map to business rules used in the DK Hostmaster registry system, based on the descriptions in the [ICANN status code description][ICANN].
+Are all ICANN statuses and are not regarded as standard and they do not map to business rules used in the Punktum dk registry system, based on the descriptions in the [ICANN status code description][ICANN].
 
 - `pendingRenew`
 - `pendingRestore`
 - `pendingTransfer`
 
-The operations for [renew domain](#renew-domain), [restore domain](#restore-domain) and [transfer domain](#transfer-domain) are instantaneous and the listed pending-states do therefor not map to business processes used in the DK Hostmaster registry system.
+The operations for [renew domain](#renew-domain), [restore domain](#restore-domain) and [transfer domain](#transfer-domain) are instantaneous and the listed pending-states do therefor not map to business processes used in the Punktum dk registry system.
 
 - `inactive`
 
-This state is unsupported, since domain names in the DK Hostmaster registry **must** have associated name servers, please see the [Name Service Specification][DKHMDNSSPEC].
+This state is unsupported, since domain names in the Punktum dk registry **must** have associated name servers, please see the [Name Service Specification][DKHMDNSSPEC].
 
 The [domain status codes listing](#domain-status-codes) holds a complete listing of all the status codes.
 
@@ -1093,15 +1093,15 @@ From [RFC:5732]:
 
 ## Waiting List
 
-DK Hostmaster offers a waiting list service for domain names, when a domain name becomes available to the first position on a waiting list, it should be registered using the standard registration process either via the Registrar Portal or EPP.
+Punktum dk offers a waiting list service for domain names, when a domain name becomes available to the first position on a waiting list, it should be registered using the standard registration process either via the Registrar Portal or EPP.
 
-This utilized the [create domain](#create-domain) command, which should either be populated with the token issued by DK Hostmaster authorizing registration. Alternatively the user-id of the waiting list user which has been pre-approved for registration of the domain name with DK Hostmaster.
+This utilized the [create domain](#create-domain) command, which should either be populated with the token issued by Punktum dk authorizing registration. Alternatively the user-id of the waiting list user which has been pre-approved for registration of the domain name with Punktum dk.
 
 The state that a domain name is offered to a waiting list can be inspected via the [info domain](#info-domain) via the [`dkhm:domainAdvisory`](#dkhmdomainadvisory) extension.
 
 No other information is available on waiting lists via EPP at this time.
 
-Please refer to the DK Hostmaster [website][DKHMWAITLIST] for more information.
+Please refer to the Punktum dk [website][DKHMWAITLIST] for more information.
 
 <a id="supported-object-transform-and-query-commands"></a>
 
@@ -1152,15 +1152,15 @@ Please see the greeting response included in the [appendices](#greeting) for ill
 
 This part of the EPP protocol is described in [RFC:5730]. This command adheres to the standard.
 
-The login uses the general Authentication Authorization and Access (AAA) framework in DK Hostmaster. This mean that in addition to the validation of username and password specified as part of the [login request](#login_request), an attempt is made to authorize the authenticated user for access to the actual EPP service and subsequent operations.
+The login uses the general Authentication Authorization and Access (AAA) framework in Punktum dk. This mean that in addition to the validation of username and password specified as part of the [login request](#login_request), an attempt is made to authorize the authenticated user for access to the actual EPP service and subsequent operations.
 
 [Service Users](#service-users) is an alternative to using regular WHOIS handles. They are reserved to a specific service, like for example EPP and can only be created by the administrator of a registrar group.
 
-DK Hostmaster supports the change of passwords via EPP. Please refer to the chapter Available Environments for any special circumstances.
+Punktum dk supports the change of passwords via EPP. Please refer to the chapter Available Environments for any special circumstances.
 
 Password should adhere to the following requirements:
 
-EPP supports a password with at least 6 and a maximum 16 characters, where DK Hostmaster supports 8 - 64 characters. The password must include at least three of these four character types:
+EPP supports a password with at least 6 and a maximum 16 characters, where Punktum dk supports 8 - 64 characters. The password must include at least three of these four character types:
 
 - Lower-case letters
 - Upper-case letters
@@ -1488,7 +1488,7 @@ These [Registrar Account Settings](#registrar-account-settings) are controlling 
 
 #### create domain
 
-This part of the EPP protocol is described in [RFC:5730]. This command adheres to the standard. DK Hostmaster, however, is based on an asynchronous domain creation workflow.
+This part of the EPP protocol is described in [RFC:5730]. This command adheres to the standard. Punktum dk, however, is based on an asynchronous domain creation workflow.
 
 All domain requests are enqueued for further processing and their creation will be in a state of pending (`1001`).
 
@@ -1496,7 +1496,7 @@ Please note:
 
 - `authInfo` section is not used for transport of end-user passwords, see also section in : [Implementation Limitations](#implementation-limitations) on [authinfo](#authinfo)
 
-Domains offered from a waiting list can be registered using the `create domain` command. It requires the authorization token issued by DK Hostmaster to the designated registrant. The token has to be transported via the `AuthInfo` field.
+Domains offered from a waiting list can be registered using the `create domain` command. It requires the authorization token issued by Punktum dk to the designated registrant. The token has to be transported via the `AuthInfo` field.
 
 The `AuthInfo` token used for registration of domain names offered from a waiting list are a 8 digit hexadecimal case insensitive string. The token is offered to the designated registrant out of band and is valid for 14 days.
 
@@ -1508,7 +1508,7 @@ A well-formed request for domain creation will always result in:
 1001, “Command completed successfully; action pending”
 ```
 
-The extension in response will provide a unique tracking number, in EPP the `svTRID`, which can be used to identify the creation request across provisioning channels offered by DK Hostmaster. The result of the further processing will be relayed back via EPP, see [Poll and Messages](#poll-and-messages) below.
+The extension in response will provide a unique tracking number, in EPP the `svTRID`, which can be used to identify the creation request across provisioning channels offered by Punktum dk. The result of the further processing will be relayed back via EPP, see [Poll and Messages](#poll-and-messages) below.
 
 The customized response for a domain creation request looks as follows:
 
@@ -1540,7 +1540,7 @@ The customized response for a domain creation request looks as follows:
 </epp>
 ```
 
-The [create domain](#create-domain) command has been extended with a field (`orderconfirmationToken`) making it possible to assign a token indicating that the registrant has agreed to the terms and conditions for DK Hostmaster with the registrar.
+The [create domain](#create-domain) command has been extended with a field (`orderconfirmationToken`) making it possible to assign a token indicating that the registrant has agreed to the terms and conditions for Punktum dk with the registrar.
 
 ```xml
 <extension>
@@ -1556,9 +1556,9 @@ The EPOCH timestamp must not exceed 24 hours into the future compared to local t
 
 The `token` is handled the following way:
 
-- If absent DK Hostmaster will require the agreement for the terms and conditions be accepted with DK Hostmaster, this process is handled by DK Hostmaster
+- If absent Punktum dk will require the agreement for the terms and conditions be accepted with Punktum dk, this process is handled by Punktum dk
 
-- If present. The token will be validated by DK Hostmaster
+- If present. The token will be validated by Punktum dk
 - if not valid the request with result in an error and the request will be dismissed
 - if valid the request will be accepted and processed
 
@@ -1574,7 +1574,7 @@ An additional URL is specified in the response via the extension `dkhm:url`, thi
 2. End-user has agreed to the terms and conditions, but ID-control is required
 3. End-user has agreed to the terms and conditions and ID-control has been completed - no further actions are necessary, self-service access is available and active
 
-As part of the process the final response to a [create domain](#create-domain) is communicated via the message queue. In this response the DK Hostmaster A/S risk assessment is included, it can hold one of the following values:
+As part of the process the final response to a [create domain](#create-domain) is communicated via the message queue. In this response the Punktum dk A/S risk assessment is included, it can hold one of the following values:
 
 - `RED` - the registrant is requested to complete successful ID-control before the domain name can become active
 - `YELLOW` - the registrant is requested to complete successful ID-control, the domain name becomes active immediately. If ID-control is not completed within the communicated timeframe the domain is made inactive
@@ -1582,7 +1582,7 @@ As part of the process the final response to a [create domain](#create-domain) i
 - `GREEN` - the domain name becomes active immediately
 - `N/A` - the risk assessment could not be performed, the registrant is requested to complete successful ID-control before the domain name can become active
 
-The procedures for ID-control are [described on the DK Hostmaster DK website][DKHMIDENT].
+The procedures for ID-control are [described on the Punktum dk DK website][DKHMIDENT].
 
 Upon approval of the application, meaning the pending operation is processed, the domain name will still reflect: `pendingCreate`. The `pendingCreate` is not removed until the back-end system serving the EPP service indicates that the operation is completed. The domain name can however be active and it is published to the zone, but some operations are prohibited until finalization of the provisioning towards all systems is completed.
 
@@ -1688,7 +1688,7 @@ See diagram: [:eye_speech_bubble:][epp_create_domain]
 </epp>
 ```
 
-This tracking number (`trackingNo`), listed as an extension and does not replace or interfere with the normal use of the EPP transaction keys, `clTRID` and `svTRID`, but are EPP specific, whereas the tracking number is considered global in DK Hostmaster. The tracking number is also appended to the `svTRID` in addition to the listing in the extension part. Please see the last digits following the last dash.
+This tracking number (`trackingNo`), listed as an extension and does not replace or interfere with the normal use of the EPP transaction keys, `clTRID` and `svTRID`, but are EPP specific, whereas the tracking number is considered global in Punktum dk. The tracking number is also appended to the `svTRID` in addition to the listing in the extension part. Please see the last digits following the last dash.
 
 ```XML
 <svTRID>9917BE58-3D53-11E2-A5BD-C532BF0DC46A-1234</svTRID>
@@ -1853,7 +1853,7 @@ In general this part of the EPP protocol is described in [RFC:5731] and this com
 
 The available values for the `reason` field are:
 
-- `In use` for domain names registered with the DK Hostmaster registry
+- `In use` for domain names registered with the Punktum dk registry
 - `Enqueued` for domain names awaiting domain name application processing, This can last a few seconds to a few days if the application require accept of terms and conditions from the designated registrant
 - `Offered for pos. on waiting list`, for when the domain name has been offered to a designated registrant from a waiting list position
 
@@ -1888,7 +1888,7 @@ An example for a waiting list position offering would look as follows:
 
 #### info domain
 
-This part of the EPP protocol is described in [RFC:5731]. This command adheres to the standard. In addition the command has been extended with two of the DK Hostmaster extensions:
+This part of the EPP protocol is described in [RFC:5731]. This command adheres to the standard. In addition the command has been extended with two of the Punktum dk extensions:
 
 - `dkhm:domainAdvisory`
 - `dkhm:registrant_validated`
@@ -1914,7 +1914,7 @@ For DNSSEC data the availability is limited to only displaying if the informatio
 
 The `domain:clID` field communicates portfolio information about the given domain:
 
-- For registrant managed domain names: `<domain:clID>DKHM1-DK<domain:clID>`, indicating DK Hostmaster A/S
+- For registrant managed domain names: `<domain:clID>DKHM1-DK<domain:clID>`, indicating Punktum dk A/S
 - For registrar managed domain names:
     - `<domain:clID>REG-123456</domain:clID>`, as seen by users associated with the registrar account
     - `<domain:clID>Example Registry Name</domain:clID>`, as seen by users not associated with the registrar account
@@ -2166,7 +2166,7 @@ Manual renewal can be done up to the expiration date of the specific domain name
 
 Do note the constraints on when you can change the billing contact, since might limit window of opportunity for manual renewal and being the billing contact for the domain is a explicit requirement.
 
-See current prices at the DK Hostmaster website: [Products and Prices][DKHMPRICES]. Insufficient funds in the registrar account will not prohibit this operation.
+See current prices at the Punktum dk website: [Products and Prices][DKHMPRICES]. Insufficient funds in the registrar account will not prohibit this operation.
 
 Do note that for period specification, only the unit `y` indicating year is accepted.
 
@@ -2204,17 +2204,17 @@ This complete process is atomic and might throw an unrecoverable exception: `240
 
 On success we emit the return code `1000`. No further communication is made via the EPP service. The billable transaction is deducted from the [Prepaid Account](#balance-and-prepaid-account).
 
-The sub-process called, can be depicted as in this diagram of DK Hostmaster sub-process for EPP renew domain [:eye_speech_bubble:][dkh-renew-domain]
+The sub-process called, can be depicted as in this diagram of Punktum dk sub-process for EPP renew domain [:eye_speech_bubble:][dkh-renew-domain]
 
 The status code `serverRenewProhibited` is set:
 
 - If the status `pendingCreate` is set, see [domain create](#domain-create)
 - If the status `pendingDelete` is set
-- If the registrant has not accepted the Terms and Conditions of DK Hostmaster
+- If the registrant has not accepted the Terms and Conditions of Punktum dk
 - If the domain name period renewal will exceed the maximum period of 10 years and 3 months
 - If the domain name is not settled/paid
 - If the domain name is suspended due to automatic expiration
-- If the domain name is on hold or blocked, meaning it has been suspended by DK Hostmaster
+- If the domain name is on hold or blocked, meaning it has been suspended by Punktum dk
 
 <a id="renew-domain-request"></a>
 
@@ -2409,7 +2409,7 @@ This mean the following prerequisites have to be met:
 
 The command can be issued in two variations:
 
-1. With the use of the `dkhm:orderconfirmationToken`, where the designated registrant has approved Terms and Condition for DK Hostmaster with the registrar.
+1. With the use of the `dkhm:orderconfirmationToken`, where the designated registrant has approved Terms and Condition for Punktum dk with the registrar.
 
 1. As standard without any use of extensions
 
@@ -2436,9 +2436,9 @@ Here follows an example of a request to change the registrant using the seconds 
 
 The response indicates that the operation has one or more pending actions
 
-1. DK Hostmaster require that the designated registrant accepts terms and conditions
+1. Punktum dk require that the designated registrant accepts terms and conditions
 
-1. DK Hostmaster require that ID-control is successfully completed
+1. Punktum dk require that ID-control is successfully completed
 
 If the registrant already has completed ID-control, the second action will not be required.
 
@@ -2457,7 +2457,7 @@ If the registrant already has completed ID-control, the second action will not b
 </epp>
 ```
 
-To assist the registrant the registrar can offer collect the accept of terms and conditions for DK Hostmaster and indicate the accept of these via the extension: `dkhm:orderconfirmationToken`.
+To assist the registrant the registrar can offer collect the accept of terms and conditions for Punktum dk and indicate the accept of these via the extension: `dkhm:orderconfirmationToken`.
 
 Then the request would have to be extended with the use of the mentioned extension:
 
@@ -2842,7 +2842,7 @@ The overall requirements are:
 - Human pronounceable (can be communicated over telephone call)
 - Usable (constrained on length and format)
 
-The **AuthInfo** token is generated upon request by DK Hostmaster and will adhere to the following proposed format:
+The **AuthInfo** token is generated upon request by Punktum dk and will adhere to the following proposed format:
 
 `<role>-<operation>-<unique token>`
 
@@ -2907,7 +2907,7 @@ The status code `serverDeleteProhibited` is set:
 
 - If the status `pendingCreate` is set, see [domain create](#domain-create)
 - If the status `pendingDelete` is set
-- If the domain name is on hold or blocked, meaning it has been suspended by DK Hostmaster
+- If the domain name is on hold or blocked, meaning it has been suspended by Punktum dk
 - If the domain name is superordinate to a name server, which has active name service
 - If the domain completed ID-control unsuccessfully
 
@@ -2935,7 +2935,7 @@ The complete command will look as follows (example lifted from [RFC:5731]):
 
 ##### delete domain response
 
-Domain names are not deleted immediately, but are flagged as _scheduled for deletion_. This of the `delete command` is successful, the domain name will be flagged for deletion within the timeframe specified by the business rules implemented by DK Hostmaster.
+Domain names are not deleted immediately, but are flagged as _scheduled for deletion_. This of the `delete command` is successful, the domain name will be flagged for deletion within the timeframe specified by the business rules implemented by Punktum dk.
 
 The response for a `delete domain` command will be `1001`.
 
@@ -2956,7 +2956,7 @@ Response example (example lifted from [RFC:5731] and modified):
   </epp>
 ```
 
-The expiration date will be adjusted accordingly and a status `pendingDelete` with an advisory date will be applied and made available via the response to the `info domain` command, via the DK Hostmaster extension: `domainAdvisory`.
+The expiration date will be adjusted accordingly and a status `pendingDelete` with an advisory date will be applied and made available via the response to the `info domain` command, via the Punktum dk extension: `domainAdvisory`.
 
 Example:
 
@@ -2976,7 +2976,7 @@ Do note that if subordinates exist these will block for a delete and the request
 
 As described in [RFC:3915], with a support for grace periods, it is possible to restore a domain name scheduled for deletion, (in the state `pendingDelete`).
 
-DK Hostmaster will support the ability to restore for two use-cases:
+Punktum dk will support the ability to restore for two use-cases:
 
 1. Get a domain name back to the state active from a pending deletion specified by an explicit deletion request (delete command) or a automatic expiration
 1. Get a domain name back to state active from a pending deletion, caused by missing financial settlement
@@ -3112,14 +3112,14 @@ The `restore` command is an extension to `update domain`. All is described in [R
 
 The transfer command is only available to registrars. The command should used in the following use-cases.
 
-- Transfer from DK Hostmaster to a future registrar
+- Transfer from Punktum dk to a future registrar
 - Transfer from the current registrar to a future registrar
 
 The implementation is based on a _pull_ model and both operations require authorization via the use of an AuthInfo token and designated domain name. The operation has to be initiated by the future registrar. who has acquired the authorization (AuthInfo token) from the current registrar or the registrant.
 
-The transfer from DK Hostmaster to a new registrar implies a change of administrative model from "registrant management" to "registrar management". Whereas the transfer from registrar to registrar is only a change of administrative party not the administrative model.
+The transfer from Punktum dk to a new registrar implies a change of administrative model from "registrant management" to "registrar management". Whereas the transfer from registrar to registrar is only a change of administrative party not the administrative model.
 
-The registrar always have the option to withdraw from the role of registrar for a given domain name, this change does not require an authorization. The operation is implemented using the [withdraw](#withdraw-domain) command, described below in details. This command set the registrar to be the registry (DK Hostmaster) and the administrative model changes from "registrar management" to "registrant management".
+The registrar always have the option to withdraw from the role of registrar for a given domain name, this change does not require an authorization. The operation is implemented using the [withdraw](#withdraw-domain) command, described below in details. This command set the registrar to be the registry (Punktum dk) and the administrative model changes from "registrar management" to "registrant management".
 
 Also the registrant has the option to exchange the current registrar. This operation implies a change of administrative model from "registrar management" to "registrant management" and is limited to change of model. A change of registrar, requires authorization of a third party by the registrant and that the designated registrar executes the operation of taking the role of administrator as described initially in this section.
 
@@ -3142,7 +3142,7 @@ The following should not be observed (ref: `domain:trStatus`), since the process
 - `pending`
 - `serverCancelled`
 
-Upon transfer, the contact object referring to the registrant role, is being cloned to avoid issues with _disappearing data_ and _sponsorship_ in cross-portfolio operations. Do note that DK Hostmaster does not implement direct transfer of contact objects as described in the "Implementation Limitations" section.
+Upon transfer, the contact object referring to the registrant role, is being cloned to avoid issues with _disappearing data_ and _sponsorship_ in cross-portfolio operations. Do note that Punktum dk does not implement direct transfer of contact objects as described in the "Implementation Limitations" section.
 
 A contact object (registrant) is cloned without additional relations bound to other objects within the registry or another portfolio, only the key object, the domain name is transferred, together with potential subordinate objects such as name servers.
 
@@ -3156,7 +3156,7 @@ The status code `serverTransferProhibited` is set:
 - If the domain name is not settled/paid
 - If the domain name is registrant managed and has VID service
 - If the registrant has an active or declined ID-control request
-- If the domain name is on hold or blocked, meaning it has been suspended by DK Hostmaster
+- If the domain name is on hold or blocked, meaning it has been suspended by Punktum dk
 
 <a id="transition-period"></a>
 
@@ -3246,13 +3246,13 @@ Example is lifted from [RFC:5731] and modified.
 
 #### Withdraw
 
-DK Hostmaster support the option for registrars of transferring out, so where the regular transfer command (described above) is a _pull_ operation. The registrar can _push_ a domain name from it's portfolio to DK Hostmaster, when and if a registrar requires so.
+Punktum dk support the option for registrars of transferring out, so where the regular transfer command (described above) is a _pull_ operation. The registrar can _push_ a domain name from it's portfolio to Punktum dk, when and if a registrar requires so.
 
-The process resembles the transfer, but with the receiving account being DK Hostmaster.
+The process resembles the transfer, but with the receiving account being Punktum dk.
 
 The implementation is based on the extension developed by Norid, the registry for the ccTLD for Norway (.no). The specification is listed in the references section below.
 
-Since this extension is at a higher level than the other extensions defined by DK Hostmaster. The definition look as follows:
+Since this extension is at a higher level than the other extensions defined by Punktum dk. The definition look as follows:
 
 ```xsd
 <!-- dkhm-4.3.xsd -->
@@ -3356,16 +3356,16 @@ The default behavior of the EPP `create contact` command as described in [RFC:57
 
 The contact object will be under the sponsoring party throughout it's _life-cycle_ and transfer of contact objects will not be explicitly supported, see [Unimplemented commands](#unimplemented-commands) section.
 
-As for the `create domain` command (above) the default behaviour can be defined in RP. Where the option "registrant management", will create contact objects sponsored by DK Hostmaster instead instead of the registrar.
+As for the `create domain` command (above) the default behaviour can be defined in RP. Where the option "registrant management", will create contact objects sponsored by Punktum dk instead instead of the registrar.
 
-Deletion will not be supported and will work as it currently is implemented in the DK Hostmaster EPP service and described in the specification. See the section: [Unimplemented commands](#unimplemented-commands) for details. Contact objects are automatically deleted, under the following policy:
+Deletion will not be supported and will work as it currently is implemented in the Punktum dk EPP service and described in the specification. See the section: [Unimplemented commands](#unimplemented-commands) for details. Contact objects are automatically deleted, under the following policy:
 
 - The contact object is not in use
 - It holds not roles/association with other objects
 - The associated financial account holds a balance of 0
 - It has been inactive for 45 days
 
-The maintenance, meaning changes and updates to data, will also be limited. DK Hostmaster locks contact objects for changes if these have been matched to a register for name and address information, this applies to:
+The maintenance, meaning changes and updates to data, will also be limited. Punktum dk locks contact objects for changes if these have been matched to a register for name and address information, this applies to:
 
 - Danish citizens of the type individual, bound to the CPR register
 - Danish companies, public organizations and associations of the types, bound to the CVR register
@@ -3425,7 +3425,7 @@ The user type will result in context-specific interpretation of the following fi
 
 This field is validated on the server side, it is however recommended to perform a [check contact](#check-contact) on the requested contact-id prior to the [create domain](#create-domain) request if a contact-id is already known from a contact create or previous domain creation/application.
 
-The `contact-id` field is auto-generated and assigned by DK Hostmaster. EPP do however open for providing a contact-id in the context of the create contact command, this is not supported by DK Hostmaster at this point, see also: [Implementation Limitations](#implementation-limitations).
+The `contact-id` field is auto-generated and assigned by Punktum dk. EPP do however open for providing a contact-id in the context of the create contact command, this is not supported by Punktum dk at this point, see also: [Implementation Limitations](#implementation-limitations).
 
 The choice of administration model is based on the default set for the registrar account, this influences domain application and contact creation and this can be set in the registrar portal. It can be overwritten per request using the `dkhm:management` extension, which can have one of two values:
 
@@ -3448,12 +3448,12 @@ The choice of administration model is based on the default set for the registrar
 
 ##### Forced and Smart Contact Creation
 
-For contact creation DK Hostmaster supports two ways:
+For contact creation Punktum dk supports two ways:
 
 1. Smart creation, where the data provided is used to inquire if an existing user with the same data is present. If no user is found a new contact is created. This is accomplished using the keyword: `auto`
 2. Forced creation, where a new contact is created. This is accomplished using the keyword: `force`
 
-Specification of a user-id / handle for the contact creation is not supported. The user-id / handle is auto-generated and assigned by DK Hostmaster.
+Specification of a user-id / handle for the contact creation is not supported. The user-id / handle is auto-generated and assigned by Punktum dk.
 
 For _smart_ creation:
 
@@ -3489,7 +3489,7 @@ Diagram for contact creation [:eye_speech_bubble:][epp_create_contact]
 
 ##### Address Handling
 
-Contact creation under EPP opens for the ability to represent postal information in both local and international representations. Due to the representation in DK Hostmaster's system for handling contacts the following rules are applied to postal information.
+Contact creation under EPP opens for the ability to represent postal information in both local and international representations. Due to the representation in Punktum dk's system for handling contacts the following rules are applied to postal information.
 
 For Denmark the local representation is chosen and the international representation is discarded. For other countries the international representation is chosen and the local representation is discarded. Please see the table below.
 
@@ -3546,7 +3546,7 @@ Please note:
 				<contact:id>auto</contact:id>
 				<contact:postalInfo type="loc">
 					<contact:name>Johnny Login</contact:name>
-					<contact:org>DK Hostmaster A/S</contact:org>
+					<contact:org>Punktum dk A/S</contact:org>
 					<contact:addr>
 						<contact:street>Kalvebod brygge 45, 3. sal</contact:street>
 						<contact:city>København V</contact:city>
@@ -3556,7 +3556,7 @@ Please note:
 				</contact:postalInfo>
 				<contact:postalInfo type="int">
 					<contact:name>Johnny Login</contact:name>
-					<contact:org>DK Hostmaster A/S</contact:org>
+					<contact:org>Punktum dk A/S</contact:org>
 					<contact:addr>
 						<contact:street>Kalvebod brygge 45, 3.</contact:street>
 						<contact:city>Copenhagen V</contact:city>
@@ -3667,7 +3667,7 @@ This part of the EPP protocol is described in [RFC:5733]. This command adheres t
 
 #### info contact
 
-This part of the EPP protocol is described in [RFC:5733]. This command has been extended with information on whether the contact in queried has been validated according to requirements and policies with DK Hostmaster.
+This part of the EPP protocol is described in [RFC:5733]. This command has been extended with information on whether the contact in queried has been validated according to requirements and policies with Punktum dk.
 
 See the extension: [`dkhm:contact_validated`](#dkhmcontact_validated) extension used in the response.
 
@@ -3713,7 +3713,7 @@ The info contact command response is only available for the registrant contact o
 				<contact:status s="linked"/>
 				<contact:status s="serverDeleteProhibited"/>
 				<contact:postalInfo type="loc">
-					<contact:name>DK Hostmaster A/S</contact:name>
+					<contact:name>Punktum dk A/S</contact:name>
 					<contact:addr>
 						<contact:street>Kalvebod Brygge 45,3</contact:street>
 						<contact:city>København V</contact:city>
@@ -3846,7 +3846,7 @@ Do note that the `authInfo` part is ignored, but cannot be omitted, since it is 
 
 This command will always return: `2101`, indicating unimplemented command.
 
-The deletion of contact objects is handled automatically by DK Hostmaster. The following status flags will be set:
+The deletion of contact objects is handled automatically by Punktum dk. The following status flags will be set:
 
 - `clientDeleteProhibited`
 - `serverDeleteProhibited`
@@ -3911,7 +3911,7 @@ This mean that the association with the registrar is based on the administrative
 
 This limitation will only be enforced for domain names under the `.dk` TLD. Domain names under other TLDs will not be subject to this limitation.
 
-As for the `create domain` and `create contact` commands (above) the default behaviour can be defined in RP. Where the option "registrant management", will create host objects sponsored by DK Hostmaster instead of the registrar.
+As for the `create domain` and `create contact` commands (above) the default behaviour can be defined in RP. Where the option "registrant management", will create host objects sponsored by Punktum dk instead of the registrar.
 
 Responsibility and privileges for maintenance (`update host`) of the host object is assigned to the name server administrator as described in the [create host section](#create-host) section.
 
@@ -4250,7 +4250,7 @@ Please note that according to the RFC [section 3.1.2][RFC:5732-3.1.2], the `CLID
 This field supports the two administrative models as follows:
 
 - For registrar managed host object, the `CLID` points to the registrar, see also [Disclosure of Client ID](#disclosure-of-client-id)
-- For registrar managed host objects, DK Hostmaster interprets this as the technical contact for the name server identified by the host object
+- For registrar managed host objects, Punktum dk interprets this as the technical contact for the name server identified by the host object
 
 <a id="info-host-request"></a>
 
@@ -4319,7 +4319,7 @@ Diagram of EPP update host [:eye_speech_bubble:][epp_update_host]
 
 ##### Change hostname sub-process
 
-The process of changing a host name is unsupported by DK Hostmaster and will always result in an error code: `2102`.
+The process of changing a host name is unsupported by Punktum dk and will always result in an error code: `2102`.
 
 Diagram of EPP update host change hostname [:eye_speech_bubble:][epp_update_host_change_hostname]
 
@@ -4557,13 +4557,13 @@ Address data and contact information is collected as required by Danish legislat
 
 ### Recipient Statement
 
-Recipients of data are specified as other and unrelated. As specified in the purpose statement section and under access, identified data is made publicly available, therefore DK Hostmaster will not be able to control how the publicly available information is used.
+Recipients of data are specified as other and unrelated. As specified in the purpose statement section and under access, identified data is made publicly available, therefore Punktum dk will not be able to control how the publicly available information is used.
 
 <a id="retention-statement"></a>
 
 ### Retention Statement
 
-Data will be retained with DK Hostmaster as required by Danish legislation.
+Data will be retained with Punktum dk as required by Danish legislation.
 
 <a id="references"></a>
 
@@ -4571,17 +4571,17 @@ Data will be retained with DK Hostmaster as required by Danish legislation.
 
 List of references used in this document in alphabetical order.
 
-1. [DK Hostmaster: "Terms and conditions for the right of use to a .dk domain name"][DKHMTAC]
-1. [DK Hostmaster: "New basis for collaboration between registrars and DK Hostmaster"][CONCEPT]
-1. [DK Hostmaster: EPP General Information][DKHMEPP]
-1. [DK Hostmaster: ID-control General Information][DKHMIDENT]
-1. [DK Hostmaster: Waiting list General Information][DKHMWAITLIST]
-1. [DK Hostmaster: Name Service Specification][DKHMDNSSPEC]
-1. [DK Hostmaster: RESTful WHOIS Service Specification][DKHMWHOISRESTSPEC]
-1. [DK Hostmaster: WHOIS Service Specification][DKHMWHOISSPEC]
-1. [DK Hostmaster: Registrar Portal Service Specification][DKHMRPSPEC]
-1. [DK Hostmaster: Sandbox Environment Specification][DKHMSANDBOX]
-1. [DK Hostmaster: EPP XSD File Repository][DKHMXSD]
+1. [Punktum dk: "Terms and conditions for the right of use to a .dk domain name"][DKHMTAC]
+1. [Punktum dk: "New basis for collaboration between registrars and Punktum dk"][CONCEPT]
+1. [Punktum dk: EPP General Information][DKHMEPP]
+1. [Punktum dk: ID-control General Information][DKHMIDENT]
+1. [Punktum dk: Waiting list General Information][DKHMWAITLIST]
+1. [Punktum dk: Name Service Specification][DKHMDNSSPEC]
+1. [Punktum dk: RESTful WHOIS Service Specification][DKHMWHOISRESTSPEC]
+1. [Punktum dk: WHOIS Service Specification][DKHMWHOISSPEC]
+1. [Punktum dk: Registrar Portal Service Specification][DKHMRPSPEC]
+1. [Punktum dk: Sandbox Environment Specification][DKHMSANDBOX]
+1. [Punktum dk: EPP XSD File Repository][DKHMXSD]
 1. [ICANN: "EPP Status Codes | What Do They Mean, and Why Should I Know?"][ICANN]
 1. [IANA: "Extensions for the Extensible Provisioning Protocol (EPP)"][IANA]
 1. [RFC:3339: "Date and Time on the Internet: Timestamps"][RFC:3339]
@@ -4600,7 +4600,7 @@ List of references used in this document in alphabetical order.
 
 ## Resources
 
-A list of resources for DK Hostmaster EPP service support is located below.
+A list of resources for Punktum dk EPP service support is located below.
 
 <a id="xsd-xml-schemas"></a>
 
@@ -4624,7 +4624,7 @@ The files are all available for [download][DKHMXSD]. Details on version history 
 
 ### Mailing list
 
-DK Hostmaster operates a mailing list for discussion and inquiries  about the DK Hostmaster EPP implementation. To subscribe to this list, write to the address below and follow the instructions. Please note that the list is for technical discussion only, any issues beyond the technical scope will not be responded to, please send these to the contact issue reporting address below and they will be passed on to the appropriate entities within DK Hostmaster.
+Punktum dk operates a mailing list for discussion and inquiries  about the Punktum dk EPP implementation. To subscribe to this list, write to the address below and follow the instructions. Please note that the list is for technical discussion only, any issues beyond the technical scope will not be responded to, please send these to the contact issue reporting address below and they will be passed on to the appropriate entities within Punktum dk.
 
 - tech-discuss+subscribe@liste.dk-hostmaster.dk
 
@@ -4646,7 +4646,7 @@ The client is [available on GitHub][EPPDEMOCLIENT].
 
 ### Additional Information
 
-More generic information on EPP is available at the [DK Hostmaster website][DKHMEPP].
+More generic information on EPP is available at the [Punktum dk website][DKHMEPP].
 
 <a id="appendices"></a>
 
@@ -4663,7 +4663,7 @@ EPP service is running in the environment queried.
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
     <greeting>
-        <svID>DK Hostmaster EPP Service: 2.2.3</svID>
+        <svID>Punktum dk EPP Service: 2.2.3</svID>
         <svDate>2016-12-27T15:19:26.0Z</svDate>
         <svcMenu>
             <version>1.0</version>
@@ -4708,9 +4708,9 @@ EPP service is running in the environment queried.
 
 This list of EPP domain status codes is based on information from [RFC:5731] and the ICANN status code interpretation: ["EPP Status Codes | What Do They Mean, and Why Should I Know?"][ICANN].
 
-The description is the status, use and interpretation by DK Hostmaster.
+The description is the status, use and interpretation by Punktum dk.
 
-As a general business rule, DK Hostmaster does not support the `client*` statuses, see also: [Unsupported Domain Status Codes](#unsupported-domain-status-codes) in the [Implementation Limitations](#implementation-limitations) section.
+As a general business rule, Punktum dk does not support the `client*` statuses, see also: [Unsupported Domain Status Codes](#unsupported-domain-status-codes) in the [Implementation Limitations](#implementation-limitations) section.
 
 | Status Code                | Description                                                                                                                                                                                                             |
 |----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -4721,9 +4721,9 @@ As a general business rule, DK Hostmaster does not support the `client*` statuse
 | `clientRenewProhibited`    | *unsupported*, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                                                                                                 |
 | `clientTransferProhibited` | *unsupported*, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                                                                                                 |
 | `clientUpdateProhibited`   | *unsupported*, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                                                                                                 |
-| `inactive`                 | *unsupported* domain names in the DK Hostmaster registry **must** have associated name servers, , see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                              |
+| `inactive`                 | *unsupported* domain names in the Punktum dk registry **must** have associated name servers, , see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                              |
 | `ok`                       | Exclusive for all other status codes                                                                                                                                                                                    |
-| `pendingCreate`            | Indication that a the given domain is enqueue for possible creation, see [domain create](#domain-create) or is awaiting allocation with DK Hostmaster                                                                   |
+| `pendingCreate`            | Indication that a the given domain is enqueue for possible creation, see [domain create](#domain-create) or is awaiting allocation with Punktum dk                                                                   |
 | `pendingDelete`            | Deletion is pending, see [delete domain](#delete-domain). An advisory date is applicable via the extension [`dkhm:delDate`](dkhmdeldate)                                                                                |
 | `pendingRenew`             | *unsupported* as renewal is instantaneous, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                                                                     |
 | `pendingRestore`           | *unsupported* as restoration is instantaneous, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                                                                 |
@@ -4744,9 +4744,9 @@ As a general business rule, DK Hostmaster does not support the `client*` statuse
 
 This list of EPP contact status codes is based on information from [RFC:5733].
 
-The description is the status, use and interpretation by DK Hostmaster.
+The description is the status, use and interpretation by Punktum dk.
 
-As a general business rule, DK Hostmaster does not support the `client*` statuses, see also: [Unsupported Contact Status Codes](#unsupported-contact-status-codes) in the [Implementation Limitations](#implementation-limitations) section.
+As a general business rule, Punktum dk does not support the `client*` statuses, see also: [Unsupported Contact Status Codes](#unsupported-contact-status-codes) in the [Implementation Limitations](#implementation-limitations) section.
 
 | Status Code                | Description                                                                                                                                                                                                  |
 |----------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -4769,9 +4769,9 @@ As a general business rule, DK Hostmaster does not support the `client*` statuse
 
 This list of EPP host status codes is based on information from [RFC:5732].
 
-The description is the status, use and interpretation by DK Hostmaster.
+The description is the status, use and interpretation by Punktum dk.
 
-As a general business rule, DK Hostmaster does not support the `client*` statuses, see also: [Unsupported Host Status Codes](#unsupported-host-status-codes) in the [Implementation Limitations](#implementation-limitations) section.
+As a general business rule, Punktum dk does not support the `client*` statuses, see also: [Unsupported Host Status Codes](#unsupported-host-status-codes) in the [Implementation Limitations](#implementation-limitations) section.
 
 | Status Code                | Description                                                                                                                             |
 |----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
@@ -4933,7 +4933,7 @@ As a general business rule, DK Hostmaster does not support the `client*` statuse
 
 ### Compatibility Matrix
 
-This is a high level overview of the EPP commands offered by the DK Hostmaster EPP service, please see the specific commands for details.
+This is a high level overview of the EPP commands offered by the Punktum dk EPP service, please see the specific commands for details.
 
 The version numbers used in the matrix are major numbers only, e.g. 1 for 1.X.X.
 

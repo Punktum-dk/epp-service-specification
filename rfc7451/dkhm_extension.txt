@@ -1,10 +1,10 @@
-Name of extension: DK Hostmaster local data extensions
+Name of extension: Punktum dk local data extensions
 Document Status: Informational
 
 Reference: https://github.com/DK-Hostmaster/epp-service-specification
 
 Registrant Name and Email Address:
-DK Hostmaster A/S, <tech@dk-hostmaster.dk>
+Punktum dk A/S, <tech@dk-hostmaster.dk>
 
 TLDs: .dk
 
