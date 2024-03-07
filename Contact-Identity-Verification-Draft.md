@@ -21,7 +21,7 @@ Punktum dk does not require detailed documentation on the actual ID verification
 A checkbox will be added to the handle creation page, allowing registrars to confirm that ID verification has already been performed.
 
 ### EPP (Extensible Provisioning Protocol)
-A new extension, `<dkhm:id-verification>`, will be incorporated into contact.create, contact.update, and contact.info. This extension will support values of `eid`, `approved`, `rejected`, `pending`, `revoked`, or `missing`, with no additional information required. The update triggered by this extension will include modifications to existing contact information based on changes in ID verification status.
+A new extension, `<dkhm:id-verification>`, will be incorporated into contact.create, contact.update, and contact.info. This extension will support values of `eid`, `verified`, `rejected`, `pending` or `undverified`, with no additional information required. The update triggered by this extension will include modifications to existing contact information based on changes in ID verification status.
 
 ## Supported Identity Validation Statuses
 
