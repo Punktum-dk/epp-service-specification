@@ -1,6 +1,7 @@
-# Contact Identity Verification
+# Contact Identity Verification Draft
 
-2021-12-06 Revision: 1.0
+Revision: 1.0
+Date: 2024-03-08
 
 ## Introduction
 This document serves as a draft design covering all technical aspects related to facilitating contact ID verification between registrars and Punktum dk, aligning with the NIS2 directive.
