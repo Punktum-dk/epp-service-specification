@@ -66,7 +66,7 @@ As the verification handled by Punktum dk requires actions to be performed by th
 * Is it relevant for registrars to be able to update contact verification status from `unverified` to `verified` or `eid` on already existing contacts?
 * Should pending identity verification requests fall back to status `unverified` upon expiration or would a status `expired` be useful?
 
-## Providin Feedback
+## Providing Feedback
 Your input is valuable in refining and improving the Contact Identity Verification Draft. If you have suggestions, comments, or concerns, we encourage you to share your feedback. Your contributions can help enhance the clarity, effectiveness, and completeness of the document.
 
 #### How to Provide Feedback:
