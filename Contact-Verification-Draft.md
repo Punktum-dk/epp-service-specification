@@ -11,7 +11,7 @@ NIS2 refers to the revised version of the Network and Information Systems Direct
 ### What is NIS2?
 The NIS2 directive focuses on bolstering the resilience of critical information infrastructure, such as communication networks, cloud computing services, and digital service providers. It aims to ensure a high common level of cybersecurity across the European Union, promoting a collaborative and coordinated approach to handling cybersecurity incidents.
 
-### Key Objectives of NIS2:
+### Key Objectives of NIS2
 Increased Security Measures:
 NIS2 emphasizes the adoption of robust security measures by operators of essential services (OES) and digital service providers (DSPs). This includes implementing measures to prevent and minimize the impact of cybersecurity incidents.
 
@@ -38,6 +38,7 @@ The primary objective of the proposed solution is to implement minimal changes t
 Punktum dk does not require detailed documentation on the actual ID verification performed by the registrar, as long as the verification aligns with the requirements outlined in the Registrar Agreement. Consequently, registrars are only obligated to include a verification status flag in the registrar create or update process.
 
 ### Registrar Portal
+
 - Enable registrars to specify which verification model should be applied to their account (registrar verification vs. registry verification).
 - If registar verification is enabled on account, provide dropdown to specify verification status on the handle creation page.
 
@@ -60,17 +61,19 @@ In cases where Punktum dk is responsible for performing the verification process
 As the verification handled by Punktum dk requires actions to be performed by the contact, the registrar needs to be informed as soon as the verification status changes. Notifications on status changes will be issued to the registrar without delay via poll messaging or email, based on the specific communication settings configured in the Registrar Portal.
 
 ## Limitations
+
 * Registrars are only able to provide statuses `eid`, `verified` and `unverified` during contact creation. `pending` and `rejected` are statuses reserved for Punktum dk verification process.
 * After a contact has been assigned the status of `eid` or `verified`, these statuses are immutable and cannot be altered
 
 ## Questions
+
 * Is it relevant for registrars to be able to update contact verification status from `unverified` to `verified` or `eid` on already existing contacts?
 * Should pending identity verification requests fall back to status `unverified` upon expiration or would a status `expired` be useful?
 
 ## Providing Feedback
 Your input is valuable in refining and improving the Contact Identity Verification Draft. If you have suggestions, comments, or concerns, we encourage you to share your feedback. Your contributions can help enhance the clarity, effectiveness, and completeness of the document.
 
-#### How to Provide Feedback:
+### How to Provide Feedback:
 
 1. **GitHub Issues:**
    - The preferred method for submitting feedback is through GitHub Issues. Visit the [repository's issue tracker](https://github.com/Punktum-dk/epp-service-specification/issues) and create a new issue.
