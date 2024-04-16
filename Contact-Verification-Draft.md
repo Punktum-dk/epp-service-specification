@@ -62,18 +62,18 @@ As the verification handled by Punktum dk requires actions to be performed by th
 
 ## Limitations
 
-* Registrars are only able to provide statuses `eid`, `verified` and `unverified` during contact creation. `pending` and `rejected` are statuses reserved for Punktum dk verification process.
-* After a contact has been assigned the status of `eid` or `verified`, these statuses are immutable and cannot be altered
+- Registrars are only able to provide statuses `eid`, `verified` and `unverified` during contact creation. `pending` and `rejected` are statuses reserved for Punktum dk verification process.
+- After a contact has been assigned the status of `eid` or `verified`, these statuses are immutable and cannot be altered
 
 ## Questions
 
-* Is it relevant for registrars to be able to update contact verification status from `unverified` to `verified` or `eid` on already existing contacts?
-* Should pending identity verification requests fall back to status `unverified` upon expiration or would a status `expired` be useful?
+- Is it relevant for registrars to be able to update contact verification status from `unverified` to `verified` or `eid` on already existing contacts?
+- Should pending identity verification requests fall back to status `unverified` upon expiration or would a status `expired` be useful?
 
 ## Providing Feedback
 Your input is valuable in refining and improving the Contact Identity Verification Draft. If you have suggestions, comments, or concerns, we encourage you to share your feedback. Your contributions can help enhance the clarity, effectiveness, and completeness of the document.
 
-### How to Provide Feedback:
+### How to Provide Feedback
 
 1. **GitHub Issues:**
    - The preferred method for submitting feedback is through GitHub Issues. Visit the [repository's issue tracker](https://github.com/Punktum-dk/epp-service-specification/issues) and create a new issue.

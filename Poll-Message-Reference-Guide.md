@@ -3,9 +3,10 @@
 This is a complete list of all EPP poll messages currently available in production in the Punktum dk EPP service.
 
 ## Document History
-* 2024-04-16 Added missing documentation of existing poll messages domain_updated and manual_id_control
-* 2023-02-28 Added new poll messages contact_updated and delete_contact
-* 2022-02-22 Initial document draft published
+
+- 2024-04-16 Added missing documentation of existing poll messages domain_updated and manual_id_control
+- 2023-02-28 Added new poll messages contact_updated and delete_contact
+- 2022-02-22 Initial document draft published
 
 ## Poll Messages
 
