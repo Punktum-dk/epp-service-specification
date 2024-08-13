@@ -248,11 +248,12 @@ This document is copyright by Punktum dk A/S and is licensed under the MIT Licen
 
 ### Document History
 
-- 4.5 2024-07-25
+- 4.5 2024-07-25 & 2024-08-13
 
   - Corrected typos, dead links and/or misleading examples.
   - Added missing sections on [dkhm:authInfo](#dkhmauthinfo) and [dkhm:vid](#dkhmvid) extentions.
   - Updated section on [transfer domain](#transfer-domain) to clarify that `clientApproved` and `serverApproved` both are possible statuscodes
+  - Add {dkhm:contact_verified](#dkhm-contact_verified)
 
 - 4.4 2021-12-06
 
@@ -629,6 +630,10 @@ The EPP does not have any commands that work on the account level, except for th
 
 - [`dkhm:autoRenew`](#dkhmautorenew)
 
+[create contact](#create-contact) is reacting to the the setting of the default validator responsible model. Settings can be changed used extension:
+
+- [`dkhm:contact_verification responsible`](#dkhm-contact_verification-responsible)
+
 Specification and setting if registrar account settings are reserved to the **Registrar Portal** (RP) and requires an active registrar account for access.
 
 Please see the [Registrar Portal Service Specification][DKHMRPSPEC] for details.
@@ -648,6 +653,7 @@ Here follows a list of the extensions in alphabetical order. All are described s
 - `dkhm:autoRenew`
 - `dkhm:delDate`
 - `dkhm:contact_validated`
+- `dkhm:contact_verification`
 - `dkhm:CVR`
 - `dkhm:domain_confirmed`
 - `dkhm:domainAdvisory`
@@ -707,6 +713,19 @@ The default for a registrar account is auto-renewal. A new default can be set in
 ### `dkhm:contact_validated`
 
 Contact objects related to the role of registrant has to be validated, this field is used to indicate the status of a validation of a contact object via the [info contact](#info-contact) command.
+
+<a id="dkhm-contact_verification"></a>
+
+### `dkhm:contact_verification`
+
+Contact structure related to verifying contact ID, email and phone.
+
+Please see:
+
+- the [create contact](#create-contact) command and overriding the [registrar account default](#registrar-account-settings)
+- the [update contact](#update-contact) command for changing the setting for a given domain name
+- the [info contact](#info-contact) command, for inspecting the setting for a given contact
+
 
 <a id="dkhmcvr"></a>
 
