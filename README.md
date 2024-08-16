@@ -253,7 +253,7 @@ This document is copyright by Punktum dk A/S and is licensed under the MIT Licen
   - Corrected typos, dead links and/or misleading examples.
   - Added missing sections on [dkhm:authInfo](#dkhmauthinfo) and [dkhm:vid](#dkhmvid) extentions.
   - Updated section on [transfer domain](#transfer-domain) to clarify that `clientApproved` and `serverApproved` both are possible statuscodes
-  - Add {dkhm:contact_verified](#dkhm-contact_verified)
+  - Add {dkhm:contact_verification](#dkhmcontactverification)
 
 - 4.4 2021-12-06
 
@@ -632,7 +632,7 @@ The EPP does not have any commands that work on the account level, except for th
 
 [create contact](#create-contact) is reacting to the the setting of the default validator responsible model. Settings can be changed used extension:
 
-- [`dkhm:contact_verification responsible`](#dkhm-contact_verification-responsible)
+- [`dkhm:contact_verification responsible`](#dkhmcontactverificationresponsible)
 
 Specification and setting if registrar account settings are reserved to the **Registrar Portal** (RP) and requires an active registrar account for access.
 
@@ -707,18 +707,25 @@ The choice of renewal policy is based on the [registrar account default](#regist
 - `false`, indicating auto-expire
 
 The default for a registrar account is auto-renewal. A new default can be set in the registrar portal.
-
+ZZ
 <a id="dkhmcontact_validated"></a>
 
 ### `dkhm:contact_validated`
 
 Contact objects related to the role of registrant has to be validated, this field is used to indicate the status of a validation of a contact object via the [info contact](#info-contact) command.
 
-<a id="dkhm-contact_verification"></a>
+<a id="dkhmcontactverification"></a>
 
 ### `dkhm:contact_verification`
 
 Contact structure related to verifying contact ID, email and phone.
+
+Contains the following fields:
+
+- [`dkhm:contact_verification responsible`](#dkhmcontactverificationresponsible)
+- [`dkhm:contact_verification verified_id`](#dkhmcontactverificationverifiedid)
+- [`dkhm:contact_verification verified_email`](#dkhmcontactverificationverifiedemail)
+- [`dkhm:contact_verification verified_phone`](#dkhmcontactverificationverifiedphone)
 
 Please see:
 
@@ -726,6 +733,26 @@ Please see:
 - the [update contact](#update-contact) command for changing the setting for a given domain name
 - the [info contact](#info-contact) command, for inspecting the setting for a given contact
 
+<a id="dkhmcontactverificationresponsible"></a>
+
+### `dkhm:contact_verification` `dkhm:responsible`
+
+Indicates who should handle contact verification.
+- `registrar`, indicates that registrar handles validation of the contact. This value is only available for registrar handled contacts. 
+- `registry`, indicates that registry aka. Punktum dk handles user verification
+If value is missing on contact creation, the registrar default setting is used.
+
+<a id="dkhmcontactverificationverifiedid"></a>
+
+### `dkhm:contact_verification` `dkhm:verified_id`
+
+<a id="dkhmcontactverificationverifiedemail"></a>
+
+### `dkhm:contact_verification` `dkhm:verified_email`
+
+<a id="dkhmcontactverificationverifiedphone"></a>
+
+### `dkhm:contact_verification` `dkhm:verified_phone`
 
 <a id="dkhmcvr"></a>
 
