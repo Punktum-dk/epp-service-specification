@@ -3767,7 +3767,14 @@ The info contact command response is only available for the registrant contact o
 			</contact:infData>
 		</resData>
 		<extension>
-			<dkhm:contact_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">1</dkhm:contact_validated>
+			<dkhm:contact_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">1</dkhm:contact_validated>
+            <dkhm:userType xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">individual</dkhm:userType>
+            <dkhm:contact_verification xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">
+                <dkhm:responsible>registrar</dkhm:responsible>
+                <dkhm:verified_id status="inProgress" expdate="2021-10-17T14:16:35.0Z">false</dkhm:verified_id>
+                <dkhm:verified_email>true</dkhm:verified_email>
+                <dkhm:verified_phone>true</dkhm:verified_phone>
+            </dkhm:contact_verification>
 		</extension>
 		<trID>
 			<clTRID>76edfef5b78cdaefe8fb426eb8d74b75</clTRID>
@@ -3789,6 +3796,7 @@ This part of the EPP protocol is described in [RFC:5733]. This command adheres t
 - [`dkhm:pnumber`](#dkhmpnumber)
 - [`dkhm:mobilephone`](#dkhmmobilephone)
 - [`dkhm:secondaryEmail`](#dkhmsecondaryEmail)
+- [`dkhm:contact_verification`](#dkhmcontactverification)
 
 These of course all controlled by relevant privileges.
 
@@ -3838,8 +3846,14 @@ Please note:
 			</contact:update>
 		</update>
 		<extension>
-				<dkhm:secondaryEmail xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">email@eksempel.dk</dkhm:secondaryEmail>
-				<dkhm:mobilephone xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">+1.7034444445</dkhm:mobilephone>
+            <dkhm:secondaryEmail xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">email@eksempel.dk</dkhm:secondaryEmail>
+            <dkhm:mobilephone xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">+1.7034444445</dkhm:mobilephone>
+            <dkhm:contact_verification xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">
+                <dkhm:responsible>registrar</dkhm:responsible>
+                <dkhm:verified_id>false</dkhm:verified_id>
+                <dkhm:verified_email>true</dkhm:verified_email>
+                <dkhm:verified_phone>true</dkhm:verified_phone>
+            </dkhm:contact_verification>
 		</extension>
 		<clTRID>ABC-12345</clTRID>
 	</command>
