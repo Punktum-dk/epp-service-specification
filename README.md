@@ -248,12 +248,12 @@ This document is copyright by Punktum dk A/S and is licensed under the MIT Licen
 
 ### Document History
 
-- 4.5 2024-07-25 & 2024-08-13
+- 4.5 2024-08-19
 
   - Corrected typos, dead links and/or misleading examples.
   - Added missing sections on [dkhm:authInfo](#dkhmauthinfo) and [dkhm:vid](#dkhmvid) extentions.
   - Updated section on [transfer domain](#transfer-domain) to clarify that `clientApproved` and `serverApproved` both are possible statuscodes
-  - Add {dkhm:contact_verification](#dkhmcontactverification)
+  - Added [dkhm:contact_verification](#dkhmcontactverification)
 
 - 4.4 2021-12-06
 
@@ -632,7 +632,7 @@ The EPP does not have any commands that work on the account level, except for th
 
 [create contact](#create-contact) is reacting to the the setting of the default validator responsible model. Settings can be changed used extension:
 
-- [`dkhm:contact_verification responsible`](#dkhmcontactverificationresponsible)
+- [`dkhm:contact_verification / responsible`](#dkhmcontactverificationresponsible)
 
 Specification and setting if registrar account settings are reserved to the **Registrar Portal** (RP) and requires an active registrar account for access.
 
@@ -722,10 +722,10 @@ Contact structure related to verifying contact ID, email and phone.
 
 Contains the following fields:
 
-- [`dkhm:contact_verification responsible`](#dkhmcontactverificationresponsible)
-- [`dkhm:contact_verification verified_id`](#dkhmcontactverificationverifiedid)
-- [`dkhm:contact_verification verified_email`](#dkhmcontactverificationverifiedemail)
-- [`dkhm:contact_verification verified_phone`](#dkhmcontactverificationverifiedphone)
+- [`dkhm:contact_verification / responsible`](#dkhmcontactverificationresponsible)
+- [`dkhm:contact_verification / verified_id`](#dkhmcontactverificationverifiedid)
+- [`dkhm:contact_verification / verified_email`](#dkhmcontactverificationverifiedemail)
+- [`dkhm:contact_verification / verified_phone`](#dkhmcontactverificationverifiedphone)
 
 Please see:
 
@@ -735,7 +735,7 @@ Please see:
 
 <a id="dkhmcontactverificationresponsible"></a>
 
-### `dkhm:contact_verification` `dkhm:responsible`
+### `dkhm:contact_verification` / `dkhm:responsible`
 
 Indicates who should handle contact verification.
 - `registrar`, indicates that registrar handles validation of the contact. This value is only available for registrar handled contacts. 
@@ -744,15 +744,56 @@ If value is missing on contact creation, the registrar default setting is used.
 
 <a id="dkhmcontactverificationverifiedid"></a>
 
-### `dkhm:contact_verification` `dkhm:verified_id`
+### `dkhm:contact_verification` / `dkhm:verified_id`
+
+Main value indicates if registrar has handled verification, that the name and address is correct and belongs to the customer.
+- `(no value)`, indicates that no status has been marked sofar.
+- `true`, indicates that registrar has verified the user.
+- `false`, indicates that the registrar could not verify the user.
+
+On  [info contact](#info-contact) the following attributes may be presented.
+- `status` indicates the verification status, using the following values
+   - `notRequired`, No verification is required.
+   - `inProgress`, Verification is currently in progress.
+   - `expired`, Verification has timed out.
+   - `completed`, Verification has been completed.
+- `expdate` - If verification is in progress. The time that the verification is going to expire.
 
 <a id="dkhmcontactverificationverifiedemail"></a>
 
-### `dkhm:contact_verification` `dkhm:verified_email`
+### `dkhm:contact_verification` / `dkhm:verified_email`
+
+Main value indicates if registrar has handled verification, that the email address is correct and belongs to the customer.
+- `(no value)`, indicates that no status has been marked sofar.
+- `true`, indicates that registrar has verified the user.
+- `false`, indicates that the registrar could not verify the user.
+
+On  [info contact](#info-contact) the following attributes may be presented.
+- `status` indicates the verification status, using the following values
+   - `notRequired`, No verification is required.
+   - `inProgress`, Verification is currently in progress.
+   - `expired`, Verification has timed out.
+   - `completed`, Verification has been completed.
+- `expdate` - If verification is in progress. The time that the verification is going to expire.
+
 
 <a id="dkhmcontactverificationverifiedphone"></a>
 
-### `dkhm:contact_verification` `dkhm:verified_phone`
+### `dkhm:contact_verification` / `dkhm:verified_phone`
+
+Main value indicates if registrar has handled verification, that the phone number is correct and belongs to the customer.
+- `(no value)`, indicates that no status has been marked sofar.
+- `true`, indicates that registrar has verified the user.
+- `false`, indicates that the registrar could not verify the user.
+
+On  [info contact](#info-contact) the following attributes may be presented.
+- `status` indicates the verification status, using the following values
+   - `notRequired`, No verification is required.
+   - `inProgress`, Verification is currently in progress.
+   - `expired`, Verification has timed out.
+   - `completed`, Verification has been completed.
+- `expdate` - If verification is in progress. The time that the verification is going to expire.
+
 
 <a id="dkhmcvr"></a>
 
