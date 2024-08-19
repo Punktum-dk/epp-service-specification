@@ -187,7 +187,6 @@
 - [References](#references)
 - [Resources](#resources)
   - [XSD/XML Schemas](#xsd-xml-schemas)
-  - [Mailing list](#mailing-list)
   - [Issue Reporting](#issue-reporting)
   - [Demo/Test Client](#demotest-client)
   - [Additional Information](#additional-information)
