@@ -3502,13 +3502,13 @@ A contact object consist of the following data.
 | P-number        |                    | The is communicated via the extension: `dkhm:pnumber`                                                                           |
 | EAN             | :white_check_mark: | The is communicated via the extension: `dkhm:EAN`                                                                               |
 
-The locking of data is towards an authoritative register, like CPR (Central Person Register, Danish individuals) or CVR (Dansk Virksomheds Register, Danish companies, associations and public organisations).
+The locking of data is towards an authoritative register, like CPR (Central Person Register, Danish individuals) or CVR (Dansk Virksomheds Register, Danish companies, associations and public organizations).
 
 Locking is applied in conjunction with
 
 - Successful ID-control
-- For Danish companies, associations and public organisations if a CVR number is matched towards the CVR register
-- For European companies, associations and public organisations if a VAT number is matched towards the VIES service
+- For Danish companies, associations and public organizations if a CVR number is matched towards the CVR register
+- For European companies, associations and public organizations if a VAT number is matched towards the VIES service
 - For contact object appointed as registrants and waiting list position owners, the name is locked in order to prevent change of ownership of these
 
 <a id="create-contact"></a>
@@ -4060,7 +4060,7 @@ The command can be used in two scenarios:
 
 As for update domain `1001` holds higher precedence than `1000`, so if any of the sub-commands require additional review and are _pending_, the return code will be `1001`.
 
-Diagram of DKH create host [:eye_speech_bubble:][dkh_create_host]
+Diagram of Punktum dk create host [:eye_speech_bubble:][dkh_create_host]
 
 <a id="create-host-request"></a>
 
@@ -4495,7 +4495,7 @@ As for update host `1001` holds higher precedence than `1000`, so if any of the 
 
 As described in Implementation Limitations, the service does not support setting of status via update host.
 
-Diagram of DKH update host [:eye_speech_bubble:][dkh_update_host]
+Diagram of Punktum dk update host [:eye_speech_bubble:][dkh_update_host]
 
 <a id="update-host-request-with-request-to-new-administrator"></a>
 
