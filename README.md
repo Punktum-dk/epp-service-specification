@@ -3840,8 +3840,8 @@ The info contact command response is only available for the registrant contact o
             <dkhm:contact_verification xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">
                 <dkhm:responsible>registrar</dkhm:responsible>
                 <dkhm:verified_id status="inProgress" expdate="2021-10-17T14:16:35.0Z">false</dkhm:verified_id>
-                <dkhm:verified_email>true</dkhm:verified_email>
-                <dkhm:verified_phone>true</dkhm:verified_phone>
+                <dkhm:verified_email status="completed">true</dkhm:verified_email>
+                <dkhm:verified_phone status="completed">true</dkhm:verified_phone>
             </dkhm:contact_verification>
 		</extension>
 		<trID>
