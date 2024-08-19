@@ -5,7 +5,7 @@
 ![Markdownlint Action][GHAMKDBADGE]
 ![Spellcheck Action][GHASPLLBADGE]
 
-2024-08-15 Revision: 4.5
+2024-08-19 Revision: 4.5
 
 ## Table of Contents
 
@@ -288,7 +288,7 @@ This document is copyright by Punktum dk A/S and is licensed under the MIT Licen
     - The introduction of registrar support influences the business rules for [create domain](#create-domain)
   - Added information on setting/unsetting autorizations using AuthInfo tokens, see [setting AuthInfo](#setting-AuthInfo) and [unsetting AuthInfo](#unsetting-AuthInfo)
   - Added information on `dkhm:management` extension for [create domain](#create-domain) and [create contact](#create-contact), which overrides account default
-  - Added description of new and improved change name server process, both using authorisation and under registrar administration
+  - Added description of new and improved change name server process, both using authorization and under registrar administration
   - Added documentation on the extension to [info domain](#info-domain) with information on the `AuthInfo` expiration date using the `dkhm:authInfoExDate` extension
   - Added description of the changed [create contact](#create-contact) process, handling registrar administration
   - Introduction of support for [delete domain](#delete-domain) command
@@ -675,7 +675,7 @@ Here follows a list of the extensions in alphabetical order. All are described s
 ### `dkhm:authInfo`
 
 This extension is used to expose any currently valid `AuthInfo` tokens for a domain name.
-The information includes purpose and expirationdate of the token.
+The information includes purpose and expiration date of the token.
 
 Please see:
 
@@ -686,7 +686,7 @@ Please see:
 
 ### `dkhm:authInfoExDate`
 
-This extension has been superseeded by the [dkhm:authInfo](#dkhmauthinfo) extension and is no longer used.
+This extension has been superseded by the [dkhm:authInfo](#dkhmauthinfo) extension and is no longer used.
 
 <a id="dkhmautorenew"></a>
 
@@ -706,7 +706,7 @@ The choice of renewal policy is based on the [registrar account default](#regist
 - `false`, indicating auto-expire
 
 The default for a registrar account is auto-renewal. A new default can be set in the registrar portal.
-ZZ
+
 <a id="dkhmcontact_validated"></a>
 
 ### `dkhm:contact_validated`
@@ -729,24 +729,24 @@ Contains the following fields:
 Please see:
 
 - the [create contact](#create-contact) command and overriding the [registrar account default](#registrar-account-settings)
-- the [update contact](#update-contact) command for changing the setting for a given domain name
-- the [info contact](#info-contact) command, for inspecting the setting for a given contact
+- the [update contact](#update-contact) command for changing the verification setting for a given domain name
+- the [info contact](#info-contact) command, to see verification status for a given contact
 
 <a id="dkhmcontactverificationresponsible"></a>
 
 ### `dkhm:contact_verification` / `dkhm:responsible`
 
 Indicates who should handle contact verification.
-- `registrar`, indicates that registrar handles validation of the contact. This value is only available for registrar handled contacts. 
+- `registrar`, indicates that registrar handles validation of the contact. This value is only available for registrar handled contacts (see [`dkhm:management`](#dkhmmanagement)). 
 - `registry`, indicates that registry aka. Punktum dk handles user verification
-If value is missing on contact creation, the registrar default setting is used.
+If value is missing on contact creation, the registrar default setting is used, provided that the contact is registrar handled.
 
 <a id="dkhmcontactverificationverifiedid"></a>
 
 ### `dkhm:contact_verification` / `dkhm:verified_id`
 
 Main value indicates if registrar has handled verification, that the name and address is correct and belongs to the customer.
-- `(no value)`, indicates that no status has been marked sofar.
+- `(no value)`, indicates that no status has been marked so far.
 - `true`, indicates that registrar has verified the user.
 - `false`, indicates that the registrar could not verify the user.
 
@@ -763,7 +763,7 @@ On  [info contact](#info-contact) the following attributes may be presented.
 ### `dkhm:contact_verification` / `dkhm:verified_email`
 
 Main value indicates if registrar has handled verification, that the email address is correct and belongs to the customer.
-- `(no value)`, indicates that no status has been marked sofar.
+- `(no value)`, indicates that no status has been marked so far.
 - `true`, indicates that registrar has verified the user.
 - `false`, indicates that the registrar could not verify the user.
 
@@ -781,7 +781,7 @@ On  [info contact](#info-contact) the following attributes may be presented.
 ### `dkhm:contact_verification` / `dkhm:verified_phone`
 
 Main value indicates if registrar has handled verification, that the phone number is correct and belongs to the customer.
-- `(no value)`, indicates that no status has been marked sofar.
+- `(no value)`, indicates that no status has been marked so far.
 - `true`, indicates that registrar has verified the user.
 - `false`, indicates that the registrar could not verify the user.
 
@@ -1241,7 +1241,7 @@ The supported commands are:
 - `renew` (domain)
 - `transfer` (domain)
 - `delete` (host/domain)
-- `poll`, including acknowledgement of messages
+- `poll`, including acknowledgment of messages
 - `balance` command extension
 - `restore` extension to update domain command
 
@@ -2440,7 +2440,7 @@ Diagram of EPP process for EPP update domain command evaluation [:eye_speech_bub
 | Return Code | Description                                                                                              |
 |-------------|----------------------------------------------------------------------------------------------------------|
 | 1000        | If the update domain command is successful                                                               |
-| 1001        | If the update domain command awaits acknowledgement by 3rd. party                                        |
+| 1001        | If the update domain command awaits acknowledgment by 3rd. party                                         |
 | 2005        | Syntax of the command is not correct                                                                     |
 | 2102        | Change of status for host object is not supported                                                        |
 | 2201        | If the authenticated user does not hold the privilege to update the specified domain object              |
@@ -2902,7 +2902,7 @@ The AuthInfo token and hence the authorization holds a lifespan of 14 days. It c
 
 The generation of an AuthInfo token can be accomplished by all users with privileges to do so.
 
-When the authorisation has been created it is visible to the users with the privilege to generate it, not just the requester.
+When the authorization has been created it is visible to the users with the privilege to generate it, not just the requester.
 
 The token is accessible in:
 
@@ -3139,7 +3139,7 @@ The step to actually complete the restoration is the `report` operation, which l
 
 Example is lifted from [RFC:3915].
 
-The proposal is to use the report part act as an acknowledgement. The domain name is restored _as-is_ if possible, so the mandatory fields:
+The proposal is to use the report part act as an acknowledgment. The domain name is restored _as-is_ if possible, so the mandatory fields:
 
 - `rgp:preData`
 - `rgp:postData`
@@ -4048,7 +4048,7 @@ The command can be used in two scenarios:
 | Return Code | Description                                                                                              |
 |-------------|----------------------------------------------------------------------------------------------------------|
 | 1000        | If the create host command is successful                                                                 |
-| 1001        | If the create host command awaits acknowledgement by the contact-id specified in `dkhm:requestedNsAdmin` |
+| 1001        | If the create host command awaits acknowledgment by the contact-id specified in `dkhm:requestedNsAdmin`  |
 | 2003        | If required IP address is not specified                                                                  |
 | 2004        | If the specified IP addresses are non-public addresses                                                   |
 | 2005        | Syntax of the command is not correct                                                                     |
@@ -4482,7 +4482,7 @@ The update of a host object can only be requested by the administrator of the gi
 | Return Code | Description                                                                                              |
 |-------------|----------------------------------------------------------------------------------------------------------|
 | 1000        | If the update host command is successful                                                                 |
-| 1001        | If the update host command awaits acknowledgement by the contact-id specified in `dkhm:requestedNsAdmin` |
+| 1001        | If the update host command awaits acknowledgment by the contact-id specified in `dkhm:requestedNsAdmin`  |
 | 2004        | If the specified IP addresses are non-public addresses                                                   |
 | 2005        | Syntax of the command is not correct                                                                     |
 | 2102        | The command contains status elements                                                                     |
