@@ -4011,6 +4011,8 @@ Response to the above request. The response indicates a successful creation, sin
 
 Request to create a host object, requesting a different administrator of the host object, hence requiring offline evaluation.
 
+Any pending administrator requests are terminated upon creating a new administrator request.
+
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
