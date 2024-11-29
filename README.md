@@ -286,7 +286,7 @@ This document is copyright by Punktum dk A/S and is licensed under the MIT Licen
   - The procedures for renewal and application/creation are not being changed, in regard to use and protocol, however
     - The business policies in relation to these operations, do however change, since the billing operation changes, please see the [create domain](#create-domain) and [renew domain](#renew-domain) commands
     - The introduction of registrar support influences the business rules for [create domain](#create-domain)
-  - Added information on setting/unsetting autorizations using AuthInfo tokens, see [setting AuthInfo](#setting-authInfo) and [unsetting AuthInfo](#unsetting-authInfo)
+  - Added information on setting/unsetting autorizations using AuthInfo tokens, see [setting AuthInfo](#setting-authinfo) and [unsetting AuthInfo](#unsetting-authinfo)
   - Added information on `dkhm:management` extension for [create domain](#create-domain) and [create contact](#create-contact), which overrides account default
   - Added description of new and improved change name server process, both using authorisation and under registrar administration
   - Added documentation on the extension to [info domain](#info-domain) with information on the `AuthInfo` expiration date using the `dkhm:authInfoExDate` extension
@@ -1188,7 +1188,7 @@ Please see the greeting response included in the [appendices](#greeting) for ill
 
 This part of the EPP protocol is described in [RFC:5730]. This command adheres to the standard.
 
-The login uses the general Authentication Authorization and Access (AAA) framework in Punktum dk. This mean that in addition to the validation of username and password specified as part of the [login request](#login_request), an attempt is made to authorize the authenticated user for access to the actual EPP service and subsequent operations.
+The login uses the general Authentication Authorization and Access (AAA) framework in Punktum dk. This mean that in addition to the validation of username and password specified as part of the [login request](#login-request), an attempt is made to authorize the authenticated user for access to the actual EPP service and subsequent operations.
 
 [Service Users](#service-users) is an alternative to using regular WHOIS handles. They are reserved to a specific service, like for example EPP and can only be created by the administrator of a registrar group.
 
@@ -2226,7 +2226,7 @@ The sub-process called, can be depicted as in this diagram of Punktum dk sub-pro
 
 The status code `serverRenewProhibited` is set:
 
-- If the status `pendingCreate` is set, see [domain create](#domain-create)
+- If the status `pendingCreate` is set, see [create domain](#create-domain)
 - If the status `pendingDelete` is set
 - If the registrant has not accepted the Terms and Conditions of Punktum dk
 - If the domain name period renewal will exceed the maximum period of 10 years and 3 months
@@ -2431,7 +2431,7 @@ The command can be issued in two variations:
 
 1. As standard without any use of extensions
 
-The two above methods reflect the same usage as for domain name application using [domain create](#domain-create).
+The two above methods reflect the same usage as for domain name application using [create domain](#create-domain).
 
 Here follows an example of a request to change the registrant using the second method.
 
@@ -2777,6 +2777,7 @@ Example with removal of existing DSRECORDS and adding a new DSRECORD.
     </command>
 </epp>
 ```
+
 | Return Code | Description                                                                                 |
 |-------------|---------------------------------------------------------------------------------------------|
 | 1000        | If the update domain command is successful                                                  |
@@ -2921,7 +2922,7 @@ For registration of domain names offered from a waiting list, the authorization 
 
 The default `delete domain` command behaviour is to deactivate immediately, which complies with [RFC:5731]. Not being able to complete the request will result in a error, also in compliance with [RFC:5731]. Please see below for more information on the business process for deletion.
 
-The current expiration date can be obtained using the `info domain` command and is specified in the `domain:exDate` field. The date conforms with the required format. The [status code](status-codes), `pendingDelete` delete is set and can be removed either by the execution of the process after the redemption period or a [restore](#domain-restore) operation.
+The current expiration date can be obtained using the `info domain` command and is specified in the `domain:exDate` field. The date conforms with the required format. The [status code](#status-codes), `pendingDelete` delete is set and can be removed either by the execution of the process after the redemption period or a [restore](#restore-domain) operation.
 
 The alternative approach to deletion is to set auto expire, which will cancel the domain name subscription automatically at expiration.
 
@@ -2931,7 +2932,7 @@ The deletion of a domain name results in a 30 day suspension, which is regarded 
 
 The status code `serverDeleteProhibited` is set:
 
-- If the status `pendingCreate` is set, see [domain create](#domain-create)
+- If the status `pendingCreate` is set, see [create domain](#create-domain)
 - If the status `pendingDelete` is set
 - If the domain name is on hold or blocked, meaning it has been suspended by Punktum dk
 - If the domain name is superordinate to a name server, which has active name service
@@ -3145,7 +3146,7 @@ The implementation is based on a _pull_ model and both operations require author
 
 The transfer from Punktum dk to a new registrar implies a change of administrative model from "registrant management" to "registrar management". Whereas the transfer from registrar to registrar is only a change of administrative party not the administrative model.
 
-The registrar always have the option to withdraw from the role of registrar for a given domain name, this change does not require an authorization. The operation is implemented using the [withdraw](#withdraw-domain) command, described below in details. This command set the registrar to be the registry (Punktum dk) and the administrative model changes from "registrar management" to "registrant management".
+The registrar always have the option to withdraw from the role of registrar for a given domain name, this change does not require an authorization. The operation is implemented using the [withdraw](#withdraw) command, described below in details. This command set the registrar to be the registry (Punktum dk) and the administrative model changes from "registrar management" to "registrant management".
 
 Also the registrant has the option to exchange the current registrar. This operation implies a change of administrative model from "registrar management" to "registrant management" and is limited to change of model. A change of registrar, requires authorization of a third party by the registrant and that the designated registrar executes the operation of taking the role of administrator as described initially in this section.
 
@@ -3178,7 +3179,7 @@ The clone might be deleted if these relations are terminated or removed, please 
 
 The status code `serverTransferProhibited` is set:
 
-- If the status `pendingCreate` is set, see [domain create](#domain-create)
+- If the status `pendingCreate` is set, see [create domain](#create-domain)
 - If the domain name is not settled/paid
 - If the domain name is registrant managed and has VID service
 - If the registrant has an active or declined ID-control request
@@ -4735,7 +4736,7 @@ As a general business rule, Punktum dk does not support the `client*` statuses, 
 | `clientUpdateProhibited`   | *unsupported*, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                                                                                                 |
 | `inactive`                 | *unsupported* domain names in the Punktum dk registry **must** have associated name servers, , see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                              |
 | `ok`                       | Exclusive for all other status codes                                                                                                                                                                                    |
-| `pendingCreate`            | Indication that a the given domain is enqueued for possible creation, see [domain create](#domain-create) or is awaiting allocation with Punktum dk                                                                   |
+| `pendingCreate`            | Indication that a the given domain is enqueued for possible creation, see [create domain](#create-domain) or is awaiting allocation with Punktum dk                                                                   |
 | `pendingDelete`            | Deletion is pending, see [delete domain](#delete-domain). An advisory date is applicable via the extension [`dkhm:delDate`](dkhmdeldate)                                                                                |
 | `pendingRenew`             | *unsupported* as renewal is instantaneous, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                                                                     |
 | `pendingRestore`           | *unsupported* as restoration is instantaneous, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                                                                 |
