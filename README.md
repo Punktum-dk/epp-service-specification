@@ -5,7 +5,7 @@
 ![Markdownlint Action][GHAMKDBADGE]
 ![Spellcheck Action][GHASPLLBADGE]
 
-2021-12-06 Revision: 4.4
+2024-11-29 Revision: 4.4.1
 
 ## Table of Contents
 
@@ -187,7 +187,6 @@
 - [References](#references)
 - [Resources](#resources)
   - [XSD/XML Schemas](#xsd-xml-schemas)
-  - [Mailing list](#mailing-list)
   - [Issue Reporting](#issue-reporting)
   - [Demo/Test Client](#demotest-client)
   - [Additional Information](#additional-information)
@@ -222,7 +221,7 @@ Do note that the specification aims to describes the latest release of the servi
 so given changes implemented in the service are reflected in the specification. Do note that a service might be released to the sandbox environment
 prior to being released to production after a grace period.
 
-This document is not the authoritative source for business and policy rules and possible discrepancies between this an any authoritative sources are regarded as errors in this document. This document is aimed at being the external technical specification and describes the implementation facing the users and is an interpretation of authoritative sources and can therefor be erroneous.
+This document is not the authoritative source for business and policy rules and possible discrepancies between this and any authoritative sources are regarded as errors in this document. This document is aimed at being the external technical specification and describes the implementation facing the users and is an interpretation of authoritative sources and can therefor be erroneous.
 
 The actively used XSD file is indicated in the [EPP service specification][DKHMEPPWIKI], the [EPP XSD file repository][DKHMXSD] might contain changes not actively used by the service.
 
@@ -248,11 +247,12 @@ This document is copyright by Punktum dk A/S and is licensed under the MIT Licen
 
 ### Document History
 
-- 4.5 2024-07-25
+- 4.4.1 2024-11-29
 
   - Corrected typos, dead links and/or misleading examples.
   - Added missing sections on [dkhm:authInfo](#dkhmauthinfo) and [dkhm:vid](#dkhmvid) extentions.
   - Updated section on [transfer domain](#transfer-domain) to clarify that `clientApproved` and `serverApproved` both are possible statuscodes
+  - Updated examples of changing name servers on a domain to include the use of Authinfo token.
 
 - 4.4 2021-12-06
 
@@ -264,20 +264,20 @@ This document is copyright by Punktum dk A/S and is licensed under the MIT Licen
 
 - 4.2 2021-10-21
   - All diagrams moved out of the document and linked instead of displayed
-  - Added section on [Service Users](#service-users) to the [Implementation Requirements](#imtplementation-requirements) section
-  - Added section on [Registrar Account Settings](#registrar-account-settings) to the [Implementation Requirements](#imtplementation-requirements) section
+  - Added section on [Service Users](#service-users) to the [Implementation Requirements](#implementation-requirements) section
+  - Added section on [Registrar Account Settings](#registrar-account-settings) to the [Implementation Requirements](#implementation-requirements) section
   - Added [Contact Update](#contact-update) section under [Implementation Limitations](#implementation-limitations)
   - Overall clean up and clarification of the documentation and all [Appendices](#appendices)
     - Removing obsolete information
     - Clarifying business rules
-  - Added example of first poll message to a [create domain](#create_domain), indicating the pending operation
+  - Added example of first poll message to a [create domain](#create-domain), indicating the pending operation
   - Updated example of [info domain](#info-domain) response with information on the `AuthInfo` token and expiration date using the `dkhm:authInfoExDate` extension
   - Added missing example of [withdraw response](#withdraw-response)
   - Added overview of contact objects and information on locking of data, see [Contact](#contact)
 
 - 4.1 2021-09-24
-  - Added documentation for new error scenario for [create domain](#create_domain) for a registrar managed domain name, specifying other contacts than the registrant will result in an error `2306`
-  - Added a description of possible challenge with auto matching user for [create contact](#create_contact), since ID-control can alter data as part of the validation
+  - Added documentation for new error scenario for [create domain](#create-domain) for a registrar managed domain name, specifying other contacts than the registrant will result in an error `2306`
+  - Added a description of possible challenge with auto matching user for [create contact](#create-contact), since ID-control can alter data as part of the validation
   - This revision of the specification describes version 4.0.2 of the EPP service
 
 - 4.0 2021-09-19
@@ -286,7 +286,7 @@ This document is copyright by Punktum dk A/S and is licensed under the MIT Licen
   - The procedures for renewal and application/creation are not being changed, in regard to use and protocol, however
     - The business policies in relation to these operations, do however change, since the billing operation changes, please see the [create domain](#create-domain) and [renew domain](#renew-domain) commands
     - The introduction of registrar support influences the business rules for [create domain](#create-domain)
-  - Added information on setting/unsetting autorizations using AuthInfo tokens, see [setting AuthInfo](#setting-AuthInfo) and [unsetting AuthInfo](#unsetting-AuthInfo)
+  - Added information on setting/unsetting autorizations using AuthInfo tokens, see [setting AuthInfo](#setting-authInfo) and [unsetting AuthInfo](#unsetting-authInfo)
   - Added information on `dkhm:management` extension for [create domain](#create-domain) and [create contact](#create-contact), which overrides account default
   - Added description of new and improved change name server process, both using authorisation and under registrar administration
   - Added documentation on the extension to [info domain](#info-domain) with information on the `AuthInfo` expiration date using the `dkhm:authInfoExDate` extension
@@ -509,9 +509,9 @@ In addition to the assets, Punktum dk aims to assist users and developers of EPP
 
 The service is implemented under the following principles:
 
-1 Adhere to the standard to the extent possible or use non-intrusive extensions to support the requirements or finally use mandatory extensions to adhere to service requirements
-1 Use _in-band_ communication, meaning requests made via EPP will be responded to via EPP unless the end-user have specified differently
-1 Use standard error codes to the extent possible, communicating state more clearly and unambiguously
+1. Adhere to the standard to the extent possible or use non-intrusive extensions to support the requirements or finally use mandatory extensions to adhere to service requirements
+2. Use _in-band_ communication, meaning requests made via EPP will be responded to via EPP unless the end-user have specified differently
+3. Use standard error codes to the extent possible, communicating state more clearly and unambiguously
 
 <a id="ssltls-support"></a>
 
@@ -548,7 +548,7 @@ Please see the [information page][DKHMMAIL] for details on subscribing etc.
 - Hosts (name servers) will be processed for possible activation
 - The Change Password operation is available in this environment
 - Please note that this operation will change the password and this change will be reflected in other production systems
-- This is environment is using [IP Whitelisting](#ip-whitelisting)
+- This environment is using [IP Whitelisting](#ip-whitelisting)
 - This environment is only available to registrars
 
 <a id="sandbox"></a>
@@ -580,7 +580,7 @@ This section outlines the overall requirements in regard to implementing an EPP 
 
 ### Client Transaction ID (`clTRID`)
 
-In order to ensure transactional integrity and due to the asynchronous nature of some of the EPP commands, we rely on the client transaction id to be unique. This is unique as per client id. The assists in ensuring that a delayed response can be easily identified by simple means.
+In order to ensure transactional integrity and due to the asynchronous nature of some of the EPP commands, we rely on the client transaction id to be unique. This is unique as per client id. This assists in ensuring that a delayed response can be easily identified by simple means.
 
 The `clTRID` is recommended to be unique for all transactions and is required to be unique for the [create domain](#create-domain) command.
 
@@ -611,7 +611,7 @@ Please see the [Registrar Portal Service Specification][DKHMRPSPEC] for details.
 The EPP service can not work directly the registrar account, only directly on objects such as:
 
 - domain names
-- contacts
+- contacts (users)
 - name servers (hosts)
 
 Many of the object related commands are working indirectly with the registrar account for:
@@ -629,7 +629,7 @@ The EPP does not have any commands that work on the account level, except for th
 
 - [`dkhm:autoRenew`](#dkhmautorenew)
 
-Specification and setting if registrar account settings are reserved to the **Registrar Portal** (RP) and requires an active registrar account for access.
+Specification and setting the registrar account settings are reserved to the **Registrar Portal** (RP) and requires an active registrar account for access.
 
 Please see the [Registrar Portal Service Specification][DKHMRPSPEC] for details.
 
@@ -733,7 +733,7 @@ Please see:
 
 ### `dkhm:domain_confirmed`
 
-Domain names registered with Punktum dk, has to be confirmed by the registrant, this is can either be done using pre-application agreement to Punktum dk's Terms and Conditions, see the [`dkhm:orderconfirmationToken`](#dkhmorderconfirmationtoken) extension or other systems with Punktum dk. The domain confirmation process is handled via the [create domain](#create-domain) command using this extension.
+Domain names registered with Punktum dk, has to be confirmed by the registrant, this can either be done using pre-application agreement to Punktum dk's Terms and Conditions, see the [`dkhm:orderconfirmationToken`](#dkhmorderconfirmationtoken) extension or other systems with Punktum dk. The domain confirmation process is handled via the [create domain](#create-domain) command using this extension.
 
 <a id="dkhmdomainadvisory"></a>
 
@@ -750,7 +750,7 @@ Domain names pending deletion are in a 30 day redemption period. This period can
 
 - Automatic expiration, see [`dkhm:autoRenew`](#dkhmautorenew)
 - Manual cancellation, for EPP via the [delete domain](#delete-domain) command
-- Deletion from suspension due lack of payment
+- Deletion from suspension due to lack of payment
 
 Through out the redemption period it is possible to restore the domain using the [restore domain](#restore-domain).
 
@@ -842,7 +842,7 @@ A unique tracking number for a domain registration for uniformity with RP. EPP i
 
 ### `dkhm:url`
 
-This extension can be used to redirect an end-user to the next step. For now it is used in relation to domain creation, where the user can be directed to the next step if this is handled by Punktum dk. More information is available under the [create domain](#create-domain) command.
+This extension is no longer used.
 
 <a id="dkhmusertype"></a>
 
@@ -906,9 +906,9 @@ It is currently supported for the following commands:
 
 Please see the individual command descriptions for more details.
 
-For registration of domain names offered from a waiting list, the `AuthInfo` field is utilized for the [create domain](#create-domain), the format of the token is however in this context is simpler.
+For registration of domain names offered from a waiting list, the `AuthInfo` field is utilized for the [create domain](#create-domain), the format of the token is however in this context simpler.
 
-Specifying `AuthInfo` for a [contact create](#contact-create) has no effect and it is not recommended to disclose this information in this command.
+Specifying `AuthInfo` for a [create contact](#create-contact) has no effect and it is not recommended to disclose this information in this command.
 
 From [RFC:5733]:
 
@@ -956,9 +956,9 @@ The public facing interface is expected to present the registrar relation as wel
 
 See the following commands for more details:
 
-- [info contact](#info_contact)
-- [info domain](#info_domain)
-- [info host](#info_host)
+- [info contact](#info-contact)
+- [info domain](#info-domain)
+- [info host](#info-host)
 
 <a id="dnssec"></a>
 
@@ -1002,7 +1002,7 @@ For details on supported characters, please see: [the Punktum dk Name Service sp
 
 ### Host Info
 
-The command [info host](#info-host) will only supply the name server administrator/zone contact information if the requesting and authenticated user has a relationship to the user, either via a domain role or registrar group, which provides authorization to access the information.
+The command [info host](#info-host) will only supply the name server administrator information if the requesting and authenticated user has a relationship to the user, either via a domain role or registrar group, which provides authorization to access the information.
 
 <a id="host-update"></a>
 
@@ -1450,12 +1450,12 @@ The balance command implementation is based on the extension developed by Verisi
         <info>
             <balance:info xmlns:balance="http://www.verisign.com/epp/balance-1.0"/>
         </info>
-        <clTRID>ABC-12345</clTRID>
+        <clTRID>0f97d3544ab680b35ead5c70ee96b0e3</clTRID>
     </command>
 </epp>
 ```
 
-Example lifted from "[Balance Mapping for the Extensible Provisioning Protocol (EPP)][BALANCE]". see [References](#references).
+Example lifted from "[Balance Mapping for the Extensible Provisioning Protocol (EPP)][BALANCE]" and modified. see [References](#references).
 
 <a id="balance-response"></a>
 
@@ -1479,14 +1479,14 @@ Example lifted from "[Balance Mapping for the Extensible Provisioning Protocol (
             </balance:infData>
         </resData>
         <trID>
-            <clTRID>ABC-12345</clTRID>
-            <svTRID>54322-XYZ</svTRID>
+            <clTRID>0f97d3544ab680b35ead5c70ee96b0e3</clTRID>
+            <svTRID>1A1F26AA-679E-11E9-BD7F-DC7A1CCB5DEC-2019042500402</svTRID>
         </trID>
     </response>
 </epp>
 ```
 
-Example lifted from "[Balance Mapping for the Extensible Provisioning Protocol (EPP)][BALANCE]", see [References](#references).
+Example lifted from "[Balance Mapping for the Extensible Provisioning Protocol (EPP)][BALANCE]" and modifed, see [References](#references).
 
 | Return Code | Description                                                   |
 |-------------|---------------------------------------------------------------|
@@ -1498,7 +1498,7 @@ Example lifted from "[Balance Mapping for the Extensible Provisioning Protocol (
 
 ### Domain
 
-The default behavior of the EPP [create domain](#create-domain) command as described in [RFC:5731], will attach the client-ID (`CLID`) of the authenticated party to the object created.
+The default behavior of the EPP [create domain](#create-domain) command as described in [RFC:5731], will attach the client-ID (`clID`) of the authenticated party to the object created.
 
 Having the client-ID specified at this time indicates that the domain name is under registrar management from creation. To change the registrar and discontinue the registrar management will require a transfer.
 
@@ -1554,16 +1554,12 @@ The customized response for a domain creation request looks as follows:
     xmlns:xsi=http://www.w3.org/2001/XMLSchema-instance xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
     <response>
         <result code="1001">
-            <msg>Command completed successfully; action pending</msg>
+            <msg>Create domain pending for eksempel.dk</msg>
         </result>
-        <resData>
-            <domain:creData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-                <domain:name>eksempel.dk</domain:name>
-                <domain:crDate>2021-10-03T13:30:47.0Z</domain:crDate>
-            </domain:creData>
-        </resData>
         <extension>
-            <dkhm:risk_assessment xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">N/A</dkhm:risk_assessment>
+            <dkhm:trackingNo xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">2024112800001</dkhm:trackingNo>          
+            <dkhm:domain_confirmed xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">1</dkhm:domain_confirmed>          
+            <dkhm:registrant_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">1</dkhm:registrant_validated>
         </extension>
         <trID>
             <clTRID>92724843f12a3e958588679551aa988d</clTRID>
@@ -1590,22 +1586,17 @@ The EPOCH timestamp must not exceed 24 hours into the future compared to local t
 The `token` is handled the following way:
 
 - If absent Punktum dk will require the agreement for the terms and conditions be accepted with Punktum dk, this process is handled by Punktum dk
-
 - If present. The token will be validated by Punktum dk
 - if not valid the request with result in an error and the request will be dismissed
 - if valid the request will be accepted and processed
+
+The absense or presence of the token will be reflected in the response using the extension: `dkhm:domain_confirmed`.
 
 The requirement for the registrant to be valid is communicated via the response, using the extension: `dkhm:registrant_validated`.
 
 Please see the command [info contact](#info-contact) for more information.
 
 The state is communicated in this response in order to provide information on the further flow and process of the [create domain](#create-domain) request.
-
-An additional URL is specified in the response via the extension `dkhm:url`, this URL can be presented to the end-user for further processing and for the following scenarios in particular:
-
-1. End-user has not agreed to the terms and conditions
-2. End-user has agreed to the terms and conditions, but ID-control is required
-3. End-user has agreed to the terms and conditions and ID-control has been completed - no further actions are necessary, self-service access is available and active
 
 As part of the process the final response to a [create domain](#create-domain) is communicated via the message queue. In this response the Punktum dk A/S risk assessment is included, it can hold one of the following values:
 
@@ -1711,7 +1702,6 @@ See diagram: [:eye_speech_bubble:][epp_create_domain]
 			<dkhm:trackingNo xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">2013010100030</dkhm:trackingNo>
 			<dkhm:domain_confirmed xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">1</dkhm:domain_confirmed>
 			<dkhm:registrant_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">1</dkhm:registrant_validated>
-			<dkhm:url xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">https://self-service.punktum.dk/6102505a2e8d0cfbe8c3c99ea49977f36e2d4ee3</dkhm:url>
 		</extension>
 		<trID>
 			<clTRID>92724843f12a3e958588679551aa988d</clTRID>
@@ -1759,13 +1749,14 @@ The outcome can be one of two, please see the examples below:
 			<domain:panData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
 				<domain:name paResult="1">eksempel.dk</domain:name>
 				<domain:paTRID>
-					<clTRID>916e2f64ca0956a1bfc24140b23b8fb3</clTRID>
-					<svTRID>001C6E66-761D-11E8-8775-F5EABB5937F7-2018062200008</svTRID>
+					<clTRID>92724843f12a3e958588679551aa988d</clTRID>
+					<svTRID>EDF4F436-9CC9-11E4-AC57-51CB2AC2711D-2013010100030</svTRID>
 				</domain:paTRID>
 				<domain:paDate>2018-06-22T15:07:00.0Z</domain:paDate></domain:panData>
 		</resData>
 		<extension>
-			<dkhm:risk_assessment xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">N/A</dkhm:risk_assessment>    </extension>
+			<dkhm:risk_assessment xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">BLUE</dkhm:risk_assessment>
+    </extension>
 		<trID>
 			<clTRID>92724843f12a3e958588679551aa988d</clTRID>
 			<svTRID>7F3D4CD8-761D-11E8-8775-F5EABB5937F7</svTRID>    </trID></response>
@@ -2177,7 +2168,7 @@ Domain name subscriptions can be renewed manually via the EPP service. The featu
 - Registrant managed domain names, where the registrar is appointed as the billing contact
 - Registrar managed domain names
 
-Manual renewal can be done up to the expiration date of the specific domain name. It does not influence automatic renewal or automatic expiration apart from delaying there effective execution and automatic change to the domain name lifespan, please see the below matrices outlining the different scenarios for manual renewal.
+Manual renewal can be done up to the expiration date of the specific domain name. It does not influence automatic renewal or automatic expiration apart from delaying their effective execution and automatic change to the domain name lifespan, please see the below matrices outlining the different scenarios for manual renewal.
 
 | Registrar Management | Billing contact is registrar | Billing contact is non-registrar |
 |----------------------|------------------------------|----------------------------------|
@@ -2456,7 +2447,7 @@ Here follows an example of a request to change the registrant using the second m
                 </domain:chg>
             </domain:update>
         </update>
-        <clTRID>ABC-12345</clTRID>
+        <clTRID>3865a5fa134cd896455a909ebb2958c7</clTRID>
     </command>
 </epp>
 ```
@@ -2477,8 +2468,8 @@ If the registrant already has completed ID-control, the second action will not b
 	        <msg>Command completed successfully; action pending</msg>
         </result>
         <trID>
-            <clTRID>ABC-12345</clTRID>
-            <svTRID>54321-XYZ</svTRID>
+            <clTRID>3865a5fa134cd896455a909ebb2958c7</clTRID>
+            <svTRID>4CDF5D36-AD97-11EF-A65B-622FDC063AF2</svTRID>
         </trID>
     </response>
 </epp>
@@ -2505,7 +2496,7 @@ Then the request would have to be extended with the use of this extension:
 				1522744544
 			</dkhm:orderconfirmationToken>
 		</extension>
-        <clTRID>ABC-12345</clTRID>
+        <clTRID>3865a5fa134cd896455a909ebb2958d7</clTRID>
     </command>
 </epp>
 ```
@@ -2520,8 +2511,8 @@ The below example of a response, when the accept of terms and conditions has bee
             <msg>Command completed successfully</msg>
         </result>
         <trID>
-            <clTRID>ABC-12345</clTRID>
-            <svTRID>54321-XYZ</svTRID>
+            <clTRID>3865a5fa134cd896455a909ebb2958d7</clTRID>
+            <svTRID>4CDF5D36-AD97-11EF-A65B-622FDC060AF2</svTRID>
         </trID>
     </response>
 </epp>
@@ -2558,9 +2549,14 @@ With this process change, the change of name servers operation using [update dom
 						<domain:hostObj>ns2.example.com</domain:hostObj>
 					</domain:ns>
 				</domain:add>
+        <domain:chg>
+          <domain:authInfo>
+            <domain:pw>OWN-REDEL-4dea51f79cc19a0b6fc01c1b8f24eb1c</domain:pw>
+          </domain:authInfo>
+        </domain:chg>
 			</domain:update>
 		</update>
-		<clTRID>ABC-12345</clTRID>
+		<clTRID>3865a5fa130cd896455a909ebb2958c7</clTRID>
 	</command>
 </epp>
 ```
@@ -2600,9 +2596,14 @@ With this process change, the change of name servers operation using [update dom
 						<domain:hostObj>ns1.example.com</domain:hostObj>
 					</domain:ns>
 				</domain:rem>
+        <domain:chg>
+          <domain:authInfo>
+            <domain:pw>OWN-REDEL-4dea51f79cc19a0b6fc01c1b8f24eb1c</domain:pw>
+          </domain:authInfo>
+        </domain:chg>
 			</domain:update>
 		</update>
-		<clTRID>ABC-12345</clTRID>
+		<clTRID>3865a5fa134cd890455a909ebb2958c7</clTRID>
 	</command>
 </epp>
 ```
@@ -2640,11 +2641,11 @@ Adding new contacts to a domain require special privileges, which resides with t
 			 xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
 				<domain:name>eksempel.dk</domain:name>
 				<domain:add>
-					<domain:contact type="billing">mak21</domain:contact>
+					<domain:contact type="billing">EKSEMPEL-DK</domain:contact>
 				</domain:add>
 			</domain:update>
 		</update>
-		<clTRID>ABC-12345</clTRID>
+		<clTRID>3805a5fa134cd896455a909ebb2958c75</clTRID>
 	</command>
 </epp>
 ```
@@ -2681,11 +2682,11 @@ When a contact is removed from a given the registrant is instated in the role.
 			 xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
 				<domain:name>eksempel.dk</domain:name>
 				<domain:rem>
-					<domain:contact type="tech">sh8013</domain:contact>
+					<domain:contact type="admin">EKSEMPEL-DK</domain:contact>
 				</domain:rem>
 			</domain:update>
 		</update>
-		<clTRID>ABC-12345</clTRID>
+		<clTRID>3865a5fa134cd896455aa09ebb2958c7</clTRID>
 	</command>
 </epp>
 ```
@@ -2809,14 +2810,14 @@ The AuthInfo token and hence the authorization holds a lifespan of 14 days. It c
         </domain:chg>
       </domain:update>
     </update>
-    <clTRID>ABC-12345</clTRID>
+    <clTRID>3865a50a134cd896455a909ebb2958c7</clTRID>
   </command>
 </epp>
 ```
 
 The generation of an AuthInfo token can be accomplished by all users with privileges to do so.
 
-When the authorisation has been created it is visible to the users with the privilege to generate it, not just the requester.
+When the authorisation has been created it is visible to all users with the privilege to generate it, not just the requester.
 
 The token is accessible in:
 
@@ -2844,7 +2845,7 @@ The requester (setter) of a an AuthInfo authorization might have an interest in 
         </domain:chg>
       </domain:update>
     </update>
-    <clTRID>ABC-12345</clTRID>
+    <clTRID>3865a5fa134cd196455a909ebb2958c7</clTRID>
   </command>
 </epp>
 ```
@@ -2951,7 +2952,7 @@ The complete command will look as follows (example lifted from [RFC:5731]):
           <domain:name>eksempel.dk</domain:name>
           </domain:delete>
       </delete>
-      <clTRID>ABC-12345</clTRID>
+      <clTRID>3865a5fa134cd876455a909ebb2958c7</clTRID>
     </command>
   </epp>
 ```
@@ -2974,8 +2975,8 @@ Response example (example lifted from [RFC:5731] and modified):
         <msg>Command completed successfully; action pending</msg>
       </result>
       <trID>
-        <clTRID>ABC-12345</clTRID>
-        <svTRID>54321-XYZ</svTRID>
+        <clTRID>3865a5fa134cd876455a909ebb2958c7</clTRID>
+        <svTRID>4CDF7D36-AD97-11EF-A65B-622FDC063AF2</svTRID>
       </trID>
     </response>
   </epp>
@@ -3028,7 +3029,7 @@ The step to actually complete the restoration is the `report` operation, which l
     <command>
         <update>
             <domain:update xmlns:domain="urn:ietf:params:xml:ns:domain-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:domain-1.0 domain-1.0.xsd">
-                <domain:name>example.com</domain:name>
+                <domain:name>eksempel.dk</domain:name>
                 <domain:chg/>
             </domain:update>
         </update>
@@ -3046,12 +3047,12 @@ The step to actually complete the restoration is the `report` operation, which l
                 </rgp:restore>
             </rgp:update>
         </extension>
-        <clTRID>ABC-12345</clTRID>
+        <clTRID>3865a5fa134cd896455a409ebb2958c7</clTRID>
     </command>
 </epp>
 ```
 
-Example is lifted from [RFC:3915].
+Example is lifted from [RFC:3915] and modified.
 
 The proposal is to use the report part act as an acknowledgement. The domain name is restored _as-is_ if possible, so the mandatory fields:
 
@@ -3090,8 +3091,8 @@ A response indicating unsuccessful restoration attempt will look as follows:
             <msg>Delete date is incorrect</msg>
         </result>
         <trID>
-            <clTRID>ABC-12345</clTRID>
-            <svTRID>54321-XYZ</svTRID>
+            <clTRID>3865a5fa134cd896455a409ebb2958c7</clTRID>
+            <svTRID>4CDF5D36-AD97-11EF-A65B-622FDC063AF2</svTRID>
         </trID>
     </response>
 </epp>
@@ -3116,14 +3117,14 @@ A response indicating successful restoration attempt will look as follows:
             </rgp:upData>
         </extension>
         <trID>
-            <clTRID>ABC-12345</clTRID>
-            <svTRID>54321-XYZ</svTRID>
+            <clTRID>3865a5fa134cd896455a409ebb2958c7</clTRID>
+            <svTRID>4CDF5D36-AD97-11EF-A65B-622FDC063AF2</svTRID>
         </trID>
     </response>
 </epp>
 ```
 
-Example is lifted from [RFC:3915].
+Example is lifted from [RFC:3915] and modified.
 
 <a id="xsd-definition"></a>
 
@@ -3218,7 +3219,7 @@ If a domain name is transferred back to the registry, it will become eligible fo
         </domain:authInfo>
       </domain:transfer>
     </transfer>
-    <clTRID>ABC-12345</clTRID>
+    <clTRID>3865a5fa634cd896455a909ebb2958c7</clTRID>
   </command>
 </epp>
 ```
@@ -3247,8 +3248,8 @@ Example is lifted from [RFC:5731] and modified.
       </domain:trnData>
     </resData>
     <trID>
-      <clTRID>ABC-12345</clTRID>
-      <svTRID>54322-XYZ</svTRID>
+      <clTRID>3865a5fa634cd896455a909ebb2958c7</clTRID>
+      <svTRID>4CDF5D36-AD97-11EF-A65B-6221DC063AF2</svTRID>
     </trID>
   </response>
 </epp>
@@ -3292,8 +3293,8 @@ Ref: [`dkhm-4.4.xsd`][DKHMXSD]
 ```xsd
 <?xml version="1.0" encoding="UTF-8"?>
 
-<schema targetNamespace="urn:dkhm:params:xml:ns:dkhm-domain-4.3"
-        xmlns:dkhm-domain="urn:dkhm:params:xml:ns:dkhm-domain-4.3"
+<schema targetNamespace="urn:dkhm:params:xml:ns:dkhm-domain-4.4"
+        xmlns:dkhm-domain="urn:dkhm:params:xml:ns:dkhm-domain-4.4"
         xmlns:epp="urn:ietf:params:xml:ns:epp-1.0"
         xmlns:eppcom="urn:ietf:params:xml:ns:eppcom-1.0"
         xmlns="http://www.w3.org/2001/XMLSchema"
@@ -3303,7 +3304,7 @@ Ref: [`dkhm-4.4.xsd`][DKHMXSD]
   <import namespace="urn:ietf:params:xml:ns:epp-1.0" schemaLocation="epp-1.0.xsd"/>
 
   <annotation>
-    <documentation>Extensible Provisioning Protocol v1.0 provisioning schema. DKHM extension v4.3 for domain</documentation>
+    <documentation>Extensible Provisioning Protocol v1.0 provisioning schema. DKHM extension v4.4 for domain</documentation>
   </annotation>
 
   <element name="withdraw" type="dkhm-domain:withdrawType"/>
@@ -3330,11 +3331,11 @@ An example of a withdraw XML request would look as follows (example lifted from 
   <extension>
     <command xmlns="urn:dkhm:params:xml:ns:dkhm-4.4">
       <withdraw>
-        <domain:withdraw xmlns:domain="urn:dkhm:params:xml:ns:dkhm-domain-4.3">
+        <domain:withdraw xmlns:domain="urn:dkhm:params:xml:ns:dkhm-domain-4.4">
           <domain:name>eksempel.dk</domain:name>
         </domain:withdraw>
       </withdraw>
-      <clTRID>ABC-12345</clTRID>
+      <clTRID>f16688b39655d8d46b8102eda83c3966</clTRID>
     </command>
   </extension>
 </epp>
@@ -3364,7 +3365,7 @@ An example of a withdraw XML request would look as follows (example lifted from 
             </domain:trnData>
         </resData>
         <trID>
-            <clTRID>ABC-12345</clTRID>
+            <clTRID>f16688b39655d8d46b8102eda83c3966</clTRID>
             <svTRID>ED213B80-2801-11EC-AA6C-3E865F504B00</svTRID>
         </trID>
     </response>
@@ -3386,7 +3387,7 @@ Deletion will not be supported and will work as it currently is implemented in t
 - The contact object is not in use
 - It holds not roles/association with other objects
 - The associated financial account holds a balance of 0
-- It has been inactive for 14 days
+- It has been deemed inactive for 14 days
 
 The maintenance, meaning changes and updates to data, will also be limited. Punktum dk locks contact objects for changes if these have been matched to a register for name and address information, this applies to:
 
@@ -3443,9 +3444,9 @@ The user type will result in context-specific interpretation of the following fi
 
 - EAN - this number is only supported for user types: `company`, `public_organization` and `association`. It is only mandatory for `public_organization` and optional for `company` and `association`. [EAN][EAN] is used by the public sector in Denmark for electronic invoicing, private companies can also be assigned [EAN], but this it not so widespread at this time. EAN is required by law for public sector organizations, so this field has to be completed and it has to validate for this type.
 - CVR - (VAT number) this is only supported for user types: `company`, `public_organization` and `association`. The number is **required** for handling VAT correctly, The rules for indication of the field is specified in the table below.
-- p-number - (production unit number) this is only supported for user types: `company`, `public_organization` and `association`. The number is used for handling validation correctly and it relates to the CVR (Vat number field) the field is optional.
+- P-number - (production unit number) this is only supported for user types: `company`, `public_organization` and `association`. The number is used for handling validation correctly and it relates to the CVR (Vat number field) the field is optional.
 
-This field is validated on the server side, it is however recommended to perform a [check contact](#check-contact) on the requested contact-id prior to the [create domain](#create-domain) request if a contact-id is already known from a contact create or previous domain creation/application.
+These fields is validated on the server side, it is however recommended to perform a [check contact](#check-contact) on the requested contact-id prior to the [create domain](#create-domain) request if a contact-id is already known from a contact create or previous domain creation/application.
 
 The `contact-id` field is auto-generated and assigned by Punktum dk. EPP do however open for providing a contact-id in the context of the create contact command, this is not supported by Punktum dk at this point, see also: [Implementation Limitations](#implementation-limitations).
 
@@ -3692,6 +3693,14 @@ See the extension: [`dkhm:contact_validated`](#dkhmcontact_validated) extension 
 
 Please note that the email address (`contact:email`) is masked and the value: `anonymous@dk-hostmaster.dk` is always returned for this field, Unless the authenticated user has a relationship via the domain name or a registrar group association, which provides access to more information.
 
+The command has also been extended with information (if available) from the following extensions:
+- [`dkhm:userType`](#dkhmusertype)
+- [`dkhm:EAN`](#dkhmean)
+- [`dkhm:CVR`](#dkhmcvr)
+- [`dkhm:pnumber`](#dkhmpnumber)
+- [`dkhm:mobilephone`](#dkhmmobilephone)
+- [`dkhm:secondaryEmail`](#dkhmsecondaryEmail)
+
 The info contact command response is only available for the registrant contact object, unless the authenticated user has a relationship via the domain name or a registrar group association, which provides access to more information or additional contact objects.
 
 <a id="info-contact-request"></a>
@@ -3719,42 +3728,39 @@ The info contact command response is only available for the registrant contact o
 ```XML
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-	<response>
-		<result code="1000">
-			<msg>Info result</msg>
-		</result>
-		<resData>
-			<contact:infData xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
-				<contact:id>DKHM1-DK</contact:id>
-				<contact:roid>DKHM1-DK</contact:roid>
-				<contact:status s="serverUpdateProhibited"/>
-				<contact:status s="serverTransferProhibited"/>
-				<contact:status s="linked"/>
-				<contact:status s="serverDeleteProhibited"/>
-				<contact:postalInfo type="loc">
-					<contact:name>Punktum dk A/S</contact:name>
-					<contact:addr>
-						<contact:street>Ørestads Boulevard 108, 11.</contact:street>
-						<contact:city>København V</contact:city>
-						<contact:pc>1560</contact:pc>
-						<contact:cc>DK</contact:cc>
-					</contact:addr>
-				</contact:postalInfo>
-				<contact:voice>+45.33646060</contact:voice>
-				<contact:email>anonymous@dk-hostmaster.dk</contact:email>
-				<contact:clID>DKHM1-DK</contact:clID>
-				<contact:crID>n/a</contact:crID>
-				<contact:crDate>2013-01-24T15:40:37.0Z</contact:crDate>
-			</contact:infData>
-		</resData>
-		<extension>
-			<dkhm:contact_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">1</dkhm:contact_validated>
-		</extension>
-		<trID>
-			<clTRID>76edfef5b78cdaefe8fb426eb8d74b75</clTRID>
-			<svTRID>C8C5E496-9CC8-11E4-9F91-D0BF2AC2711D</svTRID>
-		</trID>
-	</response>
+  <response>    
+    <result code="1000">
+      <msg>Command completed successfully</msg>    </result>    
+    <msgQ count="45" id="2084787">    </msgQ>    
+    <resData>
+      <contact:infData xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
+        <contact:id>DKHM1-DK</contact:id>
+        <contact:roid>DKHM1-DK</contact:roid>
+        <contact:status s="linked"/>
+        <contact:status s="serverDeleteProhibited"/>
+        <contact:status s="serverTransferProhibited"/>      
+        <contact:postalInfo type="loc">
+          <contact:name>DK Hostmaster A/S</contact:name>          
+          <contact:addr>
+            <contact:street>Ørestads Boulevard 108, 11.</contact:street>
+            <contact:city>København S</contact:city>
+            <contact:pc>2300</contact:pc>
+            <contact:cc>DK</contact:cc>          </contact:addr>      </contact:postalInfo>
+        <contact:email>anonymous@dk-hostmaster.dk</contact:email>
+        <contact:clID>DKHM1-DK</contact:clID>
+        <contact:crID>DKHM1-DK</contact:crID>
+        <contact:crDate>1900-01-01T00:00:00.0Z</contact:crDate>
+      </contact:infData>
+    </resData>    
+    <extension>          
+      <dkhm:contact_validated xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">1</dkhm:contact_validated>                  
+      <dkhm:CVR xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">24210375</dkhm:CVR>                                  
+      <dkhm:userType xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">company</dkhm:userType></extension>    
+    <trID>
+      <clTRID>3d65841027692e64c24118ac5988e03c</clTRID>
+      <svTRID>1CD99AA4-AE3F-11EF-9983-3501DC063AF2</svTRID>
+    </trID>
+  </response>
 </epp>
 ```
 
@@ -3771,7 +3777,7 @@ This part of the EPP protocol is described in [RFC:5733]. This command adheres t
 - [`dkhm:mobilephone`](#dkhmmobilephone)
 - [`dkhm:secondaryEmail`](#dkhmsecondaryEmail)
 
-These of course all controlled by relevant privileges.
+These are of course all controlled by relevant privileges.
 
 - Name / organization
 - Address
@@ -3822,7 +3828,7 @@ Please note:
 				<dkhm:secondaryEmail xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">email@eksempel.dk</dkhm:secondaryEmail>
 				<dkhm:mobilephone xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">+1.7034444445</dkhm:mobilephone>
 		</extension>
-		<clTRID>ABC-12345</clTRID>
+		<clTRID>76edfef5b78cdaefe8fb426eb8d74b75</clTRID>
 	</command>
 </epp>
 ```
@@ -3841,8 +3847,8 @@ Do note that the `authInfo` part is ignored, but cannot be omitted, since it is 
 			<msg>Command completed successfully</msg>
 		</result>
 		<trID>
-			<clTRID>ABC-12345</clTRID>
-			<svTRID>54321-XYZ</svTRID>
+			<clTRID>76edfef5b78cdaefe8fb426eb8d74b75</clTRID>
+			<svTRID>C8C5E496-9CC8-11E4-9F91-D0BF2AC2711D</svTRID>
 		</trID>
 	</response>
 </epp>
@@ -3876,7 +3882,7 @@ The later will only be lifted when the contact object is not linked to any other
 				<contact:id>sh8013</contact:id>
 			</contact:delete>
 		</delete>
-		<clTRID>ABC-12345</clTRID>
+		<clTRID>76edfef5b78cdaefe8fb426eb8d74b73</clTRID>
 	</command>
 </epp>
 ```
@@ -3893,8 +3899,8 @@ The later will only be lifted when the contact object is not linked to any other
 			<msg>Unimplemented command</msg>
 		</result>
 		<trID>
-			<clTRID>ABC-12345</clTRID>
-			<svTRID>54321-XYZ</svTRID>
+			<clTRID>76edfef5b78cdaefe8fb426eb8d74b73</clTRID>
+			<svTRID>C8C5E496-9CC8-11E4-9F91-D0BF2AC2711E</svTRID>
 		</trID>
 	</response>
 </epp>
@@ -3934,7 +3940,7 @@ The deletion of host objects are under a similar regime, as specified in the [de
 
 This part of the EPP protocol is described in [RFC:5732]. This command adheres to the standard. The command can be extended to specify another name server administrator than the authenticated user.
 
-:point_right: Please note that IP addresses are required for domain names ending in '.dk', please refer to the [glue record policy][DKHMDNSSPECGLUE].
+:point_right: Please note that IP addresses might be required for domain names ending in '.dk', please refer to the [glue record policy][DKHMDNSSPECGLUE].
 
 :warning: By default the authenticated user is attempted used as designated name server administrator, It is however not possible to assign a registrar account as name server administrator, so a regular WHOIS handle pointing to a contact object has to be specified using the extension `dkhm:requestedNsAdmin`, alternatively you can authenticate using a WHOIS handle and the use of the extension can be avoided.
 
@@ -3981,7 +3987,7 @@ Request to create a host object, using both IPv4 and IPv6 addresses and the auth
 				<host:addr ip="v6">1080:0:0:0:8:800:200417A</host:addr>
 			</host:create>
 		</create>
-		<clTRID>ABC-12345</clTRID>
+		<clTRID>afff4b461c0f617079c3cefaccfb2f66</clTRID>
 	</command>
 </epp>
 ```
@@ -4007,8 +4013,8 @@ Response to the above request. The response indicates a successful creation, sin
 			</host:creData>
 		</resData>
 		<trID>
-			<clTRID>ABC-12345</clTRID>
-			<svTRID>54322-XYZ</svTRID>
+			<clTRID>afff4b461c0f617079c3cefaccfb2f66</clTRID>
+			<svTRID>1CD99AA4-AE3F-11EF-9983-35018C063AF2</svTRID>
 		</trID>
 	</response>
 </epp>
@@ -4036,7 +4042,7 @@ Request to create a host object, requesting a different administrator of the hos
 		<extension>
 			<dkhm:requestedNsAdmin xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">ADMIN2-DK</dkhm:requestedNsAdmin>
 		</extension>
-		<clTRID>ABC-12345</clTRID>
+		<clTRID>afff4b461c0f617079c3cefaccfb2f66</clTRID>
 	</command>
 </epp>
 ```
@@ -4062,8 +4068,8 @@ Response to the above request. The response indicates a successful accept of the
 			</host:creData>
 		</resData>
 		<trID>
-			<clTRID>ABC-12345</clTRID>
-			<svTRID>54322-XYZ</svTRID>
+			<clTRID>afff4b461c0f617079c3cefaccfb2f66</clTRID>
+			<svTRID>1CD99AA4-AE3F-11EF-9983-35018C063AF2</svTRID>
 		</trID>
 	</response>
 </epp>
@@ -4091,15 +4097,15 @@ If the creation of the host has resulting in a delayed operation, pending the de
 			 xmlns:host="urn:ietf:params:xml:ns:host-1.0">
 				<host:name paResult="1">ns1.eksempel.dk</host:name>
 				<host:paTRID>
-					<clTRID>ABC-12345</clTRID>
-					<svTRID>54322-XYZ</svTRID>
+					<clTRID>afff4b461c0f617079c3cefaccfb2f66</clTRID>
+					<svTRID>1CD99AA4-AE3F-11EF-9983-35018C063AF2</svTRID>
 				</host:paTRID>
 				<host:paDate>1999-04-04T22:00:00.0Z</host:paDate>
 			</host:panData>
 		</resData>
 		<trID>
-			<clTRID>BCD-23456</clTRID>
-			<svTRID>65432-WXY</svTRID>
+			<clTRID>e85dc734bc80b3b58a81d08b9ac1d19e</clTRID>
+			<svTRID>264B4A80-AE42-11EF-99AE-622FDC063AF2</svTRID>
 		</trID>
 	</response>
 </epp>
@@ -4126,7 +4132,7 @@ Request to create a host object, where the authenticated user is not the registr
 				<host:addr ip="v6">1080:0:0:0:8:800:200417A</host:addr>
 			</host:create>
 		</create>
-		<clTRID>ABC-12345</clTRID>
+		<clTRID>afff4b461c0f617079c3cefaccfb2f66</clTRID>
 	</command>
 </epp>
 ```
@@ -4152,8 +4158,8 @@ Response to the above request. The response indicates a successful accept of the
 			</host:creData>
 		</resData>
 		<trID>
-			<clTRID>ABC-12345</clTRID>
-			<svTRID>54322-XYZ</svTRID>
+			<clTRID>afff4b461c0f617079c3cefaccfb2f66</clTRID>
+			<svTRID>1CD99AA4-AE3F-11EF-9983-35018C063AF2</svTRID>
 		</trID>
 	</response>
 </epp>
@@ -4181,15 +4187,15 @@ If the creation of the host has resulting in a delayed operation, pending the de
 			 xmlns:host="urn:ietf:params:xml:ns:host-1.0">
 				<host:name paResult="1">ns1.eksempel.dk</host:name>
 				<host:paTRID>
-					<clTRID>ABC-12345</clTRID>
-					<svTRID>54322-XYZ</svTRID>
+					<clTRID>afff4b461c0f617079c3cefaccfb2f66</clTRID>
+					<svTRID>1CD99AA4-AE3F-11EF-9983-35018C063AF2</svTRID>
 				</host:paTRID>
 				<host:paDate>1999-04-04T22:00:00.0Z</host:paDate>
 			</host:panData>
 		</resData>
 		<trID>
-			<clTRID>BCD-23456</clTRID>
-			<svTRID>65432-WXY</svTRID>
+			<clTRID>e85dc734bc80b3b58a81d08b9ac1d19e</clTRID>
+			<svTRID>264B4A80-AE42-11EF-99AE-622FDC063AF2</svTRID>
 		</trID>
 	</response>
 </epp>
@@ -4298,7 +4304,7 @@ This field supports the two administrative models as follows:
 				<host:status s="serverDeleteProhibited" />
 				<host:addr ip=“v4”>4.3.2.1</host:addr>
 				<host:clID>DKHM1-DK</host:clID>
-				<host:crID>n/a</host:crID>
+				<host:crID>DKHM1-DK</host:crID>
 				<host:crDate>2003-07-07T13:47:47.0Z</host:crDate>
 			</host:infData>
 		</resData>
@@ -4436,7 +4442,7 @@ Response to the above request. The response indicates a successful accept of the
 			<msg>Command completed successfully; action pending</msg>
 		</result>
 		<trID>
-			<clTRID>6e95dc191e922be727fd5af4c2d20bc5</clTRID>
+			<clTRID>7a4ac69d335ae661e29fc2c262c5800e</clTRID>
 			<svTRID>631DABC6-CC49-11E6-A165-4F7D3A107CA1</svTRID>
 		</trID>
 	</response>
@@ -4465,15 +4471,15 @@ If the creation of the host has resulting in a delayed operation, pending the de
 			 xmlns:host="urn:ietf:params:xml:ns:host-1.0">
 				<host:name paResult="1">ns1.eksempel.dk</host:name>
 				<host:paTRID>
-					<clTRID>ABC-12345</clTRID>
-					<svTRID>54322-XYZ</svTRID>
+					<clTRID>7a4ac69d335ae661e29fc2c262c5800e</clTRID>
+					<svTRID>631DABC6-CC49-11E6-A165-4F7D3A107CA1</svTRID>
 				</host:paTRID>
 				<host:paDate>1999-04-04T22:00:00.0Z</host:paDate>
 			</host:panData>
 		</resData>
 		<trID>
-			<clTRID>BCD-23456</clTRID>
-			<svTRID>65432-WXY</svTRID>
+			<clTRID>729a6e3b0758ef114e3417b2b359e1f7</clTRID>
+			<svTRID>B8419AA2-AE42-11EF-BA43-514CDC063AF2</svTRID>
 		</trID>
 	</response>
 </epp>
@@ -4514,7 +4520,7 @@ Request to delete a host object, the authenticated user is the current administr
 				<host:name>ns1.eksempel.dk</host:name>
 			</host:delete>
 		</delete>
-		<clTRID>ABC-12345</clTRID>
+		<clTRID>8b53bbeb386da6bf4da2d5a5f311ab88</clTRID>
 	</command>
 </epp>
 ```
@@ -4533,8 +4539,8 @@ Response to the above request. Since the authenticated user is the current admin
 			<msg>Command completed successfully</msg>
 		</result>
 		<trID>
-			<clTRID>ABC-12345</clTRID>
-			<svTRID>54321-XYZ</svTRID>
+			<clTRID>8b53bbeb386da6bf4da2d5a5f311ab88</clTRID>
+			<svTRID>5220276A-AE43-11EF-902E-7B29DC063AF2</svTRID>
 		</trID>
 	</response>
 </epp>
@@ -4666,8 +4672,8 @@ EPP service is running in the environment queried.
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
     <greeting>
-        <svID>Punktum dk EPP Service: 2.2.3</svID>
-        <svDate>2016-12-27T15:19:26.0Z</svDate>
+        <svID>Punktum dk EPP Service: 4.11.0</svID>
+        <svDate>2024-11-29T11:16:03.0Z</svDate>
         <svcMenu>
             <version>1.0</version>
             <lang>en</lang>
