@@ -2577,7 +2577,7 @@ Diagram: Update domain - Add name server [:eye_speech_bubble:][epp-update-domain
 
 The removal of an existing name server from a domain name requires that at least two other name servers are offering resolution for the domain in question, else the command will fail.
 
-Since the update domain command can contain several sub-commands, this could be accompanied by an *add name server* (see above), so the policy requirement is met and resolution is kept.
+Since the update domain command can contain several sub-commands, this could be accompanied by an _add name server_ (see above), so the policy requirement is met and resolution is kept.
 
 As noted under "add name server", since version of 4.X.X the commands to change name servers (addition) require AuthInfo token. The AuthInfo token is either provided out of band or can be obtained using the `info domain` command. It can also be generated using the `update domain` command, please see the section on setting AuthInfo.
 
@@ -3695,12 +3695,13 @@ See the extension: [`dkhm:contact_validated`](#dkhmcontact_validated) extension 
 Please note that the email address (`contact:email`) is masked and the value: `anonymous@dk-hostmaster.dk` is always returned for this field, Unless the authenticated user has a relationship via the domain name or a registrar group association, which provides access to more information.
 
 The command has also been extended with information (if available) from the following extensions:
+
 - [`dkhm:userType`](#dkhmusertype)
 - [`dkhm:EAN`](#dkhmean)
 - [`dkhm:CVR`](#dkhmcvr)
 - [`dkhm:pnumber`](#dkhmpnumber)
 - [`dkhm:mobilephone`](#dkhmmobilephone)
-- [`dkhm:secondaryEmail`](#dkhmsecondaryEmail)
+- [`dkhm:secondaryEmail`](#dkhmsecondaryemail)
 
 The info contact command response is only available for the registrant contact object, unless the authenticated user has a relationship via the domain name or a registrar group association, which provides access to more information or additional contact objects.
 
@@ -3776,7 +3777,7 @@ This part of the EPP protocol is described in [RFC:5733]. This command adheres t
 - [`dkhm:CVR`](#dkhmcvr)
 - [`dkhm:pnumber`](#dkhmpnumber)
 - [`dkhm:mobilephone`](#dkhmmobilephone)
-- [`dkhm:secondaryEmail`](#dkhmsecondaryEmail)
+- [`dkhm:secondaryEmail`](#dkhmsecondaryemail)
 
 These are of course all controlled by relevant privileges.
 
@@ -4553,7 +4554,7 @@ Response to the above request. Since the authenticated user is the current admin
 
 This chapter describes the data collection policy announced via the greeting available using the hello command.
 
-Please refer to the [greeting response example](#greeting) included in the [Appendices](#Appendices).
+Please refer to the [greeting response example](#greeting) included in the [Appendices](#appendices).
 
 <a id="access"></a>
 
@@ -4727,29 +4728,29 @@ As a general business rule, Punktum dk does not support the `client*` statuses, 
 
 | Status Code                | Description                                                                                                                                                                                                             |
 |----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `addPeriod`                | *unsupported* the status is not described in [RFC:5731] only in [ICANN resource][ICANN], see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                       |
-| `autoRenewPeriod`          | *unsupported* the status is not described in [RFC:5731] only in [ICANN resource][ICANN], see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                       |
-| `clientDeleteProhibited`   | *unsupported*, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                                                                                                 |
-| `clientHold`               | *unsupported*, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                                                                                                 |
-| `clientRenewProhibited`    | *unsupported*, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                                                                                                 |
-| `clientTransferProhibited` | *unsupported*, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                                                                                                 |
-| `clientUpdateProhibited`   | *unsupported*, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                                                                                                 |
-| `inactive`                 | *unsupported* domain names in the Punktum dk registry **must** have associated name servers, , see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                              |
+| `addPeriod`                | _unsupported_ the status is not described in [RFC:5731] only in [ICANN resource][ICANN], see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                       |
+| `autoRenewPeriod`          | _unsupported_ the status is not described in [RFC:5731] only in [ICANN resource][ICANN], see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                       |
+| `clientDeleteProhibited`   | _unsupported_, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                                                                                                 |
+| `clientHold`               | _unsupported_, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                                                                                                 |
+| `clientRenewProhibited`    | _unsupported_, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                                                                                                 |
+| `clientTransferProhibited` | _unsupported_, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                                                                                                 |
+| `clientUpdateProhibited`   | _unsupported_, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                                                                                                 |
+| `inactive`                 | _unsupported_ domain names in the Punktum dk registry **must** have associated name servers, , see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                              |
 | `ok`                       | Exclusive for all other status codes                                                                                                                                                                                    |
 | `pendingCreate`            | Indication that a the given domain is enqueued for possible creation, see [create domain](#create-domain) or is awaiting allocation with Punktum dk                                                                   |
 | `pendingDelete`            | Deletion is pending, see [delete domain](#delete-domain). An advisory date is applicable via the extension [`dkhm:delDate`](dkhmdeldate)                                                                                |
-| `pendingRenew`             | *unsupported* as renewal is instantaneous, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                                                                     |
-| `pendingRestore`           | *unsupported* as restoration is instantaneous, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                                                                 |
-| `pendingTransfer`          | *unsupported* as transfer is instantaneous, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                                                                    |
+| `pendingRenew`             | _unsupported_ as renewal is instantaneous, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                                                                     |
+| `pendingRestore`           | _unsupported_ as restoration is instantaneous, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                                                                 |
+| `pendingTransfer`          | _unsupported_ as transfer is instantaneous, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                                                                    |
 | `pendingUpdate`            | The domain has active asynchronous requests, see [update domain](#update-domain)                                                                                                                                        |
 | `redemptionPeriod`         | This status is applied when a domain name has `pendingDelete` and the delete operation can be redeemed using [restore domain](#restore-domain)                                                                          |
-| `renewPeriod`              | *unsupported* the status is not described in [RFC:5731] only in [ICANN resource][ICANN], see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                       |
+| `renewPeriod`              | _unsupported_ the status is not described in [RFC:5731] only in [ICANN resource][ICANN], see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                       |
 | `serverDeleteProhibited`   | Indicates whether the registrant or registrar can delete the domain                                                                                                                                                     |
 | `serverHold`               | Given domain name is not active, it can hold a number of different _internal_ states rendering it on hold                                                                                                               |
 | `serverRenewProhibited`    | Indicates a transient status where the billing or registrar contact is not able to renew the domain                                                                                                                     |
 | `serverTransferProhibited` | Indicates status where the registrant or registrar contact is not able to transfer the domain                                                                                                                           |
 | `serverUpdateProhibited`   | Indicates whether the registrant or registrar for a given domain can have ownership transferred, can appoint new proxy/admin contact, can appoint new billing contact, change name servers and can associate DS Records |
-| `transferPeriod`           | *unsupported* the status is not described in [RFC:5731] only in [ICANN resource][ICANN]                                                                                                                                 |
+| `transferPeriod`           | _unsupported_ the status is not described in [RFC:5731] only in [ICANN resource][ICANN]                                                                                                                                 |
 
 <a id="contact-status-codes"></a>
 
@@ -4763,18 +4764,18 @@ As a general business rule, Punktum dk does not support the `client*` statuses, 
 
 | Status Code                | Description                                                                                                                                                                                                  |
 |----------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `clientDeleteProhibited`   | *unsupported*, see: [Unsupported Contact Status Codes](#unsupported-contact-status-codes)                                                                                                                    |
-| `clientTransferProhibited` | *unsupported*, see: [Unsupported Contact Status Codes](#unsupported-contact-status-codes)                                                                                                                    |
-| `clientUpdateProhibited`   | *unsupported*, see: [Unsupported Contact Status Codes](#unsupported-contact-status-codes)                                                                                                                    |
+| `clientDeleteProhibited`   | _unsupported_, see: [Unsupported Contact Status Codes](#unsupported-contact-status-codes)                                                                                                                    |
+| `clientTransferProhibited` | _unsupported_, see: [Unsupported Contact Status Codes](#unsupported-contact-status-codes)                                                                                                                    |
+| `clientUpdateProhibited`   | _unsupported_, see: [Unsupported Contact Status Codes](#unsupported-contact-status-codes)                                                                                                                    |
 | `linked`                   | Object is linked to other objects                                                                                                                                                                            |
 | `ok`                       | Exclusive for all other status codes, except `linked`                                                                                                                                                        |
-| `pendingCreate`            | *unsupported* as creation is instantaneous, see: [Unsupported Contact Status Codes](#unsupported-contact-status-codes)                                                                                       |
-| `pendingDelete`            | *unsupported*, see: [Unsupported Contact Status Codes](#unsupported-contact-status-codes)                                                                                                                    |
-| `pendingTransfer`          | *unsupported* as transfer is instantaneous, see: [Unsupported Contact Status Codes](#unsupported-domain-status-codes)                                                                                        |
-| `pendingUpdate`            | *unsupported* at this time                                                                                                                                                                                   |
+| `pendingCreate`            | _unsupported_ as creation is instantaneous, see: [Unsupported Contact Status Codes](#unsupported-contact-status-codes)                                                                                       |
+| `pendingDelete`            | _unsupported_, see: [Unsupported Contact Status Codes](#unsupported-contact-status-codes)                                                                                                                    |
+| `pendingTransfer`          | _unsupported_ as transfer is instantaneous, see: [Unsupported Contact Status Codes](#unsupported-domain-status-codes)                                                                                        |
+| `pendingUpdate`            | _unsupported_ at this time                                                                                                                                                                                   |
 | `serverDeleteProhibited`   | Always set deletions are an automated process and the delete command is not supported, see [Unimplemented Command: Delete Contact](#unimplemented-command-delete-contact)                                    |
 | `serverTransferProhibited` | Always set as users cannot be transferred, see: [Unsupported Contact Status Codes](#unsupported-contact-status-codes) and [Unimplemented Command: Transfer Contact](#unimplemented-command-transfer-contact) |
-| `serverUpdateProhibited`   | *unsupported* at this time                                                                                                                                                                                   |
+| `serverUpdateProhibited`   | _unsupported_ at this time                                                                                                                                                                                   |
 
 <a id="host-status-codes"></a>
 
@@ -4788,16 +4789,16 @@ As a general business rule, Punktum dk does not support the `client*` statuses, 
 
 | Status Code                | Description                                                                                                                             |
 |----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
-| `clientDeleteProhibited`   | *unsupported*, see: [Unsupported Host Status Codes](#unsupported-host-status-codes)                                                     |
-| `clientUpdateProhibited`   | *unsupported*, see: [Unsupported Host Status Codes](#unsupported-host-status-codes)                                                     |
+| `clientDeleteProhibited`   | _unsupported_, see: [Unsupported Host Status Codes](#unsupported-host-status-codes)                                                     |
+| `clientUpdateProhibited`   | _unsupported_, see: [Unsupported Host Status Codes](#unsupported-host-status-codes)                                                     |
 | `linked`                   | Object is linked to other objects                                                                                                       |
 | `ok`                       | No pending or prohibited operations. Exclusive for all other status codes, except `linked`                                              |
 | `pendingCreate`            | Awaiting accept from registrant if required and awaiting accept from appointed name server administrator if required                    |
 | `pendingDelete`            | Host object has been marked for deletion via deletion of superordinate domain name                                                      |
-| `pendingTransfer`          | *unsupported* as transfer is instantaneous, see: [Unsupported Host Status Codes](#unsupported-host-status-codes) and [RFC:5732]         |
+| `pendingTransfer`          | _unsupported_ as transfer is instantaneous, see: [Unsupported Host Status Codes](#unsupported-host-status-codes) and [RFC:5732]         |
 | `pendingUpdate`            | Awaiting accept from appointed name server administrator if required                                                                    |
 | `serverDeleteProhibited`   | If the host is linked is it not eligible for deletion                                                                                   |
-| `serverTransferProhibited` | *unsupported* as transfer for hosts is not defined, see: [Unsupported Host Status Codes](#unsupported-host-status-codes) and [RFC:5732] |
+| `serverTransferProhibited` | _unsupported_ as transfer for hosts is not defined, see: [Unsupported Host Status Codes](#unsupported-host-status-codes) and [RFC:5732] |
 | `serverUpdateProhibited`   | If the host is marked for deletion (see `pendingDelete` this status will be set                                                         |
 
 <a id="privilege-matrix-registrant-managed-objects"></a>
@@ -4999,7 +5000,6 @@ The version numbers used in the matrix are major numbers only, e.g. 1 for 1.X.X.
 [epp_update_host_remove_ip]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_host_remove_ip_v1.0.png
 [dkh_update_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/dkh_update_host_v1.0.png
 [epp_delete_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_delete_host_v1.1.png
-[dkh_delete_host]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/dkh_delete_host_v1.0.png
 [epp-renew-domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_renew_domain_v1.1.png
 [dkh-renew-domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/dkh_renew_domain_v1.1.png
 [epp-update-domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_domain_v1.2.png
@@ -5010,7 +5010,6 @@ The version numbers used in the matrix are major numbers only, e.g. 1 for 1.X.X.
 [dkh-update-domain-remove-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/dkh_update_domain_remove_contact_v1.0.png
 [epp-update-domain-add-ns]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_domain_add_ns_v1.0.png
 [epp-update-domain-remove-ns]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_domain_remove_ns_v1.1.png
-[epp-update-domain-change-registrant]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_domain_change_registrant_v1.2.png
 [epp_create_domain]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_create_domain_v1.0.png
 [epp_create_contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_create_contact_v1.0.png
 [RFC:3339]: https://tools.ietf.org/html/rfc3339
