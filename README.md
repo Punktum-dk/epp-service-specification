@@ -874,7 +874,7 @@ The extension support two values:
 - `true`
 - `false`
 
-Read more about the [VID service provided by Punktum dk](DKHMVID). Please note that only registrant managed domains can purchase VID service at Punktum dk.
+Read more about the [VID service provided by Punktum dk][DKHMVID]. Please note that only registrant managed domains can purchase VID service at Punktum dk.
 
 <a id="implementation-limitations"></a>
 
