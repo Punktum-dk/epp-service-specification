@@ -4,6 +4,7 @@ This is a complete list of all EPP poll messages currently available in producti
 
 ## Document History
 
+- 2025-02-21 Added new poll message domain_activated and missing documentation of existing poll message create_domain (Application for domain: %.dk rejected. User and domain handling mismatch)
 - 2024-04-16 Added missing documentation of existing poll messages domain_updated and manual_id_control
 - 2023-02-28 Added new poll messages contact_updated and delete_contact
 - 2022-02-22 Initial document draft published
@@ -23,7 +24,9 @@ This is a complete list of all EPP poll messages currently available in producti
 |domain |create_domain                |Application for domain for %.dk has been enqueued and is pending                                                         |
 |domain |create_domain                |Application for domain: %.dk has expired                                                                                 |
 |domain |create_domain                |Object exists                                                                                                            |
+|domain |create_domain                |Application for domain: %.dk rejected. User and domain handling mismatch                                                 |
 |domain |delete_domain                |Domain %.dk has been deleted                                                                                             |
+|domain |domain_activated             |Domain %.dk has been activated                                                                                           |
 |domain |domain_updated               |Domain %.dk has been updated                                                                                             |
 |domain |dsrecords_changed            |DS Records on %.dk has been changed                                                                                      |
 |domain |transfer_domain              |REG-% has been removed as registrar for %.dk                                                                             |
