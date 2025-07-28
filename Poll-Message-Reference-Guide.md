@@ -16,7 +16,7 @@ This is a complete list of all EPP poll messages currently available in producti
 |contact|contact_updated              |Contact information has been updated for %-DK                                                                            |
 |contact|delete_contact               |Contact %-DK has been deleted                                                                                            |
 |domain |accept_agreement_acknowledge |The new registrant, %-DK, has accepted our terms and conditions, for the request to transfer %.dk to %-DK.               |
-|domain |accept_agreement_expire      |The request to transfer %.dk to %-DK has been cancelled, as the new registrant has not accepted our terms and conditions.|
+|domain |accept_agreement_expire      |The request to transfer %.dk to %-DK has been cancelled, as the new registrant has not accepted our terms and conditions |
 |domain |change_billing               |% has been removed as billing contact for %.dk                                                                           |
 |domain |change_nameserver            |Nameservers for domain %.dk has been changed from %, % to %, %                                                           |
 |domain |create_domain                |Create domain pending for %.dk                                                                                           |
