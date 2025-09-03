@@ -4,6 +4,7 @@ This is a complete list of all EPP poll messages currently available in producti
 
 ## Document History
 
+- 2025-09-03 Corrected typo in the current message for contact update.
 - 2025-03-10 The document has been restructured:
     - Operation now reflects the corresponding EPP command - e.g. create, update, delete replacing e.g. create_domain, domain_updated and delete_domain
     - The ResData type column has been added to reflect the type of ResData which will be returned along with the poll message.
@@ -39,7 +40,7 @@ This is a complete list of all EPP poll messages currently available in producti
 
 |Object |Operation                    |Message                     |Old message                 |ResData type |
 |-------|-----------------------------|----------------------------|----------------------------|-------------|
-|contact|update |Contact information has been updated for %-DK |Contact information has been updated for %-DK |contact:infData |
+|contact|update |The contact information has been updated for %-DK |Contact information has been updated for %-DK |contact:infData |
 |contact|delete |%-DK has been deleted |Contact %-DK has been deleted |contact:infData |
 |domain |create |%.dk has been registered and activated |Created domain for %.dk has been approved |domain:panData |
 |domain |create |%.dk has been registered, but not activated due to pending ID check |Created domain for %.dk has been approved |domain:panData |
