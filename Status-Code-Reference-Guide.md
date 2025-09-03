@@ -144,7 +144,7 @@ This is a complete list of all EPP status codes and messages supported by Punktu
 |EPP_OBJECT_NOT_EXISTS_ERROR          |2303       |No DS records for domain                                              |Attempt to delete DS records for a domain without DS records assigned                                                   |
 |EPP_PROHIBITED_OPERATION             |2304       |Domain status prohibits operation                                     |The current status of the domain prohibits deleting DS records                                                          |
 |EPP_AUTHORIZATION_ERROR              |2201       |The given handle/user ID cannot be used as registrant                 |The user ID cannot be used as registrant possibly due to state or user ID                                             |
-|EPP_AUTHORIZATION_ERROR              |2201       |The given handle/user ID cannot be used as registrant, due to missing/rejected ID control  |The user has to complete ID control, in order to be used here.                                  |                                             |
+|EPP_AUTHORIZATION_ERROR              |2201       |The given handle/user ID cannot be used as registrant, due to missing/rejected ID control  |The user has to complete ID control, in order to be used here.                                  |
 
 ## Info domain
 
@@ -182,7 +182,7 @@ This is a complete list of all EPP status codes and messages supported by Punktu
 |EPP_PARAMETER_POLICY_ERROR           |2306       |Object is not registrar managed.                                      |Registrant cannot withdraw from registrant handled domains                                                              |
 |EPP_NOT_ELIGIBLE_FOR_TRANSFER        |2106       |Object is not ready for transfer at this time                         |The domain has not been assigned a subscription id yet. Please try again later                                          |
 |EPP_NOT_ELIGIBLE_FOR_TRANSFER        |2106       |Object is not eligible for transfer, payment status prohibits transfer|The domain must be paid                                                                                                 |
-|EPP_NOT_ELIGIBLE_FOR_TRANSFER        |2106       |Object is not eligible for transfer, domain status prohibits transfer  |The domain is blocked |Yes, there is a typo in the error message                                                        |
+|EPP_NOT_ELIGIBLE_FOR_TRANSFER        |2106       |Object is not eligible for transfer, domain status prohibits transfer  |The domain is blocked                                                         |
 |EPP_NOT_ELIGIBLE_FOR_TRANSFER        |2106       |Object is not eligible for transfer, domain status prohibits transfer |The new registrar has not been assigned an account number yet. Please try again later                                   |
 |EPP_AUTHORIZATION_ERROR              |2201       |Object is not eligible for transfer, no valid authinfo token          |There must be a valid authorization token                                                                               |
 |EPP_AUTHORIZATION_ERROR              |2201       |Object is not eligible for transfer, registrar not allowed to request registrar change |Registrant not allowed to request registrar change                                                     |

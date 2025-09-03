@@ -42,6 +42,7 @@ IPv
 Kalvebod
 København
 Pre
+Punktum
 Punycode
 RESTful
 SMTP
@@ -83,6 +84,7 @@ bd
 bda
 bec
 becbe
+behaviour
 betaler
 bfc
 bfdbb
