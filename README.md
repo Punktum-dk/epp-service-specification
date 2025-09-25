@@ -5,7 +5,7 @@
 ![Markdownlint Action][GHAMKDBADGE]
 ![Spellcheck Action][GHASPLLBADGE]
 
-2025-09-02 Revision: 5.0
+2025-09-24 Revision: 5.0.1
 
 ## Table of Contents
 
@@ -248,6 +248,12 @@ This document is copyright by Punktum dk A/S and is licensed under the MIT Licen
 <a id="document-history"></a>
 
 ### Document History
+
+- 5.0.1 2025-09-24
+
+  - The optional child element qDate was unintentionally removed from poll messages. It has now been readded.
+  - Correction of the message returned if a [change registrant](#change-registrant) command results in a pending accept by the new registrant.
+  - Updated the example for the [restore domain extension response](#restore-domain-response)
 
 - 5.0 2025-09-02
 
@@ -1360,7 +1366,8 @@ For clarification `2303` is returned in case a provided message-id (`msgID`) poi
     <result code="1301">
       <msg>Command completed successfully; ack to dequeue</msg>
     </result>
-    <msgQ count="7" id="6782867">
+    <msgQ count="1" id="123456">
+      <qDate>2025-04-29T10:33:07.0Z</qDate>
       <msg>eksempel.dk has been registered and activated</msg>
     </msgQ>
     <resData>
@@ -1415,7 +1422,7 @@ For clarification `2303` is returned in case a provided message-id (`msgID`) poi
     <result code="1000">
       <msg>Command completed successfully</msg>
     </result>
-    <msgQ count="6" id="6782764"></msgQ>
+    <msgQ count="1" id="123456"></msgQ>
     <trID>
       <clTRID>89c0aa60e35a08050092c1640c91d467</clTRID>
       <svTRID>5E7E6A1A-6560-11F0-981A-E18FCC4A6577</svTRID>
@@ -1437,7 +1444,7 @@ For clarification `2303` is returned in case a provided message-id (`msgID`) poi
     <result code="2303">
       <msg>Object does not exist</msg>
     </result>
-    <msgQ count="6" id="6782764"></msgQ>
+    <msgQ count="1" id="123456"></msgQ>
     <trID>
       <clTRID>c45a029937598d8a6e8ccbf0ddae205e</clTRID>
       <svTRID>83321D16-6560-11F0-AEB8-B000796D436E</svTRID>
@@ -1798,6 +1805,7 @@ The outcome can be one of several, please see the examples below:
       <msg>Command completed successfully; ack to dequeue</msg>
     </result>
     <msgQ count="1" id="123456">
+      <qDate>2025-09-02T13:28:01.0Z</qDate>
       <msg>eksempel.dk has been registered and activated</msg>
     </msgQ>
     <resData>
@@ -1838,6 +1846,7 @@ The outcome can be one of several, please see the examples below:
       <msg>Command completed successfully; ack to dequeue</msg>
     </result>
     <msgQ count="1" id="123456">
+      <qDate>2025-09-02T13:34:06.0Z</qDate>
       <msg>eksempel.dk has been registered, but not activated due to pending ID check</msg>
     </msgQ>
     <resData>
@@ -1878,6 +1887,7 @@ The outcome can be one of several, please see the examples below:
       <msg>Command completed successfully; ack to dequeue</msg>
     </result>
     <msgQ count="1" id="123456">
+      <qDate>2025-09-02T14:16:01.0Z</qDate>
       <msg>The application for punktum.dk has been rejected, as the domain was already taken</msg>
     </msgQ>
     <resData>
@@ -1913,6 +1923,7 @@ The outcome can be one of several, please see the examples below:
       <msg>Command completed successfully; ack to dequeue</msg>
     </result>
     <msgQ count="1" id="123456">
+      <qDate>2025-09-02T14:26:01.0Z</qDate>
       <msg>The application for eksempel.dk has been rejected, as the user and domain handling mismatched</msg>
     </msgQ>
     <resData>
@@ -1948,6 +1959,7 @@ The outcome can be one of several, please see the examples below:
       <msg>Command completed successfully; ack to dequeue</msg>
     </result>
     <msgQ count="1" id="123456">
+      <qDate>2025-09-02T14:19:54.0Z</qDate>
       <msg>The application for eksempel.dk has been cancelled</msg>
     </msgQ>
     <resData>
@@ -2648,7 +2660,7 @@ If the registrant already has completed ID-control, the second action will not b
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
     <response>
         <result code="1001">
-	        <msg>Command completed successfully; action pending</msg>
+	        <msg>Command completed. Pending registrant accept</msg>
         </result>
         <trID>
             <clTRID>3865a5fa134cd896455a909ebb2958c7</clTRID>
@@ -3306,19 +3318,20 @@ As described in [RFC:3915], multiple report requests can be submitted, until suc
 
 ##### restore domain response
 
-A response indicating unsuccessful restoration attempt will look as follows:
+A response indicating unsuccessful restoration attempt if the domain is not eligble for restoration by the current user will look as follows:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp
-  xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  xmlns="urn:ietf:params:xml:ns:epp-1.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
   <response>
-    <result code="2004">
-      <msg>Delete date is incorrect</msg>
+    <result code="2201">
+      <msg>No privilege. You are not authorized to restore domain</msg>
     </result>
     <trID>
-      <clTRID>3865a5fa134cd896455a409ebb2958c7</clTRID>
-      <svTRID>4CDF5D36-AD97-11EF-A65B-622FDC063AF2</svTRID>
+      <clTRID>bcfd3fa74ed98b3f64774d120dc5a7d5</clTRID>
+      <svTRID>0DB4E2E8-88B1-11F0-AEA1-E15658147090</svTRID>
     </trID>
   </response>
 </epp>
@@ -4356,7 +4369,8 @@ If the creation of the host has resulting in a delayed operation, pending the de
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
   <response>
     <result code="1301">
-      <msgQ count="1" id="12345">
+      <msgQ count="1" id="123456">
+        <qDate>2025-08-30T09:35:16.0Z</qDate>
         <msg>Command completed successfully; ack to dequeue</msg>
       </result>
       <msg>The name server ns1.eksempel.dk has been registered, as ADMIN1-DK has accepted the name server manager role</msg>
@@ -4445,7 +4459,8 @@ If the creation of the host has resulting in a delayed operation, pending the de
     <result code="1301">
       <msg>Command completed successfully; ack to dequeue</msg>
     </result>
-    <msgQ count="1" id="12345">
+    <msgQ count="1" id="123456">
+      <qDate>2025-08-30T09:49:06.0Z</qDate>
       <msg>The name server ns1.eksempel.dk has been registered, as the registrant has approved it</msg>
     </msgQ>
     <resData>
@@ -4744,7 +4759,8 @@ If the creation of the host has resulting in a delayed operation, pending the de
     <result code="1301">
       <msg>Command completed successfully; ack to dequeue</msg>
     </result>
-    <msgQ count="1" id="12345">
+    <msgQ count="1" id="123456">
+      <qDate>2025-08-30T10:14:30.0Z</qDate>
       <msg>The name server manager role for ns1.eksempel.dk has been accepted by ADMIN2-DK</msg>
     </msgQ>
     <resData>
