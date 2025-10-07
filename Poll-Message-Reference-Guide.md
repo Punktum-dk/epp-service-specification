@@ -4,6 +4,7 @@ This is a complete list of all EPP poll messages currently available in producti
 
 ## Document History
 
+- 2025-10-07 Corrected the current host create/update messages to reflect that is now possible to use a REG-handle as a name server manager.
 - 2025-09-03 Corrected typo in the current message for contact update.
 - 2025-03-10 The document has been restructured:
     - Operation now reflects the corresponding EPP command - e.g. create, update, delete replacing e.g. create_domain, domain_updated and delete_domain
@@ -38,8 +39,8 @@ This is a complete list of all EPP poll messages currently available in producti
 
 ## Poll Messages
 
-|Object |Operation                    |Message                     |Old message                 |ResData type |
-|-------|-----------------------------|----------------------------|----------------------------|-------------|
+|Object |Operation                    |Message                     |Old message (pre 2025-03-10) |ResData type |
+|-------|-----------------------------|----------------------------|-----------------------------|-------------|
 |contact|update |The contact information has been updated for %-DK |Contact information has been updated for %-DK |contact:infData |
 |contact|delete |%-DK has been deleted |Contact %-DK has been deleted |contact:infData |
 |domain |create |%.dk has been registered and activated |Created domain for %.dk has been approved |domain:panData |
@@ -67,11 +68,11 @@ This is a complete list of all EPP poll messages currently available in producti
 |host |create |The name server %.dk has been registered, as the registrant has approved it |Host % has been created |host:panData |
 |host |create |The name server %.dk has not been registered, as it has been rejected by the registrant | |host:panData |
 |host |create |The name server %.dk has not been registered, as it was not approved by the registrant in time | |host:panData |
-|host |create |The name server %.dk has been registered, as the registrant has approved it and %-DK has accepted the name server manager role |Host % has been created |host:panData |
+|host |create |The name server %.dk has been registered, as the registrant has approved it and % has accepted the name server manager role |Host % has been created |host:panData |
 |host |create |The name server %.dk has not been registered, as the name server manager role has been rejected | |host:panData |
 |host |create |The name server %.dk has not been registered, as the name server manager role was not accepted in time | |host:panData |
-|host |create |The name server %.dk has been registered, as %-DK has accepted the name server manager role |Host % has been created |host:panData |
-|host |update |The name server manager role for % has been accepted by %-DK |Transfer of name server % has been accepted |host:panData |
-|host |update |The name server manager role for % has been rejected by %-DK | |host:panData |
-|host |update |The name server manager role for % has not been accepted by %-DK in time | |host:panData |
+|host |create |The name server %.dk has been registered, as % has accepted the name server manager role |Host % has been created |host:panData |
+|host |update |The name server manager role for % has been accepted by % |Transfer of name server % has been accepted |host:panData |
+|host |update |The name server manager role for % has been rejected by % | |host:panData |
+|host |update |The name server manager role for % has not been accepted by % in time | |host:panData |
 |host |delete |The name server % has been deleted | | host:infData |
