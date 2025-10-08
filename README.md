@@ -5,7 +5,7 @@
 ![Markdownlint Action][GHAMKDBADGE]
 ![Spellcheck Action][GHASPLLBADGE]
 
-2025-09-24 Revision: 5.0.1
+2025-10-07 Revision: 5.1
 
 ## Table of Contents
 
@@ -248,6 +248,12 @@ This document is copyright by Punktum dk A/S and is licensed under the MIT Licen
 <a id="document-history"></a>
 
 ### Document History
+
+- 5.1 2025-10-07
+
+  - Use of the `dkhm:orderconfirmationToken` extension is now always required by the [change registrant](#change-registrant) command.
+  - Is it now possible to use a REG-handle as an admin contact on a registranthandled domain. Previously this was only possible for the billing contact on a registranthandled domain.
+  - It is now possible to use a REG-handle as a name server manager.
 
 - 5.0.1 2025-09-24
 
@@ -743,7 +749,7 @@ This extension has been deprecated. The data is instead made available by `pendi
 
 ### `dkhm:domain_confirmed`
 
-Domain names registered with Punktum dk, has to be confirmed by the registrant, this can either be done using pre-application agreement to Punktum dk's Terms and Conditions, see the [`dkhm:orderconfirmationToken`](#dkhmorderconfirmationtoken) extension or other systems with Punktum dk. The domain confirmation process is handled via the [create domain](#create-domain) command using this extension.
+Domain names registered with Punktum dk, has to be confirmed by the registrant, this can be done using pre-application agreement to Punktum dk's Terms and Conditions, see the [`dkhm:orderconfirmationToken`](#dkhmorderconfirmationtoken) extension. The domain confirmation process is handled via the [create domain](#create-domain) command using this extension.
 
 <a id="dkhmdomainadvisory"></a>
 
@@ -1632,7 +1638,7 @@ The EPOCH timestamp must not exceed 24 hours into the future compared to local t
 
 The `token` is handled the following way:
 
-- If absent Punktum dk will require the agreement for the terms and conditions be accepted with Punktum dk, this process is handled by Punktum dk
+- If absent. The command will result in an error.
 - If present. The token will be validated by Punktum dk
 - if not valid the request with result in an error and the request will be dismissed
 - if valid the request will be accepted and processed
@@ -2616,63 +2622,12 @@ This mean the following prerequisites have to be met:
 
 - The contact designated to be appointed as the new registrant has to be in a state where it can be assigned the role of registrant
 
-The command can be issued in two variations:
+- The registrar will have to collect the accept of terms and conditions for Punktum dk from the contact designated to be appointed as the new registrant
 
-1. With the use of the `dkhm:orderconfirmationToken`, where the designated registrant has approved Terms and Condition for Punktum dk with the registrar.
+The use of the `dkhm:orderconfirmationToken` extension is always required in order to relay the accept of Terms and Condition for Punktum dk from the new registrant to Punktum dk.
+Without the extension the command will fail. This usage is identical to domain name application using [create domain](#create-domain).
 
-1. As standard without any use of extensions
-
-The two above methods reflect the same usage as for domain name application using [create domain](#create-domain).
-
-Here follows an example of a request to change the registrant using the second method.
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<epp
-  xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <command>
-    <update>
-      <domain:update
-        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-        <domain:name>eksempel.dk</domain:name>
-        <domain:add/>
-        <domain:rem/>
-        <domain:chg>
-          <domain:registrant>DKHM1-DK</domain:registrant>
-        </domain:chg>
-      </domain:update>
-    </update>
-    <clTRID>cb41df67d0a03568e1babbfb510f585a</clTRID>
-  </command>
-</epp>
-```
-
-The response indicates that the operation has one or more pending actions
-
-1. Punktum dk require that the designated registrant accepts terms and conditions
-
-1. Punktum dk require that ID-control is successfully completed
-
-If the registrant already has completed ID-control, the second action will not be required.
-
-```xml
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-    <response>
-        <result code="1001">
-	        <msg>Command completed. Pending registrant accept</msg>
-        </result>
-        <trID>
-            <clTRID>3865a5fa134cd896455a909ebb2958c7</clTRID>
-            <svTRID>4CDF5D36-AD97-11EF-A65B-622FDC063AF2</svTRID>
-        </trID>
-    </response>
-</epp>
-```
-
-To assist the registrant the registrar can offer to collect the accept of terms and conditions for Punktum dk and indicate the accept of these via the extension: `dkhm:orderconfirmationToken`.
-
-Then the request would have to be extended with the use of this extension:
+Here follows an example of a request to change the registrant.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -2700,7 +2655,7 @@ Then the request would have to be extended with the use of this extension:
 </epp>
 ```
 
-The below example of a response, when the accept of terms and conditions has been collected and ID-control has been completed beforehand.
+If the registrant already has completed ID-control, the change wil now be completed with this response:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -2716,6 +2671,23 @@ The below example of a response, when the accept of terms and conditions has bee
       <svTRID>441D3264-6C81-11F0-B179-97A77FBE290A</svTRID>
     </trID>
   </response>
+</epp>
+```
+
+If Punktum dk require that ID-control must be successfully completed before the change can be completed the response will indicate that:
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+    <response>
+        <result code="1001">
+	        <msg>Command completed. Pending registrant accept</msg>
+        </result>
+        <trID>
+            <clTRID>3865a5fa134cd896455a909ebb2958c7</clTRID>
+            <svTRID>4CDF5D36-AD97-11EF-A65B-622FDC063AF2</svTRID>
+        </trID>
+    </response>
 </epp>
 ```
 
