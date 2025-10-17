@@ -5,7 +5,7 @@
 ![Markdownlint Action][GHAMKDBADGE]
 ![Spellcheck Action][GHASPLLBADGE]
 
-2025-10-07 Revision: 5.1
+2025-11-07 Revision: 5.2
 
 ## Table of Contents
 
@@ -32,6 +32,7 @@
   - [`dkhm:authInfoExDate`](#dkhmauthinfoexdate)
   - [`dkhm:autoRenew`](#dkhmautorenew)
   - [`dkhm:contact_validated`](#dkhmcontact_validated)
+  - [`dkhm:contact_verification`](#dkhmcontactverification)
   - [`dkhm:CVR`](#dkhmcvr)
   - [`dkhm:delDate`](#dkhmdeldate)
   - [`dkhm:domain_confirmed`](#dkhmdomain_confirmed)
@@ -45,6 +46,7 @@
   - [`dkhm:requestedNsAdmin`](#dkhmrequestednsadmin)
   - [`dkhm:risk_assessment`](#dkhmrisk_assessment)
   - [`dkhm:secondaryEmail`](#dkhmsecondaryemail)
+  - [`dkhm:sole_proprietorship`](#dkhmsoleproprietorship)
   - [`dkhm:trackingNo`](#dkhmtrackingno)
   - [`dkhm:url`](#dkhmurl)
   - [`dkhm:userType`](#dkhmusertype)
@@ -248,6 +250,13 @@ This document is copyright by Punktum dk A/S and is licensed under the MIT Licen
 <a id="document-history"></a>
 
 ### Document History
+
+- 5.2 2025-11-07
+
+  - Added two new extensions related to NIS2:
+    - [`dkhm:sole_proprietorship`](#dkhmsoleproprietorship)
+    - [`dkhm:contact_verification`](#dkhmcontactverification)
+  - All phone numbers wil now be syntax validated in accordance with the rules dictated by the country code part of the phone number.
 
 - 5.1 2025-10-07
 
@@ -650,9 +659,13 @@ The EPP does not have any commands that work on the account level, except for th
 
 - [`dkhm:management`](#dkhmmanagement)
 
-[create domain](#create-domain) is reacting to the the setting of the default renewal model. Settings can be changed used extension:
+[create domain](#create-domain) is reacting to the setting of the default renewal model. Settings can be changed using extension:
 
 - [`dkhm:autoRenew`](#dkhmautorenew)
+
+[create contact](#create-contact), [update contact](#update-contact) is reacting to the verification responsible setting. Status of contact verification can be set using extension:
+
+- [`dkhm:contact_verification`](#dkhmcontactverification)
 
 Specification and setting the registrar account settings are reserved to the **Registrar Portal** (RP) and requires an active registrar account for access.
 
@@ -673,6 +686,7 @@ Here follows a list of the extensions in alphabetical order. All are described s
 - `dkhm:autoRenew`
 - `dkhm:delDate`
 - `dkhm:contact_validated`
+- `dkhm:contact_verification`
 - `dkhm:CVR`
 - `dkhm:domain_confirmed`
 - `dkhm:domainAdvisory`
@@ -685,6 +699,7 @@ Here follows a list of the extensions in alphabetical order. All are described s
 - `dkhm:requestedNsAdmin`
 - `dkhm:risk_assessment`
 - `dkhm:secondaryEmail`
+- `dkhm:sole_proprietorship`
 - `dkhm:trackingNo`
 - `dkhm:url`
 - `dkhm:userType`
@@ -732,6 +747,71 @@ The default for a registrar account is auto-renewal. A new default can be set in
 ### `dkhm:contact_validated`
 
 Contact objects related to the role of registrant has to be validated, this field is used to indicate the status of a validation of a contact object via the [info contact](#info-contact) command.
+
+<a id="dkhmcontactverification"></a>
+
+### `dkhm:contact_verification`
+
+Contact structure related to verifying contact ID and email.
+
+Contains the following fields:
+
+- [`dkhm:contact_verification / responsible`](#dkhmcontactverificationresponsible)
+- [`dkhm:contact_verification / verified_id`](#dkhmcontactverificationverifiedid)
+- [`dkhm:contact_verification / verified_email`](#dkhmcontactverificationverifiedemail)
+
+Please see:
+
+- the [create contact](#create-contact) command for setting the verification status for a given contact on creation
+- the [update contact](#update-contact) command for changing the verification status for a given contact
+- the [info contact](#info-contact) command, to see verification status for a given contact
+
+<a id="dkhmcontactverificationresponsible"></a>
+
+### `dkhm:contact_verification` / `dkhm:responsible`
+
+Specifies who handles the contact verification.
+
+- `registrar`, indicates that registrar handles verification of the contact. This value is only available for registrar handled contacts (see [`dkhm:management`](#dkhmmanagement)). 
+- `registry`, indicates that Punktum dk handles verification of the contact.
+
+If a contact is registrar handled this value always reflects the [registrar account verification setting](#registrar-account-settings)
+
+<a id="dkhmcontactverificationverifiedid"></a>
+
+### `dkhm:contact_verification` / `dkhm:verified_id`
+
+This element states if the identity has been verified - the name and address is correct and belongs to the customer.
+
+- `true`, indicates that the identity has been verified
+- `false`, indicates that the identity has not yet been verified
+
+On  [info contact](#info-contact) the following attributes may be presented.
+
+- `status` indicates the verification status, using the following values
+   - `notRequired`, No verification is required.
+   - `pending`, Verification is currently in progress.
+   - `expired`, Verification has timed out.
+   - `completed`, Verification has been completed.
+- `expdate` - Only if verification is in progress: the date and time that the verification is going to expire if not completed.
+
+<a id="dkhmcontactverificationverifiedemail"></a>
+
+### `dkhm:contact_verification` / `dkhm:verified_email`
+
+This element states if the email has been verified - the email address is correct and belongs to the customer.
+
+- `true`, indicates that registrar has verified the user.
+- `false`, indicates that the registrar could not verify the user.
+
+On  [info contact](#info-contact) the following attributes may be presented.
+
+- `status` indicates the verification status, using the following values
+   - `notRequired`, No verification is required.
+   - `pending`, Verification is currently in progress.
+   - `expired`, Verification has timed out.
+   - `completed`, Verification has been completed.
+- `expdate` - Only if verification is in progress: the date and time that the verification is going to expire if not completed.
 
 <a id="dkhmcvr"></a>
 
@@ -847,6 +927,25 @@ Please see the [create domain](#create-domain) command.
 ### `dkhm:secondaryEmail`
 
 Contact objects can have a secondary email address in addition to `email`.
+
+<a id="dkhmsoleproprietorship"></a>
+
+### `dkhm:sole_proprietorship`
+
+In relation to NIS2 a company with a sole proprietorship (owned by a single individual) has the same protection as an individual, so email will not be visible in the public whois and other services providing unprivileged access to the contact data.
+
+For Danish companies this status is based on the company type in the CVR register. For companies outside Denmark it is possible to use this extension to mark a contact as a sole proprietorship.
+
+Please see:
+
+- the [info contact](#info-contact) command, for inspecting the value for a given contact.
+- the [create contact](#create-contact) command for setting the value for a given contact.
+- the [update contact](#update-contact) command for changing the value for a given contact.
+
+The extension support two values:
+
+- `true`, indicating that the contact is marked as a sole proprietorship
+- `false`, indicating that the contact is not marked as a sole proprietorship
 
 <a id="dkhmtrackingno"></a>
 
@@ -1193,7 +1292,7 @@ As announced in the [greeting](#greeting), the following objects are available:
 With regard to extensions, the following are available:
 
 - [secDNS-1.1][DKHMXSD]
-- [dkhm-4.4][DKHMXSD]
+- [dkhm-4.5][DKHMXSD]
 - [dkhm-domain-4.4][DKHMXSD]
 
 Please see the greeting response included in the [appendices](#greeting) for illustration of the actual announcement.
@@ -1253,7 +1352,7 @@ A connection can be prematurely terminated if the service gets in a unstable sta
         <objURI>urn:ietf:params:xml:ns:contact-1.0</objURI>
         <svcExtension>
           <extURI>urn:ietf:params:xml:ns:secDNS-1.1</extURI>
-          <extURI>urn:dkhm:params:xml:ns:dkhm-4.4</extURI>
+          <extURI>urn:dkhm:params:xml:ns:dkhm-4.5</extURI>
         </svcExtension>
       </svcs>
     </login>
@@ -1389,7 +1488,7 @@ For clarification `2303` is returned in case a provided message-id (`msgID`) poi
     </resData>
     <extension>
       <dkhm:risk_assessment
-        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">BLUE
+        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">BLUE
       </dkhm:risk_assessment>
     </extension>
     <trID>
@@ -1605,13 +1704,13 @@ The customized response for a domain creation request looks as follows:
     </result>
     <extension>
       <dkhm:trackingNo
-        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">2025072800001
+        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">2025072800001
       </dkhm:trackingNo>
       <dkhm:domain_confirmed
-        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">1
+        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">1
       </dkhm:domain_confirmed>
       <dkhm:registrant_validated
-        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">1
+        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">1
       </dkhm:registrant_validated>
     </extension>
     <trID>
@@ -1627,7 +1726,7 @@ The [create domain](#create-domain) command has been extended with a field (`ord
 ```xml
 <extension>
   <dkhm:orderconfirmationToken
-    xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">1753696971
+    xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">1753696971
   </dkhm:orderconfirmationToken>
 </extension>
 ```
@@ -1735,10 +1834,10 @@ See diagram: [:eye_speech_bubble:][epp_create_domain]
     </create>
     <extension>
       <dkhm:management
-        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">registrant
+        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">registrant
       </dkhm:management>
       <dkhm:orderconfirmationToken
-        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">1753696971
+        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">1753696971
       </dkhm:orderconfirmationToken>
     </extension>
     <clTRID>095f6d91095189c88977166b61d196b9</clTRID>
@@ -1761,13 +1860,13 @@ See diagram: [:eye_speech_bubble:][epp_create_domain]
     </result>
     <extension>
       <dkhm:trackingNo
-        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">2025072800001
+        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">2025072800001
       </dkhm:trackingNo>
       <dkhm:domain_confirmed
-        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">1
+        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">1
       </dkhm:domain_confirmed>
       <dkhm:registrant_validated
-        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">1
+        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">1
       </dkhm:registrant_validated>
     </extension>
     <trID>
@@ -1827,7 +1926,7 @@ The outcome can be one of several, please see the examples below:
     </resData>
     <extension>
       <dkhm:risk_assessment
-        xmlns:dkhm='urn:dkhm:params:xml:ns:dkhm-4.4'>BLUE
+        xmlns:dkhm='urn:dkhm:params:xml:ns:dkhm-4.5'>BLUE
       </dkhm:risk_assessment>
     </extension>
     <trID>
@@ -1868,7 +1967,7 @@ The outcome can be one of several, please see the examples below:
     </resData>
     <extension>
       <dkhm:risk_assessment
-        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">RED
+        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">RED
       </dkhm:risk_assessment>
     </extension>
     <trID>
@@ -2207,7 +2306,7 @@ Please see the [addendum on domain status codes](#domain-status-codes).
     </resData>
     <extension>
       <dkhm:registrant_validated
-        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">1
+        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">1
       </dkhm:registrant_validated>
       <secDNS:infData
         xmlns:secDNS="urn:ietf:params:xml:ns:secDNS-1.1">
@@ -2219,10 +2318,10 @@ Please see the [addendum on domain status codes](#domain-status-codes).
         </secDNS:dsData>
       </secDNS:infData>
       <dkhm:autoRenew
-        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">true
+        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">true
       </dkhm:autoRenew>
       <dkhm:vid
-        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">true
+        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">true
       </dkhm:vid>
     </extension>
     <trID>
@@ -2249,7 +2348,7 @@ If a domain name is marked for pending deletion, this special status is communic
 ```xml
 <extension>
   <dkhm:domainAdvisory advisory="pendingDeletionDate" date="2025-07-28T22:00:00.0Z" domain="eksempel.dk"
-    xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4"/>
+    xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5"/>
 </extension>
 ```
 
@@ -2262,7 +2361,7 @@ If a domain name is offered to a position on a waiting list, the advisory `offer
 ```xml
 <extension>
   <dkhm:domainAdvisory advisory="offeredOnWaitingList" domain="eksempel.dk"
-    xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4"/>
+    xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5"/>
 </extension>
 ```
 
@@ -2289,7 +2388,7 @@ Since a waiting list offering is not a complete domain name registration the dat
     </resData>
     <extension>
       <dkhm:domainAdvisory advisory="offeredOnWaitingList" domain="eksempel.dk"
-        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4"/>
+        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5"/>
     </extension>
     <trID>
      <clTRID>5a8afa3ead777c161cefffa861431ad7</clTRID>
@@ -2334,16 +2433,16 @@ When the AuthInfo token has been set it can be retrieved via the EPP command: `i
     </resData>
     <extension>
       <dkhm:registrant_validated
-        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">1
+        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">1
       </dkhm:registrant_validated>
       <dkhm:authInfo expdate="2025-08-10T13:05:19.0Z" op="transfer"
-        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">REG-TRANSFER-dd521b38b8419f1ea833fd3b0d75f334
+        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">REG-TRANSFER-dd521b38b8419f1ea833fd3b0d75f334
       </dkhm:authInfo>
       <dkhm:autoRenew
-        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">true
+        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">true
       </dkhm:autoRenew>
       <dkhm:vid
-        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">false
+        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">false
       </dkhm:vid>
     </extension>
     <trID>
@@ -2647,7 +2746,7 @@ Here follows an example of a request to change the registrant.
     </update>
     <extension>
       <dkhm:orderconfirmationToken
-        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">1753707224
+        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">1753707224
       </dkhm:orderconfirmationToken>
     </extension>
     <clTRID>3865a5fa134cd896455a909ebb2958d7</clTRID>
@@ -3194,7 +3293,7 @@ Example:
 
 ```xml
 <extension>
-  <dkhm:domainAdvisory advisory="pendingDeletionDate" date="2025-08-27T22:00:00.0Z" domain="eksempel.dk" xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4"/>
+  <dkhm:domainAdvisory advisory="pendingDeletionDate" date="2025-08-27T22:00:00.0Z" domain="eksempel.dk" xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5"/>
 </extension>
 ```
 
@@ -3538,7 +3637,7 @@ An example of a withdraw XML request would look as follows (example lifted from 
   xmlns="urn:ietf:params:xml:ns:epp-1.0">
   <extension>
     <command
-      xmlns="urn:dkhm:params:xml:ns:dkhm-4.4">
+      xmlns="urn:dkhm:params:xml:ns:dkhm-4.5">
       <withdraw>
         <domain:withdraw
           xmlns:domain="urn:dkhm:params:xml:ns:dkhm-domain-4.4">
@@ -3810,11 +3909,19 @@ Please note:
     </create>
     <extension>
       <dkhm:userType
-        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">company
+        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">company
       </dkhm:userType>
       <dkhm:CVR
-        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">1234567891231
+        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">1234567891231
       </dkhm:CVR>
+      <dkhm:sole_proprietorship
+        xmlns:dkhm='urn:dkhm:params:xml:ns:dkhm-4.5'>true
+      </dkhm:sole_proprietorship>
+      <dkhm:contact_verification
+        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">
+        <dkhm:verified_id>true</dkhm:verified_id>
+        <dkhm:verified_email>true</dkhm:verified_email>
+      </dkhm:contact_verification>
     </extension>
     <clTRID>20cd4b2c2bcd78540f2d9a427f602414</clTRID>
   </command>
@@ -3925,6 +4032,8 @@ The command has also been extended with information (if available) from the foll
 - [`dkhm:pnumber`](#dkhmpnumber)
 - [`dkhm:mobilephone`](#dkhmmobilephone)
 - [`dkhm:secondaryEmail`](#dkhmsecondaryemail)
+- [`dkhm:sole_proprietorship`](#dkhmsoleproprietorship)
+- [`dkhm:contact_verification`](#dkhmcontactverification)
 
 The info contact command response is only available for the registrant contact object, unless the authenticated user has a relationship via the domain name or a registrar group association, which provides access to more information or additional contact objects.
 
@@ -3988,14 +4097,23 @@ The info contact command response is only available for the registrant contact o
     </resData>
     <extension>
       <dkhm:contact_validated
-        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">1
+        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">1
       </dkhm:contact_validated>
       <dkhm:CVR
-        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">24210375
+        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">24210375
       </dkhm:CVR>
       <dkhm:userType
-        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">company
+        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">company
       </dkhm:userType>
+      <dkhm:sole_proprietorship
+        xmlns:dkhm='urn:dkhm:params:xml:ns:dkhm-4.5'>false
+      </dkhm:sole_proprietorship>
+      <dkhm:contact_verification
+        xmlns:dkhm='urn:dkhm:params:xml:ns:dkhm-4.5'>
+        <dkhm:responsible>registry</dkhm:responsible>
+        <dkhm:verified_id  status="completed" >false</dkhm:verified_id>
+        <dkhm:verified_email  status="notRequired" >false</dkhm:verified_email>
+      </dkhm:contact_verification>
     </extension>
     <trID>
       <clTRID>6e7ccb5d042befa3b8299ac74a9edfba</clTRID>
@@ -4017,6 +4135,8 @@ This part of the EPP protocol is described in [RFC:5733]. This command adheres t
 - [`dkhm:pnumber`](#dkhmpnumber)
 - [`dkhm:mobilephone`](#dkhmmobilephone)
 - [`dkhm:secondaryEmail`](#dkhmsecondaryemail)
+- [`dkhm:sole_proprietorship`](#dkhmsoleproprietorship)
+- [`dkhm:contact_verification`](#dkhmcontactverification)
 
 These are of course all controlled by relevant privileges.
 
@@ -4067,11 +4187,18 @@ Please note:
     </update>
     <extension>
       <dkhm:mobilephone
-        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">+1.7034444445
+        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">+1.7034444445
       </dkhm:mobilephone>
       <dkhm:secondaryEmail
-        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">email@eksempel.dk
+        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">email@eksempel.dk
       </dkhm:secondaryEmail>
+      <dkhm:sole_proprietorship
+        xmlns:dkhm='urn:dkhm:params:xml:ns:dkhm-4.5'>true
+      </dkhm:sole_proprietorship>
+      <dkhm:contact_verification
+        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">
+        <dkhm:verified_id>true</dkhm:verified_id>
+      </dkhm:contact_verification>
     </extension>
     <clTRID>d9381652a4ee6001a5600c1f247be81d</clTRID>
   </command>
@@ -4297,7 +4424,7 @@ Any pending administrator requests are terminated upon creating a new administra
     </create>
     <extension>
       <dkhm:requestedNsAdmin
-        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">ADMIN1-DK
+        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">ADMIN1-DK
       </dkhm:requestedNsAdmin>
     </extension>
     <clTRID>c9944a06e4c3fbf02b7d14c399e494f1</clTRID>
@@ -4685,7 +4812,7 @@ Request to update a host object, requesting a different administrator of the hos
     </update>
     <extension>
       <dkhm:requestedNsAdmin
-        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.4">ADMIN2-DK
+        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">ADMIN2-DK
       </dkhm:requestedNsAdmin>
     </extension>
     <clTRID>30f43d8302d48c8bf79d9fe27776fe7a</clTRID>
@@ -4897,15 +5024,14 @@ This is a list in alphabetical order of the schemas currently used in the DKHM E
 
 - `balance-1.0.xsd`
 - `contact-1.0.xsd`
-- `dkhm-4.4.xsd`
+- `dkhm-4.5.xsd`
+- `dkhm-domain-4.4`
 - `domain-1.0.xsd`
 - `epp-1.0.xsd`
 - `eppcom-1.0.xsd`
 - `host-1.0.xsd`
 - `rgp-1.0.xsd`
 - `secDNS-1.1.xsd`
-- `dkhm-4.4.xsd`
-- `dkhm-domain-4.4`
 
 The files are all available for [download][DKHMXSD]. Details on version history is available in the [EPP XSD Repository][DKHMXSD]
 
@@ -4937,7 +5063,7 @@ EPP service is running in the environment queried.
 <epp
   xmlns="urn:ietf:params:xml:ns:epp-1.0">
   <greeting>
-    <svID>Punktum dk EPP Service (production): 5.0.0 eppproxy/2.0.0</svID>
+    <svID>Punktum dk EPP Service (production): 5.2.0</svID>
     <svDate>2025-09-02T15:07:16.0Z</svDate>
     <svcMenu>
       <version>1.0</version>
@@ -4948,7 +5074,7 @@ EPP service is running in the environment queried.
       <objURI>http://www.verisign.com/epp/balance-1.0</objURI>
       <svcExtension>
         <extURI>urn:ietf:params:xml:ns:secDNS-1.1</extURI>
-        <extURI>urn:dkhm:params:xml:ns:dkhm-4.4</extURI>
+        <extURI>urn:dkhm:params:xml:ns:dkhm-4.5</extURI>
         <extURI>urn:dkhm:params:xml:ns:dkhm-domain-4.4</extURI>
       </svcExtension>
     </svcMenu>
