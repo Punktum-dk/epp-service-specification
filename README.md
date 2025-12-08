@@ -1225,7 +1225,7 @@ The following characters are legal special characters in passwords:
 % ` ' ( ) * + - , . / : ; < > = ! _ & ~ { } | ^ ? $ # @ " [ ]
 ```
 
-Successful authentication established a session with a life span of 700 seconds (5 minutes), it can be kept alive by sending additional `hello` commands or similar.
+Successful authentication established a session with a life span of 300 seconds (5 minutes), it can be kept alive by sending additional `hello` commands or similar.
 
 The overall life span is 28800 seconds (8 hours) after this the session is terminated and should be reestablished with a new authentication (`login`).
 
