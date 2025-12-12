@@ -795,6 +795,10 @@ On  [info contact](#info-contact) the following attributes may be presented.
    - `completed`, Verification has been completed.
 - `expdate` - Only if verification is in progress: the date and time that the verification is going to expire if not completed.
 
+This may be omitted in [update contact](#update-contact). If
+   - `Responsible = registry`, verified_id will go through our risk engine and determine if verified_id = `false` or `true`
+   - `Responsible = registrar`, verified_id will become `true`, as we assume you have verified contacts id.
+
 <a id="dkhmcontactverificationverifiedemail"></a>
 
 ### `dkhm:contact_verification` / `dkhm:verified_email`
@@ -813,6 +817,10 @@ On  [info contact](#info-contact) the following attributes may be presented.
    - `completed`, Verification has been completed.
 - `expdate` - Only if verification is in progress: the date and time that the verification is going to expire if not completed.
 
+This may be omitted in [update contact](#update-contact). If
+   - `Responsible = registry`, verified_email will become `false`
+   - `Responsible = registrar`, verified_email will become `true`, as we assume you have verified contact email
+
 <a id="dkhmcontactverificationconfirmemail"></a>
 
 ### `dkhm:contact_verification` / `dkhm:confirm_email`
@@ -826,6 +834,8 @@ On [info contact](#info-contact) the following attributes is presented.
    - `pending`, Verification is currently in progress.
 and
    - `expdate`, the date and time that the verification is going to expire.
+and
+   - `responsible`, states who is responsible for authentification.
 and
    - `email address`, the email address with an active request.
 
@@ -842,6 +852,8 @@ On [info contact](#info-contact) the following attributes is presented.
    - `pending`, Verification is currently in progress.
 and
    - `expdate`, the date and time that the verification is going to expire.
+and
+   - `responsible`, states who is responsible for authentification.
 and
    - `email address`, the email address with an active request.
 
