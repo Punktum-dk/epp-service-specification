@@ -799,10 +799,10 @@ On  [info contact](#info-contact) the following attributes may be presented.
 
 ### `dkhm:contact_verification` / `dkhm:verified_email`
 
-This element states if the email has been verified - the email address is correct and belongs to the customer.
+This element states if the primary email has been verified - the email address is correct and belongs to the customer.
 
-- `true`, indicates that registrar has verified the user.
-- `false`, indicates that the registrar could not verify the user.
+- `true`, indicates that registrar has verified the email address.
+- `false`, indicates that the registrar could not verify the email address.
 
 On  [info contact](#info-contact) the following attributes may be presented.
 
@@ -812,6 +812,38 @@ On  [info contact](#info-contact) the following attributes may be presented.
    - `expired`, Verification has timed out.
    - `completed`, Verification has been completed.
 - `expdate` - Only if verification is in progress: the date and time that the verification is going to expire if not completed.
+
+<a id="dkhmcontactverificationconfirmemail"></a>
+
+### `dkhm:contact_verification` / `dkhm:confirm_email`
+
+This element states if there is an active request on change of primary email. This is only shown if a request is active.
+
+If the request is not completed, the primary email address is not changed.
+
+On [info contact](#info-contact) the following attributes is presented.
+
+   - `pending`, Verification is currently in progress.
+and
+   - `expdate`, the date and time that the verification is going to expire.
+and
+   - `email address`, the email address with an active request.
+
+<a id="dkhmcontactverificationconfirmsecondaryemail"></a>
+
+### `dkhm:contact_verification` / `dkhm:confirm_secondary_email`
+
+This element states if there is an active request on change or addition of secondary email. This is only shown if a request is active.
+
+If the request is not completed, the secondary email address is not changed or added.
+
+On [info contact](#info-contact) the following attributes is presented.
+
+   - `pending`, Verification is currently in progress.
+and
+   - `expdate`, the date and time that the verification is going to expire.
+and
+   - `email address`, the email address with an active request.
 
 <a id="dkhmcvr"></a>
 
@@ -4111,8 +4143,10 @@ The info contact command response is only available for the registrant contact o
       <dkhm:contact_verification
         xmlns:dkhm='urn:dkhm:params:xml:ns:dkhm-4.5'>
         <dkhm:responsible>registry</dkhm:responsible>
-        <dkhm:verified_id  status="completed" >false</dkhm:verified_id>
-        <dkhm:verified_email  status="notRequired" >false</dkhm:verified_email>
+        <dkhm:verified_id  status="completed" >true</dkhm:verified_id>
+        <dkhm:verified_email  status="completed" >true</dkhm:verified_email>
+        <dkhm:confirm_email expdate="2025-11-28T22:59:59.0Z" responsible="registry" status="pending">new_email@for_this_contact.nu</dkhm:confirm_email>
+        <dkhm:confirm_secondary_email expdate="2025-11-28T22:59:59.0Z" responsible="registry" status="pending">new_secondary_email@for_this_contact.nu</dkhm:confirm_secondary_email>
       </dkhm:contact_verification>
     </extension>
     <trID>
