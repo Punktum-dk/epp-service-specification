@@ -759,6 +759,8 @@ Contains the following fields:
 - [`dkhm:contact_verification / responsible`](#dkhmcontactverificationresponsible)
 - [`dkhm:contact_verification / verified_id`](#dkhmcontactverificationverifiedid)
 - [`dkhm:contact_verification / verified_email`](#dkhmcontactverificationverifiedemail)
+- [`dkhm:contact_verification / confirm_email`](#dkhmcontactverificationconfirmemail)
+- [`dkhm:contact_verification / confirm_secondary_email`](#dkhmcontactverificationconfirmsecondaryemail)
 
 Please see:
 
