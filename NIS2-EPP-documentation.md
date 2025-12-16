@@ -11,8 +11,8 @@ The document covers the following extensions:
   - dkhm:responsible
   - dkhm:verified_id
   - dkhm:verified_email
-- dkhm:confirm_email
-- dkhm:confirm_secondary_email
+  - dkhm:confirm_email
+  - dkhm:confirm_secondary_email
 
 These extensions implement the requirements set out by the NIS2 legislation. They allow registrars to:
 
