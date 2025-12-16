@@ -20,8 +20,6 @@ These extensions implement the requirements set out by the NIS2 legislation. The
 - validate the contact's email address, and
 - indicate whether a company is a sole proprietorship.
 
-Relevant extensions in the examples provided in the appendices are highlighted in green.
-
 Table of Contents
 
 [NIS2 EPP documentation - EPP 5.2.0 -en 1](#_Toc213752210)
