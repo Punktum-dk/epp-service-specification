@@ -5,7 +5,7 @@
 ![Markdownlint Action][GHAMKDBADGE]
 ![Spellcheck Action][GHASPLLBADGE]
 
-2025-11-07 Revision: 5.2
+2025-12-23 Revision: 5.2
 
 ## Table of Contents
 
@@ -251,12 +251,13 @@ This document is copyright by Punktum dk A/S and is licensed under the MIT Licen
 
 ### Document History
 
-- 5.2 2025-11-07
+- 5.2 2025-12-23
 
   - Added two new extensions related to NIS2:
     - [`dkhm:sole_proprietorship`](#dkhmsoleproprietorship)
     - [`dkhm:contact_verification`](#dkhmcontactverification)
   - All phone numbers wil now be syntax validated in accordance with the rules dictated by the country code part of the phone number.
+  - Added poll messages regarding mandatory verification of contact id and/or data (currently data only includes email) and required confirmation in order to change primary/secondary email.
 
 - 5.1 2025-10-07
 
@@ -4157,10 +4158,10 @@ The info contact command response is only available for the registrant contact o
       <dkhm:contact_verification
         xmlns:dkhm='urn:dkhm:params:xml:ns:dkhm-4.5'>
         <dkhm:responsible>registry</dkhm:responsible>
-        <dkhm:verified_id  status="completed" >true</dkhm:verified_id>
-        <dkhm:verified_email  status="completed" >true</dkhm:verified_email>
-        <dkhm:confirm_email expdate="2025-11-28T22:59:59.0Z" responsible="registry" status="pending">new_email@for_this_contact.nu</dkhm:confirm_email>
-        <dkhm:confirm_secondary_email expdate="2025-11-28T22:59:59.0Z" responsible="registry" status="pending">new_secondary_email@for_this_contact.nu</dkhm:confirm_secondary_email>
+        <dkhm:verified_id status="completed" >true</dkhm:verified_id>
+        <dkhm:verified_email status="completed" >true</dkhm:verified_email>
+        <dkhm:confirm_email expdate="2025-11-28T22:59:59.0Z" responsible="registry" status="pending">new_email@eksempel.dk</dkhm:confirm_email>
+        <dkhm:confirm_secondary_email expdate="2025-11-28T22:59:59.0Z" responsible="registry" status="pending">new_secondary_email@eksempel.dk</dkhm:confirm_secondary_email>
       </dkhm:contact_verification>
     </extension>
     <trID>

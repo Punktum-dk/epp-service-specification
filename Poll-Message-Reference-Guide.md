@@ -4,6 +4,9 @@ This is a complete list of all EPP poll messages currently available in producti
 
 ## Document History
 
+- 2025-12-23 Added two categories of poll messages:
+    - contact update primary/secondary email - which are used, if a change of primary/secondary email needs to be confirmed.
+    - contact update verification - which are used, if a contact needs a mandatory verification of id and/or data (currently data only includes email)
 - 2025-10-07 Corrected the current host create/update messages to reflect that is now possible to use a REG-handle as a name server manager.
 - 2025-09-03 Corrected typo in the current message for contact update.
 - 2025-03-10 The document has been restructured:
@@ -39,10 +42,29 @@ This is a complete list of all EPP poll messages currently available in producti
 
 ## Poll Messages
 
-|Object |Operation                    |Message                     |Old message (pre 2025-03-10) |ResData type |
-|-------|-----------------------------|----------------------------|-----------------------------|-------------|
-|contact|update |The contact information has been updated for %-DK |Contact information has been updated for %-DK |contact:infData |
-|contact|delete |%-DK has been deleted |Contact %-DK has been deleted |contact:infData |
+|Object  |Operation                    |Message                     |Old message (pre 2025-03-10) |ResData type |
+|--------|-----------------------------|----------------------------|-----------------------------|-------------|
+|contact |update |The contact information has been updated for %-DK |Contact information has been updated for %-DK |contact:infData |
+|contact |update primary email |%-DK has to confirm the new primary email, %email%, to complete the update - %responsible% | |contact:infData |
+|contact |update primary email |%-DK has confirmed the new primary email, %email% - %responsible% | |contact:panData |
+|contact |update primary email |The new primary email, %email%, was not confirmed for %-DK - %responsible% | |contact:panData |
+|contact |update secondary email |%-DK has to confirm new secondary/public email, %email%, to complete the update - %responsible% | |contact:infData |
+|contact |update secondary email |%-DK has confirmed the new secondary/public email, %email% - %responsible% | |contact:panData |
+|contact |update secondary email |The new secondary/public email, %email%, was not confirmed for %-DK - %responsible% | |contact:panData |
+|contact |update verification |%-DK has to complete the mandatory ID and data check - %responsible% | |contact:infData |
+|contact |update verification |%-DK has to complete the mandatory ID check - %responsible% | |contact:infData |
+|contact |update verification |%-DK has to complete the mandatory data check - %responsible% | |contact:infData |
+|contact |update verification |The mandatory ID and data check of %-DK has expired - %responsible% | |contact:infData |
+|contact |update verification |The mandatory ID check of %-DK has expired - %responsible% | |contact:infData |
+|contact |update verification |The mandatory data check of %-DK has expired - %responsible% | |contact:infData |
+|contact |update verification |%-DK has completed the mandatory ID and data check - %responsible% | |contact:infData |
+|contact |update verification |%-DK has completed the mandatory ID check - %responsible% | |contact:infData |
+|contact |update verification |%-DK has completed the mandatory data check - %responsible% | |contact:infData |
+|contact |update verification |The mandatory ID check of %-DK was rejected - %responsible% | |contact:infData |
+|contact |update verification |The mandatory ID and data check of %-DK was cancelled - %responsible% | |contact:infData |
+|contact |update verification |The mandatory ID check of %-DK was cancelled - %responsible% | |contact:infData |
+|contact |update verification |The mandatory data check of %-DK was cancelled - %responsible% | |contact:infData |
+|contact |delete |%-DK has been deleted |Contact %-DK has been deleted |contact:infData |
 |domain |create |%.dk has been registered and activated |Created domain for %.dk has been approved |domain:panData |
 |domain |create |%.dk has been registered, but not activated due to pending ID check |Created domain for %.dk has been approved |domain:panData |
 |domain |create |The application for %.dk has been rejected, as the domain was already taken |Object exists |domain:panData |
