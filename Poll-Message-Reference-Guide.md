@@ -48,9 +48,9 @@ This is a complete list of all EPP poll messages currently available in producti
 |contact |update primary email |%-DK has to confirm the new primary email, %email%, to complete the update - %responsible% | |contact:infData |
 |contact |update primary email |%-DK has confirmed the new primary email, %email% - %responsible% | |contact:panData |
 |contact |update primary email |The new primary email, %email%, was not confirmed for %-DK - %responsible% | |contact:panData |
-|contact |update secondary email |%-DK has to confirm new secondary/public email, %email%, to complete the update - %responsible% | |contact:infData |
-|contact |update secondary email |%-DK has confirmed the new secondary/public email, %email% - %responsible% | |contact:panData |
-|contact |update secondary email |The new secondary/public email, %email%, was not confirmed for %-DK - %responsible% | |contact:panData |
+|contact |update secondary email |%-DK has to confirm new public email, %email%, to complete the update - %responsible% | |contact:infData |
+|contact |update secondary email |%-DK has confirmed the new public email, %email% - %responsible% | |contact:panData |
+|contact |update secondary email |The new public email, %email%, was not confirmed for %-DK - %responsible% | |contact:panData |
 |contact |update verification |%-DK has to complete the mandatory ID and data check - %responsible% | |contact:infData |
 |contact |update verification |%-DK has to complete the mandatory ID check - %responsible% | |contact:infData |
 |contact |update verification |%-DK has to complete the mandatory data check - %responsible% | |contact:infData |
