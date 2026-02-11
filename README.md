@@ -1799,11 +1799,24 @@ The state is communicated in this response in order to provide information on th
 
 As part of the process the final response to a [create domain](#create-domain) is communicated via the message queue. In this response the Punktum dk A/S risk assessment is included, it can hold one of the following values:
 
-- `RED` - the registrant is requested to complete successful ID-control before the domain name can become active
-- `YELLOW` - the registrant is requested to complete successful ID-control, the domain name becomes active immediately. If ID-control is not completed within the communicated timeframe the domain is made inactive
-- `BLUE` - the registrant is requested to complete successful ID-control before the domain name can become active
-- `GREEN` - the domain name becomes active immediately
-- `N/A` - the risk assessment could not be performed, the registrant is requested to complete successful ID-control before the domain name can become active
+The risk_assessment value must be interpreted in combination with the poll message received.
+
+If the poll message is:
+´xxx.dk has been registered and activated´
+
+then risk_assessment can be either BLUE or GREEN.
+
+- If risk_assessment = ´BLUE´, the domain name is activated and the registrant (Danish or foreign) has completed the required ID and data validation.
+- If risk_assessment = ´GREEN´, the domain name is activated and the registrant is foreign, ID validation is not required, and data validation has been completed.
+
+If the poll message is:
+´xxx.dk has been registered, but not activated due to pending ID check´
+
+then risk_assessment can be either BLUE or RED (YELLOW).
+
+- If risk_assessment = ´BLUE´, the registrant is Danish and must complete ID and/or data validation before the domain name can be activated.
+- If risk_assessment = ´RED´ (or ´YELLOW´), the registrant is foreign and must complete ID and/or data validation before the domain name can be activated.
+- If risk_assessment = ´N/A´, the risk assessment could not be performed. The registrant is requested to complete successful ID validation before the domain name can become active.
 
 The procedures for ID-control are [described on the Punktum dk DK website][DKHMIDENT].
 
