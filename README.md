@@ -5,7 +5,7 @@
 ![Markdownlint Action][GHAMKDBADGE]
 ![Spellcheck Action][GHASPLLBADGE]
 
-2025-12-23 Revision: 5.2
+2026-02-16 Revision: 5.2.1
 
 ## Table of Contents
 
@@ -250,6 +250,10 @@ This document is copyright by Punktum dk A/S and is licensed under the MIT Licen
 <a id="document-history"></a>
 
 ### Document History
+- 5.2.1 2026-02-16
+
+  - Clarified interpretation of risk_assessment values.
+  - Updated default behavior and documentation for [`dkhm:requestedNsAdmin`](#dkhmrequestednsadmin).
 
 - 5.2 2025-12-23
 
@@ -1802,21 +1806,21 @@ As part of the process the final response to a [create domain](#create-domain) i
 The risk_assessment value must be interpreted in combination with the poll message received.
 
 If the poll message is:
-´xxx.dk has been registered and activated´
+"xxx.dk has been registered and activated"
 
 then risk_assessment can be either BLUE or GREEN.
 
-- If risk_assessment = ´BLUE´, the domain name is activated and the registrant (Danish or foreign) has completed the required ID and data validation.
-- If risk_assessment = ´GREEN´, the domain name is activated and the registrant is foreign, ID validation is not required, and data validation has been completed.
+If risk_assessment = `BLUE`, the domain name is activated and the registrant (Danish or foreign) has completed the required ID and data check.
+If risk_assessment = `GREEN`, the domain name is activated and the registrant is foreign, ID check is not required, and data check has been completed.
 
 If the poll message is:
-´xxx.dk has been registered, but not activated due to pending ID check´
+"xxx.dk has been registered, but not activated due to pending ID check"
 
 then risk_assessment can be either BLUE or RED (YELLOW).
 
-- If risk_assessment = ´BLUE´, the registrant is Danish and must complete ID and/or data validation before the domain name can be activated.
-- If risk_assessment = ´RED´ (or ´YELLOW´), the registrant is foreign and must complete ID and/or data validation before the domain name can be activated.
-- If risk_assessment = ´N/A´, the risk assessment could not be performed. The registrant is requested to complete successful ID validation before the domain name can become active.
+If risk_assessment = `BLUE`, the registrant is Danish and must complete ID and/or data check before the domain name can be activated.
+If risk_assessment = `RED` (or `YELLOW`), the registrant is foreign and must complete ID and/or data check before the domain name can be activated.
+If risk_assessment = `N/A`, the risk assessment could not be performed. The registrant is requested to complete successful ID and/or data check before the domain name can become active.
 
 The procedures for ID-control are [described on the Punktum dk DK website][DKHMIDENT].
 
@@ -4381,7 +4385,9 @@ This part of the EPP protocol is described in [RFC:5732]. This command adheres t
 
 :point_right: Please note that IP addresses might be required for domain names ending in '.dk', please refer to the [glue record policy][DKHMDNSSPECGLUE].
 
-:warning: By default the authenticated user is attempted used as designated name server administrator, It is however not possible to assign a registrar account as name server administrator, so a regular WHOIS handle pointing to a contact object has to be specified using the extension `dkhm:requestedNsAdmin`, alternatively you can authenticate using a WHOIS handle and the use of the extension can be avoided.
+:warning: By default, the authenticated registrar account is assigned as the designated name server administrator if the `dkhm:requestedNsAdmin` extension is excluded.
+
+Alternatively, you can designate a regular WHOIS handle referencing a contact object as the name server administrator by using the `dkhm:requestedNsAdmin` extension.
 
 Diagram of EPP create host [:eye_speech_bubble:][epp_create_host]
 
