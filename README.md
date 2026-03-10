@@ -5,7 +5,7 @@
 ![Markdownlint Action][GHAMKDBADGE]
 ![Spellcheck Action][GHASPLLBADGE]
 
-2026-02-16 Revision: 5.2.1
+2026-03-11 Revision: 5.2.2
 
 ## Table of Contents
 
@@ -250,6 +250,11 @@ This document is copyright by Punktum dk A/S and is licensed under the MIT Licen
 <a id="document-history"></a>
 
 ### Document History
+- 5.2.2 2026-03-11
+
+  - Added poll messages regarding email bounce.
+  - Wording changed on domain update registrant poll messages.
+
 - 5.2.1 2026-02-16
 
   - Clarified interpretation of risk_assessment values.
