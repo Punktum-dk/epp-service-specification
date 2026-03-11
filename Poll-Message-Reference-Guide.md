@@ -4,6 +4,10 @@ This is a complete list of all EPP poll messages currently available in producti
 
 ## Document History
 
+- 2026-03-11 Added two new poll messages regarding email bounce
+    - %reason% field for email bounce can contain the following: "antispam", "bad_checksum", "config", "failed" and "unknown"
+    - Updated the domain update registrant messages in order to provide clearer wording
+    - Removed deprecated poll message from the domain update registrant section regarding lack of acceptance of terms. Terms are now always accepted before the change of registrant operation are started.
 - 2025-12-23 Added two categories of poll messages:
     - contact update primary/secondary email - which are used, if a change of primary/secondary email needs to be confirmed.
     - contact update verification - which are used, if a contact needs a mandatory verification of id and/or data (currently data only includes email)
@@ -42,9 +46,9 @@ This is a complete list of all EPP poll messages currently available in producti
 
 ## Poll Messages
 
-|Object  |Operation                    |Message                     |Old message (pre 2025-03-10) |ResData type |
+|Object  |Operation                    |Message                     |Old message (pre 2026-03-11) |ResData type |
 |--------|-----------------------------|----------------------------|-----------------------------|-------------|
-|contact |update |The contact information has been updated for %-DK |Contact information has been updated for %-DK |contact:infData |
+|contact |update |The contact information has been updated for %-DK | |contact:infData |
 |contact |update primary email |%-DK has to confirm the new primary email, %email%, to complete the update - %responsible% | |contact:infData |
 |contact |update primary email |%-DK has confirmed the new primary email, %email% - %responsible% | |contact:panData |
 |contact |update primary email |The new primary email, %email%, was not confirmed for %-DK - %responsible% | |contact:panData |
@@ -64,37 +68,38 @@ This is a complete list of all EPP poll messages currently available in producti
 |contact |update verification |The mandatory ID and data check of %-DK was cancelled - %responsible% | |contact:infData |
 |contact |update verification |The mandatory ID check of %-DK was cancelled - %responsible% | |contact:infData |
 |contact |update verification |The mandatory data check of %-DK was cancelled - %responsible% | |contact:infData |
-|contact |delete |%-DK has been deleted |Contact %-DK has been deleted |contact:infData |
-|domain |create |%.dk has been registered and activated |Created domain for %.dk has been approved |domain:panData |
-|domain |create |%.dk has been registered, but not activated due to pending ID check |Created domain for %.dk has been approved |domain:panData |
-|domain |create |The application for %.dk has been rejected, as the domain was already taken |Object exists |domain:panData |
-|domain |create |The application for %.dk has been cancelled, as the registrant has not accepted our terms and conditions in time |Application for domain: %.dk has expired |domain:panData |
-|domain |create |The application for %.dk has been rejected, as the user and domain handling mismatched |Application for domain: %.dk rejected. User and domain handling mismatch |domain:panData |
+|contact |email bounce |Email delivery failed %reason% for the primary email, %email%, of %-DK. Please review and correct the email address. | |contact:infData |
+|contact |email bounce |Email delivery failed %reason% for the secondary email, %email%, of %-DK. Please review and correct the email address. | |contact:infData |
+|contact |delete |%-DK has been deleted | |contact:infData |
+|domain |create |%.dk has been registered and activated | |domain:panData |
+|domain |create |%.dk has been registered, but not activated due to pending ID check | |domain:panData |
+|domain |create |The application for %.dk has been rejected, as the domain was already taken | |domain:panData |
+|domain |create |The application for %.dk has been cancelled, as the registrant has not accepted our terms and conditions in time | |domain:panData |
+|domain |create |The application for %.dk has been rejected, as the user and domain handling mismatched | |domain:panData |
 |domain |create |The application for %.dk has been cancelled | |domain:panData |
-|domain |update |%.dk has been activated |Domain %.dk has been activated |domain:infData |
-|domain |update |%.dk has been updated |Domain %.dk has been updated |domain:infData |
-|domain |update billing |REG-% has been removed as billing contact for %.dk |% has been removed as billing contact for %.dk |domain:infData |
-|domain |update dsrecords |DS records has been changed for %.dk |DS Records on %.dk has been changed |domain:infData |
-|domain |update name servers |Name servers has been changed for %.dk, from %, %, … to %, %, … |Nameservers for domain %.dk has been changed from %, % to %, % |domain:infData |
-|domain |update registrant |%.dk has been transferred to new registrant %-DK |Transfer of %.dk to %-DK has been completed |domain:panData |
-|domain |update registrant |The transfer of %.dk to the new registrant %-DK has been cancelled, as our terms was not accepted in time |Transfer of %.dk to %-DK has expired |domain:panData |
-|domain |update registrant |The transfer of %.dk to the new registrant %-DK has been cancelled, as the mandatory ID check was rejected |The mandatory ID check of %-DK has been rejected, for the request to transfer %.dk to %-DK |domain:panData |
-|domain |update registrant |The transfer of %.dk to the new registrant %-DK has been cancelled, as the mandatory ID check was not completed in time | |domain:panData |
-|domain |update registrant |The transfer of %.dk to the new registrant %-DK has been cancelled, as the mandatory ID check was not completed |The request to transfer %.dk to %-DK has expired, as the new registrant has not completed our mandatory ID check. |domain:panData |
-|domain |transfer |%.dk has been added to your portfolio |%.dk has been transferred to registrar REG-%| domain:trnData |
-|domain |transfer |%.dk has been removed from your portfolio |REG-% has been removed as registrar for %.dk |domain:trnData |
-|domain |delete |%.dk has been deleted |Domain %.dk has been deleted |domain:panData |
-|domain |delete |%.dk has been deleted |Domain %.dk has been deleted |domain:infData |
+|domain |update |%.dk has been activated | |domain:infData |
+|domain |update |%.dk has been updated | |domain:infData |
+|domain |update billing |REG-% has been removed as billing contact for %.dk | |domain:infData |
+|domain |update dsrecords |DS records has been changed for %.dk | |domain:infData |
+|domain |update name servers |Name servers has been changed for %.dk, from %, %, … to %, %, … | |domain:infData |
+|domain |update registrant |The registrant has been changed to %-DK for %.dk |%.dk has been transferred to new registrant %-DK |domain:panData |
+|domain |update registrant |The registrant has not been changed to %-DK for %.dk, as the mandatory ID and/or data check was not completed in time |The transfer of %.dk to the new registrant %-DK has been cancelled, as the mandatory ID check was not completed in time |domain:panData |
+|domain |update registrant |The registrant has not been changed to %-DK for %.dk, as the mandatory ID and/or data check was rejected |The transfer of %.dk to the new registrant %-DK has been cancelled, as the mandatory ID check was rejected |domain:panData |
+|domain |update registrant |The registrant has not been changed to %-DK for %.dk, as the mandatory ID and/or data check was not completed |The transfer of %.dk to the new registrant %-DK has been cancelled, as the mandatory ID check was not completed |domain:panData |
+|domain |transfer |%.dk has been added to your portfolio | | domain:trnData |
+|domain |transfer |%.dk has been removed from your portfolio | |domain:trnData |
+|domain |delete |%.dk has been deleted | |domain:panData |
+|domain |delete |%.dk has been deleted | |domain:infData |
 |domain |delete |%.dk has been extended and cancellation stopped | |domain:panData |
 |domain |delete |%.dk has been restored, extended and cancellation stopped | |domain:panData |
-|host |create |The name server %.dk has been registered, as the registrant has approved it |Host % has been created |host:panData |
+|host |create |The name server %.dk has been registered, as the registrant has approved it | |host:panData |
 |host |create |The name server %.dk has not been registered, as it has been rejected by the registrant | |host:panData |
 |host |create |The name server %.dk has not been registered, as it was not approved by the registrant in time | |host:panData |
-|host |create |The name server %.dk has been registered, as the registrant has approved it and % has accepted the name server manager role |Host % has been created |host:panData |
+|host |create |The name server %.dk has been registered, as the registrant has approved it and % has accepted the name server manager role | |host:panData |
 |host |create |The name server %.dk has not been registered, as the name server manager role has been rejected | |host:panData |
 |host |create |The name server %.dk has not been registered, as the name server manager role was not accepted in time | |host:panData |
-|host |create |The name server %.dk has been registered, as % has accepted the name server manager role |Host % has been created |host:panData |
-|host |update |The name server manager role for % has been accepted by % |Transfer of name server % has been accepted |host:panData |
+|host |create |The name server %.dk has been registered, as % has accepted the name server manager role | |host:panData |
+|host |update |The name server manager role for % has been accepted by % | |host:panData |
 |host |update |The name server manager role for % has been rejected by % | |host:panData |
 |host |update |The name server manager role for % has not been accepted by % in time | |host:panData |
 |host |delete |The name server % has been deleted | | host:infData |
