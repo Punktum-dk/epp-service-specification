@@ -805,6 +805,7 @@ On  [info contact](#info-contact) the following attributes may be presented.
    - `pending`, Verification is currently in progress.
    - `expired`, Verification has timed out.
    - `completed`, Verification has been completed.
+   - `rejected`, ID check has been rejected by Punktum dk.
 - `expdate` - Only if verification is in progress: the date and time that the verification is going to expire if not completed.
 
 This may be omitted in [update contact](#update-contact). If
