@@ -4201,7 +4201,6 @@ The info contact command response is only available for the registrant contact o
 
 This part of the EPP protocol is described in [RFC:5733]. This command adheres to the standard. In addition to the standard the command allows for manipulation of the extensions associated with contact objects, meaning that it is possible to update the following fields:
 
-- [`dkhm:userType`](#dkhmusertype)
 - [`dkhm:EAN`](#dkhmean)
 - [`dkhm:CVR`](#dkhmcvr)
 - [`dkhm:pnumber`](#dkhmpnumber)
