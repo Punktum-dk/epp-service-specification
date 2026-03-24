@@ -52,9 +52,9 @@ This is a complete list of all EPP poll messages currently available in producti
 |contact |update primary email |%-DK has to confirm the new primary email, %email%, to complete the update - %responsible% | |contact:infData |
 |contact |update primary email |%-DK has confirmed the new primary email, %email% - %responsible% | |contact:panData |
 |contact |update primary email |The new primary email, %email%, was not confirmed for %-DK - %responsible% | |contact:panData |
-|contact |update secondary email |%-DK has to confirm new public email, %email%, to complete the update - %responsible% | |contact:infData |
-|contact |update secondary email |%-DK has confirmed the new public email, %email% - %responsible% | |contact:panData |
-|contact |update secondary email |The new public email, %email%, was not confirmed for %-DK - %responsible% | |contact:panData |
+|contact |update secondary email |%-DK has to confirm new secondary email, %email%, to complete the update - %responsible% | |contact:infData |
+|contact |update secondary email |%-DK has confirmed the new secondary email, %email% - %responsible% | |contact:panData |
+|contact |update secondary email |The new secondary email, %email%, was not confirmed for %-DK - %responsible% | |contact:panData |
 |contact |update verification |%-DK has to complete the mandatory ID and data check - %responsible% | |contact:infData |
 |contact |update verification |%-DK has to complete the mandatory ID check - %responsible% | |contact:infData |
 |contact |update verification |%-DK has to complete the mandatory data check - %responsible% | |contact:infData |
@@ -68,11 +68,11 @@ This is a complete list of all EPP poll messages currently available in producti
 |contact |update verification |The mandatory ID and data check of %-DK was cancelled - %responsible% | |contact:infData |
 |contact |update verification |The mandatory ID check of %-DK was cancelled - %responsible% | |contact:infData |
 |contact |update verification |The mandatory data check of %-DK was cancelled - %responsible% | |contact:infData |
-|contact |email bounce |Email delivery failed %reason% for the primary email, %email%, of %-DK. Please review and correct the email address. | |contact:infData |
-|contact |email bounce |Email delivery failed %reason% for the secondary email, %email%, of %-DK. Please review and correct the email address. | |contact:infData |
+|contact |email bounce |Email delivery (failed) %reason% for the primary email, %email%, of %-DK. Please review and correct the email address. | |contact:infData |
+|contact |email bounce |Email delivery (failed) %reason% for the secondary email, %email%, of %-DK. Please review and correct the email address. | |contact:infData |
 |contact |delete |%-DK has been deleted | |contact:infData |
 |domain |create |%.dk has been registered and activated | |domain:panData |
-|domain |create |%.dk has been registered, but not activated due to pending ID check | |domain:panData |
+|domain |create |%.dk has been registered, but not activated due to pending ID and/or data check | |domain:panData |
 |domain |create |The application for %.dk has been rejected, as the domain was already taken | |domain:panData |
 |domain |create |The application for %.dk has been cancelled, as the registrant has not accepted our terms and conditions in time | |domain:panData |
 |domain |create |The application for %.dk has been rejected, as the user and domain handling mismatched | |domain:panData |
