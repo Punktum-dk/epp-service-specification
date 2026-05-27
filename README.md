@@ -5,7 +5,7 @@
 ![Markdownlint Action][GHAMKDBADGE]
 ![Spellcheck Action][GHASPLLBADGE]
 
-2026-03-11 Revision: 5.2.2
+2026-05-20 Revision: 5.2.3
 
 ## Table of Contents
 
@@ -19,6 +19,7 @@
 - [EPP in Brief](#epp-in-brief)
 - [EPP Service](#epp-service)
   - [SSL/TLS Support](#ssltls-support)
+  - [Session Termination Conditions](#session-termination-conditions)
   - [Available Environments](#available-environments)
     - [Production](#production)
     - [Sandbox](#sandbox)
@@ -250,6 +251,10 @@ This document is copyright by Punktum dk A/S and is licensed under the MIT Licen
 <a id="document-history"></a>
 
 ### Document History
+- 5.2.3 2026-05-20
+
+  - Added section [Session Termination Conditions](#session-termination-conditions)
+
 - 5.2.2 2026-03-11
 
   - Added poll messages regarding email bounce.
@@ -564,6 +569,52 @@ The service is implemented under the following principles:
 The EPP service supports the following protocols for transport security:
 
 - TLSv1.2
+
+<a id="session-termination-conditions"></a>
+
+### Session Termination Conditions
+
+The server may disconnect the TCP connection in the following situations.
+
+**Too many errors**
+
+After three errors of the same type, the server disconnects the TCP connection.
+
+The final response code is changed to indicate disconnect.
+Example: `2400` → `2500`
+
+The following text is appended to the result message:
+
+```XML
+; Disconnect due to too many errors
+```
+
+**Oversized Packet**
+
+If a packet exceeds 262144 bytes (256 KB), the server disconnects immediately.
+
+- No response packet is returned.
+- The TCP connection is closed directly.
+
+**Pending Server Shutdown**
+
+When the server enters a pending shutdown state:
+
+- No new commands are accepted.
+- Already received commands are processed.
+- The final response code is modified to indicate disconnect:
+
+Examples:
+- `1000` → `1500`
+- `1001` → `1501`
+- `2000` → `2500`
+- `2303` → `2503`
+
+The following text is appended to the result message:
+
+```XML
+; Disconnect due to server shutdown
+```
 
 <a id="available-environments"></a>
 
