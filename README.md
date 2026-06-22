@@ -3,7 +3,6 @@
 # Punktum dk EPP Service Specification
 
 ![Markdownlint Action][GHAMKDBADGE]
-![Spellcheck Action][GHASPLLBADGE]
 
 2026-05-20 Revision: 5.2.3
 
