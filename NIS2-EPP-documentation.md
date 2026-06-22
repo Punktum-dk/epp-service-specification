@@ -24,7 +24,7 @@ These extensions implement the requirements set out by the NIS2 legislation. The
 
 Table of Contents
 
-[NIS2 EPP documentation - EPP 5.2.0 -en 1](#nis2-epp-documentation---epp-520--en)
+[NIS2 EPP documentation - EPP 5.2.0 -en 1](#nis2-epp-documentation---epp-520)
 
 [dkhm:sole_proprietorship 2](#dkhmsole_proprietorship)
 
