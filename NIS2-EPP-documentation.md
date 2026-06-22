@@ -1,4 +1,6 @@
-# NIS2 EPP documentation - EPP 5.2.0 -en
+<a id="nis2-epp-documentation---epp-520"></a>
+
+# NIS2 EPP documentation - EPP 5.2.0
 
 This document describes the new EPP extensions being introduced as part of the NIS2 updates.
 
@@ -22,7 +24,7 @@ These extensions implement the requirements set out by the NIS2 legislation. The
 
 Table of Contents
 
-[NIS2 EPP documentation - EPP 5.2.0 -en 1](#nis2-epp-documentation---epp-520--en)
+[NIS2 EPP documentation - EPP 5.2.0 -en 1](#nis2-epp-documentation---epp-520)
 
 [dkhm:sole_proprietorship 2](#dkhmsole_proprietorship)
 
@@ -56,7 +58,10 @@ Table of Contents
 
 [Appendix 5: contact info dkhm:verified_id and dkhm:verified_email 11](#appendix-5-contactinfo-dkhmverified_id-and-dkhmverified_email)
 
+<a id="dkhmsole_proprietorship"></a>
+
 ## dkhm:sole_proprietorship
+
 In accordance with the NIS2 requirement to publish email addresses in WHOIS for business registrations, it must be possible to indicate whether a company is a **sole proprietorship**.
 
 This is necessary because a sole proprietorship is, legally speaking, **the same entity as its owner (a private individual)**.
@@ -80,11 +85,15 @@ The field can have two values:
 
 If dkhm:sole_proprietorship is **omitted** in a contact:create command, the value is automatically assumed to be "_false_."
 
+<a id="dkhmsole_proprietorship---info-contact"></a>
+
 ## dkhm:sole_proprietorship - Info contact
 
 You can check whether the contact is **specified as a sole proprietorship** by performing a contact:info command.
 
 See the example in [Appendix 1](#appendix-1-info-contact), where the contact is indicated as a sole proprietorship in the Contact info response.
+
+<a id="dkhmsole_proprietorship---create-contact-and-update-contact"></a>
 
 ## dkhm:sole_proprietorship - Create contact and update contact
 
@@ -94,7 +103,10 @@ If the dkhm:sole_proprietorship extension is provided for a contact with the **c
 
 See [Appendix 2](#appendix-2-contact-create) for an example of a contact:create request where dkhm:sole_proprietorship is set to "_true_."
 
+<a id="dkhmcontact_verification"></a>
+
 ## dkhm:contact_verification
+
 This extension is used to indicate which contact information **the registrar has validated**, as well as to show **who performed the validation** and the **current status** of the contact's verification.
 
 dkhm:contact_verification consists of the following sub-extensions:
@@ -115,6 +127,8 @@ The following default logic applies when a contacts email or address is updated:
 This logic is based on the assumption that when _registrar_ is set as _responsible_, the registrar has already verified the contact information before submitting the update to us.
 
 When **responsible = registry**, the registrar is not able to perform their own verification during a **contact:update**. In these cases, the update will be processed through our risk engine, which may trigger validation of name and address, as well as email validation if the email address is changed.
+
+<a id="dkhmcontact_verification--dkhmresponsible"></a>
 
 ## dkhm:contact_verification / dkhm:responsible
 
@@ -138,6 +152,8 @@ An example where "_registry_" is specified as the responsible party can be found
 However, **you have the option to validate a contact in advance** if you have already completed the verification before creating it - **regardless** of whether the registry (Punktum dk) is listed as responsible.
 
 If you set dkhm:verified_id and dkhm:verified_email to "_true_" in a contact:create command, **Punktum dk will not perform additional ID or email validation**, even if Punktum dk was originally listed as **responsible** for the verification.
+
+<a id="dkhmcontact_verification--dkhmverified_id"></a>
 
 ## dkhm:contact_verification / dkhm:verified_id
 
@@ -168,6 +184,8 @@ There may also be an additional field:
 If **verified_id** ends in an "_expired_" status, the domain name will be suspended.
 
 See [Appendix 5](#appendix-5-contactinfo-dkhmverified_id-and-dkhmverified_email) for an example of a contact:info response where the ID validation status is shown as pending.
+
+<a id="dkhmcontact_verification--dkhmverified_email"></a>
 
 ## dkhm:contact_verification / dkhm:verified_email
 
@@ -221,7 +239,10 @@ An example of _confirm_email_ and _confirm_secondary_email_ in a **contact:info*
 
 Both the primary and secondary email addresses must be validated. If no secondary email address is provided, only the primary email address requires validation.
 
+<a id="practical-information"></a>
+
 ## Practical Information
+
 In this section, we review the practical use of the described extensions.
 
 It is not possible to specify different values for dkhm:verified_id and dkhm:verified_email when creating a contact.
@@ -252,7 +273,18 @@ If you indicate that a **Danish customer** has been validated, but we **cannot l
 
 This is because we need information from the **CVR/CPR register** to determine whether a customer has **name and address protection** or is a **sole proprietorship**. At the same time, we use the register to automatically **update the address and name** when these change in the CPR or CVR register.
 
+<a id="poll-messages"></a>
+
+## Poll messages
+
+For information on poll messages related to NIS2 extensions, refer to the [Poll Message Reference Guide](Poll-Message-Reference-Guide.md).
+
+<a id="appendix-for-dkhmsole_proprietorship"></a>
+
 ## Appendix for dkhm:sole_proprietorship
+
+<a id="appendix-1-info-contact"></a>
+
 ## Appendix 1: info contact
 
 &lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
@@ -325,6 +357,8 @@ This is because we need information from the **CVR/CPR register** to determine w
 
 &nbsp;       &lt;/extension&gt;
 
+<a id="appendix-2-contact-create"></a>
+
 ## Appendix 2: contact create
 
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
@@ -389,7 +423,12 @@ This is because we need information from the **CVR/CPR register** to determine w
 
 &lt;/epp&gt;
 
+<a id="appendix-for-dkhmcontact_verification"></a>
+
 ## Appendix for dkhm:contact_verification
+
+<a id="appendix-3-infocontact-dkhmresponsible"></a>
+
 ## Appendix 3: info:contact dkhm:responsible
 
 &lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
@@ -484,6 +523,8 @@ This is because we need information from the **CVR/CPR register** to determine w
 
 &lt;/epp&gt;
 
+<a id="appendix-4-contactcreate-dkhmverified_id-and-dkhmverified_email"></a>
+
 ## Appendix 4: contact:create dkhm:verified_id and dkhm:verified_email
 
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
@@ -553,6 +594,8 @@ This is because we need information from the **CVR/CPR register** to determine w
 &lt;/command&gt;
 
 &lt;/epp&gt;
+
+<a id="appendix-5-contactinfo-dkhmverified_id-and-dkhmverified_email"></a>
 
 ## Appendix 5: contact:info dkhm:verified_id and dkhm:verified_email
 
@@ -649,6 +692,8 @@ This is because we need information from the **CVR/CPR register** to determine w
 &lt;/response&gt;
 
 &lt;/epp&gt;
+
+<a id="appendix-6-contactinfo-confirm_email"></a>
 
 ## Appendix 6: contact:info confirm_email
 
