@@ -1049,8 +1049,8 @@ This extension is used to communicate any special circumstances related to a dom
 
 We currently have two advisories that are communicated through the response of a [info domain](#info-domain) command: 
 
-- **PendingDeletionDate**, indicating that a given domain name is scheduled for deletion
-- **OfferedOnWaitingList**, indicating that a given domain name has been offered to a designated registrant
+- **pendingDeletionDate**, indicating that a given domain name is scheduled for deletion
+- **offeredOnWaitingList**, indicating that a given domain name has been offered to a designated registrant
 
 Domain names scheduled for deletion are placed in a 30-day redemption period. This period may be initiated by:
 
