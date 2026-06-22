@@ -217,7 +217,7 @@ This document is not the authoritative source for business and policy rules and 
 
 The actively used XSD file is indicated in the [EPP service specification][DKHMEPPWIKI], the [EPP XSD file repository][DKHMXSD] might contain changes not actively used by the service.
 
-The current service version can be obtained from the [Greeting](#greeting) message, from the service.
+The current service version can be obtained from the [Greeting](#hello-and-greeting) message, from the service.
 
 Any future extensions and possible additions and changes to the implementation are not within the scope of this document and will not be discussed or mentioned throughout this document.
 
@@ -759,7 +759,6 @@ Below is a list of the extensions. Each extension is described individually and 
 - [`dkhm:contact_validated`](#dkhmcontact_validated)
 - [`dkhm:contact_verification`](#dkhmcontactverification)
 - [`dkhm:CVR`](#dkhmcvr)
-- [`dkhm:domain_confirmed`](#domain_confirmed)
 - [`dkhm:domain_confirmed`](#dkhmdomain_confirmed)
 - [`dkhm:domainAdvisory`](#dkhmdomainadvisory)
 - [`dkhm:EAN`](#dkhmean)
@@ -1122,7 +1121,7 @@ You can see an example of the registrar default being overridden with create con
  </dkhm:management>
 ```
 
-⚠️ Do note, that registration of domain names is not supported under `registrant management`. This command is intended solely for creating handles for name server administrators.
+⚠️ Do note, that registration of domain names is not supported under `registrant management`. This extension is intended solely for creating handles for name server administrators.
 
 To change the management model for an existing registrant managed domain, please see the [transfer domain](#transfer-domain) command.
 
@@ -1688,7 +1687,7 @@ Commands that have not been extended are only briefly described. For full detail
 
 This part of the EPP protocol is described in [RFC:5730]. This command adheres to the standard. For a more detailed explanation of the data collection policy announced via the greeting, please see the [Data Collection Policy](#data-collection-policy) section.
 
-As announced in the [greeting](#greeting), the following objects are available:
+As announced in the greeting, the following objects are available:
 
 - `Host`, see also the section on [Host assets](#host)
 - `Domain`, see also the section on [Domain assets](#domain)
@@ -2810,7 +2809,7 @@ Do note that for period specification, only the unit y indicating year is accept
 
 ☝️ Only a renewal period of `1` year can be specified in the `domain:period` section. 
 
-⚠️ A domain can only be renewed when there are 2 months or less remaining until its expiration date. 
+⚠️ A domain can only be renewed when there are 60 days or less remaining until its expiration date. 
 
 See diagram of EPP process for EPP renew domain: [:eye_speech_bubble:][epp-renew-domain]
 
@@ -2822,7 +2821,6 @@ See diagram of EPP process for EPP renew domain: [:eye_speech_bubble:][epp-renew
 | 2201        | If the authenticated user does not hold the privilege to renew the specified domain object. This privilege is given to the billing contact for the domain name (see also the [login command](#login))                                                                                                                                |
 | 2303        | If the specified domain object does not exist                                                                                                                                                                                                                                                                                        |
 | 2306        | If the specified expiry date is not valid. The provided expiration date has to be equal to the current expiration date or we return `2306`                                                                                                                                                                                           |
-| 2306        | If the calculated expiry date is not allowed. The new expiration date has to be lower than the current expiration date + 10 years. The maximum period to which the expiration date can be extended is 10 years and 3 months. The current expiration date is available via the [info domain](#info-domain) command as `domain:exDate` |
 | 2400        | In case of an exception                                                                                                                                                                                                                                                                                                              |
 
 This complete process is atomic and might throw an unrecoverable exception: 2400 either due to unforeseen circumstances or a change in the state of the domain name. 
@@ -5057,7 +5055,7 @@ As a general business rule, Punktum dk does not support the `client*` statuses, 
 | `inactive`                 | _unsupported_ domain names in the Punktum dk registry **must** have associated name servers, , see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                              |
 | `ok`                       | Exclusive for all other status codes                                                                                                                                                                                    |
 | `pendingCreate`            | Indication that a the given domain is enqueued for possible creation, see [create domain](#create-domain) or is awaiting allocation with Punktum dk                                                                   |
-| `pendingDelete`            | Deletion is pending, see [delete domain](#delete-domain). An advisory date is applicable via the extension [`dkhm:domainAdvisory`](dkhmdeldate)                                                                                |
+| `pendingDelete`            | Deletion is pending, see [delete domain](#delete-domain). An advisory date is applicable via the extension [`dkhm:domainAdvisory`](#dkhm:domainAdvisory)                                                                                |
 | `pendingRenew`             | _unsupported_ as renewal is instantaneous, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                                                                     |
 | `pendingRestore`           | _unsupported_ as restoration is instantaneous, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                                                                 |
 | `pendingTransfer`          | _unsupported_ as transfer is instantaneous, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                                                                    |
@@ -5148,7 +5146,6 @@ As a general business rule, Punktum dk does not support the `client*` statuses, 
 | [info domain](#info-domain)             |                                         | :white_check_mark: \*9 | :white_check_mark: \*9 | :white_check_mark: \*9 |   :white_check_mark: \*9    |
 | [check domain](#check-domain)           |                                         |   :white_check_mark:   |   :white_check_mark:   |   :white_check_mark:   |     :white_check_mark:      |
 | [transfer domain](#transfer-domain)     |                                         |                        |                        |                        |                             |
-| [withdraw](#withdraw)                   |                                         |   :white_check_mark:   |                        |                        |                             |
 | [create contact](#create-contact)       |                                         |   :white_check_mark:   |   :white_check_mark:   |   :white_check_mark:   |     :white_check_mark:      |
 | [update contact](#update-contact)       |                                         | :white_check_mark: \*7 |                        |                        |   :white_check_mark: \*7    |
 | [info contact](#info-contact)           |                                         | :white_check_mark: \*9 | :white_check_mark: \*9 | :white_check_mark: \*9 |   :white_check_mark: \*9    |
@@ -5200,7 +5197,6 @@ As a general business rule, Punktum dk does not support the `client*` statuses, 
 | [info domain](#info-domain)             |                                         | :white_check_mark: \*3 | :white_check_mark: \*3 |
 | [check domain](#check-domain)           |                                         |   :white_check_mark:   |   :white_check_mark:   |
 | [transfer domain](#transfer-domain)     |                                         | :white_check_mark: \*4 |                        |
-| [withdraw](#withdraw)                   |                                         |   :white_check_mark:   |                        |
 | [create contact](#create-contact)       |                                         |   :white_check_mark:   |   :white_check_mark:   |
 | [update contact](#update-contact)       |                                         | :white_check_mark: \*5 | :white_check_mark: \*6 |
 | [info contact](#info-contact)           |                                         | :white_check_mark: \*3 | :white_check_mark: \*3 |
@@ -5249,7 +5245,6 @@ As a general business rule, Punktum dk does not support the `client*` statuses, 
 | [info domain](#info-domain)             |                                         | All                       |
 | [check domain](#check-domain)           |                                         | All                       |
 | [transfer domain](#transfer-domain)     |                                         | Proxy                     |
-| [withdraw](#withdraw)                   |                                         | Proxy                     |
 | [create contact](#create-contact)       |                                         | All                       |
 | [update contact](#update-contact)       |                                         | Proxy                     |
 | [info contact](#info-contact)           |                                         | All                       |
@@ -5280,7 +5275,6 @@ The version numbers used in the matrix are major numbers only, e.g. 1 for 1.X.X.
 | [Update Domain](#update-domain)         | 2                       | Asynchronous \*2                                                                                  |
 | [Renew Domain](#renew-domain)           | 2                       |                                                                                                   |
 | [Transfer Domain](#transfer-domain)     | 4                       |                                                                                                   |
-| [Withdraw](#withdraw)                   | 4                       |                                                                                                   |
 | [Delete Domain](#delete-domain)         | 4                       |                                                                                                   |
 | [Restore Domain](#restore-domain)       | 4                       |                                                                                                   |
 | [Create Contact](#create-contact)       | 1                       | Supplying handle/user-id is not supported                                                         |
