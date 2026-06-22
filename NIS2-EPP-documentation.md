@@ -1,4 +1,4 @@
-# NIS2 EPP documentation - EPP 5.2.0 -en
+# NIS2 EPP documentation - EPP 5.2.0
 
 This document describes the new EPP extensions being introduced as part of the NIS2 updates.
 
@@ -57,6 +57,7 @@ Table of Contents
 [Appendix 5: contact info dkhm:verified_id and dkhm:verified_email 11](#appendix-5-contactinfo-dkhmverified_id-and-dkhmverified_email)
 
 ## dkhm:sole_proprietorship
+
 In accordance with the NIS2 requirement to publish email addresses in WHOIS for business registrations, it must be possible to indicate whether a company is a **sole proprietorship**.
 
 This is necessary because a sole proprietorship is, legally speaking, **the same entity as its owner (a private individual)**.
@@ -95,6 +96,7 @@ If the dkhm:sole_proprietorship extension is provided for a contact with the **c
 See [Appendix 2](#appendix-2-contact-create) for an example of a contact:create request where dkhm:sole_proprietorship is set to "_true_."
 
 ## dkhm:contact_verification
+
 This extension is used to indicate which contact information **the registrar has validated**, as well as to show **who performed the validation** and the **current status** of the contact's verification.
 
 dkhm:contact_verification consists of the following sub-extensions:
@@ -222,6 +224,7 @@ An example of _confirm_email_ and _confirm_secondary_email_ in a **contact:info*
 Both the primary and secondary email addresses must be validated. If no secondary email address is provided, only the primary email address requires validation.
 
 ## Practical Information
+
 In this section, we review the practical use of the described extensions.
 
 It is not possible to specify different values for dkhm:verified_id and dkhm:verified_email when creating a contact.
@@ -252,7 +255,12 @@ If you indicate that a **Danish customer** has been validated, but we **cannot l
 
 This is because we need information from the **CVR/CPR register** to determine whether a customer has **name and address protection** or is a **sole proprietorship**. At the same time, we use the register to automatically **update the address and name** when these change in the CPR or CVR register.
 
+## Poll messages
+
+For information on poll messages related to NIS2 extensions, refer to the [Poll Message Reference Guide](Poll-Message-Reference-Guide.md).
+
 ## Appendix for dkhm:sole_proprietorship
+
 ## Appendix 1: info contact
 
 &lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
@@ -390,6 +398,7 @@ This is because we need information from the **CVR/CPR register** to determine w
 &lt;/epp&gt;
 
 ## Appendix for dkhm:contact_verification
+
 ## Appendix 3: info:contact dkhm:responsible
 
 &lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
