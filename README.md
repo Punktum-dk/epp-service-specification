@@ -250,6 +250,7 @@ This document is copyright by Punktum dk A/S and is licensed under the MIT Licen
 <a id="document-history"></a>
 
 ### Document History
+
 - 5.2.3 2026-05-20
 
   - Added section [Session Termination Conditions](#session-termination-conditions)
@@ -575,7 +576,7 @@ The EPP service supports the following protocols for transport security:
 
 The server may disconnect the TCP connection in the following situations.
 
-**Too many errors**
+#### Too many errors
 
 After three errors of the same type, the server disconnects the TCP connection.
 
@@ -588,14 +589,14 @@ The following text is appended to the result message:
 ; Disconnect due to too many errors
 ```
 
-**Oversized Packet**
+#### Oversized Packet
 
 If a packet exceeds 262144 bytes (256 KB), the server disconnects immediately.
 
 - No response packet is returned.
 - The TCP connection is closed directly.
 
-**Pending Server Shutdown**
+#### Pending Server Shutdown
 
 When the server enters a pending shutdown state:
 
@@ -604,6 +605,7 @@ When the server enters a pending shutdown state:
 - The final response code is modified to indicate disconnect:
 
 Examples:
+
 - `1000` → `1500`
 - `1001` → `1501`
 - `2000` → `2500`
@@ -834,7 +836,7 @@ Please see:
 
 Specifies who handles the contact verification.
 
-- `registrar`, indicates that registrar handles verification of the contact. This value is only available for registrar handled contacts (see [`dkhm:management`](#dkhmmanagement)). 
+- `registrar`, indicates that registrar handles verification of the contact. This value is only available for registrar handled contacts (see [`dkhm:management`](#dkhmmanagement)).
 - `registry`, indicates that Punktum dk handles verification of the contact.
 
 If a contact is registrar handled this value always reflects the [registrar account verification setting](#registrar-account-settings)
@@ -859,6 +861,7 @@ On  [info contact](#info-contact) the following attributes may be presented.
 - `expdate` - Only if verification is in progress: the date and time that the verification is going to expire if not completed.
 
 This may be omitted in [update contact](#update-contact). If
+
    - `Responsible = registry`, verified_id will go through our risk engine and determine if verified_id = `false` or `true`
    - `Responsible = registrar`, verified_id will become `true`, as we assume you have verified contacts id.
 
@@ -881,6 +884,7 @@ On  [info contact](#info-contact) the following attributes may be presented.
 - `expdate` - Only if verification is in progress: the date and time that the verification is going to expire if not completed.
 
 This may be omitted in [update contact](#update-contact). If
+
    - `Responsible = registry`, verified_email will become `false`
    - `Responsible = registrar`, verified_email will become `true`, as we assume you have verified contact email
 
@@ -5497,7 +5501,6 @@ The version numbers used in the matrix are major numbers only, e.g. 1 for 1.X.X.
 
 [DKHMLOGO]: https://punktum.dk/sites/default/files/logo/dk_logo_symbol_1.png
 [GHAMKDBADGE]: https://github.com/DK-Hostmaster/epp-service-specification/workflows/Markdownlint%20Action/badge.svg
-[GHASPLLBADGE]: https://github.com/DK-Hostmaster/epp-service-specification/workflows/Spellcheck%20Action/badge.svg
 
 [epp-update-contact]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp_update_contact_v1.0.png
 [epp-role-resolution]: https://raw.githubusercontent.com/DK-Hostmaster/epp-service-specification/master/images/epp-role-resolution_v1.0.png
