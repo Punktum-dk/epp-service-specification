@@ -240,7 +240,7 @@ This document is copyright by Punktum dk A/S and is licensed under the MIT Licen
 ### Document History
 
 - 5.3 2026-07-01
-  - The [renew domain](#renew-domain) command now only supports a renewal period of one year. In addition, a domain name can no longer be renewed earlier than 60 days before its expiry date.
+  - The [renew domain](#renew-domain) command now only supports a renewal period of one year. In addition, a domain name can no longer be renewed earlier than 2 months before its expiry date.
   - The Withdraw domain command has been removed and is no longer supported.
   - The [create domain](#create-domain) command now requires registrar management. It is no longer possible to create a domain name under registrant management.
   - The documentation for the following extensions has been removed, as they are no longer used. They remain present in the XSD for the time being:
@@ -2809,7 +2809,7 @@ Do note that for period specification, only the unit y indicating year is accept
 
 ☝️ Only a renewal period of `1` year can be specified in the `domain:period` section. 
 
-⚠️ A domain can only be renewed when there are 60 days or less remaining until its expiration date. 
+⚠️ A domain can only be renewed when there are 2 months or less remaining until its expiration date. 
 
 See diagram of EPP process for EPP renew domain: [:eye_speech_bubble:][epp-renew-domain]
 
