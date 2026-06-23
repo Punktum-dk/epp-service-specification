@@ -4050,7 +4050,28 @@ Diagram for contact creation [:eye_speech_bubble:][epp_create_contact]
 
 When creating a contact via EPP, it is possible to provide postal information in both a local and an international format. Due to how contact data is handled in Punktum dk’s systems, only one format is stored.
 
-For contacts with Denmark as the country, the local format is used and the international format is ignored. For contacts with any other country, the international format is used and the local format is ignored. Please see the table below.
+Punktum dk follows [RFC:5733] for the handling of `<contact:postalInfo>`.
+The `type` attribute determines the permitted character set, and this applies to
+both contact creation and contact update:
+
+- `type="int"` (internationalized): the content must use only characters from
+  the 7-bit US-ASCII subset of UTF-8.
+- `type="loc"` (localized): the content may use unrestricted UTF-8.
+
+From [RFC:5733]:
+
+> If an internationalized form (type="int") is provided,
+>      element content MUST be represented in a subset of UTF-8 that can
+>      be represented in the 7-bit US-ASCII character set.  If a
+>      localized form (type="loc") is provided, element content MAY be
+>      represented in unrestricted UTF-8.
+
+- For contacts with **Denmark** as the country, the local (`loc`) format is used
+  and the international (`int`) format is ignored.
+- For contacts with **any other country**, the international (`int`) format is used
+  and the local (`loc`) format is ignored.
+
+Please see the table below.
 
 | Denmark                      | Other country                    |
 |------------------------------|----------------------------------|
