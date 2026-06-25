@@ -1671,13 +1671,40 @@ From [RFC:5732]:
 
 Punktum dk provides a waiting list service for domain names. When a domain becomes available and reaches the first position on a waiting list, it must be registered through the standard registration process, either via the Registrar Portal or EPP.
 
-This is done using the[create domain](#create-domain) command, which must include the authorization token issued by Punktum dk.
+This is done using the [create domain](#create-domain) command, which must include the authorization token issued by Punktum dk in `domain:pw` field.
 
 The state that a domain name is offered to a waiting list can be inspected via the [info domain](#info-domain) via the [`dkhm:domainAdvisory`](#dkhmdomainadvisory) extension:
 
 ```XML
   <dkhm:domainAdvisory advisory="offeredOnWaitingList" domain="eksempel.dk"
     xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5"/>
+```
+
+Create domain offered from waiting list example:
+
+```XML
+<?xml version="1.0" encoding="UTF-8"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <create>
+      <domain:create xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>example.dk</domain:name>
+        <domain:period unit="y">1</domain:period>
+        <domain:ns>
+          <domain:hostObj>ns1.punktum.dk</domain:hostObj>
+          <domain:hostObj>ns2.punktum.dk</domain:hostObj>
+        </domain:ns>
+        <domain:registrant>DKHM1-DK</domain:registrant>
+        <domain:authInfo>
+          <domain:pw>066f6352</domain:pw>
+        </domain:authInfo>
+      </domain:create>
+    </create>
+<extension>
+      <dkhm:orderconfirmationToken xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">1636374927</dkhm:orderconfirmationToken>
+    </extension>
+  </command>
+</epp>
 ```
 
 Waiting list positions for domain names are not defined in the RFC standards and are handled according to our internal procedures.
