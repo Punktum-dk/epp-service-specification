@@ -4049,7 +4049,28 @@ The matching is performed on the following fields, and requires an exact match:
 - <contact:cc>
 - <contact:voice>
 
-If all relevant fields match exactly an existing contact, the corresponding user ID is returned in the [create contact response](#create-contact-response), instead of creating a new one.
+If all relevant fields match exactly an existing contact, the corresponding user ID is returned in the [create contact response](#create-contact-response), instead of creating a new one:
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+    <response>
+        <result code="1000">
+            <msg>Contact already exists. Please re-use.</msg>
+        </result>
+        <resData>
+            <contact:creData xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
+                <contact:id>DKHM1-DK</contact:id>
+                <contact:crDate>2026-07-10T10:11:39.0Z</contact:crDate>
+            </contact:creData>
+        </resData>
+        <trID>
+            <clTRID>ABC-123</clTRID>
+            <svTRID>BE18552C-7C47-11F1-B9C0-BAA694DFC6AE</svTRID>
+        </trID>
+    </response>
+</epp>
+```
 
 #### Forced creation (force)
 
