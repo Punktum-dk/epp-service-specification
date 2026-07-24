@@ -57,7 +57,7 @@ The messages in this guide contain placeholders that are substituted with actual
 | `REG-%`         | A registrar handle                                      | Any registrar handle                                      |
 | `%handle%`      | A handle that may be either a contact or registrar handle | Any contact or registrar handle                         |
 | `%email%`       | An email address                                        | Any email address                                         |
-| `%responsible%` | The party responsible for validating the change         | `registry` or `registrar`                                 |
+| `%responsible%` | The party responsible for validating                    | `registry` or `registrar`                                 |
 | `%reason%`      | The reason an email delivery failed                     | `antispam`, `bad_checksum`, `config`, `failed`, `unknown` |
 
 ## Poll Messages
