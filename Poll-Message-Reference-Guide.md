@@ -1349,7 +1349,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 			<dkhm:contact_verification
 				xmlns:dkhm='urn:dkhm:params:xml:ns:dkhm-4.5'>
 				<dkhm:responsible>registry</dkhm:responsible>
-				<dkhm:verified_id  status="expired" >false</dkhm:verified_id>
+				<dkhm:verified_id  status="rejected" >false</dkhm:verified_id>
 				<dkhm:verified_email status="completed" >true</dkhm:verified_email>
 			</dkhm:contact_verification>
 		</extension>
@@ -1430,7 +1430,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 			<dkhm:contact_verification
 				xmlns:dkhm='urn:dkhm:params:xml:ns:dkhm-4.5'>
 				<dkhm:responsible>registry</dkhm:responsible>
-				<dkhm:verified_id  status="expired" >false</dkhm:verified_id>
+				<dkhm:verified_id  status="notRequired" >false</dkhm:verified_id>
 				<dkhm:verified_email status="expired" >false</dkhm:verified_email>
 			</dkhm:contact_verification>
 		</extension>
@@ -1511,7 +1511,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 			<dkhm:contact_verification
 				xmlns:dkhm='urn:dkhm:params:xml:ns:dkhm-4.5'>
 				<dkhm:responsible>registry</dkhm:responsible>
-				<dkhm:verified_id  status="expired" >false</dkhm:verified_id>
+				<dkhm:verified_id  status="notRequired" >false</dkhm:verified_id>
 				<dkhm:verified_email status="completed" >true</dkhm:verified_email>
 			</dkhm:contact_verification>
 		</extension>
@@ -1593,7 +1593,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 				xmlns:dkhm='urn:dkhm:params:xml:ns:dkhm-4.5'>
 				<dkhm:responsible>registry</dkhm:responsible>
 				<dkhm:verified_id  status="notRequired" >false</dkhm:verified_id>
-				<dkhm:verified_email status="expired" >false</dkhm:verified_email>
+				<dkhm:verified_email status="NotRequired" >false</dkhm:verified_email>
 			</dkhm:contact_verification>
 		</extension>
 		<trID>
@@ -2695,7 +2695,61 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 <summary>Show XML example</summary>
 
 ```xml
-
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp
+	xmlns="urn:ietf:params:xml:ns:epp-1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+	<response>
+		<result code="1301">
+			<msg>Command completed successfully; ack to dequeue</msg>
+		</result>
+		<msgQ count="422" id="6814079">
+			<qDate>2026-03-18T06:27:22.0Z</qDate>
+			<msg>Name servers has been changed for test.dk, from ns01.example.dk, ns02.example.dk to ns1.punktum.dk, ns2.punktum.dk</msg>
+		</msgQ>
+        <resData>
+            <domain:infData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+                <domain:name>test.dk</domain:name>
+                <domain:roid>TEST_DK-DK</domain:roid>
+                <domain:status s="pendingDelete"/>
+                <domain:status s="serverHold"/>
+                <domain:status s="serverRenewProhibited"/>
+                <domain:status s="serverTransferProhibited"/>
+                <domain:status s="serverUpdateProhibited"/>
+                <domain:registrant>DKHM1-DK</domain:registrant>
+                <domain:ns>
+                    <domain:hostObj>ns1.punktum.dk</domain:hostObj>
+                    <domain:hostObj>ns2.punktum.dk</domain:hostObj>
+                </domain:ns>
+                <domain:clID>REG-666666</domain:clID>
+                <domain:crDate>2026-03-18T06:27:22.0Z</domain:crDate>
+                <domain:upDate>2026-03-18T06:27:22.0Z</domain:upDate>
+                <domain:exDate>2027-03-18T21:59:59.0Z</domain:exDate>
+            </domain:infData>
+        </resData>
+        <extension>
+            <rgp:infData xmlns:rgp="urn:ietf:params:xml:ns:rgp-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:rgp-1.0 rgp-1.0.xsd">
+                <rgp:rgpStatus s="redemptionPeriod"/>
+            </rgp:infData>
+            <dkhm:domainAdvisory xmlns:dkhm='urn:dkhm:params:xml:ns:dkhm-4.5' domain="test.dk" advisory="pendingDeletionDate" date="2026-03-18T22:00:00.0Z"      />
+            <dkhm:registrant_validated xmlns:dkhm='urn:dkhm:params:xml:ns:dkhm-4.5'>1</dkhm:registrant_validated>
+            <secDNS:infData xmlns:secDNS='urn:ietf:params:xml:ns:secDNS-1.1'>
+                <secDNS:dsData>
+                    <secDNS:keyTag>21836</secDNS:keyTag>
+                    <secDNS:alg>8</secDNS:alg>
+                    <secDNS:digestType>2</secDNS:digestType>
+                    <secDNS:digest>3b3596534d1a0aa8a33cd8ac1deb8a239fe7baa8c31e4e390bcde5ca90ee6d22</secDNS:digest>
+                </secDNS:dsData>
+            </secDNS:infData>
+            <dkhm:autoRenew xmlns:dkhm='urn:dkhm:params:xml:ns:dkhm-4.5'>true</dkhm:autoRenew>
+            <dkhm:vid xmlns:dkhm='urn:dkhm:params:xml:ns:dkhm-4.5'>false</dkhm:vid>
+        </extension>
+        <trID>
+            <clTRID>ABC-123</clTRID>
+            <svTRID>12D5E75C-8F29-11F1-B164-9E4826B23308</svTRID>
+        </trID>
+    </response>
+</epp>
 ```
 
 </details>
