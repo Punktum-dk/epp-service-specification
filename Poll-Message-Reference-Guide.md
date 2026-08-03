@@ -178,7 +178,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 				<contact:clID>REG-666666</contact:clID>
 				<contact:crID>REG-666666</contact:crID>
 				<contact:crDate>2026-03-11T10:30:21.0Z</contact:crDate>
-				<contact:upID>DKHM1-DK</contact:upID>
+				<contact:upID>REG-666666-DK</contact:upID>
 				<contact:upDate>2026-03-11T10:32:08.0Z</contact:upDate>
 			</contact:infData>
 		</resData>
@@ -367,7 +367,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 		<resData>
 			<contact:panData
 				xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
-				<contact:id paResult="1">DKHM1-DK</contact:id>
+				<contact:id paResult="0">DKHM1-DK</contact:id>
 				<contact:paTRID>
 					<clTRID>55229dce-3409-4e2e-be58-c2132ac071d6</clTRID>
 					<svTRID>E896C620-EC01-11F0-A321-AC9246E169D7</svTRID>
@@ -1593,7 +1593,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 				xmlns:dkhm='urn:dkhm:params:xml:ns:dkhm-4.5'>
 				<dkhm:responsible>registry</dkhm:responsible>
 				<dkhm:verified_id  status="notRequired" >false</dkhm:verified_id>
-				<dkhm:verified_email status="NotRequired" >false</dkhm:verified_email>
+				<dkhm:verified_email status="notRequired" >false</dkhm:verified_email>
 			</dkhm:contact_verification>
 		</extension>
 		<trID>
@@ -2150,7 +2150,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 		</result>
 		<msgQ count="422" id="6814079">
 			<qDate>2026-03-18T06:27:22.0Z</qDate>
-			<msg>test.dk.dk has been updated</msg>
+			<msg>test.dk has been updated</msg>
 		</msgQ>
         <resData>
             <domain:infData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
@@ -2212,7 +2212,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 		</result>
 		<msgQ count="422" id="6814079">
 			<qDate>2026-03-18T06:27:22.0Z</qDate>
-			<msg>REG-666666 has been removed as billing contact for test.dk.dk</msg>
+			<msg>REG-666666 has been removed as billing contact for test.dk</msg>
 		</msgQ>
         <resData>
             <domain:infData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
@@ -2274,7 +2274,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 		</result>
 		<msgQ count="422" id="6814079">
 			<qDate>2026-03-18T06:27:22.0Z</qDate>
-			<msg>REG-666666 has been removed as billing contact for test.dk.dk</msg>
+			<msg>DS records has been changed for test.dk</msg>
 		</msgQ>
         <resData>
             <domain:infData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
@@ -2404,7 +2404,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 		</result>
 		<msgQ count="369" id="6809683">
 			<qDate>2026-03-11T09:27:53.0Z</qDate>
-			<msg>The registrant has been changed to BTBF1-DK for test.dk</msg>
+			<msg>The registrant has been changed to DKHM1-DK for test.dk</msg>
 		</msgQ>
 		<resData>
 			<domain:panData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
@@ -2447,7 +2447,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 		</result>
 		<msgQ count="243" id="6824803">
 			<qDate>2026-03-10T02:36:37.0Z</qDate>
-			<msg>The registrant has not been changed to BTBF1-DK for test.dk, as the mandatory ID and/or data check was not completed in time</msg>
+			<msg>The registrant has not been changed to DKHM1-DK for test.dk, as the mandatory ID and/or data check was not completed in time</msg>
 		</msgQ>
 		<resData>
 			<domain:panData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
@@ -2705,7 +2705,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 		</result>
 		<msgQ count="422" id="6814079">
 			<qDate>2026-03-18T06:27:22.0Z</qDate>
-			<msg>Name servers has been changed for test.dk, from ns01.example.dk, ns02.example.dk to ns1.punktum.dk, ns2.punktum.dk</msg>
+			<msg>test.dk has been deleted</msg>
 		</msgQ>
         <resData>
             <domain:infData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
@@ -3297,7 +3297,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
             <host:infData xmlns:host="urn:ietf:params:xml:ns:host-1.0">
                 <host:name>ns1.test.dk</host:name>
                 <host:roid>NS1_TEST_DK-DK</host:roid>
-                <host:status s="linked"/>
+                <host:status s="ok"/>
                 <host:clID>DKHM1-DK</host:clID>
                 <host:crID>DKHM1-DK</host:crID>
                 <host:crDate>2013-11-06T07:37:01.0Z</host:crDate>
