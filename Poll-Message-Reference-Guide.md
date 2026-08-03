@@ -3,6 +3,8 @@
 This is a complete list of all EPP poll messages currently available in production in the Punktum dk EPP service.
 
 ## Document History
+- 2026-08-03 Added an XML example for each poll message
+    - Added a Placeholders section describing the placeholders used across the messages
 
 - 2026-03-11 Added two new poll messages regarding email bounce
     - %reason% field for email bounce can contain the following: "antispam", "bad_checksum", "config", "failed" and "unknown"
