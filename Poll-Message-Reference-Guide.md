@@ -142,6 +142,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** update  
 **Message:** The contact information has been updated for %-DK  
 **ResData type:** `contact:infData`
+**Trigger:** The contact's email, address, name or phone number has been changed.
 
 <details>
 <summary>Show XML example</summary>
@@ -223,6 +224,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** update primary email  
 **Message:** %-DK has to confirm the new primary email, %email%, to complete the update - %responsible%  
 **ResData type:** `contact:infData`
+**Trigger:** The registrant must confirm a new primary email address before the change takes effect.
 
 <details>
 <summary>Show XML example</summary>
@@ -305,6 +307,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** update primary email  
 **Message:** %-DK has confirmed the new primary email, %email% - %responsible%  
 **ResData type:** `contact:panData`
+**Trigger:** The registrant has confirmed the new primary email address.
 
 <details>
 <summary>Show XML example</summary>
@@ -349,6 +352,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** update primary email  
 **Message:** The new primary email, %email%, was not confirmed for %-DK - %responsible%  
 **ResData type:** `contact:panData`
+**Trigger:** The registrant did not confirm the new primary email address. The primary email is not changed.
 
 <details>
 <summary>Show XML example</summary>
@@ -393,6 +397,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** update secondary email  
 **Message:** %-DK has to confirm new secondary email, %email%, to complete the update - %responsible%  
 **ResData type:** `contact:infData`
+**Trigger:** The registrant must confirm a new secondary email address before the change takes effect.
 
 <details>
 <summary>Show XML example</summary>
@@ -475,6 +480,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** update secondary email  
 **Message:** %-DK has confirmed the new secondary email, %email% - %responsible%  
 **ResData type:** `contact:panData`
+**Trigger:** The registrant has confirmed the new secondary email address.
 
 <details>
 <summary>Show XML example</summary>
@@ -518,6 +524,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** update secondary email  
 **Message:** The new secondary email, %email%, was not confirmed for %-DK - %responsible%  
 **ResData type:** `contact:panData`
+**Trigger:** The registrant did not confirm the new secondary email address. Secondary email has not been updated/added.
 
 <details>
 <summary>Show XML example</summary>
@@ -561,6 +568,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** update verification  
 **Message:** %-DK has to complete the mandatory ID and data check - %responsible%  
 **ResData type:** `contact:infData`
+**Trigger:** The registrant must complete both the mandatory ID check and email verification.
 
 <details>
 <summary>Show XML example</summary>
@@ -642,6 +650,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** update verification  
 **Message:** %-DK has to complete the mandatory ID check - %responsible%  
 **ResData type:** `contact:infData`
+**Trigger:** The registrant must complete the mandatory ID check only.
 
 <details>
 <summary>Show XML example</summary>
@@ -723,6 +732,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** update verification  
 **Message:** %-DK has to complete the mandatory data check - %responsible%  
 **ResData type:** `contact:infData`
+**Trigger:** The registrant must complete the mandatory email verification only.
 
 <details>
 <summary>Show XML example</summary>
@@ -804,6 +814,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** update verification  
 **Message:** The mandatory ID and data check of %-DK has expired - %responsible%  
 **ResData type:** `contact:infData`
+**Trigger:** The registrant did not complete the mandatory ID check and email verification within the deadline; the associated domain name(s) are suspended.
 
 <details>
 <summary>Show XML example</summary>
@@ -885,6 +896,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** update verification  
 **Message:** The mandatory ID check of %-DK has expired - %responsible%  
 **ResData type:** `contact:infData`
+**Trigger:** The registrant did not complete the mandatory ID check within the deadline; the associated domain name(s) are suspended.
 
 <details>
 <summary>Show XML example</summary>
@@ -966,6 +978,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** update verification  
 **Message:** The mandatory data check of %-DK has expired - %responsible%  
 **ResData type:** `contact:infData`
+**Trigger:** The registrant did not complete the mandatory email verification within the deadline; the associated domain name(s) are suspended.
 
 <details>
 <summary>Show XML example</summary>
@@ -1047,6 +1060,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** update verification  
 **Message:** %-DK has completed the mandatory ID and data check - %responsible%  
 **ResData type:** `contact:infData`
+**Trigger:** The registrant completed the mandatory ID check and email verification; the domain name is activated if it was not already active.
 
 <details>
 <summary>Show XML example</summary>
@@ -1128,6 +1142,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** update verification  
 **Message:** %-DK has completed the mandatory ID check - %responsible%  
 **ResData type:** `contact:infData`
+**Trigger:** The registrant completed the mandatory ID check; the domain name is activated if it was not already active.
 
 <details>
 <summary>Show XML example</summary>
@@ -1209,6 +1224,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** update verification  
 **Message:** %-DK has completed the mandatory data check - %responsible%  
 **ResData type:** `contact:infData`
+**Trigger:** The registrant completed the mandatory email verification; the domain name is activated if it was not already active.
 
 <details>
 <summary>Show XML example</summary>
@@ -1290,6 +1306,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** update verification  
 **Message:** The mandatory ID check of %-DK was rejected - %responsible%  
 **ResData type:** `contact:infData`
+**Trigger:** The registrant's mandatory ID check was rejected; the associated domain name(s) are suspended.
 
 <details>
 <summary>Show XML example</summary>
@@ -1371,6 +1388,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** update verification  
 **Message:** The mandatory ID and data check of %-DK was cancelled - %responsible%  
 **ResData type:** `contact:infData`
+**Trigger:** The mandatory ID check and email verification were cancelled; the registrant no longer needs to complete them, and the domain name is activated if it was not already active.
 
 <details>
 <summary>Show XML example</summary>
@@ -1452,6 +1470,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** update verification  
 **Message:** The mandatory ID check of %-DK was cancelled - %responsible%  
 **ResData type:** `contact:infData`
+**Trigger:** The mandatory ID check was cancelled; the registrant no longer needs to complete it, and the domain name is activated if it was not already active.
 
 <details>
 <summary>Show XML example</summary>
@@ -1533,6 +1552,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** update verification  
 **Message:** The mandatory data check of %-DK was cancelled - %responsible%  
 **ResData type:** `contact:infData`
+**Trigger:** The mandatory email verification was cancelled; the registrant no longer needs to complete it, and the domain name is activated if it was not already active.
 
 <details>
 <summary>Show XML example</summary>
@@ -1614,6 +1634,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** email bounce  
 **Message:** Email delivery (failed) %reason% for the primary email, %email%, of %-DK. Please review and correct the email address.  
 **ResData type:** `contact:infData`
+**Trigger:** The registrant's primary email address cannot receive mail and must be corrected.
 
 <details>
 <summary>Show XML example</summary>
@@ -1695,6 +1716,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** email bounce  
 **Message:** Email delivery (failed) %reason% for the secondary email, %email%, of %-DK. Please review and correct the email address.  
 **ResData type:** `contact:infData`
+**Trigger:** The registrant's secondary email address cannot receive mail and must be corrected.
 
 <details>
 <summary>Show XML example</summary>
@@ -1779,6 +1801,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** delete  
 **Message:** %-DK has been deleted  
 **ResData type:** `contact:infData`
+**Trigger:** The user-id in the registrar's portfolio has been deleted, which happens automatically when the user-id has been left empty for 14 days.
 
 <details>
 <summary>Show XML example</summary>
@@ -1860,6 +1883,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** create  
 **Message:** %.dk has been registered and activated  
 **ResData type:** `domain:panData`
+**Trigger:** The domain name has been registered and activated.
 
 <details>
 <summary>Show XML example</summary>
@@ -1903,6 +1927,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** create  
 **Message:** %.dk has been registered, but not activated due to pending ID and/or data check  
 **ResData type:** `domain:panData`
+**Trigger:** The domain name has been registered but is not activated until the registrant completes the mandatory email verification and/or ID check.
 
 <details>
 <summary>Show XML example</summary>
@@ -1946,6 +1971,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** create  
 **Message:** The application for %.dk has been rejected, as the domain was already taken  
 **ResData type:** `domain:panData`
+**Trigger:** The domain name was not registered, as it was already taken.
 
 <details>
 <summary>Show XML example</summary>
@@ -1989,6 +2015,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** create  
 **Message:** The application for %.dk has been rejected, as the user and domain handling mismatched  
 **ResData type:** `domain:panData`
+**Trigger:** The domain name was not registered, as the user-id used for the registration is under registrant management.
 
 <details>
 <summary>Show XML example</summary>
@@ -2032,6 +2059,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** create  
 **Message:** The application for %.dk has been cancelled  
 **ResData type:** `domain:panData`
+**Trigger:** The domain name application was cancelled. No further information is provided; contact Punktum dk to find out why.
 
 <details>
 <summary>Show XML example</summary>
@@ -2075,6 +2103,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** update  
 **Message:** %.dk has been activated  
 **ResData type:** `domain:infData`
+**Trigger:** The domain name has been activated after having been suspended.
 
 <details>
 <summary>Show XML example</summary>
@@ -2137,6 +2166,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** update  
 **Message:** %.dk has been updated  
 **ResData type:** `domain:infData`
+**Trigger:** The domain name has been updated with regard to status, expiry date, etc.
 
 <details>
 <summary>Show XML example</summary>
@@ -2199,6 +2229,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** update billing  
 **Message:** REG-% has been removed as billing contact for %.dk  
 **ResData type:** `domain:infData`
+**Trigger:** The registrar has been removed as the billing contact for a domain name.
 
 <details>
 <summary>Show XML example</summary>
@@ -2261,6 +2292,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** update dsrecords  
 **Message:** DS records has been changed for %.dk  
 **ResData type:** `domain:infData`
+**Trigger:** The DS records for the domain name have been changed.
 
 <details>
 <summary>Show XML example</summary>
@@ -2329,6 +2361,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** update name servers  
 **Message:** Name servers has been changed for %.dk, from %host%, %host%, … to %host%, %host%, …  
 **ResData type:** `domain:infData`
+**Trigger:** The name servers for the domain name have been changed.
 
 <details>
 <summary>Show XML example</summary>
@@ -2391,6 +2424,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** update registrant  
 **Message:** The registrant has been changed to %-DK for %.dk  
 **ResData type:** `domain:panData`
+**Trigger:** Confirmation that the domain name has changed registrant.
 
 <details>
 <summary>Show XML example</summary>
@@ -2434,6 +2468,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** update registrant  
 **Message:** The registrant has not been changed to %-DK for %.dk, as the mandatory ID and/or data check was not completed in time  
 **ResData type:** `domain:panData`
+**Trigger:** The registrant change was not completed, as the mandatory ID check and/or email verification was not completed within the deadline.
 
 <details>
 <summary>Show XML example</summary>
@@ -2477,6 +2512,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** update registrant  
 **Message:** The registrant has not been changed to %-DK for %.dk, as the mandatory ID and/or data check was rejected  
 **ResData type:** `domain:panData`
+**Trigger:** The registrant change was not completed, as the documentation for the mandatory ID check was rejected.
 
 <details>
 <summary>Show XML example</summary>
