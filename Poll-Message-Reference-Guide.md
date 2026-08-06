@@ -2556,6 +2556,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** update registrant  
 **Message:** The registrant has not been changed to %-DK for %.dk, as the mandatory ID and/or data check was not completed  
 **ResData type:** `domain:panData`
+**Trigger:** The registrant change was cancelled. No further information is provided; contact Punktum dk to find out why.
 
 <details>
 <summary>Show XML example</summary>
@@ -2599,6 +2600,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** transfer  
 **Message:** %.dk has been added to your portfolio  
 **ResData type:** `domain:trnData`
+**Trigger:** The domain name has been added to your portfolio through a transfer.
 
 <details>
 <summary>Show XML example</summary>
@@ -2642,6 +2644,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** transfer  
 **Message:** %.dk has been removed from your portfolio  
 **ResData type:** `domain:trnData`
+**Trigger:** The domain name has been removed from your portfolio through a transfer to another registrar.
 
 <details>
 <summary>Show XML example</summary>
@@ -2685,6 +2688,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** delete  
 **Message:** %.dk has been deleted  
 **ResData type:** `domain:panData`
+**Trigger:** The domain name has been deleted as the result of a pending delete operation initiated by the registrar, such as a cancellation or auto-expiry.
 
 <details>
 <summary>Show XML example</summary>
@@ -2728,6 +2732,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** delete  
 **Message:** %.dk has been deleted  
 **ResData type:** `domain:infData`
+**Trigger:** The domain name has been deleted as the result of another process rather than a registrar-initiated deletion, such as a failure to complete the mandatory ID or data check.
 
 <details>
 <summary>Show XML example</summary>
@@ -2798,6 +2803,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** delete  
 **Message:** %.dk has been extended and cancellation stopped  
 **ResData type:** `domain:panData`
+**Trigger:** The domain name was marked for cancellation and has been renewed; the cancellation is stopped.
 
 <details>
 <summary>Show XML example</summary>
@@ -2841,6 +2847,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** delete  
 **Message:** %.dk has been restored, extended and cancellation stopped  
 **ResData type:** `domain:panData`
+**Trigger:** The domain name has been restored and renewed; the cancellation is stopped.
 
 <details>
 <summary>Show XML example</summary>
@@ -2884,6 +2891,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** create  
 **Message:** The name server %host% has been registered, as the registrant has approved it  
 **ResData type:** `host:panData`
+**Trigger:** The name server has been registered, as the registrant approved its creation.
 
 <details>
 <summary>Show XML example</summary>
@@ -2927,6 +2935,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** create  
 **Message:** The name server %host% has not been registered, as it has been rejected by the registrant  
 **ResData type:** `host:panData`
+**Trigger:** The name server was not registered, as the registrant actively rejected it.
 
 <details>
 <summary>Show XML example</summary>
@@ -2970,6 +2979,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** create  
 **Message:** The name server %host% has not been registered, as it was not approved by the registrant in time  
 **ResData type:** `host:panData`
+**Trigger:** The name server was not registered, as the registrant did not respond to the request in time.
 
 <details>
 <summary>Show XML example</summary>
@@ -3013,6 +3023,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** create  
 **Message:** The name server %host% has been registered, as the registrant has approved it and %handle% has accepted the name server manager role  
 **ResData type:** `host:panData`
+**Trigger:** The name server has been registered, as both the registrant and the name server manager accepted their respective roles.
 
 <details>
 <summary>Show XML example</summary>
@@ -3056,6 +3067,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** create  
 **Message:** The name server %host% has not been registered, as the name server manager role has been rejected  
 **ResData type:** `host:panData`
+**Trigger:** The name server was not registered, as the name server manager actively rejected the role.
 
 <details>
 <summary>Show XML example</summary>
@@ -3099,6 +3111,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** create  
 **Message:** The name server %host% has not been registered, as the name server manager role was not accepted in time  
 **ResData type:** `host:panData`
+**Trigger:** The name server was not registered, as the name server manager did not accept the role in time.
 
 <details>
 <summary>Show XML example</summary>
@@ -3142,6 +3155,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** create  
 **Message:** The name server %host% has been registered, as %handle% has accepted the name server manager role  
 **ResData type:** `host:panData`
+**Trigger:** The name server has been registered, as the name server manager accepted the role.
 
 <details>
 <summary>Show XML example</summary>
@@ -3185,6 +3199,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** update  
 **Message:** The name server manager role for %host% has been accepted by %handle%  
 **ResData type:** `host:panData`
+**Trigger:** During a name server handover, the role was accepted by the new name server manager.
 
 <details>
 <summary>Show XML example</summary>
@@ -3228,6 +3243,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** update  
 **Message:** The name server manager role for %host% has been rejected by %handle%  
 **ResData type:** `host:panData`
+**Trigger:** During a name server handover, the name server manager role was actively rejected.
 
 <details>
 <summary>Show XML example</summary>
@@ -3271,6 +3287,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** update  
 **Message:** The name server manager role for %host% has not been accepted by %handle% in time  
 **ResData type:** `host:panData`
+**Trigger:** During a name server handover, the name server manager role was not accepted within the deadline.
 
 <details>
 <summary>Show XML example</summary>
@@ -3314,6 +3331,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** delete  
 **Message:** The name server %host% has been deleted  
 **ResData type:** `host:infData`
+**Trigger:** The name server has been deleted.
 
 <details>
 <summary>Show XML example</summary>
