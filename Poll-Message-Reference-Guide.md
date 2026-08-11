@@ -92,7 +92,6 @@ The messages in this guide contain placeholders that are substituted with actual
 |domain |create |%.dk has been registered and activated |[view](#ex-24) |domain:panData |
 |domain |create |%.dk has been registered, but not activated due to pending ID and/or data check |[view](#ex-25) |domain:panData |
 |domain |create |The application for %.dk has been rejected, as the domain was already taken |[view](#ex-26) |domain:panData |
-|domain |create |The application for %.dk has been rejected, as the user and domain handling mismatched |[view](#ex-28) |domain:panData |
 |domain |create |The application for %.dk has been cancelled |[view](#ex-29) |domain:panData |
 |domain |update |%.dk has been activated |[view](#ex-30) |domain:infData |
 |domain |update |%.dk has been updated |[view](#ex-31) |domain:infData |
@@ -142,7 +141,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** update  
 **Message:** The contact information has been updated for %-DK  
 **ResData type:** `contact:infData`  
-**Trigger:** The contact's email, address, name or phone number has been changed.
+**Trigger:** The contact information on a handle has been updated
 
 <details>
 <summary>Show XML example</summary>
@@ -1224,7 +1223,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** update verification  
 **Message:** %-DK has completed the mandatory data check - %responsible%  
 **ResData type:** `contact:infData`  
-**Trigger:** The registrant completed the mandatory email verification; the domain name is activated if it was not already active.
+**Trigger:** The registrant completed the mandatory email verification; an ID-control can still be active and needs completion before domain is activated
 
 <details>
 <summary>Show XML example</summary>
@@ -2011,50 +2010,6 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 
 ---
 
-<a id="ex-28"></a>
-**Operation:** create  
-**Message:** The application for %.dk has been rejected, as the user and domain handling mismatched  
-**ResData type:** `domain:panData`  
-**Trigger:** The domain name was not registered, as the user-id used for the registration is under registrant management.
-
-<details>
-<summary>Show XML example</summary>
-
-```xml
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp
-	xmlns="urn:ietf:params:xml:ns:epp-1.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
-	<response>
-		<result code="1301">
-			<msg>Command completed successfully; ack to dequeue</msg>
-		</result>
-		<msgQ count="264" id="6816566">
-			<qDate>2026-03-08T10:26:34.0Z</qDate>
-			<msg>The application for test123.dk has been rejected, as the user and domain handling mismatched</msg>
-		</msgQ>
-		<resData>
-			<domain:panData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-				<domain:name paResult="0">test123.dk</domain:name>
-				<domain:paTRID>
-					<clTRID>dca62e06-3eef-40df-9c02-0d7178684a28</clTRID>
-					<svTRID>A7941700-8F21-11F1-B094-05474682B364</svTRID>
-				</domain:paTRID>
-				<domain:paDate>2026-03-08T10:26:34.0Z</domain:paDate>
-			</domain:panData>
-		</resData>
-		<trID>
-			<clTRID>5b881dbeda8c40c2bd395f0ad5f7f6bd</clTRID>
-			<svTRID>1A8604CA-9588-64A5-E065-000000000202</svTRID>
-		</trID>
-	</response>
-</epp>
-```
-
-</details>
-
----
-
 <a id="ex-29"></a>
 **Operation:** create  
 **Message:** The application for %.dk has been cancelled  
@@ -2421,7 +2376,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 ---
 
 <a id="ex-35"></a>
-**Operation:** update registrant  
+**Operation:** change registrant  
 **Message:** The registrant has been changed to %-DK for %.dk  
 **ResData type:** `domain:panData`  
 **Trigger:** Confirmation that the domain name has changed registrant.
@@ -2465,7 +2420,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 ---
 
 <a id="ex-36"></a>
-**Operation:** update registrant  
+**Operation:** change registrant   
 **Message:** The registrant has not been changed to %-DK for %.dk, as the mandatory ID and/or data check was not completed in time  
 **ResData type:** `domain:panData`  
 **Trigger:** The registrant change was not completed, as the mandatory ID check and/or email verification was not completed within the deadline.
@@ -2509,7 +2464,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 ---
 
 <a id="ex-37"></a>
-**Operation:** update registrant  
+**Operation:** change registrant    
 **Message:** The registrant has not been changed to %-DK for %.dk, as the mandatory ID and/or data check was rejected  
 **ResData type:** `domain:panData`  
 **Trigger:** The registrant change was not completed, as the documentation for the mandatory ID check was rejected.
@@ -2553,10 +2508,10 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 ---
 
 <a id="ex-38"></a>
-**Operation:** update registrant  
+**Operation:** change registrant   
 **Message:** The registrant has not been changed to %-DK for %.dk, as the mandatory ID and/or data check was not completed  
 **ResData type:** `domain:panData`  
-**Trigger:** The registrant change was cancelled. No further information is provided; contact Punktum dk to find out why.
+**Trigger:** The registrant change was cancelled, as the new registrant has rejected the change.
 
 <details>
 <summary>Show XML example</summary>
@@ -2688,7 +2643,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** delete  
 **Message:** %.dk has been deleted  
 **ResData type:** `domain:panData`  
-**Trigger:** The domain name has been deleted as the result of a pending delete operation initiated by the registrar, such as a cancellation or auto-expiry.
+**Trigger:** The domain name has been deleted as the result of a pending delete operation initiated by the registrar.
 
 <details>
 <summary>Show XML example</summary>
@@ -2732,7 +2687,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** delete  
 **Message:** %.dk has been deleted  
 **ResData type:** `domain:infData`  
-**Trigger:** The domain name has been deleted as the result of another process rather than a registrar-initiated deletion, such as a failure to complete the mandatory ID or data check.
+**Trigger:** The domain name has been deleted as the result of another process rather than a registrar-initiated deletion, such as a failure to complete the mandatory ID or auto-expire.
 
 <details>
 <summary>Show XML example</summary>
@@ -2800,7 +2755,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 ---
 
 <a id="ex-43"></a>
-**Operation:** delete  
+**Operation:** restore  
 **Message:** %.dk has been extended and cancellation stopped  
 **ResData type:** `domain:panData`  
 **Trigger:** The domain name was marked for cancellation and has been renewed; the cancellation is stopped.
@@ -2844,7 +2799,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 ---
 
 <a id="ex-44"></a>
-**Operation:** delete  
+**Operation:** restore  
 **Message:** %.dk has been restored, extended and cancellation stopped  
 **ResData type:** `domain:panData`  
 **Trigger:** The domain name has been restored and renewed; the cancellation is stopped.
