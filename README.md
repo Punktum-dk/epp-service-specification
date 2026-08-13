@@ -3304,6 +3304,7 @@ Possible return codes for add DSRECORDS:
 | 2201        | If the authenticated user does not hold the privilege to update the specified domain object |
 | 2303        | If the specified domain name does not exist                                                 |
 | 2303        | If DSRECORDS do not exist, when removing DSRECORDS                                          |
+| 2307        | Command failed for domain with VID service, use the registrar portal function               |
 
 <a id="setting-authinfo"></a>
 
