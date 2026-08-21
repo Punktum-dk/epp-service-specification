@@ -4,7 +4,7 @@
 
 ![Markdownlint Action][GHAMKDBADGE]
 
-2026-05-27 Revision: 5.3.1
+2026-08-21 Revision: 5.3.2
 
 ## Table of Contents
 
@@ -233,6 +233,10 @@ This document is copyright by Punktum dk A/S and is licensed under the MIT Licen
 <a id="document-history"></a>
 
 ### Document History
+
+- 5.3.2 2026-08-21
+
+  - Corrected the use of `<contact:postalInfo>` for `type="loc"` in [Address Handling](#address-handling).
 
 - 5.3.1 2026-05-27
 
@@ -3947,15 +3951,8 @@ both contact creation and contact update:
 
 - `type="int"` (internationalized): the content must use only characters from
   the 7-bit US-ASCII subset of UTF-8.
-- `type="loc"` (localized): the content may use unrestricted UTF-8.
-
-From [RFC:5733]:
-
-> If an internationalized form (type="int") is provided,
->      element content MUST be represented in a subset of UTF-8 that can
->      be represented in the 7-bit US-ASCII character set.  If a
->      localized form (type="loc") is provided, element content MAY be
->      represented in unrestricted UTF-8.
+- `type="loc"` (localized): the content can contain the following characters:
+   a-zA-ZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÞÿ
 
 - For contacts with **Denmark** as the country, the local (`loc`) format is used
   and the international (`int`) format is ignored.
