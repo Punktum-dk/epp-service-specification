@@ -3951,8 +3951,14 @@ both contact creation and contact update:
 
 - `type="int"` (internationalized): the content must use only characters from
   the 7-bit US-ASCII subset of UTF-8.
-- `type="loc"` (localized): the content can contain the following characters:
-   a-zA-ZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÞÿ
+- `type="loc"` (localized): the content may in addition contain the Latin-1
+  letters listed below.
+
+```text
+a-z A-Z
+À Á Â Ã Ä Å Æ Ç È É Ê Ë Ì Í Î Ï Ð Ñ Ò Ó Ô Õ Ö Ø Ù Ú Û Ü Ý Þ ß
+à á â ã ä å æ ç è é ê ë ì í î ï ð ñ ò ó ô õ ö ø ù ú û ü ý þ ÿ
+```
 
 - For contacts with **Denmark** as the country, the local (`loc`) format is used
   and the international (`int`) format is ignored.
