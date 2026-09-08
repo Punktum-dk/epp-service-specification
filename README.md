@@ -238,6 +238,7 @@ This document is copyright by Punktum dk A/S and is licensed under the MIT Licen
 - 5.3.3 2026-09-08
   - Added documentation of the `rgp:infData` extension in the [info domain response with redemption period](#info-domain-response-with-redemption-period), which indicates whether a domain name can be restored using the [restore domain](#restore-domain).
   - Added three new poll messages regarding suspension of domain names, see [Poll-Message-Reference-Guide](Poll-Message-Reference-Guide.md)
+  - Added [Suspension Schedule](#suspension-schedule).
 
 - 5.3.2 2026-08-21
 
@@ -849,6 +850,8 @@ Dkhm:autorenew has two values:
 - **false**, indicating that the specific domain name is to expire automatically by the end of the term.
 
 The default for a registrar account is auto-renewal = `true`. The default can be changed in the registrar portal.
+
+Please see [Suspension Schedule](#suspension-schedule) for domain names set to auto-expire.
 
 <a id="dkhmcontact_validated"></a>
 
@@ -3518,7 +3521,7 @@ For registration of domain names offered from a waiting list, the authorization 
 
 The default `delete domain` command behaviour is to deactivate immediately, which complies with [RFC:5731]. Not being able to complete the request will result in a error, also in compliance with [RFC:5731]. Please see below for more information on the business process for deletion.
 
-The current expiration date can be obtained using the `info domain` command and is specified in the `domain:exDate` field. The date conforms with the required format. The [status code](#status-codes), `pendingDelete` delete is set and can be removed either by the execution of the process after the redemption period or a [restore](#restore-domain) operation.
+The current expiration date can be obtained using the `info domain` command and is specified in the `domain:exDate` field. The date conforms with the required format. The [status code](#status-codes), `pendingDelete` delete is set and can be removed either by the execution of the process after the redemption period or a [restore](#restore-domain) operation. Please see [Suspension Schedule](#suspension-schedule) for domain names set to auto-expire.
 
 The alternative approach to deletion is to set auto expire, which will cancel the domain name subscription automatically at expiration.
 
@@ -3594,6 +3597,23 @@ Example:
 ```
 
 Do note that if subordinates exist these may block for a delete and the request will result in an error: `2305`.
+
+<a id="suspension-schedule"></a>
+
+#### Suspension Schedule
+
+Suspensions of automatically expiring domain names are processed Monday through
+Thursday, and not on Fridays, weekends, or Danish public holidays. A domain name
+reaching the end of its term outside these days remains active and resolvable until
+the next day on which suspensions are processed. The suspension is announced in a
+poll message, please see
+[Poll-Message-Reference-Guide](Poll-Message-Reference-Guide.md).
+
+Do note that the suspension date can therefore be later than `domain:exDate`, and
+that the 30-day redemption period runs from the actual suspension date. Use the
+`pendingDeletionDate` advisory from the
+[`dkhm:domainAdvisory`](#dkhmdomainadvisory) extension for the expected deletion
+date rather than deriving it from `domain:exDate`.
 
 <a id="restore-domain"></a>
 
