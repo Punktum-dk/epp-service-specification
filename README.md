@@ -237,7 +237,7 @@ This document is copyright by Punktum dk A/S and is licensed under the MIT Licen
 
 - 5.3.3 2026-09-08
   - Added documentation of the `rgp:infData` extension in the [info domain response for domain with pending delete](#info-domain-response-for-domain-with-pending-delete), which indicates whether a domain name scheduled for deletion can be restored using the [restore domain](#restore-domain).
-  - Added three new poll messages regarding suspension of domain names, see [Poll-Message-Reference-Guide](Poll-Message-Reference-Guide.md)
+  - Added five new poll messages, see [Poll-Message-Reference-Guide](Poll-Message-Reference-Guide.md)
   - Added [Suspension Schedule](#suspension-schedule).
 
 - 5.3.2 2026-08-21
