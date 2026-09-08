@@ -2647,23 +2647,35 @@ As a waiting list entry does not constitute a full domain name registration, the
 
 ##### info domain response with redemption period
 
-When a domain name is scheduled for deletion and can still be restored, the info domain response includes the `rgp:infData` extension described in [RFC:3915], holding the status `redemptionPeriod`.
+When a domain name is scheduled for deletion, the info domain response includes the
+`rgp:infData` extension described in [RFC:3915]. The value of `rgp:rgpStatus` tells
+you whether the deletion can still be reversed:
+
+- `redemptionPeriod`, the domain name is in the redemption period and can be
+  restored using the [restore domain](#restore-domain) command
+- `pendingDelete`, the domain name is scheduled for deletion and **cannot** be restored with a restore domain command.
 
 ```xml
 <extension>
-  <rgp:infData xmlns:rgp="urn:ietf:params:xml:ns:rgp-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:rgp-1.0 rgp-1.0.xsd">
+  <rgp:infData xmlns:rgp="urn:ietf:params:xml:ns:rgp-1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="urn:ietf:params:xml:ns:rgp-1.0 rgp-1.0.xsd">
     <rgp:rgpStatus s="redemptionPeriod"/>
   </rgp:infData>
 </extension>
 ```
 
-The status is only set if the domain name can in fact be restored using the [restore domain](#restore-domain) command. Use it to determine whether a restoration is possible before attempting one. Domain names pending deletion for reasons that do not permit restoration, such as an expired ID-control or an unconfirmed restoration, are not assigned the `redemptionPeriod` status.
+Use the value to determine whether a restoration is possible before attempting one.
+Deletions caused by an expired ID-control or an unconfirmed restoration cannot be
+reversed and are returned as `pendingDelete`.
 
-`redemptionPeriod` is the only value returned in `rgp:rgpStatus`. The remaining grace period states described in [RFC:3915] are communicated as domain statuses or are unsupported, please see [Domain Status Codes](#domain-status-codes).
+The extension is included for all authenticated users, independently of their
+relationship to the domain name.
 
-The extension is included for all authenticated users, independently of their relationship to the domain name.
-
-A domain name in the redemption period is also assigned the `pendingDelete` status, and the expected deletion date is available via the [`dkhm:domainAdvisory`](#dkhmdomainadvisory) extension using the advisory `pendingDeletionDate`.
+In both cases the domain name is also assigned the `pendingDelete` **domain**
+status, and the expected deletion date is available via the
+[`dkhm:domainAdvisory`](#dkhmdomainadvisory) extension using the advisory
+`pendingDeletionDate`.
 
 A complete response for a domain name in the redemption period looks as follows:
 
