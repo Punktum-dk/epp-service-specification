@@ -2645,7 +2645,7 @@ As a waiting list entry does not constitute a full domain name registration, the
 
 <a id="info-domain-response-for-domain-with-pending-delete"></a>
 
-##### info domain response with redemption period
+##### info domain response for domain with pending delete
 
 When a domain name is scheduled for deletion, the info domain response includes the
 `rgp:infData` extension described in [RFC:3915]. The value of `rgp:rgpStatus` tells
