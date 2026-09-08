@@ -2852,7 +2852,7 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 **Operation:** suspend  
 **Message:** %.dk has been suspended, as the registrant has not completed the ID/data check on time  
 **ResData type:** `domain:infData`  
-**Trigger:** The registrant did not complete the mandatory ID and/or data check within the deadline. The domain name is suspended and enters the deletion process.
+**Trigger:** The registrant did not complete the mandatory ID and/or data check within the deadline. The domain name is suspended and enters 30-day suspension period.
 
 <details>
 <summary>Show XML example</summary>
