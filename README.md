@@ -4,7 +4,7 @@
 
 ![Markdownlint Action][GHAMKDBADGE]
 
-2026-08-21 Revision: 5.3.2
+2026-09-08 Revision: 5.3.3
 
 ## Table of Contents
 
@@ -235,9 +235,9 @@ This document is copyright by Punktum dk A/S and is licensed under the MIT Licen
 
 ### Document History
 
-- 5.3.3 2026-08-26
-  - Added documentation of the `rgp:infData` extension in the [info domain response with redemption period](#info-domain-response-with-redemption-period), which indicates whether a domain name can be restored using the [restore domain](#restore-domain) extension
-  - Corrected the description of `redemptionPeriod` in [Domain Status Codes](#domain-status-codes), the status is not implemented as a domain status
+- 5.3.3 2026-09-08
+  - Added documentation of the `rgp:infData` extension in the [info domain response with redemption period](#info-domain-response-with-redemption-period), which indicates whether a domain name can be restored using the [restore domain](#restore-domain).
+  - Added three new poll messages regarding suspension of domain names, see [Poll-Message-Reference-Guide](Poll-Message-Reference-Guide.md)
 
 - 5.3.2 2026-08-21
 
@@ -3606,7 +3606,7 @@ Punktum dk will support the ability to restore for two use-cases:
 1. Get a domain name back to the state active from a pending deletion specified by an explicit deletion request (delete command) or a automatic expiration
 1. Get a domain name back to state active from a pending deletion, caused by missing financial settlement (only for registrant managed domain names)
 
-Domain names might be suspended for other reasons, these will no be recoverable using the described restore facility, this will be indicated using the `serverUpdateProhibited` status.
+Domain names might be suspended for other reasons, these will no be recoverable using the described restore facility.
 
 Restoration has to take place during the redemption period and will not be possible after the domain has been deleted.
 
