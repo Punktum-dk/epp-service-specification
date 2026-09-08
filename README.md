@@ -98,7 +98,7 @@
     - [info domain](#info-domain)
       - [info domain request](#info-domain-request)
       - [info domain response](#info-domain-response)
-      - [info domain response with redemption period](#info-domain-response-with-redemption-period)
+      - [info domain response for domain with pending delete](#info-domain-response-for-domain-with-pending-delete)
     - [renew domain](#renew-domain)
       - [renew domain request](#renew-domain-request)
       - [renew domain response](#renew-domain-response)
@@ -236,7 +236,7 @@ This document is copyright by Punktum dk A/S and is licensed under the MIT Licen
 ### Document History
 
 - 5.3.3 2026-09-08
-  - Added documentation of the `rgp:infData` extension in the [info domain response with redemption period](#info-domain-response-with-redemption-period), which indicates whether a domain name can be restored using the [restore domain](#restore-domain).
+  - Added documentation of the `rgp:infData` extension in the [info domain response for domain with pending delete](#info-domain-response-for-domain-with-pending-delete), which indicates whether a domain name scheduled for deletion can be restored using the [restore domain](#restore-domain).
   - Added three new poll messages regarding suspension of domain names, see [Poll-Message-Reference-Guide](Poll-Message-Reference-Guide.md)
   - Added [Suspension Schedule](#suspension-schedule).
 
@@ -2466,7 +2466,7 @@ This part of the EPP protocol is described in [RFC:5731]. This command adheres t
 In addition, the response can include the following extensions defined in the referenced RFCs:
 
 - `secDNS:infData`, holding the DS records associated with the domain name, please see [RFC:5910]
-- `rgp:infData`, holding the status `redemptionPeriod`, please see [info domain response with redemption period](#info-domain-response-with-redemption-period) [RFC:3915]
+- `rgp:infData`, holding the status `redemptionPeriod` or `pendingDelete`, please see [info domain response for domain with pending delete](#info-domain-response-for-domain-with-pending-delete) [RFC:3915]
 
 Do note that the response only contains the registrant contact object, if the authenticated user has a relationship via the domain name, which provides access to more information.
 
@@ -2643,7 +2643,7 @@ As a waiting list entry does not constitute a full domain name registration, the
 </epp>
 ```
 
-<a id="info-domain-response-with-redemption-period"></a>
+<a id="info-domain-response-for-domain-with-pending-delete"></a>
 
 ##### info domain response with redemption period
 
@@ -3642,7 +3642,7 @@ Domain names might be suspended for other reasons, these will no be recoverable 
 
 Restoration has to take place during the redemption period and will not be possible after the domain has been deleted.
 
-Whether a domain name can be restored can be determined from the [info domain response](#info-domain-response-with-redemption-period), where the `rgp:infData` extension holds the status `redemptionPeriod`.
+Whether a domain name can be restored can be determined from the [info domain response for domain with pending delete](#info-domain-response-for-domain-with-pending-delete), where the `rgp:infData` extension holds the status `redemptionPeriod`.
 
 The restoration is requested using the update domain command.
 
@@ -5120,7 +5120,7 @@ As a general business rule, Punktum dk does not support the `client*` statuses, 
 | `pendingRestore`           | _unsupported_ as restoration is instantaneous, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                                                                 |
 | `pendingTransfer`          | _unsupported_ as transfer is instantaneous, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                                                                    |
 | `pendingUpdate`            | The domain has active asynchronous requests, see [update domain](#update-domain)                                                                                                                                        |
-| `redemptionPeriod`         | _not implemented as a domain status_, the redemption period is communicated via the `rgp:infData` extension, see: [info domain response with redemption period](#info-domain-response-with-redemption-period)            |
+| `redemptionPeriod`         | _not implemented as a domain status_, the redemption period is communicated via the `rgp:infData` extension, see: [info domain response for domain with pending delete](#info-domain-response-for-domain-with-pending-delete)            |
 | `renewPeriod`              | _unsupported_ the status is not described in [RFC:5731] only in [ICANN resource][ICANN], see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                       |
 | `serverDeleteProhibited`   | Indicates whether the registrant or registrar can delete the domain                                                                                                                                                     |
 | `serverHold`               | Given domain name is not active, it can hold a number of different _internal_ states rendering it on hold                                                                                                               |
