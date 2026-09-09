@@ -4,7 +4,7 @@
 
 ![Markdownlint Action][GHAMKDBADGE]
 
-2026-08-21 Revision: 5.3.2
+2026-09-09 Revision: 5.3.3
 
 ## Table of Contents
 
@@ -98,6 +98,7 @@
     - [info domain](#info-domain)
       - [info domain request](#info-domain-request)
       - [info domain response](#info-domain-response)
+      - [info domain response for domain with pending delete](#info-domain-response-for-domain-with-pending-delete)
     - [renew domain](#renew-domain)
       - [renew domain request](#renew-domain-request)
       - [renew domain response](#renew-domain-response)
@@ -233,6 +234,11 @@ This document is copyright by Punktum dk A/S and is licensed under the MIT Licen
 <a id="document-history"></a>
 
 ### Document History
+
+- 5.3.3 2026-09-09
+  - Added documentation of the `rgp:infData` extension in the [info domain response for domain with pending delete](#info-domain-response-for-domain-with-pending-delete), which indicates whether a domain name scheduled for deletion can be restored using the [restore domain](#restore-domain).
+  - Added five new poll messages, see [Poll-Message-Reference-Guide](Poll-Message-Reference-Guide.md)
+  - Added [Suspension Schedule](#suspension-schedule).
 
 - 5.3.2 2026-08-21
 
@@ -844,6 +850,8 @@ Dkhm:autorenew has two values:
 - **false**, indicating that the specific domain name is to expire automatically by the end of the term.
 
 The default for a registrar account is auto-renewal = `true`. The default can be changed in the registrar portal.
+
+Please see [Suspension Schedule](#suspension-schedule) for domain names set to auto-expire.
 
 <a id="dkhmcontact_validated"></a>
 
@@ -2455,6 +2463,11 @@ This part of the EPP protocol is described in [RFC:5731]. This command adheres t
 - `dkhm:autoRenew`
 - `dkhm:vid`
 
+In addition, the response can include the following extensions defined in the referenced RFCs:
+
+- `secDNS:infData`, holding the DS records associated with the domain name, please see [RFC:5910]
+- `rgp:infData`, holding the status `redemptionPeriod` or `pendingDelete`, please see [info domain response for domain with pending delete](#info-domain-response-for-domain-with-pending-delete) [RFC:3915]
+
 Do note that the response only contains the registrant contact object, if the authenticated user has a relationship via the domain name, which provides access to more information.
 
 The below example could shows the public available information. It could be extended with the following data:
@@ -2625,6 +2638,93 @@ As a waiting list entry does not constitute a full domain name registration, the
     <trID>
      <clTRID>5a8afa3ead777c161cefffa861431ad7</clTRID>
       <svTRID>39040BB8-858C-11F0-9D4C-AD5DAB9DAA48</svTRID>
+    </trID>
+  </response>
+</epp>
+```
+
+<a id="info-domain-response-for-domain-with-pending-delete"></a>
+
+##### info domain response for domain with pending delete
+
+When a domain name is scheduled for deletion, the info domain response includes the
+`rgp:infData` extension described in [RFC:3915]. The value of `rgp:rgpStatus` tells
+you whether the deletion can still be reversed:
+
+- `redemptionPeriod`, the domain name is in the redemption period and can be
+  restored using the [restore domain](#restore-domain) command
+- `pendingDelete`, the domain name is scheduled for deletion and **cannot** be restored with a restore domain command.
+
+```xml
+<extension>
+  <rgp:infData xmlns:rgp="urn:ietf:params:xml:ns:rgp-1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="urn:ietf:params:xml:ns:rgp-1.0 rgp-1.0.xsd">
+    <rgp:rgpStatus s="redemptionPeriod"/>
+  </rgp:infData>
+</extension>
+```
+
+Use the value to determine whether a restoration is possible before attempting one.
+Deletions caused by an expired ID-control or an unconfirmed restoration cannot be
+reversed and are returned as `pendingDelete`.
+
+The extension is included for all authenticated users, independently of their
+relationship to the domain name.
+
+In both cases the domain name is also assigned the `pendingDelete` **domain**
+status, and the expected deletion date is available via the
+[`dkhm:domainAdvisory`](#dkhmdomainadvisory) extension using the advisory
+`pendingDeletionDate`.
+
+A complete response for a domain name in the redemption period looks as follows:
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp
+  xmlns="urn:ietf:params:xml:ns:epp-1.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+  <response>
+    <result code="1000">
+      <msg>Command completed successfully</msg>
+    </result>
+    <resData>
+      <domain:infData
+        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>eksempel.dk</domain:name>
+        <domain:roid>EKSEMPEL_DK-DK</domain:roid>
+        <domain:status s="pendingDelete"/>
+        <domain:status s="serverDeleteProhibited"/>
+        <domain:status s="serverRenewProhibited"/>
+        <domain:status s="serverTransferProhibited"/>
+        <domain:status s="serverUpdateProhibited"/>
+        <domain:registrant>DKHM1-DK</domain:registrant>
+        <domain:ns>
+          <domain:hostObj>auth01.ns.dk-hostmaster.dk</domain:hostObj>
+          <domain:hostObj>auth02.ns.dk-hostmaster.dk</domain:hostObj>
+        </domain:ns>
+        <domain:clID>REG-123456</domain:clID>
+        <domain:crDate>2026-02-11T09:21:02.0Z</domain:crDate>
+        <domain:upDate>2026-05-05T10:33:28.0Z</domain:upDate>
+        <domain:exDate>2027-02-10T22:59:59.0Z</domain:exDate>
+      </domain:infData>
+    </resData>
+    <extension>
+      <rgp:infData xmlns:rgp="urn:ietf:params:xml:ns:rgp-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:rgp-1.0 rgp-1.0.xsd">
+        <rgp:rgpStatus s="redemptionPeriod"/>
+      </rgp:infData>
+      <dkhm:domainAdvisory advisory="pendingDeletionDate" date="2027-03-12T23:00:00.0Z" domain="eksempel.dk"
+        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5"/>
+      <dkhm:registrant_validated
+        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">1</dkhm:registrant_validated>
+      <dkhm:autoRenew
+        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">true</dkhm:autoRenew>
+      <dkhm:vid
+        xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.5">false</dkhm:vid>
+    </extension>
+    <trID>
+      <clTRID>29c28883d6e3be3e236f668214b28e88</clTRID>
+      <svTRID>7CCB85D8-A11F-11F1-8112-DE40DBF9025F</svTRID>
     </trID>
   </response>
 </epp>
@@ -3433,7 +3533,7 @@ For registration of domain names offered from a waiting list, the authorization 
 
 The default `delete domain` command behaviour is to deactivate immediately, which complies with [RFC:5731]. Not being able to complete the request will result in a error, also in compliance with [RFC:5731]. Please see below for more information on the business process for deletion.
 
-The current expiration date can be obtained using the `info domain` command and is specified in the `domain:exDate` field. The date conforms with the required format. The [status code](#status-codes), `pendingDelete` delete is set and can be removed either by the execution of the process after the redemption period or a [restore](#restore-domain) operation.
+The current expiration date can be obtained using the `info domain` command and is specified in the `domain:exDate` field. The date conforms with the required format. The [status code](#status-codes), `pendingDelete` delete is set and can be removed either by the execution of the process after the redemption period or a [restore](#restore-domain) operation. Please see [Suspension Schedule](#suspension-schedule) for domain names set to auto-expire.
 
 The alternative approach to deletion is to set auto expire, which will cancel the domain name subscription automatically at expiration.
 
@@ -3510,6 +3610,23 @@ Example:
 
 Do note that if subordinates exist these may block for a delete and the request will result in an error: `2305`.
 
+<a id="suspension-schedule"></a>
+
+#### Suspension Schedule
+
+Suspensions of automatically expiring domain names are processed Monday through
+Thursday, and not on Fridays, weekends, or Danish public holidays. A domain name
+reaching the end of its term outside these days remains active and resolvable until
+the next day on which suspensions are processed. The suspension is announced in a
+poll message, please see
+[Poll-Message-Reference-Guide](Poll-Message-Reference-Guide.md).
+
+Do note that the suspension date can therefore be later than `domain:exDate`, and
+that the 30-day redemption period runs from the actual suspension date. Use the
+`pendingDeletionDate` advisory from the
+[`dkhm:domainAdvisory`](#dkhmdomainadvisory) extension for the expected deletion
+date rather than deriving it from `domain:exDate`.
+
 <a id="restore-domain"></a>
 
 #### restore domain
@@ -3521,9 +3638,11 @@ Punktum dk will support the ability to restore for two use-cases:
 1. Get a domain name back to the state active from a pending deletion specified by an explicit deletion request (delete command) or a automatic expiration
 1. Get a domain name back to state active from a pending deletion, caused by missing financial settlement (only for registrant managed domain names)
 
-Domain names might be suspended for other reasons, these will no be recoverable using the described restore facility, this will be indicated using the `serverUpdateProhibited` status.
+Domain names might be suspended for other reasons, these will no be recoverable using the described restore facility.
 
 Restoration has to take place during the redemption period and will not be possible after the domain has been deleted.
+
+Whether a domain name can be restored can be determined from the [info domain response for domain with pending delete](#info-domain-response-for-domain-with-pending-delete), where the `rgp:infData` extension holds the status `redemptionPeriod`.
 
 The restoration is requested using the update domain command.
 
@@ -5001,7 +5120,7 @@ As a general business rule, Punktum dk does not support the `client*` statuses, 
 | `pendingRestore`           | _unsupported_ as restoration is instantaneous, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                                                                 |
 | `pendingTransfer`          | _unsupported_ as transfer is instantaneous, see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                                                                    |
 | `pendingUpdate`            | The domain has active asynchronous requests, see [update domain](#update-domain)                                                                                                                                        |
-| `redemptionPeriod`         | This status is applied when a domain name has `pendingDelete` and the delete operation can be redeemed using [restore domain](#restore-domain)                                                                          |
+| `redemptionPeriod`         | _not implemented as a domain status_, the redemption period is communicated via the `rgp:infData` extension, see: [info domain response for domain with pending delete](#info-domain-response-for-domain-with-pending-delete)            |
 | `renewPeriod`              | _unsupported_ the status is not described in [RFC:5731] only in [ICANN resource][ICANN], see: [Unsupported Domain Status Codes](#unsupported-domain-status-codes)                                                       |
 | `serverDeleteProhibited`   | Indicates whether the registrant or registrar can delete the domain                                                                                                                                                     |
 | `serverHold`               | Given domain name is not active, it can hold a number of different _internal_ states rendering it on hold                                                                                                               |

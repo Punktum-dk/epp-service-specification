@@ -3,6 +3,11 @@
 This is a complete list of all EPP poll messages currently available in production in the Punktum dk EPP service.
 
 ## Document History
+- 2026-09-08 Added five new poll messages
+    - Three messages regarding the suspension of a domain name
+    - Two messages regarding the activation and suspension of a domain name in the DK zone
+    - Added an XML example for each of the new messages
+
 - 2026-08-03 Added an XML example for each poll message
     - Added a Placeholders section describing the placeholders used across the messages
 
@@ -102,8 +107,13 @@ The messages in this guide contain placeholders that are substituted with actual
 |domain |update registrant |The registrant has not been changed to %-DK for %.dk, as the mandatory ID and/or data check was not completed in time |[view](#ex-36) |domain:panData |
 |domain |update registrant |The registrant has not been changed to %-DK for %.dk, as the mandatory ID and/or data check was rejected |[view](#ex-37) |domain:panData |
 |domain |update registrant |The registrant has not been changed to %-DK for %.dk, as the mandatory ID and/or data check was not completed |[view](#ex-38) |domain:panData |
+|domain |update zone |%.dk has been activated in the DK zone, DNS is now active |[view](#ex-59) |domain:infData |
+|domain |update zone |%.dk has been suspended in the DK zone, DNS is now inactive |[view](#ex-60) |domain:infData |
 |domain |transfer |%.dk has been added to your portfolio |[view](#ex-39) |domain:trnData |
 |domain |transfer |%.dk has been removed from your portfolio |[view](#ex-40) |domain:trnData |
+|domain |suspend |%.dk has been suspended, as the registrant has not completed the ID/data check on time |[view](#ex-56) |domain:infData |
+|domain |suspend |%.dk has been suspended, as the domain was cancelled |[view](#ex-57) |domain:infData |
+|domain |suspend |%.dk has been suspended, as the domain was set to auto expire |[view](#ex-58) |domain:infData |
 |domain |delete |%.dk has been deleted |[view](#ex-41) |domain:panData |
 |domain |delete |%.dk has been deleted |[view](#ex-42) |domain:infData |
 |domain |delete |%.dk has been extended and cancellation stopped |[view](#ex-43) |domain:panData |
@@ -2833,6 +2843,324 @@ Each poll message below has a collapsible XML example. Click **Show XML example*
 		<trID>
 			<clTRID>b279c4190b994fb6bd5a112a0dd504b4</clTRID>
 			<svTRID>F69909ED-7D0D-CE53-E065-000000000202</svTRID>
+		</trID>
+	</response>
+</epp>
+```
+
+</details>
+
+---
+
+<a id="ex-56"></a>
+**Operation:** suspend  
+**Message:** %.dk has been suspended, as the registrant has not completed the ID/data check on time  
+**ResData type:** `domain:infData`  
+**Trigger:** The registrant did not complete the mandatory ID and/or data check within the deadline. The domain name is suspended and enters the deletion process. The `dkhm:domainAdvisory` element states the date on which the domain name is scheduled for deletion.
+
+<details>
+<summary>Show XML example</summary>
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp
+	xmlns="urn:ietf:params:xml:ns:epp-1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+	<response>
+		<result code="1301">
+			<msg>Command completed successfully; ack to dequeue</msg>
+		</result>
+		<msgQ count="1" id="6873562">
+			<qDate>2026-09-07T07:15:32.0Z</qDate>
+			<msg>punktum.dk has been suspended, as the registrant has not completed the ID/data check on time</msg>
+		</msgQ>
+		<resData>
+			<domain:infData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+				<domain:name>punktum.dk</domain:name>
+				<domain:roid>PUNKTUM_DK-DK</domain:roid>
+				<domain:status s="pendingDelete"/>
+				<domain:status s="serverDeleteProhibited"/>
+				<domain:status s="serverHold"/>
+				<domain:status s="serverRenewProhibited"/>
+				<domain:status s="serverTransferProhibited"/>
+				<domain:status s="serverUpdateProhibited"/>
+				<domain:registrant>DKHM1-DK</domain:registrant>
+				<domain:ns>
+					<domain:hostObj>ns1.punktum.dk</domain:hostObj>
+					<domain:hostObj>ns2.punktum.dk</domain:hostObj>
+				</domain:ns>
+				<domain:clID>REG-666666</domain:clID>
+				<domain:crDate>1996-06-06T22:00:00.0Z</domain:crDate>
+				<domain:upDate>2026-07-01T01:10:29.0Z</domain:upDate>
+				<domain:exDate>2027-06-30T21:59:59.0Z</domain:exDate>
+			</domain:infData>
+		</resData>
+		<extension>
+			<rgp:infData xmlns:rgp="urn:ietf:params:xml:ns:rgp-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:rgp-1.0 rgp-1.0.xsd">
+				<rgp:rgpStatus s="pendingDelete"/>
+			</rgp:infData>
+			<dkhm:domainAdvisory xmlns:dkhm='urn:dkhm:params:xml:ns:dkhm-4.5' domain="punktum.dk" advisory="pendingDeletionDate" date="2026-09-07T22:00:00.0Z"/>
+			<dkhm:registrant_validated xmlns:dkhm='urn:dkhm:params:xml:ns:dkhm-4.5'>1</dkhm:registrant_validated>
+			<secDNS:infData xmlns:secDNS='urn:ietf:params:xml:ns:secDNS-1.1'>
+				<secDNS:dsData>
+					<secDNS:keyTag>20918</secDNS:keyTag>
+					<secDNS:alg>13</secDNS:alg>
+					<secDNS:digestType>2</secDNS:digestType>
+					<secDNS:digest>7e79534be5675143670647520667e70ac05134c97cc6c3810f7ca998c163a427</secDNS:digest>
+				</secDNS:dsData>
+			</secDNS:infData>
+			<dkhm:autoRenew xmlns:dkhm='urn:dkhm:params:xml:ns:dkhm-4.5'>true</dkhm:autoRenew>
+			<dkhm:vid xmlns:dkhm='urn:dkhm:params:xml:ns:dkhm-4.5'>false</dkhm:vid>
+		</extension>
+		<trID>
+			<clTRID>015e384bf5b5d60382dff3440b3929a5</clTRID>
+			<svTRID>5AE0364B-F013-65FF-E065-000000000202</svTRID>
+		</trID>
+	</response>
+</epp>
+```
+
+</details>
+
+---
+
+<a id="ex-57"></a>
+**Operation:** suspend  
+**Message:** %.dk has been suspended, as the domain was cancelled  
+**ResData type:** `domain:infData`  
+**Trigger:** The domain name was cancelled and has now reached its expiry date. The domain name is suspended and enters the 30-day redemption period, indicated by `rgp:rgpStatus` with the value `redemptionPeriod`.
+
+<details>
+<summary>Show XML example</summary>
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp
+	xmlns="urn:ietf:params:xml:ns:epp-1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+	<response>
+		<result code="1301">
+			<msg>Command completed successfully; ack to dequeue</msg>
+		</result>
+		<msgQ count="1" id="6873564">
+			<qDate>2026-09-07T08:05:30.0Z</qDate>
+			<msg>punktum.dk has been suspended, as the domain was cancelled</msg>
+		</msgQ>
+		<resData>
+			<domain:infData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+				<domain:name>punktum.dk</domain:name>
+				<domain:roid>PUNKTUM_DK-DK</domain:roid>
+				<domain:status s="pendingDelete"/>
+				<domain:status s="serverDeleteProhibited"/>
+				<domain:status s="serverHold"/>
+				<domain:status s="serverRenewProhibited"/>
+				<domain:status s="serverTransferProhibited"/>
+				<domain:status s="serverUpdateProhibited"/>
+				<domain:registrant>DKHM1-DK</domain:registrant>
+				<domain:ns>
+					<domain:hostObj>ns1.punktum.dk</domain:hostObj>
+					<domain:hostObj>ns2.punktum.dk</domain:hostObj>
+				</domain:ns>
+				<domain:clID>REG-666666</domain:clID>
+				<domain:crDate>1997-03-10T23:00:00.0Z</domain:crDate>
+				<domain:upDate>2026-03-26T16:42:54.0Z</domain:upDate>
+				<domain:exDate>2026-03-31T21:59:59.0Z</domain:exDate>
+			</domain:infData>
+		</resData>
+		<extension>
+			<rgp:infData xmlns:rgp="urn:ietf:params:xml:ns:rgp-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:rgp-1.0 rgp-1.0.xsd">
+				<rgp:rgpStatus s="redemptionPeriod"/>
+			</rgp:infData>
+			<dkhm:domainAdvisory xmlns:dkhm='urn:dkhm:params:xml:ns:dkhm-4.5' domain="punktum.dk" advisory="pendingDeletionDate" date="2026-09-07T22:00:00.0Z"/>
+			<dkhm:registrant_validated xmlns:dkhm='urn:dkhm:params:xml:ns:dkhm-4.5'>1</dkhm:registrant_validated>
+			<dkhm:autoRenew xmlns:dkhm='urn:dkhm:params:xml:ns:dkhm-4.5'>true</dkhm:autoRenew>
+			<dkhm:vid xmlns:dkhm='urn:dkhm:params:xml:ns:dkhm-4.5'>false</dkhm:vid>
+		</extension>
+		<trID>
+			<clTRID>8fb32820efd258a592cee944ee403ab8</clTRID>
+			<svTRID>5AE114DA-2633-19FF-E065-000000000202</svTRID>
+		</trID>
+	</response>
+</epp>
+```
+
+</details>
+
+---
+
+<a id="ex-58"></a>
+**Operation:** suspend  
+**Message:** %.dk has been suspended, as the domain was set to auto expire  
+**ResData type:** `domain:infData`  
+**Trigger:** The domain name was set to auto expire and has now reached the end of its paid period. The domain name is suspended and enters the 30-day redemption period, indicated by `rgp:rgpStatus` with the value `redemptionPeriod`.
+
+<details>
+<summary>Show XML example</summary>
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp
+	xmlns="urn:ietf:params:xml:ns:epp-1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+	<response>
+		<result code="1301">
+			<msg>Command completed successfully; ack to dequeue</msg>
+		</result>
+		<msgQ count="1" id="6873566">
+			<qDate>2026-09-07T08:07:14.0Z</qDate>
+			<msg>punktum.dk has been suspended, as the domain was set to auto expire</msg>
+		</msgQ>
+		<resData>
+			<domain:infData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+				<domain:name>punktum.dk</domain:name>
+				<domain:roid>PUNKTUM_DK-DK</domain:roid>
+				<domain:status s="pendingDelete"/>
+				<domain:status s="serverHold"/>
+				<domain:status s="serverRenewProhibited"/>
+				<domain:status s="serverTransferProhibited"/>
+				<domain:status s="serverUpdateProhibited"/>
+				<domain:registrant>DKHM1-DK</domain:registrant>
+				<domain:ns>
+					<domain:hostObj>ns1.punktum.dk</domain:hostObj>
+					<domain:hostObj>ns2.punktum.dk</domain:hostObj>
+				</domain:ns>
+				<domain:clID>REG-666666</domain:clID>
+				<domain:crDate>1997-04-16T22:00:00.0Z</domain:crDate>
+				<domain:upDate>2024-05-22T09:49:17.0Z</domain:upDate>
+				<domain:exDate>2028-06-30T21:59:59.0Z</domain:exDate>
+			</domain:infData>
+		</resData>
+		<extension>
+			<rgp:infData xmlns:rgp="urn:ietf:params:xml:ns:rgp-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:rgp-1.0 rgp-1.0.xsd">
+				<rgp:rgpStatus s="redemptionPeriod"/>
+			</rgp:infData>
+			<dkhm:domainAdvisory xmlns:dkhm='urn:dkhm:params:xml:ns:dkhm-4.5' domain="punktum.dk" advisory="pendingDeletionDate" date="2026-09-07T22:00:00.0Z"/>
+			<dkhm:registrant_validated xmlns:dkhm='urn:dkhm:params:xml:ns:dkhm-4.5'>1</dkhm:registrant_validated>
+			<dkhm:autoRenew xmlns:dkhm='urn:dkhm:params:xml:ns:dkhm-4.5'>true</dkhm:autoRenew>
+			<dkhm:vid xmlns:dkhm='urn:dkhm:params:xml:ns:dkhm-4.5'>false</dkhm:vid>
+		</extension>
+		<trID>
+			<clTRID>6805a8221de883e2b82f78b16185b7e1</clTRID>
+			<svTRID>5AE114DA-2638-19FF-E065-000000000202</svTRID>
+		</trID>
+	</response>
+</epp>
+```
+
+</details>
+
+---
+
+<a id="ex-59"></a>
+**Operation:** update zone  
+**Message:** %.dk has been activated in the DK zone, DNS is now active  
+**ResData type:** `domain:infData`  
+**Trigger:** The domain name has been published in the DK zone and now resolves.
+
+<details>
+<summary>Show XML example</summary>
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp
+	xmlns="urn:ietf:params:xml:ns:epp-1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+	<response>
+		<result code="1301">
+			<msg>Command completed successfully; ack to dequeue</msg>
+		</result>
+		<msgQ count="1" id="6873568">
+			<qDate>2026-09-07T08:12:41.0Z</qDate>
+			<msg>punktum.dk has been activated in the DK zone, DNS is now active</msg>
+		</msgQ>
+		<resData>
+			<domain:infData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+				<domain:name>punktum.dk</domain:name>
+				<domain:roid>PUNKTUM_DK-DK</domain:roid>
+				<domain:status s="ok"/>
+				<domain:registrant>DKHM1-DK</domain:registrant>
+				<domain:ns>
+					<domain:hostObj>ns1.punktum.dk</domain:hostObj>
+					<domain:hostObj>ns2.punktum.dk</domain:hostObj>
+				</domain:ns>
+				<domain:clID>REG-666666</domain:clID>
+				<domain:crDate>2026-03-18T06:27:22.0Z</domain:crDate>
+				<domain:upDate>2026-09-07T08:12:41.0Z</domain:upDate>
+				<domain:exDate>2027-03-18T21:59:59.0Z</domain:exDate>
+			</domain:infData>
+		</resData>
+		<extension>
+			<dkhm:registrant_validated xmlns:dkhm='urn:dkhm:params:xml:ns:dkhm-4.5'>1</dkhm:registrant_validated>
+			<dkhm:autoRenew xmlns:dkhm='urn:dkhm:params:xml:ns:dkhm-4.5'>true</dkhm:autoRenew>
+			<dkhm:vid xmlns:dkhm='urn:dkhm:params:xml:ns:dkhm-4.5'>false</dkhm:vid>
+		</extension>
+		<trID>
+			<clTRID>ABC-123</clTRID>
+			<svTRID>12D5E75C-8F29-11F1-B164-9E4826B23308</svTRID>
+		</trID>
+	</response>
+</epp>
+```
+
+</details>
+
+---
+
+<a id="ex-60"></a>
+**Operation:** update zone  
+**Message:** %.dk has been suspended in the DK zone, DNS is now inactive  
+**ResData type:** `domain:infData`  
+**Trigger:** The domain name has been suspended and withdrawn from the DK zone, and no longer resolves. The message accompanies the suspension of a domain name, for example due to cancellation, auto expire or a missing ID and/or data check.
+
+<details>
+<summary>Show XML example</summary>
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp
+	xmlns="urn:ietf:params:xml:ns:epp-1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+	<response>
+		<result code="1301">
+			<msg>Command completed successfully; ack to dequeue</msg>
+		</result>
+		<msgQ count="1" id="6873570">
+			<qDate>2026-09-07T08:14:05.0Z</qDate>
+			<msg>punktum.dk has been suspended in the DK zone, DNS is now inactive</msg>
+		</msgQ>
+		<resData>
+			<domain:infData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+				<domain:name>punktum.dk</domain:name>
+				<domain:roid>PUNKTUM_DK-DK</domain:roid>
+				<domain:status s="pendingDelete"/>
+				<domain:status s="serverDeleteProhibited"/>
+				<domain:status s="serverHold"/>
+				<domain:status s="serverRenewProhibited"/>
+				<domain:status s="serverTransferProhibited"/>
+				<domain:status s="serverUpdateProhibited"/>
+				<domain:registrant>DKHM1-DK</domain:registrant>
+				<domain:ns>
+					<domain:hostObj>ns1.punktum.dk</domain:hostObj>
+					<domain:hostObj>ns2.punktum.dk</domain:hostObj>
+				</domain:ns>
+				<domain:clID>REG-666666</domain:clID>
+				<domain:crDate>2020-04-01T22:00:00.0Z</domain:crDate>
+				<domain:upDate>2026-09-07T08:14:05.0Z</domain:upDate>
+				<domain:exDate>2026-08-31T21:59:59.0Z</domain:exDate>
+			</domain:infData>
+		</resData>
+		<extension>
+			<rgp:infData xmlns:rgp="urn:ietf:params:xml:ns:rgp-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:rgp-1.0 rgp-1.0.xsd">
+				<rgp:rgpStatus s="redemptionPeriod"/>
+			</rgp:infData>
+			<dkhm:domainAdvisory xmlns:dkhm='urn:dkhm:params:xml:ns:dkhm-4.5' domain="punktum.dk" advisory="pendingDeletionDate" date="2026-10-07T22:00:00.0Z"/>
+			<dkhm:registrant_validated xmlns:dkhm='urn:dkhm:params:xml:ns:dkhm-4.5'>1</dkhm:registrant_validated>
+			<dkhm:autoRenew xmlns:dkhm='urn:dkhm:params:xml:ns:dkhm-4.5'>true</dkhm:autoRenew>
+			<dkhm:vid xmlns:dkhm='urn:dkhm:params:xml:ns:dkhm-4.5'>false</dkhm:vid>
+		</extension>
+		<trID>
+			<clTRID>ABC-123</clTRID>
+			<svTRID>12D5E75C-8F29-11F1-B164-9E4826B23309</svTRID>
 		</trID>
 	</response>
 </epp>
