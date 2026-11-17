@@ -1093,7 +1093,7 @@ Domain names scheduled for deletion are placed in a 30-day redemption period. Th
 
 Throughout the redemption period, it is possible to restore the domain name using the [restore domain](#restore-domain) command. It is not possible to restore the domain name with restore domain if the 30-day redemption period is caused by an expired ID-control or restoration unconfirmed.
 
-The domainAdvisory indicating `pendingDeletionDate` can be found in the [info contact response](#info-contact-response) as follows:
+The domainAdvisory indicating `pendingDeletionDate` can be found in the [info domain response](#info-domain-response) as follows:
 
 ```XML
 <dkhm:domainAdvisory
